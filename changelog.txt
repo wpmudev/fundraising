@@ -1,0 +1,2 @@
+Plugin Name: Fundraising
+Author: Cole Stevenson (Incsub)

@@ -1,0 +1,197 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPMU Fundraising\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-12 02:00-0600\n"
+"PO-Revision-Date: 2012-03-12 02:02-0600\n"
+"Last-Translator: \n"
+"Language-Team: Incsub <cole@incsub.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: C:\\Users\\Owner\\Dropbox\\WPMU\\01 Web\\wp-content\\plugins\\wpmu-fundraising\\\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SearchPath-0: lib\n"
+
+#: lib/class.wdf_admin_ms.php:19
+msgid "You lack sufficient privledges to view this page"
+msgstr ""
+
+#: lib/class.wdf_admin_ms.php:24
+msgid "Network Donation Options"
+msgstr ""
+
+#: lib/class.wdf_gateway.php:10
+msgid "You must override the on_creation() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/class.wdf_gateway.php:13
+msgid "You must override the create_query() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/class.wdf_gateway.php:16
+msgid "You must override the process() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/class.wdf_gateway.php:19
+msgid "You must override the process_ipn() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/template-functions.php:55
+msgid " out of "
+msgstr ""
+
+#: lib/template-functions.php:72
+msgid "You Will Receive:"
+msgstr ""
+
+#: lib/template-functions.php:157
+#: lib/template-functions.php:187
+msgid "Donate Now"
+msgstr ""
+
+#: lib/template-functions.php:166
+msgid "Donate your own amount"
+msgstr ""
+
+#: lib/template-functions.php:176
+msgid "Once"
+msgstr ""
+
+#: lib/template-functions.php:177
+msgid "Daily"
+msgstr ""
+
+#: lib/template-functions.php:178
+msgid "Weekly"
+msgstr ""
+
+#: lib/template-functions.php:179
+msgid "Monthly"
+msgstr ""
+
+#: lib/template-functions.php:180
+msgid "Yearly"
+msgstr ""
+
+#: lib/external/class_wd_help_tooltips.php:296
+msgid "Help"
+msgstr ""
+
+#: lib/external/pointer-tutorials.php:134
+#: lib/external/pointers_tutorial.php:134
+msgid "Tutorial"
+msgstr ""
+
+#: lib/external/pointer-tutorials.php:417
+#: lib/external/pointers_tutorial.php:421
+msgid "Next &raquo;"
+msgstr ""
+
+#: lib/external/pointer-tutorials.php:429
+#: lib/external/pointer-tutorials.php:448
+#: lib/external/pointers_tutorial.php:436
+#: lib/external/pointers_tutorial.php:458
+msgid "Dismiss"
+msgstr ""
+
+#: lib/external/pointer-tutorials.php:430
+#: lib/external/pointer-tutorials.php:449
+#: lib/external/pointers_tutorial.php:437
+#: lib/external/pointers_tutorial.php:459
+#, php-format
+msgid "Dismiss %s"
+msgstr ""
+
+#: lib/external/pointer-tutorials.php:436
+#: lib/external/pointers_tutorial.php:443
+msgid "&laquo; Previous"
+msgstr ""
+
+#: lib/external/pointer-tutorials.php:488
+#: lib/external/pointers_tutorial.php:498
+#, php-format
+msgid "%s: Step %d of %d"
+msgstr ""
+
+#: lib/widgets/widget.featured_fundraisers.php:11
+#: lib/widgets/widget.featured_fundraisers.php:48
+msgid "Featured Fundraisers"
+msgstr ""
+
+#: lib/widgets/widget.featured_fundraisers.php:12
+msgid "Show a list of featured fundraisers with this simple widget"
+msgstr ""
+
+#: lib/widgets/widget.featured_fundraisers.php:48
+#: lib/widgets/widget.simple_donation.php:57
+msgid "Title"
+msgstr ""
+
+#: lib/widgets/widget.featured_fundraisers.php:49
+#: lib/widgets/widget.simple_donation.php:61
+msgid "Description"
+msgstr ""
+
+#: lib/widgets/widget.recent_fundraisers.php:11
+msgid "Recent Fundraisers"
+msgstr ""
+
+#: lib/widgets/widget.recent_fundraisers.php:12
+msgid "The most recent fundraisers on your site"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:11
+msgid "Simple Donation Button"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:66
+msgid "Donation Amount (blank = choice)"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:75
+msgid "Choose a display style"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:77
+msgid "Basic"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:78
+msgid "Dark"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:79
+msgid "Fresh"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:80
+msgid "Note"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:81
+msgid "None (Custom CSS)"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:92
+msgid "Show Accepted Credit Cards"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:93
+msgid "Allow extra note field"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:94
+msgid "Use Small Button"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:98
+msgid "Override PayPal Email Address"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:104
+msgid "Thank You Message"
+msgstr ""
+

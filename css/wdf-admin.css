@@ -1,0 +1,192 @@
+#wdf_levels_table .wdf_level .delete > * {
+	display: none;
+}
+#wdf_levels_table .wdf_level.last .delete > * {
+	display: block;
+}
+#wdf_levels_table .wdf_level.last:first-child .delete > * {
+	display: none;
+}
+#wdf_levels_table .delete {
+	width: 65px;
+	vertical-align: middle;
+}
+#wdf_levels_table td.delete span.wdf_ico_del{
+	height: 10px;
+	width: 10px;
+	left: -5px;
+	position: relative;
+	display: block;
+	float: left;
+	top: 2px;
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+#wdf_levels_table .wdf_level.last a:hover > span.wdf_ico_del {
+	background-position: top right;
+}
+#icon-wdf-admin,
+#icon-edit {
+	background: url(../img/icon_32.png);
+}
+.wdf_goal_progress.column.ui-progressbar {
+	width: 122px;
+	height: 17px;
+}
+.column-donation_amount {
+	width: 100px;
+}
+.column-funder_pledges {
+	width: 65px;
+}
+.column-funder_raised {
+	width: 150px;
+}
+.column-funder_time_left {
+	width: 160px;
+}
+.welcome-panel .wp-badge {
+	background: url(../img/donate.jpg) no-repeat center center;
+}
+span.special {
+	padding-right: 5px;
+	font-weight: 700;
+}
+.wdf_actvity_edit {
+	width: 75px;
+}
+.wdf_actvity_level:hover {
+	background: #eaeaea;
+}
+td.wdf_actvity_edit a {
+	display: none;
+}
+#wdf_goal,
+.wdf_biginput {
+	width: 90%;
+	height: 40px;
+}
+#wdf_options .wdf_biginput {
+	width: 58%;
+}
+#wdf_goal,
+.wdf_bignum {
+	line-height: 30px;
+	font-size: 24px;
+	font-weight: 700;
+}
+.wdf_level_title .wdf_bignum {
+	font-size: 16px;
+}
+#wdf_options .wdf_bignum {
+	padding-right: 8px;
+}
+tr.wdf_level > td {
+	border-bottom-color: #F5F5F5;
+}
+.wdf_level_title {
+	width: 180px
+}
+.wdf_level_description {
+	
+}
+.wdf_level_amount {
+	width: 100px;
+}
+.wdf_level_reward {
+	width: 110px;
+}
+td.wdf_level_reward {
+	vertical-align: middle;
+	text-align: center;
+}
+th.wdf_level_reward {
+	text-align: center;
+}
+.wdf_level_description {
+	
+}
+.wdf_level_amount input {
+	width: 75px;
+}
+.wdf_level_description textarea {
+	width:100%;
+	height: 100px;
+}
+#wdf_goal,
+#wdf_levels_table input,
+#wdf_levels_table textarea,
+.wdf_input_switch,
+#wdf_goal.wdf_disabled,
+#wdf_options .wdf_bignum.wdf_disabled,
+.wdf_bignum.wdf_disabled {
+	color: #999;
+}
+#wdf_goal:focus,
+#wdf_levels_table input:focus,
+#wdf_levels_table textarea:focus,
+#wdf_options .wdf_bignum,
+.wdf_input_switch:focus {
+	color: #555;
+}
+.wdf_complete {
+	color: #0C0;
+}
+td.column-funder_raised .wdf_complete {
+	font-weight: bold;
+}
+#wdf_progress .ui-progressbar-value.wdf_complete {
+	
+}
+#wdf_steps li {
+    line-height: 30px;
+	border-bottom: 1px solid #DDD;
+	font-weight: bold;
+	text-shadow: -1px -1px 0px white;
+}
+#wdf_steps a.wdf_goto_step {
+    float: right;
+}
+#wdf_video_url {
+	width: 100%;
+}
+.post-new-php .donationstutorial-pointer.wp-pointer-right {
+	
+}
+.column-funder_raised {
+	width: 150px;
+}
+.column-funder_thumb {
+	width: 80px;
+}
+#wdf_activity td {
+	vertical-align: middle;
+}
+td.column-funder_pledges {
+	vertical-align: middle;
+}
+#wdf_thanks_custom {
+	width: 100%;
+	height: 100px;
+}
+#wdf_email_msg {
+	width: 100%;
+	height: 287px;
+}
+.wdf_goal_amount {
+	width: 150px;
+}
+td.wdf_goal_amount input {
+	width: 120px;
+}
+.wdf_goal_start_date,
+.wdf_goal_end_date {
+	width: 165px;
+}
+td.wdf_goal_start_date input,
+td.wdf_goal_end_date input {
+	background-repeat: no-repeat;
+	background-position: 8px 12px;
+	padding-left: 35px;
+	width: 140px;
+}

@@ -1,0 +1,134 @@
+.wdf_basic .wdf_levels {
+	clear: both;
+	list-style: none;
+	margin: 0 0 0 10px;
+	background-color: #EEE;
+	background-repeat: repeat-x;
+	background-image: -moz-linear-gradient(top, whiteSmoke 0%, #EEE 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,whiteSmoke), color-stop(100%,#EEE));
+	background-image: -webkit-linear-gradient(top, whiteSmoke 0%,#EEE 100%);
+	background-image: -ms-linear-gradient(top, whiteSmoke 0%,#EEE 100%);
+	background-image: -o-linear-gradient(top, whiteSmoke 0%,#EEE 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#eeeeee',GradientType=0 );
+	background-image: linear-gradient(top, whiteSmoke 0%,#EEE 100%);
+	border: 1px solid #E5E5E5;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	padding: 0;
+}
+.wdf_basic .wdf_levels li{
+	cursor: pointer;
+	padding: 10px;
+	margin: 0 10px;
+}
+.wdf_basic .wdf_levels li.item:hover {
+	background: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.wdf_basic .wdf_content {
+	float: left;
+	width: 65%;
+	padding: 0px;
+	margin: 0px;
+}
+.wdf_basic .wdf_send_amount {
+	width: 50px;
+}
+.wdf_basic .wdf_progress_info {
+	margin-bottom: 10px;
+	font-style: italic;
+	font-size: 1.4em;
+}
+
+.wdf_basic .wdf_level_amount {
+	font-weight: bold;
+	line-height:1em;
+}
+.wdf_basic .wdf_send_donation {
+	clear: both;
+	width: 100%;
+	margin-top: 10px;
+	color: #75ab24;
+    cursor: pointer;
+    display: inline-block;
+    background-color: #e6e6e6;
+    background-repeat: no-repeat;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), color-stop(25%, #ffffff), to(#e6e6e6));
+    background-image: -webkit-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+    background-image: -moz-linear-gradient(top, #ffffff, #ffffff 25%, #e6e6e6);
+    background-image: -ms-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+    background-image: -o-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+    background-image: linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
+    padding: 5px 9px 6px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    line-height: normal;
+    border: 1px solid #ccc;
+    border-bottom-color: #bbb;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -webkit-transition: 0.1s linear all;
+    -moz-transition: 0.1s linear all;
+    -ms-transition: 0.1s linear all;
+    -o-transition: 0.1s linear all;
+    transition: 0.1s linear all;
+	text-decoration:none;
+}
+.wdf_basic .wdf_send_donation:hover {
+	background-position: 0 -15px;
+}
+.wdf_basic .wdf_levels .reward {
+	font-weight: bold;
+}
+#wdf_thank_you.wdf_basic {
+	z-index: 99999999;
+}
+#wdf_thank_you.wdf_basic .fade {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: black;
+	zoom: 1;
+	filter:alpha(opacity=50);
+	opacity: 0.5;
+	z-index: 99999999;
+	top: 0px;
+	left: 0px;
+}
+#wdf_thank_you.wdf_basic .wdf_ty_content {
+	background: #EAEAEA;
+	width: 500px;
+	left: 50%;
+	top: 100px;
+	position: fixed;
+	margin-left: -250px;
+	height: auto;
+	z-index: 999999999;
+	padding: 15px;
+}
+#wdf_thank_you.wdf_basic .wdf_ty_content h1{
+	margin-bottom: 15px;
+}
+#wdf_thank_you.wdf_basic .close {
+	cursor: pointer;
+	display: block;
+	cursor: pointer;
+	display: block;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	background: #CCC;
+	padding: 5px 10px 5px 10px;
+}
+.wdf_basic .ui-progressbar{
+	height: 1em;
+	margin: 10px 0 0 0;
+}

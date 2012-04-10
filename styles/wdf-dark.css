@@ -1,0 +1,150 @@
+.wdf_fundraiser_panel li{
+	padding: 5px;
+}
+.wdf_dark .wdf_choose_reward_title {
+	font-size: 1.5em;
+}
+.wdf_dark .wdf_rewards {
+	clear: both;
+	list-style: none;
+	margin: 10px 0 0 0;
+	padding: 10px;
+	background-color: #53BFFA;
+	background-image: -o-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: -moz-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: -webkit-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: -ms-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	color: #fff;
+	text-shadow: -1px -1px 0px #111;
+}
+
+.wdf_dark .wdf_rewards h4{
+	color: #fff;
+	font-weight: 400;
+}
+.wdf_dark .wdf_rewards .wdf_reward_item{
+	cursor: pointer;
+	padding: 10px;
+	margin: 0;
+	border-bottom: 1px solid #111;
+}
+.wdf_dark .wdf_rewards .wdf_reward_item:hover {
+	background: rgba(255, 255, 255, 0.1);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.wdf_dark .wdf_content {
+
+}
+.wdf_dark .wdf_send_amount {
+	width: 50px;
+}
+.wdf_dark .wdf_progress_info {
+	margin-bottom: 10px;
+	font-style: italic;
+	font-size: 1.4em;;
+}
+.wdf_dark .wdf_donate_now input[type="text"], textarea {
+	opacity: 0.5;
+	margin: 0 0 0 5px;	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 0;
+	line-height: 1em;
+}
+.wdf_dark .wdf_level_amount {
+
+}
+.wdf_dark .wdf_send_donation {
+	float: right;	
+	color: #eee;
+    cursor: pointer;
+    display: inline-block;
+	background-color: #839200;
+	background-image: -o-linear-gradient(90deg , rgb(80,94,0) 0%, rgb(154,176,25) 100%);
+	background-image: -moz-linear-gradient(90deg , rgb(80,94,0) 0%, rgb(154,176,25) 100%);
+	background-image: -webkit-linear-gradient(90deg , rgb(80,94,0) 0%, rgb(154,176,25) 100%);
+	background-image: -ms-linear-gradient(90deg , rgb(80,94,0) 0%, rgb(154,176,25) 100%);
+	background-image: linear-gradient(90deg , rgb(80,94,0) 0%, rgb(154,176,25) 100%);
+	padding: 5px 9px 6px;
+    text-shadow: -1px -1px 0 #111;
+    line-height: normal;
+    border: 1px solid #333;
+    border-bottom-color: #111;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+	text-decoration:none;
+}
+
+.wdf_dark .wdf_send_donation:hover {
+	background-color: #839200;
+	background-image:none;
+}
+.wdf_dark .wdf_levels .reward {
+	font-weight: bold;
+	padding-left: 30px;
+}
+#wdf_thank_you.wdf_dark  {
+	z-index: 99999999;
+}
+#wdf_thank_you.wdf_dark  .fade {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: black;
+	zoom: 1;
+	filter:alpha(opacity=50);
+	opacity: 0.5;
+	z-index: 99999999;
+	top: 0px;
+	left: 0px;
+}
+#wdf_thank_you.wdf_dark  .wdf_ty_content {
+	background: rgba(0, 0, 0, 0.6);
+	color: #fff;
+	width: 500px;
+	left: 50%;
+	top: 100px;
+	position: fixed;
+	margin-left: -250px;
+	height: auto;
+	z-index: 999999999;
+	padding: 15px;
+}
+#wdf_thank_you.wdf_dark  .wdf_ty_content h1{
+	margin-bottom: 15px;
+}
+#wdf_thank_you.wdf_dark  .close {
+	cursor: pointer;
+	display: block;
+	cursor: pointer;
+	display: block;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	color:#fff;
+	background-color: #53BFFA;
+	background-image: -o-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: -moz-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: -webkit-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: -ms-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding: 5px 10px 5px 10px;
+}
+.ui-progressbar{
+	height: 1em;
+	margin: 10px 0 0 0;
+	background: #444;
+	border: 1px solid #111;
+}
