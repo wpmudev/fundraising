@@ -1,10 +1,7 @@
-.wdf_fundraiser_panel li{
-	padding: 5px;
-}
-.wdf_dark .wdf_choose_reward_title {
+.wdf-dark .wdf_choose_reward_title {
 	font-size: 1.5em;
 }
-.wdf_dark .wdf_rewards {
+.wdf-dark .wdf_rewards {
 	clear: both;
 	list-style: none;
 	margin: 10px 0 0 0;
@@ -22,35 +19,35 @@
 	text-shadow: -1px -1px 0px #111;
 }
 
-.wdf_dark .wdf_rewards h4{
+.wdf-dark .wdf_rewards h4{
 	color: #fff;
 	font-weight: 400;
 }
-.wdf_dark .wdf_rewards .wdf_reward_item{
+.wdf-dark .wdf_rewards .wdf_reward_item{
 	cursor: pointer;
 	padding: 10px;
 	margin: 0;
 	border-bottom: 1px solid #111;
 }
-.wdf_dark .wdf_rewards .wdf_reward_item:hover {
+.wdf-dark .wdf_rewards .wdf_reward_item:hover {
 	background: rgba(255, 255, 255, 0.1);
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	cursor: pointer;
 }
-.wdf_dark .wdf_content {
+.wdf-dark .wdf_content {
 
 }
-.wdf_dark .wdf_send_amount {
+.wdf-dark .wdf_send_amount {
 	width: 50px;
 }
-.wdf_dark .wdf_progress_info {
+.wdf-dark .wdf_progress_info {
 	margin-bottom: 10px;
 	font-style: italic;
 	font-size: 1.4em;;
 }
-.wdf_dark .wdf_donate_now input[type="text"], textarea {
+.wdf-dark .wdf_donate_now input[type="text"], textarea {
 	opacity: 0.5;
 	margin: 0 0 0 5px;	
 	-webkit-border-radius: 5px;
@@ -59,20 +56,20 @@
 	padding: 0;
 	line-height: 1em;
 }
-.wdf_dark .wdf_level_amount {
+.wdf-dark .wdf_level_amount {
 
 }
-.wdf_dark .wdf_send_donation {
-	float: right;	
+.wdf-dark .wdf_send_donation, 
+.wdf-dark .wdf_button {
 	color: #eee;
     cursor: pointer;
-    display: inline-block;
-	background-color: #839200;
-	background-image: -o-linear-gradient(90deg , rgb(80,94,0) 0%, rgb(154,176,25) 100%);
-	background-image: -moz-linear-gradient(90deg , rgb(80,94,0) 0%, rgb(154,176,25) 100%);
-	background-image: -webkit-linear-gradient(90deg , rgb(80,94,0) 0%, rgb(154,176,25) 100%);
-	background-image: -ms-linear-gradient(90deg , rgb(80,94,0) 0%, rgb(154,176,25) 100%);
-	background-image: linear-gradient(90deg , rgb(80,94,0) 0%, rgb(154,176,25) 100%);
+	display: inline-block;
+	background-color: #53BFFA;
+	background-image: -o-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: -moz-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: -webkit-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: -ms-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
+	background-image: linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
 	padding: 5px 9px 6px;
     text-shadow: -1px -1px 0 #111;
     line-height: normal;
@@ -84,18 +81,18 @@
 	text-decoration:none;
 }
 
-.wdf_dark .wdf_send_donation:hover {
-	background-color: #839200;
-	background-image:none;
+.wdf-dark .wdf_send_donation:hover,
+.wdf-dark .wdf_button:hover {
+	
 }
-.wdf_dark .wdf_levels .reward {
+.wdf-dark .wdf_levels .reward {
 	font-weight: bold;
 	padding-left: 30px;
 }
-#wdf_thank_you.wdf_dark  {
+#wdf_thank_you.wdf-dark  {
 	z-index: 99999999;
 }
-#wdf_thank_you.wdf_dark  .fade {
+#wdf_thank_you.wdf-dark  .fade {
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -107,7 +104,7 @@
 	top: 0px;
 	left: 0px;
 }
-#wdf_thank_you.wdf_dark  .wdf_ty_content {
+#wdf_thank_you.wdf-dark  .wdf_ty_content {
 	background: rgba(0, 0, 0, 0.6);
 	color: #fff;
 	width: 500px;
@@ -119,10 +116,10 @@
 	z-index: 999999999;
 	padding: 15px;
 }
-#wdf_thank_you.wdf_dark  .wdf_ty_content h1{
+#wdf_thank_you.wdf-dark  .wdf_ty_content h1{
 	margin-bottom: 15px;
 }
-#wdf_thank_you.wdf_dark  .close {
+#wdf_thank_you.wdf-dark  .close {
 	cursor: pointer;
 	display: block;
 	cursor: pointer;

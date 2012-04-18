@@ -17,8 +17,8 @@ class WDF_Simple_Donation extends WP_Widget {
 		//var_export($instance);
 		$content = $args['before_widget'];
 		$content .= $args['before_title'] . esc_attr($instance['title']) . $args['after_title'];
-		$content .= esc_attr($instance['description']);
-		$content .= wdf_donation_button(false,'widget_simple_donate',null,array('widget_args' => $instance));
+		$content .= '<p class="wdf_widget_description">' . esc_attr($instance['description']) . '</p>';
+		$content .= wdf_pledge_button(false,'widget_simple_donate',null,array('widget_args' => $instance));
 		$content .= $args['after_widget'];
 		echo $content;
 	}
@@ -89,21 +89,21 @@ class WDF_Simple_Donation extends WP_Widget {
 		<?php endif; ?>
 		<?php if($instance['button_type'] == 'default') : ?>
 			<p>
-				<label><input type="checkbox" name="<?php echo $this->get_field_name('show_cc'); ?>" value="1" <?php checked($instance['show_cc'],'1'); ?> /> <?php echo __('Show Accepted Credit Cards','wdf'); ?></label><br />
-				<label><input type="checkbox" name="<?php echo $this->get_field_name('allow_note'); ?>" value="1" <?php checked($instance['allow_note'],'1'); ?> /> <?php echo __('Allow extra note field','wdf'); ?></label><br />
-				<label><input type="checkbox" name="<?php echo $this->get_field_name('small_button'); ?>" value="1" <?php checked($instance['small_button'],'1'); ?> /> <?php echo __('Use Small Button','wdf'); ?></label>
+				<label><input type="checkbox" name="<?php echo $this->get_field_name('show_cc'); ?>" value="yes" <?php checked($instance['show_cc'],'1'); ?> /> <?php echo __('Show Accepted Credit Cards','wdf'); ?></label><br />
+				<label><input type="checkbox" name="<?php echo $this->get_field_name('allow_note'); ?>" value="yes" <?php checked($instance['allow_note'],'1'); ?> /> <?php echo __('Allow extra note field','wdf'); ?></label><br />
+				<label><input type="checkbox" name="<?php echo $this->get_field_name('small_button'); ?>" value="yes" <?php checked($instance['small_button'],'1'); ?> /> <?php echo __('Use Small Button','wdf'); ?></label>
 			</p>
 		<?php endif; ?>
 		<p>
-			<label><?php echo __('Override PayPal Email Address','wdf') ?></label><br />
+			<label><?php _e('Override PayPal Email Address','wdf') ?></label><br />
 				<label class="code"><?php echo $settings['paypal_email']; ?></label><br />
 				<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'paypal_email' ); ?>" value="<?php echo is_email($instance['paypal_email']); ?>" />
 			</label>
 		</p>
-		<p>
+		<?php /*?><p>
 			<label><?php echo __('Thank You Message','wdf') ?></label><br />
 			<textarea class="widefat" name="<?php echo $this->get_field_name( 'thankyou_msg' ); ?>"><?php echo esc_textarea($instance['thankyou_msg']); ?></textarea>
-		</p>
+		</p><?php */?>
 		<?php
 	}
 }

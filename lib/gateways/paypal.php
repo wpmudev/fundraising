@@ -14,8 +14,8 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 		// Whether or not ssl is needed for checkout page
 		var $force_ssl = false;
 		
-		// An array of allowed payment types (simple, standard, advanced)
-		var $payment_types = 'simple, standard, advanced';
+		// An array of allowed payment types (simple, advanced)
+		var $payment_types = 'simple, advanced';
 		
 		// If you are redirecting to a 3rd party make sure this is set to true
 		var $skip_form = true;
@@ -39,7 +39,6 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			} else {
 				$this->Adaptive_Endpoint = "https://svcs.paypal.com/AdaptivePayments/";
 				$this->paypalURL = "https://www.paypal.com/webscr?cmd=_ap-preapproval&preapprovalkey=";
-				// Generic PayPal AppID for Sandbox Testing
 				$this->appId = (isset($settings['paypal']['advanced']['app_id']) ? $settings['paypal']['advanced']['app_id'] : '');
 			}
 			if ($settings['paypal_sb'] == 'yes')	{
@@ -49,17 +48,22 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			}
 			
 		}
-		function gateway_form() {
-			
-		}
-
+		
 		function payment_form() {
-			//$content = var_export($_SESSION,true);
+			// You can override the form and proceed straight to a 3rd party.
+			// The commented section below is an example of a form.
+			// Be sure not to use a <form> element in this area, and always return your content.
+			$_POST['wdf_payment_submit'] = true;
+			global $wdf;
+			$wdf->handle_payment();
+			
+			/*
 			$content .= '<div class="wdf_paypal_payment_form">';
 			$content .= '<label class="wdf_paypal_email">Insert Your PayPal Email Address</label><br />';
-			$content .= '<input type="text" name="wdf_sender_email" value="'.(isset($_SESSION['wdf_sender_email']) ? is_email($_SESSION['wdf_sender_email']) : '').'" />';
+			$content .= '<input type="text" name="paypal_email" value="" />';
 			$content .= '</div>';
 			return $content;
+			*/
 		}
 
 		function process_simple() {
@@ -97,17 +101,12 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$nvp .= '&return='.urlencode($this->return_url);
 				$nvp .= '&rm=2';
 				$nvp .= '&amp;notify_url='.urlencode($this->ipn_url);
-				//var_export($this->Standard_Endpoint . $nvp);
-				//die();
-				$transaction = array(
-					'gross' => $_SESSION['wdf_pledge'],
-					'status' => 'Unknown',
-					'gateway' => 'PayPal'
-				);
+			
 				$_SESSION['wdf_pledge_id'] = $pledge_id;
 
 				//Set transient data for one day to handle ipn
-				set_transient( 'wdf_'.$this->plugin_name.'_'.$pledge_id.'_'.$_SESSION['wdf_type'], array('pledge_id' => $pledge_id), 60 * 60 * 24 );
+				//set_transient( 'wdf_'.$this->plugin_name.'_'.$pledge_id.'_'.$_SESSION['wdf_type'], array('pledge_id' => $pledge_id), 60 * 60 * 24 );
+				
 				wp_redirect($this->Standard_Endpoint .$nvp);
 				exit;
 			
@@ -115,9 +114,6 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				//No $_SESSION['funder_id'] was passed to this function.
 				$this->create_gateway_error(__('Could not determine fundraiser','wdf'));
 			}
-			
-		}
-		function process_standard() {
 			
 		}
 		function process_advanced() {
@@ -134,7 +130,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			$nvpstr .= "&cancelUrl=" . get_post_permalink($funder_id);
 			$nvpstr .= "&ipnNotificationUrl=" . urlencode($this->ipn_url);
 			$nvpstr .= "&currencyCode=" . esc_attr($settings['paypal']['advanced']['currency']);
-			$nvpstr .= "&feesPayer=PRIMARYRECEIVER";
+			$nvpstr .= "&feesPayer=SENDER";
 			$nvpstr .= "&maxAmountPerPayment=" . $wdf->filter_price($_SESSION['wdf_pledge']);
 			$nvpstr .= "&maxTotalAmountOfAllPayments=" . $wdf->filter_price($_SESSION['wdf_pledge']);
 			$nvpstr .= "&displayMaxTotalAmount=TRUE";
@@ -164,16 +160,11 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			}
 			
 			if( $proceed && isset($response['preapprovalKey']) ) {		
-				$transaction = array(
-					'gross' => $_SESSION['wdf_pledge'],
-					'status' => 'Unknown',
-					'gateway' => 'PayPal',
-					'ipn_id' => $response['preapprovalKey']
-				);
+				
 				$_SESSION['wdf_pledge_id'] = $pledge_id;
 
 				//Set transient data for one day to handle ipn
-				set_transient( 'wdf_'.$this->plugin_name.'_'.$pledge_id.'_'.$_SESSION['wdf_type'], array('pledge_id' => $pledge_id), 60 * 60 * 24 );
+				//set_transient( 'wdf_'.$this->plugin_name.'_'.$pledge_id.'_'.$_SESSION['wdf_type'], array('pledge_id' => $pledge_id), 60 * 60 * 24 );
 				
 				wp_redirect( $this->paypalURL . $response['preapprovalKey'] );
 				exit;
@@ -223,7 +214,6 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			}
 		}
 		function handle_ipn() {
-			wp_mail('cole@imakethe.com','triggered handle IPN',var_export($_REQUEST,true));
 			
 			if( isset($_POST['transaction_type']) && $_POST['transaction_type'] == 'Adaptive Payment PREAPPROVAL' && isset($_REQUEST['pledge_id']) ) {
 				//Handle IPN for advanced payments	
@@ -236,11 +226,14 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					$post_title = $_REQUEST['pledge_id'];
 					$funder_id = $_REQUEST['fundraiser'];
 					$transaction = array();
+					$transaction['currency_code'] = ( isset($_POST['currency_code']) ? $_POST['currency_code'] : $settings['currency']);
 					$transaction['payer_email'] = $_POST['sender_email'];
 					$transaction['gateway_public'] = $this->public_name;
 					$transaction['gateway'] = $this->plugin_name;
 					$transaction['gross'] = ( isset($_POST['max_total_amount_of_all_payments']) ? $_POST['max_total_amount_of_all_payments'] : '' );
 					$transaction['ipn_id'] = ( isset($_POST['preapproval_key']) ? $_POST['preapproval_key'] : '' );
+					//Make sure you pass the correct type back into the transaction
+					$transaction['type'] = 'advanced';
 					
 					$full_name = (isset($details['addressList_address(0)_addresseeName']) ? explode(' ',$details['addressList_address(0)_addresseeName'],2) : false);
 					if($full_name != false) {
@@ -249,16 +242,19 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					}
 					switch($_POST['status']) {
 						case 'ACTIVE' :
-							$status = 'publish';
-							$transaction['status'] = 'Pre-Approved';
+							$status = 'wdf_approved';
+							$transaction['status'] = __('Pre-Approved','wdf');
+							$transaction['gateway_msg'] = __('Transaction Pre-Approved','wdf');
 							break;
 						case 'CANCELED' :
-							$status = 'draft';
-							$transaction['status'] = 'Canceled';
+							$status = 'wdf_canceled';
+							$transaction['status'] = __('Canceled','wdf');
+							$transaction['gateway_msg'] = __('Transaction Pre-Approved','wdf');
 							break;
 						default :
-							$status = 'draft';
-							$transaction['status'] = 'Unknown';
+							$status = 'wdf_canceled';
+							$transaction['status'] = __('Unknown','wdf');
+							$transaction['gateway_msg'] = __('Unknown PayPal status.','wdf');
 							break;
 					}
 					
@@ -270,6 +266,8 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					exit;
 				}
 			} elseif ( isset( $_POST['txn_type'] ) ) {
+				
+				$settings = get_option('wdf_settings');
 				
 				//Handle IPN for simple payments
 				if($this->verify_paypal()) {
@@ -289,6 +287,8 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 						//Not an accepted transaction type
 						die();
 					}
+					$transaction['type'] = 'simple';
+					$transaction['currency_code'] = ( isset($_POST['mc_currency']) ? $_POST['mc_currency'] : $settings['currency']);
 					$transaction['ipn_id'] = $_POST['txn_id'];
 					$transaction['first_name'] = $_POST['first_name'];
 					$transaction['last_name'] = $_POST['last_name'];
@@ -296,29 +296,45 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					$transaction['payer_email'] = (isset($_POST['payer_email']) ? $_POST['payer_email'] : 'johndoe@' . home_url() );
 					$transaction['gateway_public'] = $this->public_name;
 					$transaction['gateway'] = $this->plugin_name;
-					switch($_POST['payment_status']) {
-						case 'Pending' :
-							$status = 'publish';
-							$transaction['status'] = 'Pending';
-							break;
-						case 'Refunded' :
-							$status = 'draft';
-							$transaction['status'] = 'Refunded';
-							break;
-						case 'Reversed' :
-							$status = 'draft';
-							$transaction['status'] = 'Reversed';
-						case 'Processed' :
-							$status = 'publish';
-							$transaction['status'] = 'Processed';
-							break;
-						case 'Completed' :
-							$status = 'publish';
-							$transaction['status'] = 'Completed';
-						default:
-							$status = 'draft';
-							$transaction['status'] = 'Unknown';
-							break;
+					if( isset($_POST['payment_status']) ) {
+						switch($_POST['payment_status']) {
+							case 'Pending' :
+								$status = 'wdf_approved';
+								$transaction['status'] = __('Pending/Approved','wdf');
+								$transaction['gateway_msg'] = (isset($_POST['pending_reason']) ? $_POST['pending_reason'] : __('Missing Pending Status.','wdf') );
+								break;
+							case 'Refunded' :
+								$status = 'wdf_refunded';
+								$transaction['status'] = __('Refunded','wdf');
+								$transaction['gateway_msg'] = __('Payment Refunded','wdf');
+								break;
+							case 'Reversed' :
+								$status = 'wdf_canceled';
+								$transaction['status'] = __('Reversed','wdf');
+								$transaction['gateway_msg'] = __('Payment Reversed','wdf');
+								break;
+							case 'Expired' :
+								$status = 'wdf_canceled';
+								$transaction['status'] = __('Expired','wdf');
+								$transaction['gateway_msg'] = __('Payment Expired','wdf');
+								break;
+							case 'Processed' :
+								$status = 'wdf_complete';
+								$transaction['status'] = __('Processed','wdf');
+								$transaction['gateway_msg'] = __('Payment Processed','wdf');
+								break;
+							case 'Completed' :
+								$status = 'wdf_complete';
+								$transaction['status'] = __('Payment Completed','wdf');
+								break;
+							default:
+								$status = 'wdf_canceled';
+								$transaction['status'] = __('Unknown Payment Status','wdf');
+								break;
+						}
+					} else {
+						$status = 'wdf_canceled';
+								$transaction['status'] = __('Payment Status Not Given','wdf');
 					}
 				
 					global $wdf;
@@ -330,10 +346,70 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			}
 			die();
 		}
-		function execute_advanced_payment($pledge, $transaction) {
-			$debug = var_export($pledge,true);
-			$debug .= var_export($transaction,true);
-			wp_mail('cole@imakethe.com','gateway execute payment', $debug);
+		function execute_payment($type, $pledge, $transaction) {
+			
+			if($type == 'advanced') {
+				$settings = get_option('wdf_settings');
+				global $wdf;				
+				
+				$nvp = 'actionType=PAY';
+				$nvp .= '&preapprovalKey='.urlencode($transaction['ipn_id']);
+				$nvp .= '&senderEmail='.urlencode($transaction['payer_email']);
+				$nvp .= '&receiverList.receiver(0).email='.urlencode($settings['paypal']['advanced']['email']);
+				$nvp .= '&receiverList.receiver(0).amount='.urlencode($transaction['gross']);
+				$nvp .= '&feesPayer=SENDER';
+				$nvp .= '&currencyCode='.urlencode($transaction['currency_code']);
+				$nvp .= '&cancelUrl='.urlencode( wdf_get_funder_page('',$pledge->post_parent) );
+				$nvp .= '&returnUrl='.urlencode( wdf_get_funder_page('',$pledge->post_parent) );
+				$response = $this->adaptive_api_call( 'Pay', $nvp );
+				if( isset($response['responseEnvelope_ack']) && $response['responseEnvelope_ack'] == 'Success' ) {
+					switch($response['paymentExecStatus']) {
+						case 'CREATED' :
+							
+							break;
+						case 'COMPLETED' :
+							$transaction['status'] = __('Completed','wdf');
+							$transaction['gateway_msg'] = __('Payment Complete.', 'wdf');
+							$transaction['ipn_id'] = ( isset($response['payKey']) ? $response['payKey'] : '' );
+							$status = 'wdf_complete';
+							break;
+						case 'INCOMPLETE' :
+							$transaction['status'] = __('Incomplete','wdf');
+							$transaction['gateway_msg'] = __('Pre-Approval Incomplete.', 'wdf');
+							$status = $pledge->post_status;
+							break;
+						case 'ERROR' :
+							$transaction['status'] = __('Error','wdf');
+							$transaction['gateway_msg'] = (isset($reponse['payErrorList']) ? $response['payErrorList'] : __('Error Capturing Payment', 'wdf'));
+							$status = 'wdf_canceled';
+							break;
+						case 'REVERSALERROR' :
+							$transaction['status'] = __('Reversal Error','wdf');
+							$transaction['gateway_msg'] = __('Error Reserving Payment.', 'wdf');
+							$status = 'wdf_canceled';
+							break;
+						case 'PROCESSING' :
+							$transaction['status'] = __('Processing','wdf');
+							$transaction['gateway_msg'] = __('Processing Payment.', 'wdf');
+							$status = $pledge->post_status;
+							break;
+						case 'PENDING' :
+							$transaction['status'] = __('Pending','wdf');
+							$transaction['gateway_error'] = __('Error Reserving Payment.', 'wdf');
+							$status = $pledge->post_status;
+							break;
+						default :
+							$transaction['status'] = __('Unknown','wdf');
+							$transaction['gateway_error'] = __('Unknown Payment Response Status after attempting to execute.', 'wdf');
+							$status = 'wdf_canceled';
+							break;
+					}
+					$wdf->update_pledge($pledge->post_title, $pledge->post_parent, $status, $transaction);
+				}
+				
+			} else if($type == 'simple') {
+				// Nothing to do?
+			}
 		}
 		function verify_paypal() {
 			global $wdf;
@@ -394,7 +470,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				<tr>
 					<td colspan="2">
 						<h4><?php _e('Simple Payment Options','wdf'); ?></h4>
-						<div class="message updated below-h2" style="width: auto;"><p><?php _e('In order for donations to be logged properly you must turn on PayPal Instant Payment Notifications and point it to','wdf'); ?> <span class="description"><?php echo $this->ipn_url; ?></span></p></div>
+						<div class="message updated below-h2" style="width: auto;"><p><?php _e('In order for PayPal simple payments to log properly you must turn on PayPal Instant Payment Notifications and point it to','wdf'); ?> <br /><span class="description"><?php echo $this->ipn_url; ?></span></p></div>
 					</td>
 				</tr>
 				<tr valign="top">
@@ -403,9 +479,11 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					<td><input class="regular-text" type="text" id="wdf_settings_paypal_email" name="wdf_settings[paypal_email]" value="<?php echo esc_attr($settings['paypal_email']); ?>" /></td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"> <label for="wdf_settings[paypal_image_url]"><?php echo __('PayPal Checkout Header Image ','wdf'); ?></label>
-						<?php echo $tips->add_tip('PayPal allows you to use a custom header images during the purchase process.  PayPal recommends using an image from a secure https:// link, but this is not required.'); ?> </th>
-					<td><input class="regular-text" type="text" name="wdf_settings[paypal_image_url]" value="<?php echo $settings['paypal_image_url']; ?>" /></td>
+					<th scope="row"> <label for="wdf_settings[paypal_image_url]"><?php echo __('PayPal Checkout Header Image ','wdf'); ?></label></th>
+					<td>
+						<input class="regular-text" type="text" name="wdf_settings[paypal_image_url]" value="<?php echo $settings['paypal_image_url']; ?>" />
+						<?php echo $tips->add_tip('PayPal allows you to use a custom header images during the purchase process.  PayPal recommends using an image from a secure https:// link, but this is not required.'); ?>
+					</td>
 				</tr>
 			<?php endif; ?>
 			<?php if(in_array('advanced', $settings['payment_types'])) : ?>

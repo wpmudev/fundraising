@@ -1,4 +1,4 @@
-.wdf_basic .wdf_levels {
+.wdf-basic .wdf_levels {
 	clear: both;
 	list-style: none;
 	margin: 0 0 0 10px;
@@ -17,38 +17,39 @@
 	border-radius: 4px;
 	padding: 0;
 }
-.wdf_basic .wdf_levels li{
+.wdf-basic .wdf_levels li{
 	cursor: pointer;
 	padding: 10px;
 	margin: 0 10px;
 }
-.wdf_basic .wdf_levels li.item:hover {
+.wdf-basic .wdf_levels li.item:hover {
 	background: #fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	cursor: pointer;
 }
-.wdf_basic .wdf_content {
+.wdf-basic .wdf_content {
 	float: left;
 	width: 65%;
 	padding: 0px;
 	margin: 0px;
 }
-.wdf_basic .wdf_send_amount {
+.wdf-basic .wdf_send_amount {
 	width: 50px;
 }
-.wdf_basic .wdf_progress_info {
+.wdf-basic .wdf_progress_info {
 	margin-bottom: 10px;
 	font-style: italic;
 	font-size: 1.4em;
 }
 
-.wdf_basic .wdf_level_amount {
+.wdf-basic .wdf_level_amount {
 	font-weight: bold;
 	line-height:1em;
 }
-.wdf_basic .wdf_send_donation {
+.wdf-basic .wdf_send_donation,
+.wdf-basic .wdf_button {
 	clear: both;
 	width: 100%;
 	margin-top: 10px;
@@ -82,53 +83,44 @@
     transition: 0.1s linear all;
 	text-decoration:none;
 }
-.wdf_basic .wdf_send_donation:hover {
+.wdf-basic .wdf_send_donation:hover {
 	background-position: 0 -15px;
 }
-.wdf_basic .wdf_levels .reward {
+.wdf-basic .wdf_levels .reward {
 	font-weight: bold;
 }
-#wdf_thank_you.wdf_basic {
-	z-index: 99999999;
+.wdf-basic.wdf_fundraiser_panel > div {
+	margin: 10px 0px;
 }
-#wdf_thank_you.wdf_basic .fade {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background: black;
-	zoom: 1;
-	filter:alpha(opacity=50);
-	opacity: 0.5;
-	z-index: 99999999;
-	top: 0px;
-	left: 0px;
+.wdf-basic .wdf_big_num, .wdf-basic .wdf_time_left {
+	font-size: 2em;
 }
-#wdf_thank_you.wdf_basic .wdf_ty_content {
-	background: #EAEAEA;
-	width: 500px;
-	left: 50%;
-	top: 100px;
-	position: fixed;
-	margin-left: -250px;
-	height: auto;
-	z-index: 999999999;
-	padding: 15px;
-}
-#wdf_thank_you.wdf_basic .wdf_ty_content h1{
-	margin-bottom: 15px;
-}
-#wdf_thank_you.wdf_basic .close {
-	cursor: pointer;
-	display: block;
-	cursor: pointer;
-	display: block;
-	position: absolute;
-	right: 0px;
-	top: 0px;
-	background: #CCC;
-	padding: 5px 10px 5px 10px;
-}
-.wdf_basic .ui-progressbar{
+.wdf-basic .ui-progressbar{
 	height: 1em;
 	margin: 10px 0 0 0;
+}
+.wdf-basic div.wdf_backer_button {
+	margin: 20px 0px 20px 0px;
+}
+.wdf-basic .wdf_backer_button a.wdf_button {
+	display: block;
+}
+.wdf-basic .wdf_reward_item  {
+	margin: 10px 0px 10px 0px;
+}
+.widget_wdf_fundraiser_panel .wdf-basic .wdf_level_amount {
+	float: left;
+	font-size: 2em;
+	padding-right: 8px;
+}
+.wdf-basic .wdf_bp_show_on_activity {
+
+}
+.wdf-basic.wdf_checkout_form .wdf_reward_choice .wdf_level_amount {
+	font-size: 2em;
+	cursor: pointer;
+}
+.wdf-basic .wdf_choose_reward_title {
+	font-size: 2.5em;
+	margin-top: 15px;
 }

@@ -1,2 +1,40 @@
 Plugin Name: Fundraising
 Author: Cole Stevenson (Incsub)
+
+== Changelog ==
+
+= 2.0-RC-1 =
+New Payment Gateway API
+- Fundraisers are now split into two types: Simple and Advanced
+- Simple payments are donations that are accepted immediately. ( No Goals or Rewards )
+- Advanced Payments are pre-approved and only processed after the completion of the fundraiser's goal. ( Goals and Rewards allowed )
+
+Donations are now refered to as pledges.
+- 4 new pledge statuses are available.  ( Complete, Approved, Canceled, Refunded )
+
+New Fundraising Panel
+- Use either a shortcode or widget to display relevant fundraiser information
+
+New Reset option for clearing all fundraising data
+- add define('WDF_ALLOW_RESET',true); in your wp-config file to add an extra reset tab to your settings page.
+
+Limited BuddyPress Integration
+- Users are allow to publicly display their plegde as an activity item if they choose to do so.  This option display requires that BuddyPress be activated on your site.
+
+CSS style containers are now all <div> elements to allow for easier customization.
+
+New permalink structure
+- Each fundraiser now contains a checkout and confirmation page.
+
+Template functions can now be overridden using the action 'wdf_custom_template_functions'
+- fundraiser.php line: 1521
+
+Fixed shortcode media button errors
+
+New custom template structure for your theme
+- wdf_funder-{$name/$id}.php
+- wdf_checkout-{$name/$id}.php
+- wdf_confirm-{$name/$id}.php
+
+Addition of several action and filter hooks for external plugins or theme function files.
+

@@ -50,7 +50,7 @@ class BP_WDF_Component extends BP_Component {
 	
 		parent::start(
 			'wdf',
-			__( 'Donation', 'wdf' ),
+			__( 'Fundraising', 'wdf' ),
 			BP_WDF_PLUGIN_BASE_DIR
 		);
 
@@ -74,7 +74,7 @@ class BP_WDF_Component extends BP_Component {
 		 * 'init'.
 		 */
 		
-		add_action( 'init', array( &$this, 'register_post_types' ) );
+		//add_action( 'init', array( &$this, 'register_post_types' ) );
 	}
 
 	/**
@@ -150,7 +150,7 @@ class BP_WDF_Component extends BP_Component {
 		// Files to include
 		$includes = array(
 			'/bp-wdf-actions.php',
-			'/bp-wdf-screens.php',
+			//'/bp-wdf-screens.php',
 			'/bp-wdf-filters.php',
 			'/bp-wdf-classes.php',
 			'/bp-wdf-activity.php',
@@ -167,7 +167,7 @@ class BP_WDF_Component extends BP_Component {
 		// As an example of how you might do it manually, let's include the functions used
 		// on the WordPress Dashboard conditionally:
 		if ( is_admin() || is_network_admin() ) {
-			include( BP_WDF_PLUGIN_BASE_DIR . '/bp-wdf-admin.php' );
+			//include( BP_WDF_PLUGIN_BASE_DIR . '/bp-wdf-admin.php' );
 		}
 	}
 
@@ -288,13 +288,13 @@ class BP_WDF_Component extends BP_Component {
 			'position'        => 20
 		);
 
-		parent::setup_nav( $main_nav, $sub_nav );
+		/*parent::setup_nav( $main_nav, $sub_nav );*/
 
 		// If your component needs additional navigation menus that are not handled by
 		// BP_Component::setup_nav(), you can register them manually here. For example,
 		// if your component needs a subsection under a user's Settings menu, add
 		// it like this. See bp_wdf_screen_settings_menu() for more info
-		bp_core_new_subnav_item( array(
+		/*bp_core_new_subnav_item( array(
 			'name' 		  => __( 'Fundraising', 'wdf' ),
 			'slug' 		  => 'wdf-admin',
 			'parent_slug'     => bp_get_settings_slug(),
@@ -302,7 +302,7 @@ class BP_WDF_Component extends BP_Component {
 			'screen_function' => 'bp_wdf_screen_settings_menu',
 			'position' 	  => 40,
 			'user_has_access' => bp_is_my_profile() // Only the logged in user can access this on his/her profile
-		) );
+		) );*/
 	}
 
 	/**
@@ -317,21 +317,7 @@ class BP_WDF_Component extends BP_Component {
 	 * @see http://codex.wordpress.org/Function_Reference/register_post_type
 	 */
 	function register_post_types() {
-		// Set up some labels for the post type
-		$labels = array(
-			'name'	   => __( 'High Fives', 'wdf' ),
-			'singular' => __( 'High Five', 'wdf' )
-		);
-
-		// Set up the argument array for register_post_type()
-		$args = array(
-			'label'	   => __( 'High Fives', 'wdf' ),
-			'labels'   => $labels,
-			'public'   => false,
-			'show_ui'  => true,
-			'supports' => array( 'title' )
-		);
-
+		
 		// Register the post type.
 		// Here we are using $this->id ('example') as the name of the post type. You may
 		// choose to use a different name for the post type; if you register more than one,

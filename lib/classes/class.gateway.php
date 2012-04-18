@@ -42,13 +42,9 @@ if(!class_exists('WDF_Gateway')) {
 		function process_advanced() {
 			wp_die( __("You must override the process_advanced() method in your payment gateway plugin!", 'wdf') );
 		}
-		function execute_advanced_payment($pledge, $transaction) {
+		function execute_payment($type, $pledge, $transaction) {
 			wp_die( __("You must override the execute_advanced_payment() method in your payment gateway plugin!", 'wdf') );
 		}
-		/**
-		 *
-		 *
-		*/
 		function payment_info( $content, $transaction ) {
 			wp_die( __("You must override the payment_info() method in your payment gateway plugin!", 'wdf') );
 		}
@@ -58,13 +54,6 @@ if(!class_exists('WDF_Gateway')) {
 		function handle_ipn() {
 			wp_die( __("You must override the handle_ipn() method in your payment gateway plugin!", 'wdf') );
 		}
-		/**
-		 *
-		 * Display single blog settings for your gateway here.  
-		 * 
-		 * Don't forget to use add_action('wdf_save_settings','') to save your settings
-		 *
-		*/
 		function admin_settings() {
 			wp_die( __("You must override the admin_settings() method in your payment gateway plugin!", 'wdf') );
 		}
@@ -74,19 +63,21 @@ if(!class_exists('WDF_Gateway')) {
 		function _payment_form_wrapper($content) {
 			global $wdf;
 			$pre = '<div class="wdf_payment_summary">';
-			$pre .= sprintf( '<h4>Your pledge of %s is almost complete.  Complete the steps below.</h4>',$wdf->format_currency('',$_SESSION['wdf_pledge']) );
+			$pre .= sprintf( '<h4>'.__('Your pledge of %s is almost complete.','wdf').'</h4>',$wdf->format_currency('',$_SESSION['wdf_pledge']) /*. ' ' .($_SESSION['wdf_recurring'] != '0' ? 'every ' . $_SESSION['wdf_recurring'] : '')*/ );
 			$pre .= '</div>';
 			
 			$new = apply_filters('wdf_pre_payment_form',$pre);
 			$new .= '<form action="" method="post">';
 			$new .= $content;
 			$new .= '<input type="hidden" name="wdf_step" value="confirm" />';
+				
 			$new .= '<input type="submit" name="wdf_payment_submit" value="'.__('Complete Pledge','wdf').'" />';
 			$new .= '</form>';
 			
 			return $new;
 		}
 		function _pre_process() {
+			
 			if( !isset($_SESSION['funder_id']) || !isset($_SESSION['wdf_pledge']) || !isset($_SESSION['wdf_gateway']) || !isset($_SESSION['wdf_step']) ) {
 				$this->create_gateway_error(__('There was an unknown problem processing your payment.','wdf'));
 			}
@@ -111,7 +102,7 @@ if(!class_exists('WDF_Gateway')) {
 			add_action('wdf_gateway_process_standard_'.$this->plugin_name, array(&$this,'process_standard'), 10);
 			add_action('wdf_gateway_process_advanced_'.$this->plugin_name, array(&$this,'process_advanced'), 10);
 			add_action('wdf_gateway_confirm_'.$this->plugin_name, array(&$this, 'confirm'), 10);
-			add_action('wdf_execute_payment_'.$this->plugin_name, array(&$this, 'execute_advanced_payment'), 10, 2);
+			add_action('wdf_execute_payment_'.$this->plugin_name, array(&$this, 'execute_payment'), 10, 3);
 			
 			//Handle all our Instant Notifcations
 			$this->ipn_url = admin_url('admin-ajax.php?action=wdf-ipn-return-'.$this->plugin_name);

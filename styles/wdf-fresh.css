@@ -1,4 +1,4 @@
-.wdf_fresh .wdf_levels {
+.wdf-fresh .wdf_levels {
 	clear: both;
 	list-style: none;
 	margin: 10px 0 0 0;
@@ -18,41 +18,41 @@
 	border-radius: 4px;
 	padding: 10px;
 }
-.wdf_fresh .wdf_levels li{
+.wdf-fresh .wdf_levels li{
 	cursor: pointer;
 	padding: 10px;
 	margin: 0 10px;
 }
-.wdf_fresh .wdf_levels li.item:hover {
+.wdf-fresh .wdf_levels li.item:hover {
 	background: #fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	cursor: pointer;
 }
-.wdf_fresh .wdf_content {
+.wdf-fresh .wdf_content {
 	margin: 0;
 	padding 0;
 }
-.wdf_fresh .wdf_send_amount {
+.wdf-fresh .wdf_send_amount {
 	width: 50px;
 }
-.wdf_fresh .wdf_progress_info {
+.wdf-fresh .wdf_progress_info {
 	margin-bottom: 10px;
 	font-style: italic;
 	font-size: 1.4em;
 }
-.wdf_fresh .wdf_donate_now input[type="text"], textarea {
+.wdf-fresh .wdf_donate_now input[type="text"], textarea {
 	margin: 0 0 0 5px;	
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
-.wdf_fresh .wdf_level_amount {
+.wdf-fresh .wdf_level_amount {
 	float: right;
 }
-.wdf_fresh .wdf_send_donation {
-	float: right;	
+.wdf-fresh .wdf_button,
+.wdf-fresh .wdf_send_donation {
 	color: #333;
     cursor: pointer;
     display: inline-block;
@@ -84,51 +84,53 @@
     transition: 0.1s linear all;
 	text-decoration:none;
 }
-.wdf_fresh .wdf_send_donation:hover {
+.wdf-fresh .wdf_send_donation:hover,
+.wdf-fresh .wdf_button:hover {
 	
 }
-.wdf_fresh .wdf_levels .reward {
+.wdf-fresh .wdf_levels .reward {
 	font-weight: bold;
 	padding-left: 30px;
 }
-#wdf_thank_you.wdf_fresh {
-	z-index: 99999999;
+.wdf-fresh. wdf_send_donation:hover {
+	background: #6eb850;
 }
-#wdf_thank_you.wdf_fresh .fade {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background: black;
-	zoom: 1;
-	filter:alpha(opacity=50);
-	opacity: 0.5;
-	z-index: 99999999;
-	top: 0px;
-	left: 0px;
+.wdf-fresh.wdf_fundraiser_panel > div {
+	margin: 10px 0px;
 }
-#wdf_thank_you.wdf_fresh .wdf_ty_content {
-	border: 1px solid #efef1a;
-	background: #ffffe8;
-	width: 500px;
-	left: 50%;
-	top: 100px;
-	position: fixed;
-	margin-left: -250px;
-	height: auto;
-	z-index: 999999999;
-	padding: 15px;
+.wdf-fresh .wdf_big_num, .wdf-fresh .wdf_time_left {
+	font-size: 2em;
 }
-#wdf_thank_you.wdf_fresh .wdf_ty_content h1{
-	margin-bottom: 15px;
+.wdf-fresh .ui-progressbar{
+	height: 1em;
+	margin: 10px 0 0 0;
 }
-#wdf_thank_you.wdf_fresh .close {
+.wdf-fresh div.wdf_backer_button {
+	margin: 20px 0px 20px 0px;
+}
+.wdf-fresh .wdf_reward_item  {
+	margin: 10px 0px 10px 0px;
+}
+.wdf_fundraiser_panel.wdf-fresh .wdf_level_amount {
+	float: left;
+	font-size: 2em;
+	padding-right: 8px;
+}
+.wdf-fresh .wdf_bp_show_on_activity {
+
+}
+.wdf-fresh.wdf_checkout_form .wdf_reward_choice .wdf_level_amount {
+	font-size: 2em;
 	cursor: pointer;
-	display: block;
-	cursor: pointer;
-	display: block;
-	position: absolute;
-	right: 0px;
-	top: 0px;
-	background: #ccc;
-	padding: 5px 10px 5px 10px;
+}
+.wdf_fundraiser_panel.wdf-fresh .wdf_reward_item {
+	padding: 0px;
+}
+.wdf-fresh .wdf_choose_reward_title {
+	font-size: 2.5em;
+	margin-top: 15px;
+}
+.wdf-fresh .ui-progressbar{
+	height: 1em;
+	margin: 10px 0 0 0;
 }

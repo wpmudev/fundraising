@@ -76,8 +76,9 @@ switch($data['id']) {
 				<?php else: ?>
 					<p><?php echo $this->format_currency('',$trans['gross']); ?></p>
 				<?php endif; ?>
-				<h3><?php _e('Payment Source','wdf'); ?>:</h3><p><?php echo esc_attr($trans['gateway']); ?></p>
-				<h3><?php _e('Transaction ID','wdf'); ?>:</h3><p><?php echo esc_attr($post->post_title); ?></p>
+				<?php if( isset($trans['gateway_public']) ) : ?><h3><?php _e('Payment Source','wdf'); ?>:</h3><p><?php echo esc_attr($trans['gateway_public']); ?></p><?php endif; ?>
+				<?php if( isset($trans['gateway_msg']) ) : ?><h3><?php _e('Last Gateway Activity','wdf'); ?>:</h3><p><?php echo esc_attr($trans['gateway_msg']); ?></p><?php endif; ?>
+				<?php if( isset($trans['ipn_id']) ) : ?><h3><?php _e('Transaction ID','wdf'); ?>:</h3><p><?php echo esc_attr($trans['ipn_id']); ?></p><?php endif; ?>
 		<?php endif; ?>
 	<?php break;
 
@@ -167,11 +168,11 @@ switch($data['id']) {
 			<p>
 				<label><?php echo __('Choose a display style','wdf'); ?>
 				<select name="wdf[style]">
-					<option <?php selected($meta['wdf_style'][0],'wdf_basic'); ?> value="wdf_basic"><?php _e('Basic','wdf'); ?></option>
-					<option <?php selected($meta['wdf_style'][0],'wdf_minimal'); ?> value="wdf_minimal"><?php _e('Minimal','wdf'); ?></option>
-					<option <?php selected($meta['wdf_style'][0],'wdf_dark'); ?> value="wdf_dark"><?php _e('Dark','wdf'); ?></option>
-					<option <?php selected($meta['wdf_style'][0],'wdf_note'); ?> value="wdf_note"><?php _e('Note','wdf'); ?></option>
-					<option <?php selected($meta['wdf_style'][0],'wdf_custom'); ?> value="custom"><?php _e('None (Custom CSS)','wdf'); ?></option>
+					<?php if(is_array($this->styles) && !empty($this->styles)) : ?>
+						<?php foreach($this->styles as $key => $label) : ?>
+							<option <?php selected($meta['wdf_style'][0],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
+						<?php endforeach; ?>
+					<?php endif; ?>
 				</select></label>
 			</p>
 			
@@ -180,10 +181,17 @@ switch($data['id']) {
 		<?php if($meta['wdf_type'][0] == 'simple') : ?>
 			<p><label><span class="description"><?php _e('Allow Recurring Donations?','wdf') ?></span>
 					<select name="wdf[recurring]" rel="wdf_recurring" class="wdf_toggle">
-						<option value="yes" <?php selected($meta['wdf_recurring'][0],'yes'); ?>>Yes</option>
-						<option value="no" <?php selected($meta['wdf_recurring'][0],'no'); ?>>No</option>
+						<option value="yes" <?php selected($meta['wdf_recurring'][0],'yes'); ?>><?php _e('Yes','wdf'); ?></option>
+						<option value="no" <?php selected($meta['wdf_recurring'][0],'no'); ?>><?php _e('No','wdf'); ?></option>
 					</select>
 				</label>
+			</p>
+			<p><label><span class="description"><?php _e('Panel Position','wdf') ?></span>
+					<select name="wdf[panel_pos]">
+						<option value="top" <?php selected($meta['wdf_recurring'][0],'top'); ?>><?php _e('Above Content','wdf'); ?></option>
+						<option value="bottom" <?php selected($meta['wdf_recurring'][0],'bottom'); ?>><?php _e('Below Content','wdf'); ?></option>
+					</select>
+				</label><?php echo $tips->add_tip(__('If you are not using the Fundraiser sidebar widget, choose the position of your info panel.','wdf')); ?>
 			</p>
 			<?php /*?><p>
 				<label><?php echo __('Override Default PayPal Email Address','wdf'); ?><br />

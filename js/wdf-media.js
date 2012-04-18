@@ -1,6 +1,5 @@
 function wdf_inject_shortcode () {
 	
-	
 	var iFrame = jQuery('#TB_iframeContent').contents();
 	var cont = iFrame.find('.wdf_media_cont:first');
 	var type = cont.attr('id');
@@ -10,7 +9,7 @@ function wdf_inject_shortcode () {
 		case 'media_fundraising' :
 			var funder_select = iFrame.find('#wdf_funder_select');
 			
-			var shortcode = '[fundraiser';
+			var shortcode = '[fundraiser_panel';
 		
 			jQuery.each(form, function(i,e) { 
 				shortcode = shortcode + ' '+e.name+'="'+e.value+'"';

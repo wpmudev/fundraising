@@ -190,3 +190,33 @@ td.wdf_goal_end_date input {
 	padding-left: 35px;
 	width: 140px;
 }
+.wp-list-table #funder_type {
+	width: 150px;
+}
+.wdf_widget_highlite .widget-title,
+.wdf_widget_highlite .widget-title h4,
+.wdf_widget_highlite.widget {
+	border-color: #003!important;
+}
+.wdf_widget_highlite .widget-top { 
+	color: white!important;
+	text-shadow: 0 -1px 0 #000000!important;
+	border-color: #003!important;
+	moz-box-shadow: none!important;
+	-webkit-box-shadow: none!important;
+	box-shadow: none!important;
+	background: rgb(7,67,112)!important; /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(7,67,112,1) 0%, rgba(5,50,84,1) 100%)!important; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(7,67,112,1)), color-stop(100%,rgba(5,50,84,1)))!important; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(7,67,112,1) 0%,rgba(5,50,84,1) 100%)!important; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(7,67,112,1) 0%,rgba(5,50,84,1) 100%)!important; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(7,67,112,1) 0%,rgba(5,50,84,1) 100%)!important; /* IE10+ */
+	background: linear-gradient(top,  rgba(7,67,112,1) 0%,rgba(5,50,84,1) 100%)!important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#074370', endColorstr='#053254',GradientType=0 )!important; /* IE6-9 */
+}
+ul.wdf_shortcode_breakdown li p.attr_description {
+	padding-left: 35px;
+}
+ul.wdf_shortcode_breakdown code {
+	font-size: 1.25em;
+}

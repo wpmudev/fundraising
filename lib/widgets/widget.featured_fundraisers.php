@@ -9,7 +9,7 @@ class WDF_Featured_Fundraisers extends WP_Widget {
 	function WDF_Featured_Fundraisers() {
 		// Instantiate the parent object
 		parent::__construct( false, __('Featured Fundraisers','wdf'), array(
-			'description' =>  __('Show a list of featured fundraisers with this simple widget','wdf')
+			'description' =>  __('Choose a list of fundraiser links you wish to display.','wdf')
 		) );
 	}
 
