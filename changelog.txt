@@ -3,6 +3,12 @@ Author: Cole Stevenson (Incsub)
 
 == Changelog ==
 
+= 2.0-RC-2 =
+Fixed issues with PayPal App ID not saving.
+
+Fixed problem with PayPal redirect on certain server setups
+
+
 = 2.0-RC-1 =
 New Payment Gateway API
 - Fundraisers are now split into two types: Simple and Advanced
@@ -37,4 +43,3 @@ New custom template structure for your theme
 - wdf_confirm-{$name/$id}.php
 
 Addition of several action and filter hooks for external plugins or theme function files.
-

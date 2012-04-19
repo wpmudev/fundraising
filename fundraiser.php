@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.0.0-RC-1
+Version: 2.0.0-RC-2
 Text Domain: wdf
 Author: Cole (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -69,7 +69,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.0.0-RC-1';
+		$this->version = '2.0.0-RC-2';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -636,7 +636,8 @@ class WDF {
 				$_SESSION['wdf_bp_activity'] = ( isset($_POST['wdf_bp_activity']) && $_POST['wdf_bp_activity'] == '1' ? true : false);
 			
 		}
-		if( isset($_POST['wdf_payment_submit']) ) {
+		global $wdf_skip_form;
+		if( isset($_POST['wdf_payment_submit']) || $wdf_skip_form == true ) {
 			
 			if( !isset($_SESSION['wdf_type']) || empty($_SESSION['wdf_type']) )
 				$this->create_error(__('Could not determine pledge type.','wdf'),'payment_submit');
@@ -1502,6 +1503,7 @@ class WDF {
 		if( get_post_meta($post_id, 'wdf_has_goal', true) == '1' && get_post_meta($post_id, 'wdf_type',true) == 'advanced' )
 			return true;
 		else 
+
 			return false;
 	}
 }

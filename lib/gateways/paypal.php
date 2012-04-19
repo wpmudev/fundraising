@@ -53,8 +53,9 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			// You can override the form and proceed straight to a 3rd party.
 			// The commented section below is an example of a form.
 			// Be sure not to use a <form> element in this area, and always return your content.
-			$_POST['wdf_payment_submit'] = true;
-			global $wdf;
+			global $wdf, $wdf_skip_form;
+			$wdf_skip_form = true;
+			
 			$wdf->handle_payment();
 			
 			/*
@@ -582,8 +583,8 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 							<label>
 								<?php _e('Application ID', 'wdf') ?>
 								<br />
-								<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['app_id']) ? $settings['paypal']['advanced']['app_id'] : '') ); ?>" size="50" name="mp[paypal][advanced][app_id]" type="text" />
-							</label>
+								<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['app_id']) ? $settings['paypal']['advanced']['app_id'] : '') ); ?>" size="50" name="wdf_settings[paypal][advanced][app_id]" type="text" />
+							</label><?php echo $tips->add_tip(__('No application ID is required when using PayPal in sandbox mode.','wdf')); ?>
 						</p></td>
 				</tr>
 				<?php /*?><tr>

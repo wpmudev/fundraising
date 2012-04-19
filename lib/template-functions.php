@@ -384,7 +384,7 @@ if(!function_exists('wdf_checkout_page')) {
 				$goal = $meta['wdf_goal_amount'][0];
 			
 				$content .= '<div class="wdf_rewards">';
-				
+				$content .= apply_filters('wdf_error_payment_submit','');
 				$content .= '<div class="wdf_payment_options"><div class="wdf_donate_button">'.wdf_pledge_button(false, 'single', $post_id).'</div><div class="wdf_gateway_choices">'.wdf_gateway_choices(false).'</div></div>';
 				
 				if(wdf_has_goal($post_id) && wdf_has_rewards($post_id) && isset($meta['wdf_levels'][0])) {
