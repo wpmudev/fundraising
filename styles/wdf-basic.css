@@ -50,8 +50,6 @@
 }
 .wdf-basic .wdf_send_donation,
 .wdf-basic .wdf_button {
-	clear: both;
-	width: 100%;
 	margin-top: 10px;
 	color: #75ab24;
     cursor: pointer;
@@ -101,9 +99,6 @@
 }
 .wdf-basic div.wdf_backer_button {
 	margin: 20px 0px 20px 0px;
-}
-.wdf-basic .wdf_backer_button a.wdf_button {
-	display: block;
 }
 .wdf-basic .wdf_reward_item  {
 	margin: 10px 0px 10px 0px;

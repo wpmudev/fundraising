@@ -89,57 +89,39 @@
 	font-weight: bold;
 	padding-left: 30px;
 }
-#wdf_thank_you.wdf-dark  {
-	z-index: 99999999;
+.wdf-dark.wdf_fundraiser_panel > div {
+	margin: 10px 0px;
 }
-#wdf_thank_you.wdf-dark  .fade {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background: black;
-	zoom: 1;
-	filter:alpha(opacity=50);
-	opacity: 0.5;
-	z-index: 99999999;
-	top: 0px;
-	left: 0px;
+.wdf-dark .wdf_big_num, .wdf-dark .wdf_time_left {
+	font-size: 2em;
 }
-#wdf_thank_you.wdf-dark  .wdf_ty_content {
-	background: rgba(0, 0, 0, 0.6);
-	color: #fff;
-	width: 500px;
-	left: 50%;
-	top: 100px;
-	position: fixed;
-	margin-left: -250px;
-	height: auto;
-	z-index: 999999999;
-	padding: 15px;
+.wdf-dark .ui-progressbar{
+	height: 1em;
+	margin: 10px 0 0 0;
 }
-#wdf_thank_you.wdf-dark  .wdf_ty_content h1{
-	margin-bottom: 15px;
+.wdf-dark div.wdf_backer_button {
+	margin: 20px 0px 20px 0px;
 }
-#wdf_thank_you.wdf-dark  .close {
+.wdf-dark .wdf_reward_item  {
+	margin: 10px 0px 10px 0px;
+}
+.widget_wdf_fundraiser_panel .wdf-dark .wdf_level_amount {
+	float: left;
+	font-size: 2em;
+	padding-right: 8px;
+}
+.wdf-dark .wdf_bp_show_on_activity {
+
+}
+.wdf-dark.wdf_checkout_form .wdf_reward_choice .wdf_level_amount {
+	font-size: 2em;
 	cursor: pointer;
-	display: block;
-	cursor: pointer;
-	display: block;
-	position: absolute;
-	right: 0px;
-	top: 0px;
-	color:#fff;
-	background-color: #53BFFA;
-	background-image: -o-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
-	background-image: -moz-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
-	background-image: -webkit-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
-	background-image: -ms-linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
-	background-image: linear-gradient(90deg , rgb(28,28,28) 0%, rgb(66,63,69) 100%);
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	padding: 5px 10px 5px 10px;
 }
-.ui-progressbar{
+.wdf-dark .wdf_choose_reward_title {
+	font-size: 2.5em;
+	margin-top: 15px;
+}
+.wdf-dark .ui-progressbar{
 	height: 1em;
 	margin: 10px 0 0 0;
 	background: #444;

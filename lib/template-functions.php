@@ -52,16 +52,25 @@ if(!function_exists('wdf_fundraiser_panel')) {
 				if(wdf_has_goal($post_id)) {
 					$content .= '<div class="wdf_amount_raised"><div class="wdf_big_num">'.wdf_amount_raised(false, $post_id).'</div><p>'.__('raised of a','wdf').' '.wdf_goal(false, $post_id).' '.__('goal','wdf').'</p></div>';
 					$content .= '<div class="wdf_panel_progress_bar">'.wdf_progress_bar(false, $post_id).'</div>';
-					$content .= '<div class="wdf_time_left">'.wdf_time_left(false, $post_id).'</div>';
-	
-					// Checking to see if this fundraiser can accept pledges yet.
-					if( wdf_time_left(false, $post_id, true) === false ) {
-						$content .= '<div class="wdf_backer_button">'.wdf_backer_button(false, $post_id).'</div>';
-					}
 				} else {
 					$content .= '<div class="wdf_amount_raised"><div class="wdf_big_num">'.wdf_amount_raised(false, $post_id).'</div><p>'.__('raised','wdf').'</p></div>';
-					$content .= '<div class="wdf_backer_button">'.wdf_backer_button(false, $post_id).'</div>';
 				}
+				
+				// Checking to see if this fundraiser can accept pledges yet.
+				if( wdf_time_left(false, $post_id, true) === false ) {
+					if(wdf_panel_checkout()) {
+						global $wdf_checkout_from_panel;
+						$wdf_checkout_from_panel = true;
+						$content .= wdf_checkout_page(false, $post_id);
+					} else {
+						$content .= '<div class="wdf_backer_button">'.wdf_backer_button(false, $post_id).'</div>';
+					}
+				}
+					
+				// Show the time left or time till start if a date range is available
+				if(wdf_has_date_range($post_id))
+					$content .= '<div class="wdf_time_left">'.wdf_time_left(false, $post_id).'</div>';					
+			
 				
 				if(wdf_has_rewards($post_id)) {
 					$content .= '<div>'.wdf_rewards(false, $post_id).'</div>';
@@ -104,9 +113,9 @@ if(!function_exists('wdf_rewards')) {
 }
 
 if(!function_exists('wdf_has_rewards')) {
-	function wdf_has_rewards($post_id = false) {
-		global $wdf;
-		
+	function wdf_has_rewards($post_id = '') {
+		global $post;
+		$post_id = (empty($post_id) ? $post->ID : $post_id );
 		if(!get_post($post_id))
 			return false;
 			
@@ -114,13 +123,39 @@ if(!function_exists('wdf_has_rewards')) {
 		
 		if( $meta === '1' )
 			return true;
-		else if( $meta === '0')
+		else
 			return false;
-		
-		return false;
+
 	}
 }
+if(!function_exists('wdf_panel_checkout')) {
+	function wdf_panel_checkout() {
+		$settings = get_option('wdf_settings');
+		
+		if( $settings['checkout_type'] == '1' )
+			return true;
+		else
+			return false;
 
+	}
+}
+if(!function_exists('wdf_has_date_range')) {
+	function wdf_has_date_range($post_id) {
+		global $post;
+		$post_id = (empty($post_id) ? $post->ID : $post_id );
+		if(!get_post($post_id))
+			return false;
+			
+		$start = get_post_meta($post_id,'wdf_goal_start',true);
+		$end = get_post_meta($post_id,'wdf_goal_end',true);
+
+		if($start != false && $end != false)
+			return true;
+		else
+			return false;
+		
+	}
+}
 if(!function_exists('wdf_has_goal')) {
 	function wdf_has_goal($post_id = '') {
 		global $wdf, $post;
@@ -162,10 +197,9 @@ if(!function_exists('wdf_time_left')) {
 	function wdf_time_left($echo = true, $post_id = '', $future_bool = false ) {
 		global $post, $wdf;
 		$post_id = (empty($post_id) ? $post->ID : $post_id );
-		if(!get_post($post_id))
+		if(!get_post($post_id) || !wdf_has_date_range($post_id) )
 			return false;
-		
-		if(wdf_has_goal($post_id)) {
+			
 				$future_start = false;
 				$end_date = strtotime(get_post_meta($post_id, 'wdf_goal_end',true));
 				$start_date = strtotime(get_post_meta($post_id, 'wdf_goal_start', true));
@@ -205,10 +239,10 @@ if(!function_exists('wdf_time_left')) {
 				}
 				
 				$content = apply_filters('wdf_time_left', $time, $hours, $days, $weeks, $months, $start_date, $end_date );
-		}
-		// If $future_bool is true then only return if the fundraising has started or not
-		if($future_bool === true)
-			return $future_start;
+				
+				// If $future_bool is true then only return if the fundraising has started or not
+				if($future_bool === true)
+					return $future_start;
 			
 			
 		if($echo) {echo $time;} else {return $time;}
@@ -225,7 +259,7 @@ if(!function_exists('wdf_backer_button')) {
 		
 		$link = apply_filters('wdf_backer_button_link',trailingslashit(get_permalink($post_id) . $settings['checkout_slug']) );
 		$classes = apply_filters('wdf_backer_button_classes','wdf_button');
-		$button = '<a class="'.$classes.'" href="'.$link.'">'.__('Support This Fundraiser!','wdf').'</a>';
+		$button = '<a class="'.$classes.'" href="'.$link.'">'.__('Support This','wdf').'</a>';
 		return apply_filters('wdf_backer_button', $button);
 	}
 }
@@ -266,16 +300,34 @@ if(!function_exists('wdf_confirmation_page')) {
 		global $wdf; $content = '';
 		
 		$pledge_id = (isset($_SESSION['wdf_pledge_id']) ? $_SESSION['wdf_pledge_id'] : $_REQUEST['pledge_id']);
-		
 		$content .= '<div class="wdf_confirmation_page">';
 		if( $funder = get_post($post_id) && $pledge = get_page_by_title( $pledge_id, null, 'donation' ) ) {
+			
 			$transaction = $wdf->get_transaction($pledge->ID);
+			
+			if($_SESSION['wdf_bp_activity'] == true) {
+				global $bp;
+				if( isset($bp->loggedin_user->id) ) {
+					$activity_args = array(
+						'action' => sprintf( __('%s made a %s pledge towards %s','wdf'), '<a href="'.$bp->loggedin_user->domain.'">'.$bp->loggedin_user->fullname.'</a>', $wdf->format_currency('',$transaction['gross']), '<a href="'.wdf_get_funder_page('',$funder->ID).'">'.get_the_title($funder->ID).'</a>' ),
+						'primary_link' => wdf_get_funder_page('',$funder->ID),
+						'type' => 'pledge'
+					);
+					$activity_args = apply_filters('wdf_bp_activity_args',$activity_args);
+					bp_wdf_record_activity($activity_args);
+				}
+			}
+
+			
 			$content .= wdf_thanks_panel( false, $funder->ID, $transaction );
+			
+			// The gateway can use this filter to provide any transactional details that you need to display
 			$content .= '<div class="wdf_gateway_payment_info">'.apply_filters('wdf_gateway_payment_info_'.$_SESSION['wdf_gateway'], '', $transaction).'</div>';
+			
 			//Unset all the session information
 			$wdf->clear_session();
 		} else {
-			$content .= '<p class="error">'.__('Oh No, we can\'t find your pledge.  If you think this an error you can try refreshing this page ','wdf').'</p>';
+			$content .= '<p class="error">'.__('Oh No, we can\'t find your pledge.  Sometimes it take a few moments for your pledge to be logged.  You can try refreshing this page ','wdf').'</p>';
 		}
 		$content .= '</div>';
 		
@@ -374,20 +426,21 @@ if(!function_exists('wdf_checkout_page')) {
 		
 		$wdf->front_scripts($post_id);
 		$content = '';
-		
-		$style = wdf_get_style($post_id);
+		global $wdf_checkout_from_panel;
+		$style = ($wdf_checkout_from_panel == true ? '' : wdf_get_style($post_id) );
 		
 		
 		$content .= '<form class="wdf_checkout_form '.$style.'" action="'.wdf_get_funder_page('checkout',$post_id).'" method="post" >';
-				
+				global $wp_filter;
 				$raised = $wdf->get_amount_raised($post_id);
 				$goal = $meta['wdf_goal_amount'][0];
 			
 				$content .= '<div class="wdf_rewards">';
 				$content .= apply_filters('wdf_error_payment_submit','');
+				
 				$content .= '<div class="wdf_payment_options"><div class="wdf_donate_button">'.wdf_pledge_button(false, 'single', $post_id).'</div><div class="wdf_gateway_choices">'.wdf_gateway_choices(false).'</div></div>';
 				
-				if(wdf_has_goal($post_id) && wdf_has_rewards($post_id) && isset($meta['wdf_levels'][0])) {
+				if(wdf_has_rewards($post_id) && isset($meta['wdf_levels'][0])) {
 					$content .= '<div class="wdf_choose_reward_title">'.__('Choose Your Reward','wdf').'</div>';
 						$level = maybe_unserialize($meta['wdf_levels'][0]);
 						foreach($level as $index => $data) {
@@ -417,6 +470,7 @@ if(!function_exists('wdf_show_checkout')) {
 			global $wdf;
 			$wdf->create_error(__('You must pledge at least','wdf').' '.$wdf->format_currency('',1),'checkout_top');
 		}
+		
 		switch($checkout_step) {
 			case 'gateway' :
 				$content = apply_filters('wdf_checkout_payment_form_'.$_SESSION['wdf_gateway'],'');

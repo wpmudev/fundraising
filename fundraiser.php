@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.0.0-RC-2
+Version: 2.0.0-RC-3
 Text Domain: wdf
 Author: Cole (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -69,7 +69,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.0.0-RC-2';
+		$this->version = '2.0.0-RC-3';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -83,7 +83,8 @@ class WDF {
 			'curr_symbol_position' => 1,
 			'curr_decimal' => 1,
 			'default_email' => 'Thank you for your pledge. Your donation of %DONATIONTOTAL% has been recieved and is greatly appreciated. Thanks for your support.',
-			'current_version' => $this->version
+			'current_version' => $this->version,
+			'checkout_type' => '1'
 		);
 		
 		// Setup Additional Data Structure
@@ -113,13 +114,17 @@ class WDF {
 			$this->upgrade_settings();
 		}
 		
+		if(version_compare($this->version, $settings['current_version']) == 1) {
+			$settings['current_version'] = $this->version;
+			update_option('wdf_settings',$settings);
+		}
+		
 		//load APIs and plugins
 			add_action( 'plugins_loaded', array(&$this, 'load_plugins') );
 
 		// Initialize our post types and rewrite structures
 			add_action( 'init', array(&$this,'_init'),1);
 			add_action( 'init', array(&$this, 'flush_rewrite'), 999 );
-			add_action( 'wp_insert_post', array(&$this,'wp_insert_post') );
 			add_filter( 'rewrite_rules_array', array(&$this, 'add_rewrite_rules') );
 			add_filter( 'query_vars', array(&$this, 'add_queryvars') );
 		
@@ -146,6 +151,7 @@ class WDF {
 			add_action( 'media_buttons', array(&$this,'media_buttons'), 30 );
 			add_action( 'media_upload_fundraising', array(&$this,'media_fundraising'));
 			add_action( 'media_upload_donate_button', array(&$this,'media_donate_button'));
+			add_action( 'wp_insert_post', array(&$this,'wp_insert_post') );
 			
 			// Add Admin Only Filters		
 			add_filter( 'manage_edit-funder_columns', array(&$this,'edit_columns') );
@@ -164,8 +170,10 @@ class WDF {
 			//Not the admin area so lets load up our front-end actions, scripts and filters
 			wp_register_script( 'wdf-base', WDF_PLUGIN_URL . '/js/wdf-base.js', array('jquery'), $this->version, false );
 			
-			add_action( 'template_redirect', array(&$this,'template_redirect'), 20 );
-			add_action( 'template_redirect', array(&$this, 'handle_payment'), 30 );
+			// Very low priority number is needed here to make sure it fires before themes can output headers
+			add_action( 'template_redirect', array(&$this, 'handle_payment'), 1 );
+			add_action( 'template_redirect', array(&$this, 'template_redirect'), 20 );
+			
 			if($settings['inject_menu'] == 'yes') {
 				add_filter( 'wp_list_pages', array(&$this, 'filter_nav_menu'), 10, 2 );
 			}
@@ -336,11 +344,10 @@ class WDF {
 					wp_insert_post($post);
 				}
 			}
-		}
-		// Re-Merge our defaults so we don't have any unexpected errors on an upgrade.
-		
+		}	
 	}
 	function upgrade_settings() {
+		// Re-Merge our defaults so we don't have any unexpected errors on an upgrade.
 		$settings = get_option('wdf_settings');
 		$settings = array_merge($this->defaults, $settings);
 		update_option('wdf_settings', $settings);
@@ -487,6 +494,7 @@ class WDF {
 		require_once( WDF_PLUGIN_BASE_DIR . '/lib/classes/class.gateway.php' );
 		$this->load_gateway_plugins();
 		
+		// Load up our available styles
 		$this->load_styles();
 		
 	}
@@ -522,17 +530,6 @@ class WDF {
 		//load chosen plugin classes
 		global $wdf_gateway_plugins, $wdf_gateway_active_plugins;
 		$settings = get_option('wdf_settings');
-		/*if(is_multisite())
-			$network_settings = get_site_option( 'wdf_network_settings' );*/
-		
-		//If gateways are being saved unset them and re-save to populate the correct active gateways
-		/*if(isset($_POST['wdf_settings']['active_gateways'])) {
-			unset($settings['active_gateways']);
-		}
-		if(isset($_POST['wdf_settings']['payment_types'])) {
-			unset($settings['payment_types']);
-		}*/
-		
 		
 		foreach ((array)$wdf_gateway_plugins as $code => $plugin) {
 			$class = $plugin[0];
@@ -545,6 +542,7 @@ class WDF {
 		
 		// Action used for saving gateway settings
 		do_action('wdf_gateway_plugins_loaded');
+	
 	}
 	function load_styles() {
 		$style_dir = WDF_PLUGIN_BASE_DIR.'/styles/';
@@ -624,21 +622,40 @@ class WDF {
 	}
 	function handle_payment() {
 		$this->start_session();
-		if( isset($_POST['wdf_pledge']) && isset($_POST['wdf_gateway']) && isset($_POST['wdf_step']) && isset($_POST['funder_id']) ) {
+			
+		if( isset($_POST['funder_id']) && !empty($_POST['funder_id']) ) {
 			$_SESSION['funder_id'] = $_POST['funder_id'];
-			$_SESSION['wdf_pledge'] = $this->filter_price($_POST['wdf_pledge']);
-			$_SESSION['wdf_gateway'] = $_POST['wdf_gateway'];
-			$_SESSION['wdf_step'] = $_POST['wdf_step'];
 			$_SESSION['wdf_type'] = $this->get_payment_type($_POST['funder_id']);
-			$_SESSION['wdf_recurring'] = ( isset($_POST['wdf_recurring']) || $_POST['wdf_recurring'] == '0' ? $_POST['wdf_recurring'] : false);
-
-			if(defined('WDF_BP_INSTALLED') && WDF_BP_INSTALLED == true && is_user_logged_in())
-				$_SESSION['wdf_bp_activity'] = ( isset($_POST['wdf_bp_activity']) && $_POST['wdf_bp_activity'] == '1' ? true : false);
-			
 		}
-		global $wdf_skip_form;
-		if( isset($_POST['wdf_payment_submit']) || $wdf_skip_form == true ) {
+		if( isset($_POST['wdf_pledge']) && !empty($_POST['wdf_pledge']) )	
+			$_SESSION['wdf_pledge'] = $this->filter_price($_POST['wdf_pledge']);
+		if( isset($_POST['wdf_gateway']) && !empty($_POST['wdf_gateway']) )	
+			$_SESSION['wdf_gateway'] = $_POST['wdf_gateway'];
+		if( isset($_POST['wdf_step']) && !empty($_POST['wdf_step']) )	
+			$_SESSION['wdf_step'] = $_POST['wdf_step'];
+		
+		
+		if( !isset($_POST['wdf_recurring']) || empty($_POST['wdf_recurring']) || $_POST['wdf_recurring'] == '0') {
+			$_SESSION['wdf_recurring'] = false;
+		} else if( isset($_POST['wdf_recurring']) && !empty($_POST['wdf_recurring']) ) {
+			$_SESSION['wdf_recurring'] = $_POST['wdf_recurring'];
+		}
+		
+		if( isset($_POST['wdf_bp_activity']) && $_POST['wdf_bp_activity'] == '1' )
+			$_SESSION['wdf_bp_activity'] = true;
 			
+		$process_payment = false;
+		global $wdf_gateway_active_plugins;
+		
+		$skip_gateway_form = $wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]->skip_form;
+		
+		if( isset($_POST['wdf_send_donation']) && $skip_gateway_form === true)
+			$process_payment = true;
+			
+		if( isset($_POST['wdf_payment_submit']) )
+			$process_payment = true;
+						
+		if($process_payment) {
 			if( !isset($_SESSION['wdf_type']) || empty($_SESSION['wdf_type']) )
 				$this->create_error(__('Could not determine pledge type.','wdf'),'payment_submit');
 				
@@ -649,11 +666,9 @@ class WDF {
 				$this->create_error(__('Fundraiser could not be determined.','wdf'),'payment_submit');
 			}
 			
-			if(!$this->wdf_error) {
+			if($this->wdf_error !== true) {
 				do_action('wdf_gateway_pre_process_'.$_SESSION['wdf_gateway']);
 				do_action('wdf_gateway_process_'.$_SESSION['wdf_type'].'_'.$_SESSION['wdf_gateway']);
-			} else {
-				wp_redirect( wdf_get_funder_page('checkout',$_SESSION['funder_id']) );
 			}
 		}
 		if($this->is_funder_confirm){
@@ -664,18 +679,6 @@ class WDF {
 			if(!$this->wdf_error) {
 				do_action('wdf_gateway_confirm_'.$_SESSION['wdf_gateway']);
 				
-				if($_SESSION['wdf_bp_activity'] === true && defined('WDF_BP_INSTALLED') && WDF_BP_INSTALLED == true) {
-					global $bp;
-					if( $funder = get_post($_SESSION['funder_id']) && isset($bp->loggedin_user->id) ) {
-						$activity_args = array(
-							'action' => sprintf( __('%s made a %s pledge towards %s','wdf'), '<a href="'.$bp->loggedin_user->domain.'">'.$bp->loggedin_user->fullname.'</a>', $this->format_currency('',$_SESSION['wdf_pledge']), '<a href="'.wdf_get_funder_page('',$funder->ID).'">'.get_the_title($funder->ID).'</a>' ),
-							'primary_link' => wdf_get_funder_page('',$_SESSION['funder_id']),
-							'type' => 'pledge'
-						);
-						$activity_args = apply_filters('wdf_bp_activity_args',$activity_args);
-						bp_wdf_record_activity($activity_args);
-					}
-				}
 			}
 		}
 	}
@@ -767,8 +770,7 @@ class WDF {
 			$wdf_type = get_post_meta($post->ID,'wdf_type',true);
 			$wdf_type = ($wdf_type == false ? '' : $wdf_type);
 			$has_pledges = $this->get_pledge_list($post->ID);
-			
-			//var_export($post);
+
 			if( !in_array($wdf_type,$settings['payment_types']) || $has_pledges == false ) {
 				
 				if($post->post_status != 'publish' && $has_pledges == false)
@@ -792,8 +794,8 @@ class WDF {
 					add_meta_box( 'wdf_progress', __('Fundraiser Progress','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
 				
 				add_meta_box( 'wdf_options', __('Fundraiser Settings','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
-				if($wdf_type == 'advanced')
-					add_meta_box( 'wdf_goals', __('Set Your Fundraising Goals','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
+				//if($wdf_type == 'advanced')
+				add_meta_box( 'wdf_goals', __('Set Your Fundraising Goals','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
 					
 				add_meta_box( 'wdf_messages', __('Thank You Message Settings','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');	
 				// Show pledge activity if funds have been raised
@@ -873,13 +875,13 @@ class WDF {
 			$settings = wp_parse_args($new,$settings);
 			update_option('wdf_settings',$settings);
 			$this->create_msg('Settings Saved', 'general');			
-		}			
+		}
 	}
 	
 	function create_error($msg, $context) {
 		$classes = 'error';
-		$content = 'return "<div class=\"'.$classes.'\"><p>' . $msg . '</p></div>";';
-		add_filter('wdf_error_' . $context, create_function('', $content));
+		$content = 'return $content."<div class=\"'.$classes.'\"><p>' . $msg . '</p></div>";';
+		add_filter('wdf_error_' . $context, create_function('$content', $content));
 		$this->wdf_error = true;
 	}
 	
@@ -897,13 +899,14 @@ class WDF {
 		global $post;
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
 			return;
-		if(!current_user_can('edit_post') && !isset($_POST['wdf']))
+			
+		if(!current_user_can('edit_post') || !isset($_POST['wdf']) || !is_array($_POST['wdf']))
 			return;
 			
 		if(isset($_POST['wdf']['levels']) && count($_POST['wdf']['levels']) < 2 && $_POST['wdf']['levels'][0]['amount'] == '')
 			$_POST['wdf']['levels'] = '';
 		
-		if ( 'funder' == $_POST['post_type'] ) {
+		if ( 'funder' == $_POST['post_type'] && is_array($_POST['wdf'])) {
 			foreach($_POST['wdf'] as $key => $value) {
 					if($value != '') {
 						if($key == 'goal') {
@@ -1090,11 +1093,10 @@ class WDF {
 				echo esc_attr($trans['gateway_public']);
 				break;
 			case 'funder_raised' :
-				$has_goal = get_post_meta($post->ID,'wdf_has_goal',true);
-				$goal = get_post_meta($post->ID,'wdf_goal_amount',true);
+				$goal = $this->get_goal_amount($post->ID);
 				$total = $this->get_amount_raised($post->ID);
 				// If The Type is goal display the raise amount with the goal total
-				if($has_goal == '1') {
+				if($this->has_goal($post->ID) && $goal != 0) {
 					$classes = ($total >= $goal && $goal != 0 ? 'class="wdf_complete"' : '');
 					echo '<div '.$classes.'>'.$this->format_currency('',$total) . ' / ' . $this->format_currency('',$goal) . '</div>';
 					if($bar = $this->prepare_progress_bar(null,$total,$goal,'column',false)) {
@@ -1105,7 +1107,7 @@ class WDF {
 				}
 				break;
 			case 'funder_time_left' :
-				wdf_time_left(true,$post->ID);
+					wdf_time_left(true,$post->ID);
 				break;
 			case 'pledge_status' :
 				$trans = $this->get_transaction($post->ID);
@@ -1341,8 +1343,6 @@ class WDF {
 					$totals = $totals + intval($trans['gross']);
 				}
 			}
-		} else {
-			$totals = '0';
 		}
 		return apply_filters('wdf_get_amount_raised', $totals);
 	}
@@ -1484,11 +1484,6 @@ class WDF {
 		if(empty($post_id))
 			return false;
 		$payment_type = get_post_meta($post_id,'wdf_type',true);
-		$settings = get_option('wdf_settings');
-		if($payment_type == 'advanced' && $this->has_goal($post_id) && in_array('advanced',$settings['payment_types']))
-			$payment_type = 'advanced';
-		else
-			$payment_type = 'simple';
 		
 		return $payment_type;
 	}
@@ -1499,11 +1494,10 @@ class WDF {
 	function has_goal($post_id = false) {
 		global $post;
 		$post_id = ($post_id ? $post_id : $post->ID);
-		
-		if( get_post_meta($post_id, 'wdf_has_goal', true) == '1' && get_post_meta($post_id, 'wdf_type',true) == 'advanced' )
+		$goal = get_post_meta($post_id, 'wdf_has_goal', true);
+		if( $goal == '1' && $this->get_goal_amount($post_id) > 0 )
 			return true;
 		else 
-
 			return false;
 	}
 }

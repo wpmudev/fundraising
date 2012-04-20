@@ -3,6 +3,19 @@ Author: Cole Stevenson (Incsub)
 
 == Changelog ==
 
+= 2.0-RC-3 =
+Paypal error codes now correctly display if redirection fails.
+
+Fixed headers already sent error with particular themes.
+
+Simple Fundraisers can now use rewards and goals again
+- Advanced Payments still may not change goals and rewards if the fundraiser has been published and pledges have already been taken.
+
+New wdf_has_date_range() template function.
+
+Added new option in presentation settings for checking out directly from the fundraising panel.
+
+
 = 2.0-RC-2 =
 Fixed issues with PayPal App ID not saving.
 

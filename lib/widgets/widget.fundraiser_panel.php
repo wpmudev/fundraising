@@ -29,7 +29,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 			if(!isset($instance['title']) || empty($instance['title']))
 				$content .= $args['before_title'] . get_the_title($instance['funder']) . $args['after_title'];
 				
-			$content .= show_thumb($instance);
+			$content .= $this->show_thumb($instance);
 			$content .= '<p class="wdf_widget_description">' . $instance['description'] . '</p>';
 				
 			$content .= wdf_fundraiser_panel( false, $instance['funder'], 'widget', $instance );
@@ -57,7 +57,6 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 				echo $content;
 			} /*else if($wp_query->query_vars['post_type'] == 'funder' && $wp_query->query_vars['funder_checkout'] == '1'){
 				// Fundraiser Checkout & Confirm Page
-				//var_export($wp_query);
 				$wdf->front_scripts($wp_query->posts[0]->ID);
 				$content = $args['before_widget'];
 				
@@ -128,7 +127,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 			<label><?php _e('Choose a display style','wdf'); ?>
 			<select name="<?php echo $this->get_field_name('style'); ?>">
 				<?php if(is_array($wdf->styles) && !empty($wdf->styles)) : ?>
-					<option <?php selected($instance['style'],$key); ?> value="">-------</option>
+					<option <?php selected($instance['style'],$key); ?> value=""><?php _e('Default','wdf'); ?></option>
 					<?php foreach($wdf->styles as $key => $label) : ?>
 						<option <?php selected($instance['style'],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
 					<?php endforeach; ?>

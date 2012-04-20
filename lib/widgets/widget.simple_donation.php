@@ -14,7 +14,6 @@ class WDF_Simple_Donation extends WP_Widget {
 	function widget( $args, $instance ) {
 		// Widget output
 		
-		//var_export($instance);
 		$content = $args['before_widget'];
 		$content .= $args['before_title'] . esc_attr($instance['title']) . $args['after_title'];
 		$content .= '<p class="wdf_widget_description">' . esc_attr($instance['description']) . '</p>';

@@ -24,7 +24,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 ?>
 <div class="wrap">
 	<div id="icon-wdf-admin" class="icon32"><br></div>
-		<h2><?php echo __('Fundraising Settings','wdf') ?></h2>
+		<h2><?php _e('Fundraising Settings','wdf') ?></h2>
 		<?php do_action('wdf_msg_general');?>
 		<form action="" method="post" id="wdf_settings_<?php echo $active_tab ?>" class="nav-tabs">
 			<input type="hidden" name="wdf_nonce" value="<?php echo wp_create_nonce('_wdf_settings_nonce');?>" />
@@ -118,9 +118,21 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</th>
 										<td>
 											<select name="wdf_settings[single_styles]">
-												<option value="no" <?php selected($settings['single_styles'],'no') ?>>No</option>
-												<option value="yes" <?php selected($settings['single_styles'],'yes') ?>>Yes</option>
+												<option value="no" <?php selected($settings['single_styles'],'no') ?>><?php _e('No','wdf'); ?></option>
+												<option value="yes" <?php selected($settings['single_styles'],'yes') ?>><?php _e('Yes','wdf'); ?></option>
 											</select><?php echo $tips->add_tip(__('Allowing this option will allow each fundraiser to override your site\'s default styles','wdf')); ?>
+										</td>
+									</tr>
+									
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Choose a checkout style','wdf'); ?></label>
+										</th>
+										<td>
+											<select name="wdf_settings[checkout_type]">
+												<option value="2" <?php selected($settings['checkout_type'],'2') ?>><?php _e('Use elaborated checkout page','wdf'); ?></option>
+												<option value="1" <?php selected($settings['checkout_type'],'1') ?>><?php _e('Checkout directly from panel','wdf'); ?></option>
+											</select><?php echo $tips->add_tip(__('An eloborated checkout page allows backers to view additional information about your fundraiser.  Checking out from the fundraising panel will begin the payment process immediately','wdf')); ?>
 										</td>
 									</tr>
 									

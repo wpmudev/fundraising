@@ -21,7 +21,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 		var $skip_form = true;
 		
 		// Allow recurring payments with your gateway
-		var $allow_reccuring = false;
+		var $allow_reccuring = true;
 		
 		function on_creation() {
 			$settings = get_option('wdf_settings');
@@ -53,10 +53,6 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			// You can override the form and proceed straight to a 3rd party.
 			// The commented section below is an example of a form.
 			// Be sure not to use a <form> element in this area, and always return your content.
-			global $wdf, $wdf_skip_form;
-			$wdf_skip_form = true;
-			
-			$wdf->handle_payment();
 			
 			/*
 			$content .= '<div class="wdf_paypal_payment_form">';
@@ -148,20 +144,27 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					break;
 				case 'Failure' ;
 					$proceed = false;
+					$status_code = ( isset($response['error(0)_errorId']) ? $response['error(0)_errorId'] : '' );
+					$error_msg = ( isset($response['error(0)_message']) ? $response['error(0)_message'] : '' );
 					break;
 				case 'Warning' ;
-					$proceed = false;
+					$proceed = true;
 					break;
 				case 'SuccessWithWarning' ;
 					$proceed = true;
 					break;
 				case 'FailureWithWarning' ;
 					$proceed = false;
+					$status_code = ( isset($response['error(0)_errorId']) ? $response['error(0)_errorId'] : '' );
+					$error_msg = ( isset($response['error(0)_message']) ? $response['error(0)_message'] : '' );
 					break;
+				default :
+					$proceed = false;
+					$status_code = __('No status code given','wdf');
+					$error_msg = '';
 			}
 			
-			if( $proceed && isset($response['preapprovalKey']) ) {		
-				
+			if( $proceed === true && isset($response['preapprovalKey']) ) {		
 				$_SESSION['wdf_pledge_id'] = $pledge_id;
 
 				//Set transient data for one day to handle ipn
@@ -170,7 +173,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				wp_redirect( $this->paypalURL . $response['preapprovalKey'] );
 				exit;
 			} else {
-				$this->create_gateway_error(__('There was a problem connecting with the paypal gateway.  Please contact the website administrator.','wdf'));
+				$this->create_gateway_error(__('There was a problem connecting with the paypal gateway.  (CODE)'.$status_code.' ' . $error_msg,'wdf'));
 			}
 
 			
@@ -460,11 +463,11 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			<table class="form-table">
 				<tbody>
 				<tr valign="top">
-					<th scope="row"> <label for="wdf_settings[paypal_sb]"><?php echo __('Use PayPal Sandbox?','wdf'); ?></label>
+					<th scope="row"> <label for="wdf_settings[paypal_sb]"><?php echo __('PayPal Mode','wdf'); ?></label>
 					</th>
 					<td><select name="wdf_settings[paypal_sb]" id="wdf_settings_paypal_sb">
-							<option value="no" <?php selected($settings['paypal_sb'],'no'); ?>>No</option>
-							<option value="yes" <?php selected($settings['paypal_sb'],'yes'); ?>>Yes</option>
+							<option value="no" <?php selected($settings['paypal_sb'],'no'); ?>><?php _e('Live','wdf'); ?></option>
+							<option value="yes" <?php selected($settings['paypal_sb'],'yes'); ?>><?php _e('Sandbox','wdf'); ?></option>
 						</select></td>
 				</tr>
 			<?php if(in_array('simple', $settings['payment_types'])) : ?>

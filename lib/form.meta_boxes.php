@@ -165,18 +165,17 @@ switch($data['id']) {
 		<h4><?php _e('Type : ','wdf'); ?><?php echo ($meta['wdf_type'][0] == 'advanced' ? __('Advanced Crowdfunding','wdf') : __('Simple Donations','wdf') ); ?></h4>
 		<?php if($settings['single_styles'] == 'yes') : ?>
 			<div id="wdf_style">	
-			<p>
-				<label><?php echo __('Choose a display style','wdf'); ?>
-				<select name="wdf[style]">
-					<?php if(is_array($this->styles) && !empty($this->styles)) : ?>
-						<?php foreach($this->styles as $key => $label) : ?>
-							<option <?php selected($meta['wdf_style'][0],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
-						<?php endforeach; ?>
-					<?php endif; ?>
-				</select></label>
-			</p>
-			
-		</div>
+				<p>
+					<label><?php echo __('Choose a display style','wdf'); ?>
+					<select name="wdf[style]">
+						<?php if(is_array($this->styles) && !empty($this->styles)) : ?>
+							<?php foreach($this->styles as $key => $label) : ?>
+								<option <?php selected($meta['wdf_style'][0],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</select></label>
+				</p>
+			</div>
 		<?php endif; ?>
 		<?php if($meta['wdf_type'][0] == 'simple') : ?>
 			<p><label><span class="description"><?php _e('Allow Recurring Donations?','wdf') ?></span>
@@ -186,13 +185,7 @@ switch($data['id']) {
 					</select>
 				</label>
 			</p>
-			<p><label><span class="description"><?php _e('Panel Position','wdf') ?></span>
-					<select name="wdf[panel_pos]">
-						<option value="top" <?php selected($meta['wdf_recurring'][0],'top'); ?>><?php _e('Above Content','wdf'); ?></option>
-						<option value="bottom" <?php selected($meta['wdf_recurring'][0],'bottom'); ?>><?php _e('Below Content','wdf'); ?></option>
-					</select>
-				</label><?php echo $tips->add_tip(__('If you are not using the Fundraiser sidebar widget, choose the position of your info panel.','wdf')); ?>
-			</p>
+		
 			<?php /*?><p>
 				<label><?php echo __('Override Default PayPal Email Address','wdf'); ?><br />
 					<input type="text" class="widefat" name="wdf[paypal_email_override]" value="<?php echo $meta['wdf_paypal_email_override'][0]; ?>" />
@@ -210,8 +203,15 @@ switch($data['id']) {
 				<label><input type="checkbox" name="wdf[recurring_cycle][y]" value="1" <?php echo checked($cycles['y'],'1'); ?> />Yearly</label>
 			</p><?php */?>
 		<?php endif; ?>
+		<p><label><span class="description"><?php _e('Panel Position','wdf') ?></span>
+				<select name="wdf[panel_pos]">
+					<option value="top" <?php selected($meta['wdf_recurring'][0],'top'); ?>><?php _e('Above Content','wdf'); ?></option>
+					<option value="bottom" <?php selected($meta['wdf_recurring'][0],'bottom'); ?>><?php _e('Below Content','wdf'); ?></option>
+				</select>
+			</label><?php echo $tips->add_tip(__('If you are not using the Fundraiser sidebar widget, choose the position of your info panel.','wdf')); ?>
+		</p>
 		
-		<?php if($post->post_status == 'draft') : ?>
+		<?php if($post->post_status == 'draft' && $meta['wdf_type'][0] == 'advanced') : ?>
 			<script type="text/javascript">
 				jQuery(document).ready( function($) {
 					
@@ -258,9 +258,13 @@ switch($data['id']) {
 	// FUNDER GOALS METABOX //
 	//////////////////////////
 	case 'wdf_goals' :
-		$disabled = ($post->post_status == 'publish' || $this->get_pledge_list($post->ID) != false ? 'disabled="disabled"' : false );
+		 
+		if($meta['wdf_type'][0] == 'advanced' && $post->post_status == 'publish' && $this->get_pledge_list($post->ID) != false)
+			$disabled = 'disabled="disabled"';
+		else
+			$disabled = '';
 		$settings = get_option('wdf_settings'); ?>
-			<?php if($disabled != false) : ?>
+			<?php if($disabled != '') : ?>
 				<div class="below-h2 updated"><p><?php _e('Your fundraising dates, goals and rewards are locked in.','wdf'); ?></p></div>
 			<?php endif; ?>
 			<div id="wdf_funder_goals">

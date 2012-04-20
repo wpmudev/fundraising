@@ -64,6 +64,9 @@ if(!class_exists('WDF_Gateway')) {
 			global $wdf;
 			$pre = '<div class="wdf_payment_summary">';
 			$pre .= sprintf( '<h4>'.__('Your pledge of %s is almost complete.','wdf').'</h4>',$wdf->format_currency('',$_SESSION['wdf_pledge']) /*. ' ' .($_SESSION['wdf_recurring'] != '0' ? 'every ' . $_SESSION['wdf_recurring'] : '')*/ );
+			if($wdf->wdf_error == true) {
+				$pre .= apply_filters('wdf_error_gateway','');
+			}
 			$pre .= '</div>';
 			
 			$new = apply_filters('wdf_pre_payment_form',$pre);

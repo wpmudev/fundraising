@@ -16,7 +16,6 @@ class WDF_Recent_Fundraisers extends WP_Widget {
 	function widget( $args, $instance ) {
 		// Widget output
 		
-		//var_export($instance);
 		$content = $args['before_widget'];
 		$content .= $args['before_title'] . esc_attr($instance['title']) . $args['after_title'];
 		$query = array(
