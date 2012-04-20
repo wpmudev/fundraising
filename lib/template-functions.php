@@ -72,7 +72,7 @@ if(!function_exists('wdf_fundraiser_panel')) {
 					$content .= '<div class="wdf_time_left">'.wdf_time_left(false, $post_id).'</div>';					
 			
 				
-				if(wdf_has_rewards($post_id)) {
+				if(wdf_has_rewards($post_id) && $wdf_checkout_from_panel !== true) {
 					$content .= '<div>'.wdf_rewards(false, $post_id).'</div>';
 				}
 				$content .= '</div>';
@@ -606,10 +606,10 @@ if(!function_exists('wdf_pledge_button')) {
 			$content .= '<input type="hidden" name="funder_id" value="'.$post_id.'" />';
 			$content .= '<input id="wdf_step" type="hidden" name="wdf_step" value="" />';
 			$pledge_label = apply_filters( 'wdf_donate_button_text', __('Pledge Now','wdf') );
-			
-			$content .= '<input class="wdf_send_donation" type="submit" name="wdf_send_donation" value="'.$pledge_label.'" />';
 			if(defined('WDF_BP_INSTALLED') && WDF_BP_INSTALLED == true)
 					$content .= '<label class="wdf_bp_show_on_activity">'.__('Post this pledge publicly to your profile','wdf').'<input type="checkbox" name="wdf_bp_activity" value="1" checked="checked" /></label>';
+			$content .= '<input class="wdf_send_donation" type="submit" name="wdf_send_donation" value="'.$pledge_label.'" />';
+			
 			
 			
 		}
