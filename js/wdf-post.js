@@ -1,13 +1,11 @@
 jQuery(document).ready( function($) {
 	
-	var datePickerArgs = {
-		dateFormat: 'yy-mm-dd',
-		minDate: 0,
-		maxDate: "+11M"
-	}
-	
-	$('input#wdf_goal_start_date').datepicker(datePickerArgs);
-	$('input#wdf_goal_end_date').datepicker(datePickerArgs);
+	var dates = $( "#wdf_goal_start_date, #wdf_goal_end_date" ).datepicker({
+			dateFormat: 'yy-mm-dd',
+			changeMonth: true,
+			numberOfMonths: 2,
+		});
+
 	
 	
 	$('.wdf_level .wdf_check_switch').live('change', function(e) {
@@ -94,35 +92,6 @@ jQuery(document).ready( function($) {
 				} else {
 					$(elm).prev('.wdf_bignum').removeClass('wdf_disabled');
 				}
-				
-				/*if($(elm).hasClass('active')) {
-					if(elm.localName == 'input') {
-						$(elm).parents('form').bind('submit', function() { $(elm).val(''); });
-					} else if (elm.localName == 'textarea') {
-						$(elm).parents('form').bind('submit', function() { $(elm).html(''); });
-					}
-				}
-				
-				if(elm.localName == 'textarea') {
-					var now = $(elm).html();
-					if(current == now && e.type == 'focusin') {
-						if(!$(elm).hasClass('active'))
-							$(elm).html('');
-					} else if(now == '' && e.type == 'focusout') {
-						if(!$(elm).hasClass('active'))
-							$(elm).html(current);
-					}
-				} else if(elm.localName == 'input') {
-					var now = $(this).val();
-					if(current == now && e.type == 'focusin') {
-						if(!$(elm).hasClass('active'))
-							$(elm).val('');
-					} else if(e.type == 'focusout' && now == '') {
-						if(!$(elm).hasClass('active'))
-							$(elm).val(current);
-					}
-					
-				}*/
 			});
 		});
 	}

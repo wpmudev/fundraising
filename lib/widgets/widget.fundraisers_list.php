@@ -1,15 +1,11 @@
 <?php
 
-class WDF_Featured_Fundraisers extends WP_Widget {
-	
-	/**
-     * @var		string	$translation_domain	Translation domain
-     */
-	
-	function WDF_Featured_Fundraisers() {
+class WDF_Fundraisers_List extends WP_Widget {
+
+	function WDF_Fundraisers_List() {
 		// Instantiate the parent object
-		parent::__construct( false, __('Featured Fundraisers','wdf'), array(
-			'description' =>  __('Choose a list of fundraiser links you wish to display.','wdf')
+		parent::__construct( false, __('Fundraisers List','wdf'), array(
+			'description' =>  __('Choose a list of simple fundraiser links you wish to display.','wdf')
 		) );
 	}
 

@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.0.0-RC-3
+Version: 2.1
 Text Domain: wdf
 Author: Cole (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -37,7 +37,6 @@ if ( !function_exists( 'wdp_un_check' ) ) {
 }
 /* --------------------------------------------------------------------- */
 
-
 define ('WDF_PLUGIN_SELF_DIRNAME', basename(dirname(__FILE__)), true);
 
 //Setup proper paths/URLs and load text domains
@@ -69,7 +68,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.0.0-RC-3';
+		$this->version = '2.1';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -84,7 +83,21 @@ class WDF {
 			'curr_decimal' => 1,
 			'default_email' => 'Thank you for your pledge. Your donation of %DONATIONTOTAL% has been recieved and is greatly appreciated. Thanks for your support.',
 			'current_version' => $this->version,
-			'checkout_type' => '1'
+			'checkout_type' => '1',
+			'funder_labels' => array(
+				'menu_name' => __('Fundraising','wdf'),
+				'singular_name' => __('Fundraiser','wdf'),
+				'plural_name' => __('Fundraisers','wdf'),
+				'singular_level' => __('Reward','wdf'),
+				'plural_level' => __('Rewards','wdf')
+			),
+			'donation_labels' => array(
+				'backer_single' => __('Backer','wdf'),
+				'backer_plural' => __('Backers','wdf'),
+				'singular_name' => __('Pledge','wdf'),
+				'plural_name' => __('Pledges','wdf'),
+				'action_name' => __('Back This Project','wdf')
+			)
 		);
 		
 		// Setup Additional Data Structure
@@ -151,6 +164,7 @@ class WDF {
 			add_action( 'media_buttons', array(&$this,'media_buttons'), 30 );
 			add_action( 'media_upload_fundraising', array(&$this,'media_fundraising'));
 			add_action( 'media_upload_donate_button', array(&$this,'media_donate_button'));
+			add_action( 'media_upload_progress_bar', array(&$this,'media_progress_bar'));
 			add_action( 'wp_insert_post', array(&$this,'wp_insert_post') );
 			
 			// Add Admin Only Filters		
@@ -171,7 +185,7 @@ class WDF {
 			wp_register_script( 'wdf-base', WDF_PLUGIN_URL . '/js/wdf-base.js', array('jquery'), $this->version, false );
 			
 			// Very low priority number is needed here to make sure it fires before themes can output headers
-			add_action( 'template_redirect', array(&$this, 'handle_payment'), 1 );
+			add_action( 'wp', array(&$this, 'handle_payment'), 1 );
 			add_action( 'template_redirect', array(&$this, 'template_redirect'), 20 );
 			
 			if($settings['inject_menu'] == 'yes') {
@@ -189,9 +203,9 @@ class WDF {
 			require_once(WDF_PLUGIN_BASE_DIR.'/lib/widgets/widget.recent_fundraisers.php');
 			register_widget('WDF_Recent_Fundraisers');
 		}
-		if(!class_exists('WDF_Featured_Fundraisers')) {
-			require_once(WDF_PLUGIN_BASE_DIR.'/lib/widgets/widget.featured_fundraisers.php');
-			register_widget('WDF_Featured_Fundraisers');
+		if(!class_exists('WDF_Fundraisers_List')) {
+			require_once(WDF_PLUGIN_BASE_DIR.'/lib/widgets/widget.fundraisers_list.php');
+			register_widget('WDF_Fundraisers_List');
 		}
 		if(!class_exists('WDF_Fundraiser_Panel')) {
 			require_once(WDF_PLUGIN_BASE_DIR.'/lib/widgets/widget.fundraiser_panel.php');
@@ -201,26 +215,66 @@ class WDF {
 	function tutorial() {
 		include(WDF_PLUGIN_BASE_DIR .'/lib/wdf_tutorials.php');
 	}
-	
+	function create_funder_labels() {
+		$settings = get_option('wdf_settings');
+		
+		$menu = apply_filters( 'wdf_funder_menu_name', esc_attr($settings['funder_labels']['menu_name'], $this->defaults['funder_labels']['menu_name']) );
+		$single = apply_filters( 'wdf_funder_singular_name', esc_attr($settings['funder_labels']['singular_name'], $this->defaults['funder_labels']['singular_name']) );
+		$plural = apply_filters( 'wdf_funder_plural_name', esc_attr($settings['funder_labels']['plural_name'], $this->defaults['funder_labels']['plural_name']) );
+				
+		$funder_labels = array(
+			'name' => $plural,
+			'singular_name' => $single,
+			'add_new' => __('New '.$single,'wdf'),
+			'add_new_item' => __('Add New '.$single,'wdf'),
+			'edit_item' => __('Edit '.$single,'wdf'),
+			'new_item' => __('New '.$single,'wdf'),
+			'all_items' => __('All '.$plural,'wdf'),
+			'view_item' => __('View '.$single,'wdf'),
+			'search_items' => __('Search '.$plural,'wdf'),
+			'not_found' =>  __('No '.$plural.' found','wdf'),
+			'not_found_in_trash' => __('No '.$plural.' found in Trash','wdf'), 
+			'parent_item_colon' => '',
+			'menu_name' => $menu
+		);
+		
+		return apply_filters('wdf_create_funder_labels', $funder_labels);
+	}
+	function create_donation_labels() {
+		$settings = get_option('wdf_settings');
+		
+		$single = apply_filters( 'wdf_donation_singular_name', esc_attr($settings['donation_labels']['singular_name'], $this->defaults['donation_labels']['singular_name']) );
+		$plural = apply_filters( 'wdf_donation_plural_name', esc_attr($settings['donation_labels']['plural_name'], $this->defaults['donation_labels']['plural_name']) );
+		$menu = apply_filters( 'wdf_donation_menu_name', $plural );
+		
+		$donation_labels = array(
+			'name' => $plural,
+			'singular_name' => $single,
+			'add_new' => __('New '.$single,'wdf'),
+			'add_new_item' => __('Add New '.$single,'wdf'),
+			'edit_item' => __('Edit '.$single,'wdf'),
+			'new_item' => __('New '.$single,'wdf'),
+			'all_items' => __('All '.$plural,'wdf'),
+			'view_item' => __('View '.$single,'wdf'),
+			'search_items' => __('Search '.$plural,'wdf'),
+			'not_found' =>  __('No '.$plural.' found','wdf'),
+			'not_found_in_trash' => __('No '.$plural.' found in Trash','wdf'), 
+			'parent_item_colon' => '',
+			'menu_name' => $menu
+		);
+		
+		return apply_filters('wdf_create_donation_labels', $donation_labels);
+	}
 	function _init() {
 		$settings = get_option('wdf_settings');
+		
+		// Create A New Labels Array Based on the settings input
+		$funder_labels = $this->create_funder_labels();
+		$donation_labels = $this->create_donation_labels();
+		
 		//Funder Custom Post Type Arguments
 		$funder_args = array(
-			'labels' => array(
-				'name' => __('Fundraisers','wdf'),
-				'singular_name' => __('Fundraiser','wdf'),
-				'add_new' => __('New Fundraiser'),
-				'add_new_item' => __('Add New Fundraiser','wdf'),
-				'edit_item' => __('Edit Fundraiser','wdf'),
-				'new_item' => __('New Fundraiser','wdf'),
-				'all_items' => __('All Fundraisers','wdf'),
-				'view_item' => __('View Fundraiser','wdf'),
-				'search_items' => __('Search Fundraisers','wdf'),
-				'not_found' =>  __('No Fundraisers found','wdf'),
-				'not_found_in_trash' => __('No Fundraisers found in Trash','wdf'), 
-				'parent_item_colon' => '',
-				'menu_name' => 'Fundraising'
-			),
+			'labels' => $funder_labels,
 			'public'             => true,
 			'publicly_queryable' => true,
 			'show_ui'            => true, 
@@ -240,21 +294,7 @@ class WDF {
 		);
 		//Donation Custom Post Type arguments
 		$donation_args = array(
-			'labels' => array(
-				'name' => __('Pledges','wdf'),
-				'singular_name' => __('Pledge','wdf'),
-				'add_new' => __('New Pledge'),
-				'add_new_item' => __('Add New Pledge','wdf'),
-				'edit_item' => __('Edit Pledge','wdf'),
-				'new_item' => __('New Pledge','wdf'),
-				'all_items' => __('All Pledges','wdf'),
-				'view_item' => __('View Pledge','wdf'),
-				'search_items' => __('Search Pledges','wdf'),
-				'not_found' =>  __('No Pledges found','wdf'),
-				'not_found_in_trash' => __('No Pledges found in Trash','wdf'), 
-				'parent_item_colon' => '',
-				'menu_name' => __('Pledges','wdf')
-			),
+			'labels' => $donation_labels,
 			'public'             => false,
 			'publicly_queryable' => false,
 			'show_ui'            => true, 
@@ -483,7 +523,7 @@ class WDF {
 	
 	function filter_nav_menu($list, $args = array()) {
     	$settings = get_option('wdf_settings');
-		$list = $list . '<li class="page_item'. ((get_query_var('post_type') == 'funder') ? ' current_page_item' : '') . '"><a href="' . home_url($settings['dir_slug'].'/') . '" title="' . __('Fundraisers', 'mp') . '">' . __('Fundraisers', 'mp') . '</a></li>';
+		$list = $list . '<li class="page_item'. ((get_query_var('post_type') == 'funder') ? ' current_page_item' : '') . '"><a href="' . home_url($settings['dir_slug'].'/') . '" title="' . esc_attr($settings['funder_labels']['plural_name']) . '">' . esc_attr($settings['funder_labels']['plural_name']) . '</a></li>';
 		return $list;
 	}
 
@@ -596,12 +636,23 @@ class WDF {
 		wp_enqueue_script('wdf-base');
 		wp_enqueue_script('thickbox');
 		wp_enqueue_style('jquery-ui-base');
+		
+		add_action('wp_head', array(&$this,'inject_custom_css'));
 		// $add_style will always be used before a saved style.
 		if($add_style != false) {
 			wp_enqueue_style('wdf-style-'.$add_style);
 		} else if(!empty($id) && $style = wdf_get_style($id))
 			wp_enqueue_style('wdf-style-'.$style);
 
+	}
+	function inject_custom_css() {
+		$settings = get_option('wdf_settings');
+		if(isset($settings['custom_css']) && !empty($settings['custom_css'])) {
+			$css = sprintf('<style type="text/css">%s</style>',$settings['custom_css']);
+			echo $css;
+		} else {
+			return;
+		}
 	}
 	function start_session() {
 	//start the session for pledges
@@ -696,6 +747,15 @@ class WDF {
 		}
 		do_action('wdf_after_goal_complete', $pledges);
 	}
+	function filter_thank_you( $msg = '', $trans = false) {
+		if($trans !== false) {
+			$search = array('%DONATIONTOTAL%','%FIRSTNAME%','%LASTNAME%');
+			$replace = array($this->format_currency('',$trans['gross']),$trans['first_name'],$trans['last_name']);
+			$msg = str_replace($search, $replace, $msg);
+		}
+		
+		return $msg;
+	}
 	function create_thank_you($funder_id = false, $trans = false) {
 		
 		if($send_email = get_post_meta($funder_id,'wdf_send_email',true) && $trans != false) {
@@ -774,7 +834,7 @@ class WDF {
 			if( !in_array($wdf_type,$settings['payment_types']) || $has_pledges == false ) {
 				
 				if($post->post_status != 'publish' && $has_pledges == false)
-					add_meta_box( 'wdf_type', __('Fundraising Type','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
+					add_meta_box( 'wdf_type', esc_attr($settings['funder_labels']['menu_name']) . __(' Type','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
 					
 				if( $post->post_status == 'auto-draft' || $wdf_type == '' ) {
 					// Search for the submit div and remove it
@@ -791,40 +851,41 @@ class WDF {
 			if($wdf_type != false && !empty($wdf_type)) { // We have a type so show the available options
 				
 				if( $has_pledges != false || $post->post_status == 'publish' )
-					add_meta_box( 'wdf_progress', __('Fundraiser Progress','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
+					add_meta_box( 'wdf_progress', esc_attr($settings['funder_labels']['singular_name']) . __(' Progress','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
 				
-				add_meta_box( 'wdf_options', __('Fundraiser Settings','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
-				//if($wdf_type == 'advanced')
-				add_meta_box( 'wdf_goals', __('Set Your Fundraising Goals','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
+				add_meta_box( 'wdf_options', esc_attr($settings['funder_labels']['singular_name']) . __(' Settings','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
+				add_meta_box( 'wdf_goals', __('Set Your '.esc_attr($settings['funder_labels']['singular_name']).' Goals','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
 					
 				add_meta_box( 'wdf_messages', __('Thank You Message Settings','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');	
 				// Show pledge activity if funds have been raised
 				if( $has_pledges != false )
-					add_meta_box( 'wdf_activity', __('Pledge Activity','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
+					add_meta_box( 'wdf_activity', esc_attr($settings['donation_labels']['singular_name']) . __(' Activity','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
 			}
 			
 			
 				
 		} elseif($typenow == 'donation') {
-			add_meta_box( 'wdf_pledge_info', __('Pledge Information','wdf'), array(&$this,'meta_box_display'), 'donation', 'normal', 'high');
-			add_meta_box( 'wdf_pledge_status', __('Pledge Status','wdf'), array(&$this,'meta_box_display'), 'donation', 'side', 'high');
+			add_meta_box( 'wdf_pledge_info', esc_attr($settings['donation_labels']['singular_name']) . __(' Information','wdf'), array(&$this,'meta_box_display'), 'donation', 'normal', 'high');
+			add_meta_box( 'wdf_pledge_status', esc_attr($settings['donation_labels']['singular_name']) . __(' Status','wdf'), array(&$this,'meta_box_display'), 'donation', 'side', 'high');
 			
 		}
 	}
 	function meta_box_display($post,$data) {
 		include(WDF_PLUGIN_BASE_DIR . '/lib/form.meta_boxes.php');
 	}
-	function admin_menu() {		
-		add_submenu_page( 'edit.php?post_type=funder', 'Getting Started', 'Getting Started', 'manage_options', 'wdf', array(&$this,'admin_display') );
-		add_submenu_page( 'edit.php?post_type=funder', 'Pledges', 'Pledges', 'manage_options', 'wdf_donations', array(&$this,'admin_display') );		
-		add_submenu_page( 'edit.php?post_type=funder', 'Fundraising Settings', 'Settings', 'manage_options', 'wdf_settings', array(&$this,'admin_display') );
+	function admin_menu() {
+		$settings = get_option('wdf_settings');
+		
+		add_submenu_page( 'edit.php?post_type=funder', __('Getting Started','wdf'), __('Getting Started','wdf'), 'manage_options', 'wdf', array(&$this,'admin_display') );
+		add_submenu_page( 'edit.php?post_type=funder', $settings['donation_labels']['plural_name'], $settings['donation_labels']['plural_name'], 'manage_options', 'wdf_donations', array(&$this,'admin_display') );		
+		add_submenu_page( 'edit.php?post_type=funder', $settings['funder_labels']['menu_name'] . __(' Settings','wdf'), __('Settings','wdf'), 'manage_options', 'wdf_settings', array(&$this,'admin_display') );
 		
 		//Some quick fixes for the menu
 		//TO-DO use array filters and in_array to pick out the correct menu item no matter the position
 		global $submenu;
-
-		$submenu['edit.php?post_type=funder'][5][0] = 'Fundraisers';
-		$submenu['edit.php?post_type=funder'][10][0] = 'Add New';
+				
+		$submenu['edit.php?post_type=funder'][5][0] = $settings['funder_labels']['plural_name'];
+		$submenu['edit.php?post_type=funder'][10][0] = __('Add New','wdf');
 		$submenu['edit.php?post_type=funder'][4] = $submenu['edit.php?post_type=funder'][11];
 		unset($submenu['edit.php?post_type=funder'][11]);
 		$submenu['edit.php?post_type=funder'][12][2] = 'edit.php?post_type=donation';
@@ -861,7 +922,7 @@ class WDF {
 				$new[$k] = sanitize_title($v,__('donations','wdf'));
 			} else if ( $k == 'paypal_email' ) {
 				$new[$k] = is_email($v);
-			} elseif ( $k == 'payment_types' || $k == 'active_gateways' ) {
+			} elseif ( $k == 'payment_types' || $k == 'active_gateways' || $k == 'funder_labels' || $k == 'donation_labels' ) {
 				$new[$k] = array_map('esc_attr',$v);
 			} else {
 				$new[$k] = esc_attr($v);
@@ -921,7 +982,7 @@ class WDF {
 						} else if($key == 'thanks_url') {
 							$value = esc_attr($value);
 						} else if($key == 'thanks_custom') {
-							$value = esc_html($value);
+							$value = (current_user_can('unfiltered_html') ? $value : wp_kses_post($value));
 						} else if($key == 'thanks_post') {
 							$value = absint($value);
 							$is_page = get_page($value);
@@ -930,15 +991,7 @@ class WDF {
 								$this->create_error('You must supply a valid post or page ID','thanks_post');
 								$value = '';
 							}
-						}/* else if($key == 'goal_end_date') {
-							if(isset($_POST['goal_start_date'])) {
-								$start_date = strtotime(esc_attr($_POST['goal_start_date']));
-								$end_date = strtotime(esc_attr($value));
-								
-								if($start_date != false && $end_date != false && $end_date > $start_date)
-									//wp_schedule_event( $end_date - mktime(1,minute,second,month,day,year,is_dst), 'hourly', array(&$this,'goal_end'), $post->ID );
-							}
-						}*/ else {
+						} else {
 							$value = esc_attr($value);
 						}
 						update_post_meta($post->ID,'wdf_'.$key,$value);
@@ -1006,6 +1059,7 @@ class WDF {
 	
 	function edit_columns($columns) {
 		global $typenow;
+		$settings = get_option('wdf_settings');
 		if($typenow == 'funder') {
 			// Remove Author
 			unset($columns['author']);
@@ -1019,7 +1073,7 @@ class WDF {
 			unset($columns['title']);
 			
 			$columns['funder_thumb'] = '';
-			$columns['funder_pledges'] = __('Pledges','wdf');
+			$columns['funder_pledges'] = esc_attr($settings['donation_labels']['plural_name']);
 			$columns['funder_raised'] = __('Raised','wdf');
 			$columns['title'] = $move_title;
 			$columns['funder_type'] = __('Type','wdf');
@@ -1031,10 +1085,10 @@ class WDF {
 			$columns['pledge_amount'] = __('Amount', 'wdf');
 			$columns['pledge_status'] = __('Status', 'wdf');
 			$columns['pledge_recurring'] = __('Recurring', 'wdf');
-			$columns['pledge_funder'] = __('Fundraiser', 'wdf');
-			$columns['pledge_from'] = __('From', 'wdf');
+			$columns['pledge_funder'] = esc_attr($settings['funder_labels']['singular_name']);
+			$columns['pledge_from'] = esc_attr($settings['donation_labels']['backer_single']);
 			$columns['pledge_method'] = __('Method', 'wdf');
-			$columns['title'] = __('Pledge ID', 'wdf');
+			$columns['title'] = esc_attr($settings['donation_labels']['singular_name']) . __(' ID', 'wdf');
 			$title_move = $columns['title'];
 			unset($columns['title']);
 			$move_date = $columns['date'];
@@ -1048,15 +1102,6 @@ class WDF {
 	function column_display($name) {
 		global $post;
 		switch($name) {
-			case 'pledge_recurring' :
-				$trans = $this->get_transaction();
-				if($trans['cycle'])
-					echo $trans['cycle'];
-				break;
-			case 'pledge_funder' :
-				$parent = get_post($post->post_parent);
-				echo $parent->post_title;
-				break;
 			case 'funder_type' : 
 				if($type = get_post_meta($post->ID,'wdf_type',true)) {
 					if($type == 'simple')
@@ -1080,18 +1125,6 @@ class WDF {
 						echo '<a href="'.get_edit_post_link($post->ID).'">'.get_the_post_thumbnail($post->ID, array(45,45)).'</a>';
 				}
 				break;
-			case 'pledge_amount' :
-				$trans = $this->get_transaction();
-				echo '<a href="'.get_edit_post_link($post->ID).'">'.$this->format_currency('',$trans['gross']).'</a>';
-				break;
-			case 'pledge_from' :
-				$trans = $this->get_transaction();
-				echo esc_attr($trans['payer_email']);
-				break;
-			case 'pledge_method' : 
-				$trans = $this->get_transaction();
-				echo esc_attr($trans['gateway_public']);
-				break;
 			case 'funder_raised' :
 				$goal = $this->get_goal_amount($post->ID);
 				$total = $this->get_amount_raised($post->ID);
@@ -1109,6 +1142,28 @@ class WDF {
 			case 'funder_time_left' :
 					wdf_time_left(true,$post->ID);
 				break;
+			case 'pledge_amount' :
+				$trans = $this->get_transaction();
+				$currency = (isset($trans['currency_code']) ? $trans['currency_code'] : '');
+				echo '<a href="'.get_edit_post_link($post->ID).'">'.$this->format_currency( $currency, $trans['gross'] ).'</a>';
+				break;
+			case 'pledge_recurring' :
+				$trans = $this->get_transaction();
+				if($trans['cycle'])
+					echo $trans['cycle'];
+				break;
+			case 'pledge_funder' :
+				$parent = get_post($post->post_parent);
+				echo $parent->post_title;
+				break;
+			case 'pledge_from' :
+				$trans = $this->get_transaction();
+				echo esc_attr($trans['payer_email']);
+				break;
+			case 'pledge_method' : 
+				$trans = $this->get_transaction();
+				echo esc_attr($trans['gateway_public']);
+				break;
 			case 'pledge_status' :
 				$trans = $this->get_transaction($post->ID);
 				echo $trans['status'];
@@ -1116,11 +1171,12 @@ class WDF {
 		}
 	}
 	function media_upload_tabs($tabs) {
-		
-		if($_GET['tab'] == 'fundraising' || $_GET['tab'] == 'donate_button') {
+		$settings = get_option('wdf_settings');
+		if($_GET['tab'] == 'fundraising' || $_GET['tab'] == 'donate_button' || $_GET['tab'] == 'progress_bar') {
 			$tabs = array();
-			$tabs['fundraising'] = 'Fundraising Form';
-			$tabs['donate_button'] = 'Donate Button';
+			$tabs['fundraising'] = esc_attr($settings['funder_labels']['singular_name']) . __(' Form','wdf');
+			$tabs['donate_button'] = esc_attr($settings['donation_labels']['singular_name']) . __(' Button','wdf');
+			$tabs['progress_bar'] = __('Progress Bar','wdf');
 		}
 	
 		return $tabs;
@@ -1131,11 +1187,52 @@ class WDF {
 	function media_donate_button() {
 		wp_iframe(array(&$this, 'media_donate_button_iframe'));
 	}
+	function media_progress_bar() {
+		wp_iframe(array(&$this, 'media_progress_bar_iframe'));
+	}
 	function media_buttons($context) {
 		global $typenow, $pagenow, $post;
 		if($typenow != 'funder' && $typenow != 'donation' && $context == 'content' && $pagenow != 'index.php') {
 			echo '<a title="Insert Funraising Shortcodes" class="thickbox add_media" id="add_wdf" href="'.admin_url('media-upload.php?post_id='.$post->ID).'&tab=fundraising&TB_iframe=1&wdf=1"><img onclick="return false;" alt="Insert Funraising Shortcodes" src="'.WDF_PLUGIN_URL.'/img/sm_ico.png"></a>';
 		}
+	}
+	function media_progress_bar_iframe() {
+		$settings = get_option('wdf_settings');
+		$args = array(
+			'post_type' => 'funder',
+			'numberposts' => -1,
+			'post_status' => 'publish'
+		);
+		$funders = get_posts($args);
+		media_upload_header(); ?>
+		<form class="wdf_media_cont" id="media_progress_bar">
+			<h3 class="media-title"><?php _e('Add a progress bar'); ?></h3>
+			<p>
+				<span class="description"><?php _e('Only fundraisers that have a goal can display a progress bar','wdf'); ?></span>
+				<select class="widefat" id="wdf_funder_select" name="id">
+					<option value="0"><?php echo __('Choose a ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?></option>
+						<?php foreach($funders as $funder) { ?>
+							<?php if(wdf_has_goal($funder->ID) != false) : ?>
+								<option value="<?php echo $funder->ID; ?>"><?php echo $funder->post_title ?></option>
+							<?php endif; ?>
+						<?php } ?>
+				</select>
+			</p>
+			<p><label><input type="checkbox" name="show_title" value="yes" /> <?php _e('Show Title','wdf'); ?></label></p>
+			<p><label><input type="checkbox" name="show_totals" value="yes" /> <?php _e('Show Totals','wdf'); ?></label></p>
+			<p><label><?php _e('Choose a style','wdf'); ?></label>
+			<select name="style">
+				<?php if(is_array($this->styles) && !empty($this->styles)) : ?>
+					<option value="0"><?php _e('Default','wdf'); ?></option>
+					<?php foreach($this->styles as $key => $label) : ?>
+						<option <?php selected($settings['default_style'],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</select></p>
+			<p><a class="button" href="#" id="wdf_add_shortcode" onclick="window.parent.wdf_inject_shortcode(); return false;"><?php _e('Insert Shortcode','wdf'); ?></a></p>
+		</form>
+		
+		<?php
 	}
 	function media_donate_button_iframe () {
 		$settings = get_option('wdf_settings');
@@ -1152,7 +1249,7 @@ class WDF {
 		</p>
 		
 		<p>
-			<label><?php _e('Donation Amount (blank = choice)','wdf') ?><input type="text" name="donation_amount" value="" /></label>
+			<label><?php echo esc_attr($settings['donation_labels']['singular_name']) . __(' Amount (blank = choice)','wdf') ?><input type="text" name="donation_amount" value="" /></label>
 		</p>
 		<p>
 			<label><?php _e('Button Type','wdf'); ?></label><br/>
@@ -1205,7 +1302,7 @@ class WDF {
 	}
 	function media_fundraiser_iframe() {
 			$content = '';
-			
+			$settings = get_option('wdf_settings');
 			$args = array(
 				'post_type' => 'funder',
 				'numberposts' => -1,
@@ -1214,10 +1311,10 @@ class WDF {
 			$funders = get_posts($args);
 			media_upload_header();?>
 			<form class="wdf_media_cont" id="media_fundraising">
-			<h3 class="media-title">Add A Fundraising Form</h3>
+			<h3 class="media-title"><?php _e('Add A Fundraising Form','wdf'); ?></h3>
 			
 			<p><select class="widefat" id="wdf_funder_select" name="id">
-				<option value="0"><?php _e('Choose a Fundraiser','wdf'); ?></option>
+				<option value="0"><?php echo __('Choose a ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?></option>
 					<?php foreach($funders as $funder) { ?>
 						<option value="<?php echo $funder->ID; ?>"><?php echo $funder->post_title ?></option>
 					<?php } ?>
@@ -1309,6 +1406,13 @@ class WDF {
 				$content .= '<h1 class="'.$classes.'">' . $this->format_currency('',$total) . ' / ' . $this->format_currency('',$goal) . '</h1>';
 			} elseif($context == 'general') {
 				
+			} elseif($context == 'shortcode_title') {
+				$content .= '<div class="wdf_progress_shortcode_title">'.get_the_title($post_id).'</div>';
+			} elseif($context == 'shortcode_totals') {
+				$content .= '<div class="'.$classes.'">' . $this->format_currency('',$total) . ' / ' . $this->format_currency('',$goal) . '</div>';
+			} elseif($context == 'shortcode_title_totals') {
+				$content .= '<div class="wdf_progress_shortcode_title">'.get_the_title($post_id).'</div>';
+				$content .= '<div class="'.$classes.'">' . $this->format_currency('',$total) . ' / ' . $this->format_currency('',$goal) . '</div>';
 			}
 			$content .= '<div rel="'.$post_id.'" class="wdf_goal_progress '.$classes.' not-seen '.$context.'" total="'.$total.'" goal="'.$goal.'"></div>';
 		}

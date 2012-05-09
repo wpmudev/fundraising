@@ -3,6 +3,15 @@ Author: Cole Stevenson (Incsub)
 
 == Changelog ==
 
+= 2.1 =
+Fixed Canadian Currency Issue
+New plugin labeling system
+Fixed HTML structure error on checkout pages
+Added global custom CSS box in presentation settings (better styles in next release)
+Added Minutes to wdf_time_left()
+Changed Featured Fundraisers widget to Fundraiser List
+
+
 = 2.0-RC-3 =
 Paypal error codes now correctly display if redirection fails.
 

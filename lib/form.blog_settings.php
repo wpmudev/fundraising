@@ -24,7 +24,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 ?>
 <div class="wrap">
 	<div id="icon-wdf-admin" class="icon32"><br></div>
-		<h2><?php _e('Fundraising Settings','wdf') ?></h2>
+		<h2><?php echo $settings['funder_labels']['menu_name'] . __(' Settings','wdf') ?></h2>
 		<?php do_action('wdf_msg_general');?>
 		<form action="" method="post" id="wdf_settings_<?php echo $active_tab ?>" class="nav-tabs">
 			<input type="hidden" name="wdf_nonce" value="<?php echo wp_create_nonce('_wdf_settings_nonce');?>" />
@@ -39,8 +39,125 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 					<?php switch($active_tab) {
 						
 						case 'presentation' : ?>
+							<table class="form-table" id="wdf_label_settings">
+								<tbody>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Plugin Name','wdf'); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[funder_labels][menu_name]" value="<?php echo esc_attr($settings['funder_labels']['menu_name']); ?>" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<h3><?php _e('Supporter Labels','wdf'); ?><?php echo $tips->add_tip(__('Used to describe someone who makes a payment','wdf')); ?></h3>
+							<table class="form-table" id="wdf_label_settings">
+								<tbody>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Single Supporter','wdf'); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[donation_labels][backer_single]" value="<?php echo esc_attr($settings['donation_labels']['backer_single']); ?>" />
+										</td>
+									</tr>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Multiple Supporters','wdf'); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[donation_labels][backer_plural]" value="<?php echo esc_attr($settings['donation_labels']['backer_plural']); ?>" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							
+							<h3><?php _e('Level / Reward Labels','wdf'); ?><?php echo $tips->add_tip(__('This is used to describe suggested payment levels.','wdf')); ?></h3>
+							<table class="form-table" id="wdf_label_settings">
+								<tbody>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Singlular Level','wdf'); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[funder_labels][singular_level]" value="<?php echo esc_attr($settings['funder_labels']['singular_level']); ?>" />
+										</td>
+									</tr>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Plural Level','wdf'); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[funder_labels][plural_level]" value="<?php echo esc_attr($settings['funder_labels']['plural_level']); ?>" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<h3><?php _e('Fundraiser Labels','wdf'); ?><?php echo $tips->add_tip(__('Each fundraising project will be labeled with these.','wdf')); ?></h3>
+							<table class="form-table" id="wdf_label_settings">
+								<tbody>
+									
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Singular Name','wdf'); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[funder_labels][singular_name]" value="<?php echo esc_attr($settings['funder_labels']['singular_name']); ?>" />
+										</td>
+									</tr>
+									
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Plural Name','wdf'); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[funder_labels][plural_name]" value="<?php echo esc_attr($settings['funder_labels']['plural_name']); ?>" />
+										</td>
+									</tr>
+									
+								</tbody>
+							</table>
+							
+							<h3><?php _e('Pledge Labels','wdf'); ?><?php echo $tips->add_tip(__('','wdf')); ?></h3>
+							<table class="form-table" id="wdf_label_settings">
+								<tbody>
+									<?php /*?><tr valign="top">
+										<th scope="row">
+											<label><?php _e('Menu Name','wdf'); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[donation_labels][menu_name]" value="<?php echo esc_attr($settings['donation_labels']['menu_name']); ?>" />
+										</td>
+									</tr><?php */?>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Singular Name','wdf'); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[donation_labels][singular_name]" value="<?php echo esc_attr($settings['donation_labels']['singular_name']); ?>" />
+										</td>
+									</tr>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Plural Name','wdf'); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[donation_labels][plural_name]" value="<?php echo esc_attr($settings['donation_labels']['plural_name']); ?>" />
+										</td>
+									</tr>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Action Name','wdf'); ?><?php echo $tips->add_tip(__('This is describing the action of making a payment.  It is used as a call to action for making a payment.','wdf')); ?></label>
+										</th>
+										<td>
+											<input type="text" name="wdf_settings[donation_labels][action_name]" value="<?php echo esc_attr($settings['donation_labels']['action_name']); ?>" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						
-							<h3><?php echo __('Permalink Settings','wdf'); ?></h3>
+							<h3><?php _e('Permalink Settings','wdf'); ?></h3>
 							<table class="form-table" id="wdf_permalink_settings">
 								<tbody>
 									
@@ -94,7 +211,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									</tr><?php */?>
 								</tbody>
 							</table>
-							<h3><?php echo __('Style Settings','wdf'); ?></h3>
+							<h3><?php _e('Style Settings','wdf'); ?></h3>
 							<table class="form-table">
 								<tbody>											
 									<tr valign="top">
@@ -136,6 +253,15 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</td>
 									</tr>
 									
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Custom CSS','wdf'); ?></label><?php echo $tips->add_tip(__('CSS styles saved in this box will be loaded on any page containing fundraising content. Do not use '.esc_js('<style>').' tags in this box.','wdf')); ?>
+										</th>
+										<td>
+											<textarea rows="15" class="widefat" id="wdf_custom_css" name="wdf_settings[custom_css]"><?php echo esc_attr($settings['custom_css']); ?></textarea>
+										</td>
+									</tr>
+									
 									<?php endif; ?>
 								</tbody>
 							</table>
@@ -143,13 +269,13 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									
 						case 'other' : ?>
 						
-							<h3><?php echo __('Other Settings','wdf'); ?></h3>
+							<h3><?php _e('Other Settings','wdf'); ?></h3>
 							<table class="form-table">
 								<tbody>
 									
 									<tr valign="top">
 										<th scope="row">
-											<label><?php echo __('Add fundraising directory to menu?','wdf'); ?></label>
+											<label><?php _e('Add fundraising directory to menu?','wdf'); ?></label>
 										</th>
 										<td>
 											<select name="wdf_settings[inject_menu]">
@@ -170,7 +296,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 								<tbody>
 									<tr valign="top">
 										<th scope="row">
-											<label><?php echo __('Set Your Currency','wdf'); ?></label>
+											<label><?php _e('Set Your Currency','wdf'); ?></label>
 										</th>
 										<td>
 											<select id="wdf_settings_currency" name="wdf_settings[currency]">
@@ -202,9 +328,9 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</th>
 										<td>
 										<label><input value="1" name="wdf_settings[curr_decimal]" type="radio"<?php checked( ( ($settings['curr_decimal'] !== 0) ? 1 : 0 ), 1); ?>>
-												<?php echo __('Yes', 'wdf') ?></label>
+												<?php _e('Yes', 'wdf') ?></label>
 												<label><input value="0" name="wdf_settings[curr_decimal]" type="radio"<?php checked($settings['curr_decimal'], 0); ?>>
-												<?php echo __('No', 'wdf') ?></label>
+												<?php _e('No', 'wdf') ?></label>
 										</td>
 									</tr>
 								</tbody>

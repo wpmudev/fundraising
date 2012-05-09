@@ -6,7 +6,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 
 // Setup $meta for all metaboxes
 $meta = get_post_custom($post->ID);
-
+$settings = get_option('wdf_settings');
 //pull out the meta_box id and pass it through a switch instead of using individual functions
 switch($data['id']) {
 	
@@ -57,9 +57,9 @@ switch($data['id']) {
 				<?php $donations = get_posts(array('post_type' => 'funder', 'numberposts' => -1, 'post_status' => 'publish')); ?>
 				<p>
 					<?php if(!$donations) : ?>
-						<label><?php echo __('You have not made any fundraiser yet.','wdf') ?></label>
+						<label><?php echo sprintf( __('You have not made any %s yet.','wdf'), esc_attr($settings['funder_labels']['plural_name']) ); ?></label>
 					<?php else : ?>
-						<label><?php echo __('Not attached to any fundraiser please choose one','wdf') ?></label>
+						<label><?php echo sprintf( __('Not attached to any %s please choose one','wdf'), esc_attr($settings['funder_labels']['singular_name']) ); ?></label>
 						<select name="post_parent">
 						<?php foreach($donations as $donation) : ?>
 							<option value="<?php echo $donation->ID ?>"><?php echo $donation->post_title; ?></option>
@@ -72,9 +72,9 @@ switch($data['id']) {
 				<h3><?php _e('From','wdf'); ?>:</h3><p><label><strong><?php echo __('Name:','wdf'); ?> </strong></label><?php echo $trans['first_name'] . ' ' . $trans['last_name']; ?></p><p><label><strong><?php echo __('Email:','wdf'); ?> </strong></label><?php echo $trans['payer_email']; ?></p>
 				<h3><?php _e('Amount Donated','wdf'); ?>:</h3>
 				<?php if($trans['recurring'] == 1) :?>
-					<p><?php echo $this->format_currency('',$trans['gross']); ?> every <?php echo $trans['cycle']; ?></p>
+					<p><?php echo $this->format_currency($trans['currency_code'],$trans['gross']); ?> every <?php echo $trans['cycle']; ?></p>
 				<?php else: ?>
-					<p><?php echo $this->format_currency('',$trans['gross']); ?></p>
+					<p><?php echo $this->format_currency($trans['currency_code'],$trans['gross']); ?></p>
 				<?php endif; ?>
 				<?php if( isset($trans['gateway_public']) ) : ?><h3><?php _e('Payment Source','wdf'); ?>:</h3><p><?php echo esc_attr($trans['gateway_public']); ?></p><?php endif; ?>
 				<?php if( isset($trans['gateway_msg']) ) : ?><h3><?php _e('Last Gateway Activity','wdf'); ?>:</h3><p><?php echo esc_attr($trans['gateway_msg']); ?></p><?php endif; ?>
@@ -89,7 +89,7 @@ switch($data['id']) {
 
 		<?php if($this->has_goal($post->ID)) : ?>
 			<?php if(strtotime($meta['wdf_goal_start'][0]) > time()) : ?>
-				<div class="below-h2 updated"><p><?php _e('Your Fundraiser ','wdf'); ?><?php wdf_time_left(true,$post->ID); ?></p></div>
+				<div class="below-h2 updated"><p><?php echo __('Your ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?><?php wdf_time_left(true,$post->ID); ?></p></div>
 			<?php endif; ?>
 			<?php echo $this->prepare_progress_bar($post->ID,null,null,'admin_metabox',true); ?>
 		<?php else : ?>
@@ -305,20 +305,20 @@ switch($data['id']) {
 						</tr>
 					</tbody>
 				</table>
-				<p><label><?php echo __('Create rewards?','wdf'); ?>
+				<p><label><?php echo __('Create ','wdf') . esc_attr($settings['funder_labels']['plural_level']); ?>
 				<select <?php echo $disabled; ?> class="wdf_toggle" rel="wdf_has_reward" name="wdf[has_reward]">
 					<option <?php selected($meta['wdf_has_reward'][0],'0'); ?> value="0">No</option>
 					<option <?php selected($meta['wdf_has_reward'][0],'1'); ?> value="1">Yes</option>
 				</select></label>
 				</p>
 				<div id="wdf_has_reward" rel="wdf_has_reward" <?php echo ($meta['wdf_has_reward'][0] == '1' ? '' : 'style="display:none"') ?>>
-					<h2><?php _e('Choose Pledge Rewards','wdf'); ?></h2>
+					<h2><?php apply_filters('wdf_admin_meta_reward_title', esc_attr($settings['funder_labels']['singular_name']) . esc_attr($settings['funder_labels']['plural_level']) ); ?></h2>
 					<table id="wdf_levels_table" class="widefat">
 					<thead>
 						<tr>
 							<th class="wdf_level_amount"><?php echo __('Choose Amount','wdf'); ?></th>
 							<?php /*?><th class="wdf_level_title"><?php echo __('Optional Title','wdf'); ?></th><?php */?>
-							<th class="wdf_level_description"><?php echo __('Reward Description','wdf'); ?></th>
+							<th class="wdf_level_description"><?php echo esc_attr($settings['funder_labels']['singular_level']) . __(' Description','wdf'); ?></th>
 							<?php /*?><th class="wdf_level_reward" align="right"><?php echo __('Add A Reward','wdf'); ?></th><?php */?>
 							<th class="delete" align="right"></th>
 						</tr>
@@ -340,14 +340,14 @@ switch($data['id']) {
 									<td class="wdf_level_description"><textarea <?php echo $disabled; ?> class="wdf_input_switch active " name="wdf[levels][<?php echo $index ?>][description]"><?php echo $data['description'] ?></textarea></td>
 									<td class="delete">
 										<?php if($disabled == false) : ?>
-											<a href="#"><span style="background-image: url(<?php echo admin_url('images/xit.gif'); ?>);" class="wdf_ico_del"></span>Delete</a>
+											<a href="#"><span style="background-image: url(<?php echo admin_url('images/xit.gif'); ?>);" class="wdf_ico_del"></span><?php _e('Delete','wdf'); ?></a>
 										<?php endif; ?>
 									</td>
 								</tr>
 								<tr class="wdf_reward_options">
 									<td colspan="5">
 										<div class="wdf_reward_toggle" <?php echo ($data['reward'] == 1 ? '' : 'style="display:none"'); ?>>
-											<p><label><?php echo __('Describe Your Reward','wdf') ?><input <?php echo $disabled; ?> type="text" name="wdf[levels][<?php echo $index ?>][reward_description]" value="<?php echo $data['reward_description'] ?>" class="widefat" /></label></p>
+											<p><label><?php echo __('Describe Your ','wdf') . esc_attr($settings['funder_labels']['singular_level']); ?><input <?php echo $disabled; ?> type="text" name="wdf[levels][<?php echo $index ?>][reward_description]" value="<?php echo $data['reward_description'] ?>" class="widefat" /></label></p>
 										</div>
 									</td>
 								</tr>
@@ -371,7 +371,7 @@ switch($data['id']) {
 								<tr class="wdf_reward_options">
 									<td colspan="5">
 										<div class="wdf_reward_toggle" style="display:none">
-											<p><label><?php echo __('Describe Your Reward','wdf') ?><input type="text" name="wdf[levels][0][reward_description]" value="<?php echo $data['reward_description'] ?>" class="widefat" /></label></p>
+											<p><label><?php echo __('Describe Your ','wdf') . esc_attr($settings['funder_labels']['singular_level']); ?><input type="text" name="wdf[levels][0][reward_description]" value="<?php echo $data['reward_description'] ?>" class="widefat" /></label></p>
 										</div>
 									</td>
 								</tr>
@@ -390,19 +390,19 @@ switch($data['id']) {
 								<tr rel="wdf_level_template" class="wdf_reward_options" style="display:none">
 									<td colspan="5">
 										<div class="wdf_reward_toggle" style="display:none">
-											<p><label><?php echo __('Describe Your Reward','wdf') ?><input type="text" rel="wdf[levels][][reward_description]" value="" class="widefat" /></label></p>
+											<p><label><?php echo __('Describe Your ','wdf') . esc_attr($settings['funder_labels']['singular_level']) ?><input type="text" rel="wdf[levels][][reward_description]" value="" class="widefat" /></label></p>
 										</div>
 									</td>
 								</tr>
 								<?php if($disabled == false) : ?>
-									<tr><td colspan="3" align="right"><a href="#" id="wdf_add_level"><?php _e('Add A Reward','wdf'); ?></a></td></tr>
+									<tr><td colspan="3" align="right"><a href="#" id="wdf_add_level"><?php _e('Add A ','wdf') . esc_attr($settings['funder_labels']['singular_level']); ?></a></td></tr>
 								<?php endif; ?>
 							</tbody>
 						</table>
 					</div><!-- #wdf_has_reward -->
 			<?php else : ?>
 			
-				<div class="message below-h2 updated"><p><?php _e('Advanced Payments must be enabled for you to set fundraising goals','wdf'); ?></p></div>
+				<div class="message below-h2 updated"><p><?php _e('Advanced Payments must be enabled for you to set goals','wdf'); ?></p></div>
 			
 			<?php endif; ?>
 			</div>
@@ -427,7 +427,7 @@ switch($data['id']) {
 					<tr>
 						<th><?php _e('Amount','wdf'); ?>:</th>
 						<th><?php _e('Status','wdf'); ?>:</th>
-						<th><?php _e('From','wdf'); ?>:</th>
+						<th><?php echo esc_attr($settings['donation_labels']['backer_single']) ?>:</th>
 						<th><?php _e('Method','wdf'); ?>:</th>
 						<th><?php _e('Date','wdf'); ?>:</th>
 						<th class="wdf_actvity_edit"><br /></th>
@@ -462,24 +462,24 @@ switch($data['id']) {
 			<option <?php selected($meta['wdf_thanks_type'][0],'url'); ?> value="url"><?php echo __('Use A Custom URL','wdf'); ?></option>
 		</select></label><?php */?>
 		<p<?php //echo ($meta['wdf_thanks_type'][0] == 'custom' || $pagenow == 'post-new.php' ? 'style="display: block;"' : ''); ?> rel="wdf_thanks_type" class="wdf_thanks_custom">
-			<label><?php echo __('Text or HTML Allowed','wdf'); ?><?php echo $tips->add_tip('Provide a custom thank you message for users.  You can use the following codes to display specific information from the donation: %DONATIONTOTAL% %FIRSTNAME% %LASTNAME%'); ?></label><br />
-			<textarea id="wdf_thanks_custom" name="wdf[thanks_custom]"><?php echo $meta['wdf_thanks_custom'][0]; ?></textarea>
+			<label><?php echo __('Text or HTML Allowed','wdf'); ?><?php echo $tips->add_tip('Provide a custom thank you message for users.  You can use the following codes to display specific information from the payment: %DONATIONTOTAL% %FIRSTNAME% %LASTNAME%'); ?></label><br />
+			<textarea id="wdf_thanks_custom" name="wdf[thanks_custom]"><?php echo urldecode(wp_kses_post($meta['wdf_thanks_custom'][0])); ?></textarea>
 		</p>
-		<p <?php echo ($meta['wdf_thanks_type'][0] == 'post' ? 'style="display: block;"' : 'style="display: none;"'); ?> rel="wdf_thanks_type" class="wdf_thanks_post">
+		<?php /*?><p <?php echo ($meta['wdf_thanks_type'][0] == 'post' ? 'style="display: block;"' : 'style="display: none;"'); ?> rel="wdf_thanks_type" class="wdf_thanks_post">
 			<?php do_action('wdf_error_thanks_post');?>
 			<label><?php echo __('Insert A Post or Page ID','wdf'); ?><input type="text" name="wdf[thanks_post]" value="<?php echo $meta['wdf_thanks_post'][0]; ?>" /></label>
 		</p>
 		<p <?php echo ($meta['wdf_thanks_type'][0] == 'url' ? 'style="display: block;"' : 'style="display: none;"'); ?> rel="wdf_thanks_type" class="wdf_thanks_url">
 			<label><?php echo __('Insert A Custom URL','wdf'); ?><input type="text" name="wdf[thanks_url]" value="<?php echo $meta['wdf_thanks_url'][0]; ?>" /></label>
-		</p>
+		</p><?php */?>
 	
 		<h3>Email Settings</h3>
 		
 		<p>
-			<label><?php echo __('Send a confirmation email after a pledge?','wdf'); ?>
+			<label><?php echo __('Send a confirmation email after a payment?','wdf'); ?>
 				<select class="wdf_toggle" rel="wdf_send_email" name="wdf[send_email]" id="wdf_send_email">
-					<option value="0" <?php echo selected($meta['wdf_send_email'][0],0); ?>>No</option>
-					<option value="1" <?php echo selected($meta['wdf_send_email'][0],1); ?>>Yes</option>
+					<option value="0" <?php echo selected($meta['wdf_send_email'][0],0); ?>><?php _e('No','wdf'); ?></option>
+					<option value="1" <?php echo selected($meta['wdf_send_email'][0],1); ?>><?php _e('Yes','wdf'); ?></option>
 				</select>
 			</label>
 		</p>

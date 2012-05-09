@@ -84,7 +84,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					$nvp .= '&modify=1';
 				} else {
 					$nvp = 'cmd=_donations';
-					$nvp .= '&amount='.$_SESSION['wdf_pledge'];
+					$nvp .= '&amount='.urlencode($_SESSION['wdf_pledge']);
 					$nvp .= '&cbt='.urlencode( ($settings['paypal_return_text'] ? $settings['paypal_return_text'] : __('Click Here To Complete Your Donation', 'wdf')) );
 					$nvp .= '&bn=WPMUDonations_Donate_WPS_'.$settings['currency'];
 				}
@@ -93,19 +93,26 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$nvp .= '&item_name='.urlencode($funder->post_title);
 				$nvp .= '&item_number='.urlencode(site_url() . ' : ' . $funder->ID);
 				$nvp .= '&custom='.urlencode($funder->ID.'||'.$pledge_id);
-				$nvp .= '&amp;currency_code='.$settings['currency'];
+				$nvp .= '&currency_code='.$settings['currency'];
 				$nvp .= '&cpp_header_image='.urlencode($settings['paypal_image_url']);
 				$nvp .= '&return='.urlencode($this->return_url);
 				$nvp .= '&rm=2';
 				$nvp .= '&amp;notify_url='.urlencode($this->ipn_url);
 			
 				$_SESSION['wdf_pledge_id'] = $pledge_id;
+				
+				//var_export($nvp);
+				//die();
 
 				//Set transient data for one day to handle ipn
 				//set_transient( 'wdf_'.$this->plugin_name.'_'.$pledge_id.'_'.$_SESSION['wdf_type'], array('pledge_id' => $pledge_id), 60 * 60 * 24 );
-				
-				wp_redirect($this->Standard_Endpoint .$nvp);
-				exit;
+				if(!headers_sent()) {
+					wp_redirect($this->Standard_Endpoint .$nvp);
+					exit;
+				} else {
+					// TODO - Add error outout for headers already being sent.
+					//$this->create_gateway_error(__('A Theme or Plugin Is interfereing wit','wdf'));
+				}
 			
 			} else {
 				//No $_SESSION['funder_id'] was passed to this function.
@@ -137,31 +144,37 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			
 			// Make the API Call to receive a token
 			$response = $this->adaptive_api_call('Preapproval',$nvpstr);
-			
-			switch($response['responseEnvelope_ack']) {
-				case 'Success' ;
-					$proceed = true;
-					break;
-				case 'Failure' ;
-					$proceed = false;
-					$status_code = ( isset($response['error(0)_errorId']) ? $response['error(0)_errorId'] : '' );
-					$error_msg = ( isset($response['error(0)_message']) ? $response['error(0)_message'] : '' );
-					break;
-				case 'Warning' ;
-					$proceed = true;
-					break;
-				case 'SuccessWithWarning' ;
-					$proceed = true;
-					break;
-				case 'FailureWithWarning' ;
-					$proceed = false;
-					$status_code = ( isset($response['error(0)_errorId']) ? $response['error(0)_errorId'] : '' );
-					$error_msg = ( isset($response['error(0)_message']) ? $response['error(0)_message'] : '' );
-					break;
-				default :
-					$proceed = false;
-					$status_code = __('No status code given','wdf');
-					$error_msg = '';
+			if(isset($response['responseEnvelope_ack'])) {
+				switch($response['responseEnvelope_ack']) {
+					case 'Success' ;
+						$proceed = true;
+						break;
+					case 'Failure' ;
+						$proceed = false;
+						$status_code = ( isset($response['error(0)_errorId']) ? $response['error(0)_errorId'] : '' );
+						$error_msg = ( isset($response['error(0)_message']) ? $response['error(0)_message'] : '' );
+						break;
+					case 'Warning' ;
+						$proceed = true;
+						break;
+					case 'SuccessWithWarning' ;
+						$proceed = true;
+						break;
+					case 'FailureWithWarning' ;
+						$proceed = false;
+						$status_code = ( isset($response['error(0)_errorId']) ? $response['error(0)_errorId'] : '' );
+						$error_msg = ( isset($response['error(0)_message']) ? $response['error(0)_message'] : '' );
+						break;
+					default :
+						$proceed = false;
+						$status_code = __('No status code given','wdf');
+						$error_msg = '';
+				}
+			} else {
+				// We most likely return an WP_Error object instead of a valid paypal response.
+				$proceed = false;
+				$status_code = '';
+				$error_msg = __('There was an error contacting PayPal\'s servers.','wdf');
 			}
 			
 			if( $proceed === true && isset($response['preapprovalKey']) ) {		
@@ -169,9 +182,12 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 
 				//Set transient data for one day to handle ipn
 				//set_transient( 'wdf_'.$this->plugin_name.'_'.$pledge_id.'_'.$_SESSION['wdf_type'], array('pledge_id' => $pledge_id), 60 * 60 * 24 );
-				
-				wp_redirect( $this->paypalURL . $response['preapprovalKey'] );
-				exit;
+				if(!headers_sent()) {
+					wp_redirect( $this->paypalURL . $response['preapprovalKey'] );
+					exit;
+				} else {
+					// TODO create error output for headers already sent
+				}
 			} else {
 				$this->create_gateway_error(__('There was a problem connecting with the paypal gateway.  (CODE)'.$status_code.' ' . $error_msg,'wdf'));
 			}
@@ -272,7 +288,6 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			} elseif ( isset( $_POST['txn_type'] ) ) {
 				
 				$settings = get_option('wdf_settings');
-				
 				//Handle IPN for simple payments
 				if($this->verify_paypal()) {
 					$custom = explode('||',$_POST['custom']);
@@ -286,7 +301,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 						$transaction['cycle'] = $cycle[1];
 						$transaction['recurring'] = $_POST['recurring'];
 					} else if($_POST['txn_type'] == 'web_accept') {
-						$transaction['gross'] = $_POST['payment_gross'];
+						$transaction['gross'] = (!empty($_POST['payment_gross']) ? $_POST['payment_gross'] : $_POST['mc_gross']);
 					} else {
 						//Not an accepted transaction type
 						die();
@@ -389,7 +404,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 							break;
 						case 'REVERSALERROR' :
 							$transaction['status'] = __('Reversal Error','wdf');
-							$transaction['gateway_msg'] = __('Error Reserving Payment.', 'wdf');
+							$transaction['gateway_msg'] = __('Error Reversing Payment.', 'wdf');
 							$status = 'wdf_canceled';
 							break;
 						case 'PROCESSING' :
