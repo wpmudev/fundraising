@@ -76,7 +76,7 @@ class WDF {
 			'confirm_slug' => __('thank-you','wdf'),
 			'activity_slug' => __('activity','wdf'),
 			'first_time' => 1,
-			'default_style' => 'wdf_basic',
+			'default_style' => 'wdf-basic',
 			'panel_in_sidebar' => 'no',
 			'payment_types' => array('simple'),
 			'curr_symbol_position' => 1,
@@ -129,6 +129,7 @@ class WDF {
 		
 		if(version_compare($this->version, $settings['current_version']) == 1) {
 			$settings['current_version'] = $this->version;
+			$settings = array_merge($this->defaults, $settings);
 			update_option('wdf_settings',$settings);
 		}
 		
