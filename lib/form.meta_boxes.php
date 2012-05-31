@@ -16,8 +16,17 @@ switch($data['id']) {
 	case 'wdf_pledge_status' : ?>
 		
 		<?php $trans = $this->get_transaction($post->ID); ?>
-		<label><?php _e('Status','wdf'); ?>: <?php echo $trans['status']; ?></label>
-	
+		<label><?php _e('Gateway Status','wdf'); ?>: <?php echo $trans['status']; ?></label>
+		<p>
+			<label>Pledge Status</label><br />
+			<select class="widefat" name="post_status">
+				<option value="wdf_complete" <?php selected($post->post_status,'wdf_complete'); ?>><?php _e('Complete','wdf'); ?></option>
+				<option value="wdf_approved" <?php selected($post->post_status,'wdf_approved'); ?>><?php _e('Approved','wdf'); ?></option>
+				<option value="wdf_refunded" <?php selected($post->post_status,'wdf_refunded'); ?>><?php _e('Refunded','wdf'); ?></option>
+				<option value="wdf_canceled" <?php selected($post->post_status,'wdf_canceled'); ?>><?php _e('Canceled','wdf'); ?></option>
+			</select>
+		</p>
+		<p><input type="submit" class="button-primary" value="Save Pledge" /></p>
 		<?php break;
 	///////////////////////////
 	// PLEDGE INFO METABOX //
@@ -27,28 +36,70 @@ switch($data['id']) {
 		$trans = $this->get_transaction($post->ID);
 		
 		
-		if(!$meta['wdf_native'][0] == '1') : ?>
-			<input type="hidden" name="post_title" value="Manual Payment" />
-			<?php $donations = get_posts(array('post_type' => 'funder', 'numberposts' => -1, 'post_status' => 'publish')); ?>
-			<p>
-				<?php if(!$donations) : ?>
-					<label><?php echo __('You have not made any fundraiser yet.','wdf') ?></label>
-				<?php else : ?>
-					<label><?php echo __('Choose The Fundraiser','wdf') ?></label>
-					<select name="post_parent">
-					<?php foreach($donations as $donation) : ?>
-						<option <?php selected($post->post_parent,$donation->ID); ?> value="<?php echo $donation->ID ?>"><?php echo $donation->post_title; ?></option>
-					<?php endforeach; ?>
-					</select>
-				<?php endif; ?>
-			</p>
-			<p><label><?php _e('First & Last Name','wdf'); ?>:<input type="text" name="wdf[transaction][name]" value="<?php echo $trans['first_name'] . ' ' . $trans['last_name']; ?>" /></label></p>
-			<p><label><?php _e('Email Address','wdf'); ?>:<input type="text" name="wdf[transaction][payer_email]" value="<?php echo $trans['payer_email']; ?>" /></label></p>
-			<p><label><?php _e('Donation Amount','wdf'); ?>:<input type="text" name="wdf[transaction][gross]" value="<?php echo $trans['gross']; ?>" /></label></p>
-			<p><label><?php _e('Payment Source','wdf'); ?>:</label><br/>
-				<input type="text" name="wdf[transaction][gateway]" value="<?php echo $trans['gateway']; ?>" />
-			
-			</p>
+		if($meta['wdf_native'][0] !== '1') : ?>
+			<?php $funders = get_posts(array('post_type' => 'funder', 'numberposts' => -1, 'post_status' => 'publish')); ?>
+			<?php if(!$funders) : ?>
+				<div class="error below-h2"><p style="width: 100%;"><?php echo __('You have not made any fundraisers yet.  You must create a fundraiser to make a pledge to.','wdf') ?></p></div>
+			<?php else : ?>
+				<input type="hidden" name="post_title" value="Manual Payment" />
+				<input type="hidden" name="wdf[transaction][status]" value="Manual Payment" />
+				<table class="form-table">
+					<tbody>
+						<tr valign="top">
+							<th scope="row">
+								<label><?php echo __('Choose The Fundraiser','wdf') ?></label>
+							</th>
+							<td>
+								<p>
+									<select name="post_parent">
+									<?php foreach($funders as $funder) : ?>
+										<option <?php selected($post->post_parent,$funder->ID); ?> value="<?php echo $funder->ID ?>"><?php echo $funder->post_title; ?></option>
+									<?php endforeach; ?>
+									</select>
+								</p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label><?php _e('First & Last Name','wdf'); ?></label>
+							</th>
+							<td>
+								<p><input type="text" name="wdf[transaction][name]" value="<?php echo $trans['first_name'] . ' ' . $trans['last_name']; ?>" /></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label><?php _e('Email Address','wdf'); ?></label>
+							</th>
+							<td>
+								<p><input type="text" name="wdf[transaction][payer_email]" value="<?php echo $trans['payer_email']; ?>" /></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label><?php _e('Donation Amount','wdf'); ?></label>
+							</th>
+							<td>
+								<p><input type="text" name="wdf[transaction][gross]" value="<?php echo $trans['gross']; ?>" /></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label><?php _e('Payment Source','wdf'); ?>:</label>
+							</th>
+							<td>
+								<select name="wdf[transaction][gateway]">
+									<?php global $wdf_gateway_plugins; ?>
+									<?php foreach($wdf_gateway_plugins as $name => $plugin) : ?>
+										<option value="<?php echo $name; ?>"><?php echo $plugin[1]; ?></option>
+									<?php endforeach; ?>
+									<option value="manual"><?php _e('Check/Cash','wdf'); ?></option>
+								</select>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			<?php endif; ?>
 		<?php else : ?>
 			<?php $parent = get_post($post->post_parent); ?>
 			<?php if($parent) : ?>
@@ -268,7 +319,7 @@ switch($data['id']) {
 				<div class="below-h2 updated"><p><?php _e('Your fundraising dates, goals and rewards are locked in.','wdf'); ?></p></div>
 			<?php endif; ?>
 			<div id="wdf_funder_goals">
-				<?php if( in_array('advanced', $settings['payment_types']) || in_array('standard', $settings['payment_types']) ) : ?>
+				<?php //if( in_array('advanced', $settings['payment_types']) || in_array('standard', $settings['payment_types']) ) : ?>
 					<p><label><?php echo __('Create a crowdfunding goal?','wdf'); ?>
 					<select class="wdf_toggle" id="wdf_has_goal" rel="wdf_has_goal" name="wdf[has_goal]" <?php echo $disabled; ?>>
 						<option <?php selected($meta['wdf_has_goal'][0],'0'); ?> value="0">No</option>
@@ -305,7 +356,8 @@ switch($data['id']) {
 						</tr>
 					</tbody>
 				</table>
-				<p><label><?php echo __('Create ','wdf') . esc_attr($settings['funder_labels']['plural_level']); ?>
+			</div>
+			<p><label><?php echo __('Create ','wdf') . esc_attr($settings['funder_labels']['plural_level']); ?>
 				<select <?php echo $disabled; ?> class="wdf_toggle" rel="wdf_has_reward" name="wdf[has_reward]">
 					<option <?php selected($meta['wdf_has_reward'][0],'0'); ?> value="0">No</option>
 					<option <?php selected($meta['wdf_has_reward'][0],'1'); ?> value="1">Yes</option>
@@ -395,17 +447,11 @@ switch($data['id']) {
 									</td>
 								</tr>
 								<?php if($disabled == false) : ?>
-									<tr><td colspan="3" align="right"><a href="#" id="wdf_add_level"><?php _e('Add A ','wdf') . esc_attr($settings['funder_labels']['singular_level']); ?></a></td></tr>
+									<tr><td colspan="3" align="right"><a href="#" id="wdf_add_level"><?php echo __('Add A ','wdf') . esc_attr($settings['funder_labels']['singular_level']); ?></a></td></tr>
 								<?php endif; ?>
 							</tbody>
 						</table>
 					</div><!-- #wdf_has_reward -->
-			<?php else : ?>
-			
-				<div class="message below-h2 updated"><p><?php _e('Advanced Payments must be enabled for you to set goals','wdf'); ?></p></div>
-			
-			<?php endif; ?>
-			</div>
 		
 	<?php break;
 

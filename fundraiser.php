@@ -869,6 +869,15 @@ class WDF {
 			add_meta_box( 'wdf_pledge_info', esc_attr($settings['donation_labels']['singular_name']) . __(' Information','wdf'), array(&$this,'meta_box_display'), 'donation', 'normal', 'high');
 			add_meta_box( 'wdf_pledge_status', esc_attr($settings['donation_labels']['singular_name']) . __(' Status','wdf'), array(&$this,'meta_box_display'), 'donation', 'side', 'high');
 			
+			// Search for the submit div and remove it
+			foreach($wp_meta_boxes['donation'] as $context => $priorities) {
+				foreach($priorities as $meta_boxes) {
+					if( isset($meta_boxes['submitdiv']) ) {
+						remove_meta_box( 'submitdiv', 'donation', $context );
+					}
+				}
+			}
+				
 		}
 	}
 	function meta_box_display($post,$data) {
@@ -899,6 +908,7 @@ class WDF {
 			wp_die(__('You are not allowed to view this page.','wdf'));
 			
 		switch($_GET['page']) {
+
 			case 'wdf_settings' : 
 				include(WDF_PLUGIN_BASE_DIR . '/lib/form.blog_settings.php');
 				break;
