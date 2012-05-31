@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.1
+Version: 2.1.1
 Text Domain: wdf
 Author: Cole (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -68,7 +68,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.1';
+		$this->version = '2.1.1';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -908,7 +908,6 @@ class WDF {
 			wp_die(__('You are not allowed to view this page.','wdf'));
 			
 		switch($_GET['page']) {
-
 			case 'wdf_settings' : 
 				include(WDF_PLUGIN_BASE_DIR . '/lib/form.blog_settings.php');
 				break;
