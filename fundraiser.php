@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.1.1
+Version: 2.1.2
 Text Domain: wdf
 Author: Cole (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -105,7 +105,7 @@ class WDF {
 	}
 	function _construct() {
 		
-		if($_POST['wdf_reset']) {
+		if(isset($_POST['wdf_reset'])) {
 			$wdf_posts = get_posts(array(
 				'post_type' => array('funder','donation'),
 				'numberposts' => -1
@@ -145,9 +145,6 @@ class WDF {
 		// Include Widgets
 			add_action( 'widgets_init', array(&$this,'register_widgets') );
 		
-		// Load styles and scripts to be used across is_admin and !is_admin
-			wp_register_style( 'jquery-ui-base', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css', null, '1.8.16', 'screen' );
-		
 		if(is_admin()) {
 			// Add Admin Only Actions
 			
@@ -172,18 +169,12 @@ class WDF {
 			add_filter( 'manage_edit-funder_columns', array(&$this,'edit_columns') );
 			add_filter( 'manage_edit-donation_columns', array(&$this,'edit_columns') );
 			add_filter( 'media_upload_tabs', array(&$this,'media_upload_tabs') );
-						
-			//Register Styles and Scripts For The Admin Area
-			wp_register_script( 'wdf-post', WDF_PLUGIN_URL . '/js/wdf-post.js', array('jquery'), $this->version, false );
-			wp_register_script( 'wdf-edit', WDF_PLUGIN_URL . '/js/wdf-edit.js', array('jquery'), $this->version, false );
-			wp_register_script( 'wdf-media', WDF_PLUGIN_URL . '/js/wdf-media.js', array('jquery'), $this->version, true );
-			wp_register_script( 'wdf-widget', WDF_PLUGIN_URL . '/js/wdf-widget.js', array('jquery'), $this->version, true );
-			wp_register_style( 'wdf-admin', WDF_PLUGIN_URL . '/css/wdf-admin.css', null, $this->version, 'all' );
+			
 			
 		} else {
 			
 			//Not the admin area so lets load up our front-end actions, scripts and filters
-			wp_register_script( 'wdf-base', WDF_PLUGIN_URL . '/js/wdf-base.js', array('jquery'), $this->version, false );
+			add_action('wp_enqueue_scripts', array(&$this,'wp_enqueue_scripts'));
 			
 			// Very low priority number is needed here to make sure it fires before themes can output headers
 			add_action( 'wp', array(&$this, 'handle_payment'), 1 );
@@ -575,7 +566,7 @@ class WDF {
 		foreach ((array)$wdf_gateway_plugins as $code => $plugin) {
 			$class = $plugin[0];
 			if( isset($settings['active_gateways']) ) {
-				if ( class_exists($class) && !$plugin[3] && $settings['active_gateways'][$code] == '1'  )
+				if ( ( class_exists($class) && (!isset($plugin[3]) || !$plugin[3]) ) && isset($settings['active_gateways'][$code]) && $settings['active_gateways'][$code] == '1'  )
 					$wdf_gateway_active_plugins[$code] = new $class;
 			}
 			
@@ -699,7 +690,10 @@ class WDF {
 		$process_payment = false;
 		global $wdf_gateway_active_plugins;
 		
-		$skip_gateway_form = $wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]->skip_form;
+		if( isset($_SESSION['wdf_gateway']) && isset($wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]) )
+			$skip_gateway_form = $wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]->skip_form;
+		else
+			$skip_gateway_form = false;
 		
 		if( isset($_POST['wdf_send_donation']) && $skip_gateway_form === true)
 			$process_payment = true;
@@ -723,7 +717,7 @@ class WDF {
 				do_action('wdf_gateway_process_'.$_SESSION['wdf_type'].'_'.$_SESSION['wdf_gateway']);
 			}
 		}
-		if($this->is_funder_confirm){
+		if(isset($this->is_funder_confirm) && $this->is_funder_confirm){
 			
 			if( !isset($_SESSION['wdf_pledge_id']) || empty($_SESSION['wdf_pledge_id']) )
 				$this->create_error(__('You have not made a pledge yet.','wdf'),'no_pledge');
@@ -1025,10 +1019,22 @@ class WDF {
 			}	
 		}
 	}
-	
+	function wp_enqueue_scripts() {
+		wp_register_style( 'jquery-ui-base', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css', null, '1.8.16', 'screen' );
+		wp_register_script( 'wdf-base', WDF_PLUGIN_URL . '/js/wdf-base.js', array('jquery'), $this->version, false );
+	}
 	function admin_enqueue_scripts($hook) {
 		global $typenow, $pagenow;
-
+		
+		//Register Styles and Scripts For The Admin Area
+		wp_register_style( 'jquery-ui-base', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css', null, '1.8.16', 'screen' );
+		wp_register_style( 'wdf-admin', WDF_PLUGIN_URL . '/css/wdf-admin.css', null, $this->version, 'all' );
+		
+		wp_register_script( 'wdf-post', WDF_PLUGIN_URL . '/js/wdf-post.js', array('jquery'), $this->version, false );
+		wp_register_script( 'wdf-edit', WDF_PLUGIN_URL . '/js/wdf-edit.js', array('jquery'), $this->version, false );
+		wp_register_script( 'wdf-media', WDF_PLUGIN_URL . '/js/wdf-media.js', array('jquery'), $this->version, true );
+		wp_register_script( 'wdf-widget', WDF_PLUGIN_URL . '/js/wdf-widget.js', array('jquery'), $this->version, true );
+		
 		if($typenow == 'funder' || $pagenow == 'admin.php') {
 			if($typenow == 'funder' || $_GET['page'] == 'wdf' || $_GET['page'] == 'wdf_settings')
 				wp_enqueue_style('wdf-admin');
@@ -1354,7 +1360,11 @@ class WDF {
 			$currency = $settings['currency'];
 	
 		// get the currency symbol
-		$symbol = $this->currencies[$currency][1];
+		if(isset($this->currencies[$currency]) && isset($this->currencies[$currency][1]))
+			$symbol = $this->currencies[$currency][1];
+		else
+			$symbol = $this->currencies['USD'][1];
+			
 		// if many symbols are found, rebuild the full symbol
 		$symbols = explode(', ', $symbol);
 		if (is_array($symbols)) {
