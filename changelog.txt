@@ -72,5 +72,3 @@ New custom template structure for your theme
 Addition of several action and filter hooks for external plugins or theme function files.
 
 62863-1338483608
-
-62863-1340842188
