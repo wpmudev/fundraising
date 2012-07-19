@@ -114,6 +114,7 @@ th.wdf_level_reward {
 	height: 100px;
 }
 #wdf_goal,
+#wdf_goal_amount,
 #wdf_levels_table input,
 #wdf_levels_table textarea,
 .wdf_input_switch,
@@ -123,6 +124,7 @@ th.wdf_level_reward {
 	color: #999;
 }
 #wdf_goal:focus,
+#wdf_goal_amount:focus,
 #wdf_levels_table input:focus,
 #wdf_levels_table textarea:focus,
 #wdf_options .wdf_bignum,
@@ -220,3 +222,5 @@ ul.wdf_shortcode_breakdown li p.attr_description {
 ul.wdf_shortcode_breakdown code {
 	font-size: 1.25em;
 }
+
+/* 62863-1338483608 */

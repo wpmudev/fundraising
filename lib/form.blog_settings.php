@@ -43,7 +43,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 								<tbody>
 									<tr valign="top">
 										<th scope="row">
-											<label><?php _e('Plugin Name','wdf'); ?></label>
+											<label><?php _e('Plugin Menu Name','wdf'); ?></label>
 										</th>
 										<td>
 											<input type="text" name="wdf_settings[funder_labels][menu_name]" value="<?php echo esc_attr($settings['funder_labels']['menu_name']); ?>" />
@@ -51,7 +51,8 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									</tr>
 								</tbody>
 							</table>
-							<h3><?php _e('Supporter Labels','wdf'); ?><?php echo $tips->add_tip(__('Used to describe someone who makes a payment','wdf')); ?></h3>
+							<h3><?php _e('Supporter Labels','wdf'); ?></h3>
+							<span class="description"><?php _e('Used to describe someone who makes a payment','wdf'); ?></span>
 							<table class="form-table" id="wdf_label_settings">
 								<tbody>
 									<tr valign="top">
@@ -73,7 +74,8 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 								</tbody>
 							</table>
 							
-							<h3><?php _e('Level / Reward Labels','wdf'); ?><?php echo $tips->add_tip(__('This is used to describe suggested payment levels.','wdf')); ?></h3>
+							<h3><?php _e('Level / Reward Labels','wdf'); ?></h3>
+							<span class="description"><?php _e('This is used to describe suggested payment levels','wdf'); ?></span>
 							<table class="form-table" id="wdf_label_settings">
 								<tbody>
 									<tr valign="top">
@@ -94,7 +96,8 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									</tr>
 								</tbody>
 							</table>
-							<h3><?php _e('Fundraiser Labels','wdf'); ?><?php echo $tips->add_tip(__('Each fundraising project will be labeled with these.','wdf')); ?></h3>
+							<h3><?php _e('Fundraiser Labels','wdf'); ?></h3>
+							<span class="description"><?php _e('Each fundraising project will be labeled with these','wdf'); ?></span>
 							<table class="form-table" id="wdf_label_settings">
 								<tbody>
 									
@@ -119,7 +122,8 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 								</tbody>
 							</table>
 							
-							<h3><?php _e('Pledge Labels','wdf'); ?><?php echo $tips->add_tip(__('','wdf')); ?></h3>
+							<h3><?php _e('Pledge Labels','wdf'); ?></h3>
+							<span class="description"><?php _e('Any payment made towards a fundraiser will use this label','wdf'); ?></span>
 							<table class="form-table" id="wdf_label_settings">
 								<tbody>
 									<?php /*?><tr valign="top">
@@ -154,61 +158,6 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<input type="text" name="wdf_settings[donation_labels][action_name]" value="<?php echo esc_attr($settings['donation_labels']['action_name']); ?>" />
 										</td>
 									</tr>
-								</tbody>
-							</table>
-						
-							<h3><?php _e('Permalink Settings','wdf'); ?></h3>
-							<table class="form-table" id="wdf_permalink_settings">
-								<tbody>
-									
-									<?php if(!get_option('permalink_structure')) : ?>
-									
-									<tr valign="top">
-										<th scope="row">
-											<label><?php _e('Fundraising Permalink Structure','wdf'); ?></label>
-										</th>
-										<td>
-											<div class="error below-h2"><p><?php _e('You Need To Setup Your Permalink Structure Before Setting Your Donations Slugs','wdf'); ?></p></div>
-										</td>
-									</tr>
-									
-									<?php else : ?>
-									
-									<tr valign="top">
-										<th scope="row">
-											<label><?php _e('Fundraising Directory Location','wdf'); ?></label>
-										</th>
-										<td>
-											<span class="code"><?php echo home_url(); ?>/</span><input id="wdf_dir_slug" type="text" name="wdf_settings[dir_slug]" value="<?php echo esc_attr($settings['dir_slug']); ?>" />
-										</td>
-									</tr>
-									
-									<tr valign="top">
-										<th scope="row">
-											<label><?php _e('Checkout Page','wdf'); ?></label>
-										</th>
-										<td>
-											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_checkout_slug" type="text" name="wdf_settings[checkout_slug]" value="<?php echo esc_attr($settings['checkout_slug']); ?>" />
-										</td>
-									</tr>
-									
-									<tr valign="top">
-										<th scope="row">
-											<label><?php _e('Thank You Page','wdf'); ?></label>
-										</th>
-										<td>
-											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_confirm_slug" type="text" name="wdf_settings[confirm_slug]" value="<?php echo esc_attr($settings['confirm_slug']); ?>" />
-										</td>
-									</tr>
-									
-									<?php /*?><tr valign="top">
-										<th scope="row">
-											<label><?php _e('Activity Page','wdf'); ?></label>
-										</th>
-										<td>
-											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_activity_slug" type="text" name="wdf_settings[activity_slug]" value="<?php echo esc_attr($settings['activity_slug']); ?>" />
-										</td>
-									</tr><?php */?>
 								</tbody>
 							</table>
 							<h3><?php _e('Style Settings','wdf'); ?></h3>
@@ -262,13 +211,59 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</td>
 									</tr>
 									
-									<?php endif; ?>
+									
 								</tbody>
 							</table>
 								<?php break;
 									
 						case 'other' : ?>
-						
+													
+							<h3><?php _e('Permalink Settings','wdf'); ?></h3>
+							<table class="form-table" id="wdf_permalink_settings">
+								<tbody>
+									
+									<?php if(!get_option('permalink_structure')) : ?>
+									
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Fundraising Permalink Structure','wdf'); ?></label>
+										</th>
+										<td>
+											<div class="error below-h2"><p><?php _e('You Need To Setup Your Permalink Structure Before Setting Your Donations Slugs','wdf'); ?></p></div>
+										</td>
+									</tr>
+									
+									<?php else : ?>
+									
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Fundraising Directory Location','wdf'); ?></label>
+										</th>
+										<td>
+											<span class="code"><?php echo home_url(); ?>/</span><input id="wdf_dir_slug" type="text" name="wdf_settings[dir_slug]" value="<?php echo esc_attr($settings['dir_slug']); ?>" />
+										</td>
+									</tr>
+									
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Checkout Page','wdf'); ?></label>
+										</th>
+										<td>
+											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_checkout_slug" type="text" name="wdf_settings[checkout_slug]" value="<?php echo esc_attr($settings['checkout_slug']); ?>" />
+										</td>
+									</tr>
+									
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Thank You Page','wdf'); ?></label>
+										</th>
+										<td>
+											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_confirm_slug" type="text" name="wdf_settings[confirm_slug]" value="<?php echo esc_attr($settings['confirm_slug']); ?>" />
+										</td>
+									</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
 							<h3><?php _e('Other Settings','wdf'); ?></h3>
 							<table class="form-table">
 								<tbody>
@@ -389,7 +384,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 													</th>
 													<td>
 														<input type="hidden" name="wdf_settings[active_gateways][<?php echo $gateway ?>]" value="0" />
-														<input class="gateway_switch wdf_auto_submit" type="checkbox" id="wdf_active_gateway_<?php echo $gateway; ?>" name="wdf_settings[active_gateways][<?php echo $gateway ?>]" value="1" <?php checked($settings['active_gateways'][$gateway],'1'); ?> />
+														<input class="gateway_switch wdf_auto_submit" type="checkbox" id="wdf_active_gateway_<?php echo $gateway; ?>" name="wdf_settings[active_gateways][<?php echo $gateway ?>]" value="1" <?php (isset($settings['active_gateways'][$gateway]) ? checked($settings['active_gateways'][$gateway],'1') : ''); ?> />
 													</td>
 												</tr>
 												<?php endif; ?>

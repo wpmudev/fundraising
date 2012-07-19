@@ -31,20 +31,17 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			$this->API_Username = (isset($settings['paypal']['advanced']['api_user']) ? $settings['paypal']['advanced']['api_user'] : '');
 			$this->API_Password = (isset($settings['paypal']['advanced']['api_pass']) ? $settings['paypal']['advanced']['api_pass'] : '');
 			$this->API_Signature = (isset($settings['paypal']['advanced']['api_sig']) ? $settings['paypal']['advanced']['api_sig'] : '');
-			if ($settings['paypal_sb'] == 'yes')	{
+			if (isset($settings['paypal_sb']) && $settings['paypal_sb'] == 'yes')	{
+				$this->Standard_Endpoint = "https://www.sandbox.paypal.com/webscr?";
 				$this->Adaptive_Endpoint = "https://svcs.sandbox.paypal.com/AdaptivePayments/";
 				$this->paypalURL = "https://www.sandbox.paypal.com/webscr?cmd=_ap-preapproval&preapprovalkey=";
 				// Generic PayPal AppID for Sandbox Testing
 				$this->appId = 'APP-80W284485P519543T';
 			} else {
+				$this->Standard_Endpoint = "https://www.paypal.com/cgi-bin/webscr?";
 				$this->Adaptive_Endpoint = "https://svcs.paypal.com/AdaptivePayments/";
 				$this->paypalURL = "https://www.paypal.com/webscr?cmd=_ap-preapproval&preapprovalkey=";
 				$this->appId = (isset($settings['paypal']['advanced']['app_id']) ? $settings['paypal']['advanced']['app_id'] : '');
-			}
-			if ($settings['paypal_sb'] == 'yes')	{
-				$this->Standard_Endpoint = "https://www.sandbox.paypal.com/webscr?";
-			} else {
-				$this->Standard_Endpoint = "https://www.paypal.com/cgi-bin/webscr?";
 			}
 			
 		}
@@ -481,8 +478,8 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					<th scope="row"> <label for="wdf_settings[paypal_sb]"><?php echo __('PayPal Mode','wdf'); ?></label>
 					</th>
 					<td><select name="wdf_settings[paypal_sb]" id="wdf_settings_paypal_sb">
-							<option value="no" <?php selected($settings['paypal_sb'],'no'); ?>><?php _e('Live','wdf'); ?></option>
-							<option value="yes" <?php selected($settings['paypal_sb'],'yes'); ?>><?php _e('Sandbox','wdf'); ?></option>
+							<option value="no" <?php ( isset($settings['paypal_sb']) ? selected($settings['paypal_sb'],'no') : '' ); ?>><?php _e('Live','wdf'); ?></option>
+							<option value="yes" <?php ( isset($settings['paypal_sb']) ?  selected($settings['paypal_sb'],'yes') : '' ); ?>><?php _e('Sandbox','wdf'); ?></option>
 						</select></td>
 				</tr>
 			<?php if(in_array('simple', $settings['payment_types'])) : ?>
@@ -495,12 +492,12 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				<tr valign="top">
 					<th scope="row"> <label for="wdf_settings[paypal_email]"><?php echo __('PayPal Email Address:','wdf'); ?></label>
 					</th>
-					<td><input class="regular-text" type="text" id="wdf_settings_paypal_email" name="wdf_settings[paypal_email]" value="<?php echo esc_attr($settings['paypal_email']); ?>" /></td>
+					<td><input class="regular-text" type="text" id="wdf_settings_paypal_email" name="wdf_settings[paypal_email]" value="<?php echo ( isset($settings['paypal_email']) ?  esc_attr($settings['paypal_email']) : '' ); ?>" /></td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"> <label for="wdf_settings[paypal_image_url]"><?php echo __('PayPal Checkout Header Image ','wdf'); ?></label></th>
 					<td>
-						<input class="regular-text" type="text" name="wdf_settings[paypal_image_url]" value="<?php echo $settings['paypal_image_url']; ?>" />
+						<input class="regular-text" type="text" name="wdf_settings[paypal_image_url]" value="<?php echo (isset($settings['paypal_image_url']) ? $settings['paypal_image_url'] : ''); ?>" />
 						<?php echo $tips->add_tip('PayPal allows you to use a custom header images during the purchase process.  PayPal recommends using an image from a secure https:// link, but this is not required.'); ?>
 					</td>
 				</tr>

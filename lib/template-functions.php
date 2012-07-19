@@ -3,7 +3,7 @@
 if(!function_exists('donate_button_shortcode')) {
 	function donate_button_shortcode($atts) {
 		if(isset($atts['title']))
-			$content = $content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_title', '<div class="wdf_shortcode_title"><h2>%s</h2></div>'), $atts['title'] );
+			$content = sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_title', '<div class="wdf_shortcode_title"><h2>%s</h2></div>'), $atts['title'] );
 			
 		$content .= wdf_pledge_button(false,'widget_simple_donate',null,array('widget_args' => $atts));
 		return $content;
@@ -40,7 +40,7 @@ if(!function_exists('wdf_fundraiser_panel')) {
 			default :
 				$content .= '<div class="wdf_fundraiser_panel '.$style.'">';
 				
-				if($args['shortcode'] == true) {
+				if(isset($args['shortcode']) && $args['shortcode'] == true) {
 					if( strtolower($args['show_title']) == 'yes' )
 						$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_title', '<div class="wdf_shortcode_title"><h2>%s</h2></div>'), get_the_title($post_id) );
 					if( strtolower($args['show_content']) == 'yes') {
@@ -664,7 +664,7 @@ if(!function_exists('wdf_pledge_button')) {
 			
 		}
 		
-		$content = apply_filters('wdf_pledge_button',$content,$funder);
+		$content = apply_filters('wdf_pledge_button', $content, $post_id);
 	
 		if($echo) {echo $content;} else {return $content;}
 	}

@@ -45,6 +45,27 @@ function wdf_inject_shortcode () {
 		
 	}
 }
-function input_switch() {
+function wdf_input_switch(elm) {
+	elm = jQuery(elm);
+	var iFrame = jQuery('#TB_iframeContent').contents();
+	var rel = elm.attr('rel');
+	var val = elm.val(); 
 	
+	console.log(rel,val);
+	console.log(iFrame.find('.' + rel).hide());
+	console.log(iFrame.find('.' + rel + '[rel='+val+']').show());
+	
+	/*$('select.wdf_toggle').on('change', function(e) {
+		var rel = $(this).attr('rel');
+		var val = $(this).val();
+		//alert(rel + val);
+		
+		if(rel == 'wdf_panel_single' && val == '1') {
+			var elm = $('*[rel="'+rel+'"]').not(this);
+			elm.show();
+		} else {
+			var elm = $('*[rel="'+rel+'"]').not(this);
+			elm.hide();
+		}
+	});*/
 }
