@@ -2,137 +2,1438 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPMU Fundraising\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-12 02:00-0600\n"
-"PO-Revision-Date: 2012-03-12 02:02-0600\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2012-07-25 10:48-0600\n"
+"PO-Revision-Date: 2012-07-25 10:49-0600\n"
+"Last-Translator: Cole <cole@imakethe.com>\n"
 "Language-Team: Incsub <cole@incsub.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-Basepath: C:\\Users\\Owner\\Dropbox\\WPMU\\01 Web\\wp-content\\plugins\\wpmu-fundraising\\\n"
+"X-Poedit-Basepath: C:\\Users\\pro\\Dropbox\\WPMU\\01 MS DEV\\wp-content\\plugins\\fundraising\\\n"
 "X-Poedit-Language: English\n"
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SearchPath-0: lib\n"
 
-#: lib/class.wdf_admin_ms.php:19
-msgid "You lack sufficient privledges to view this page"
+#: lib/form.blog_dashboard.php:3
+msgid "Getting Started Guide"
 msgstr ""
 
-#: lib/class.wdf_admin_ms.php:24
-msgid "Network Donation Options"
+#: lib/form.blog_dashboard.php:4
+msgid "The Fundraising plugin can help you fund your important projects."
 msgstr ""
 
-#: lib/class.wdf_gateway.php:10
-msgid "You must override the on_creation() method in your payment gateway plugin!"
+#: lib/form.blog_dashboard.php:8
+msgid "First Time Setup Guide"
 msgstr ""
 
-#: lib/class.wdf_gateway.php:13
-msgid "You must override the create_query() method in your payment gateway plugin!"
+#: lib/form.blog_dashboard.php:11
+msgid "Welcome to the Fundraising Plugin!"
 msgstr ""
 
-#: lib/class.wdf_gateway.php:16
-msgid "You must override the process() method in your payment gateway plugin!"
+#: lib/form.blog_dashboard.php:14
+msgid "Configure your settings to start taking simple donations or setup advanced payments to start your own crowdfunding page."
 msgstr ""
 
-#: lib/class.wdf_gateway.php:19
-msgid "You must override the process_ipn() method in your payment gateway plugin!"
+#: lib/form.blog_dashboard.php:14
+msgid "Configure Settings"
 msgstr ""
 
-#: lib/template-functions.php:55
-msgid " out of "
+#: lib/form.blog_dashboard.php:15
+msgid "Create your first fundraiser, set a goal, and choose a display style."
 msgstr ""
 
-#: lib/template-functions.php:72
-msgid "You Will Receive:"
+#: lib/form.blog_dashboard.php:15
+msgid "Create A Fundraiser"
 msgstr ""
 
-#: lib/template-functions.php:157
-#: lib/template-functions.php:187
+#: lib/form.blog_dashboard.php:16
+msgid "Choose your presentation style using available widgets or shortcodes."
+msgstr ""
+
+#: lib/form.blog_dashboard.php:16
+msgid "View All Widgets"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:22
+msgid "Available Shortcodes"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:27
+msgid "Fundraiser Panel"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:28
+msgid "The fundraiser panel displays relevant information about a particular fundraiser like: Total Pledges, Goal Information, and links to the pledge checkout page."
+msgstr ""
+
+#: lib/form.blog_dashboard.php:30
+msgid "The ID of the fundraiser you wish to display"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:31
+#: lib/form.blog_dashboard.php:53
+msgid "A valid loaded style name. This will use the default fundraiser style if no style is given."
+msgstr ""
+
+#: lib/form.blog_dashboard.php:32
+msgid "(Yes/No) Shows the title of the fundraiser above the panel"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:33
+msgid "(Yes/No) Shows the post content of the fundraiser above the panel"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:36
+msgid "Simple Donate Button"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:37
+msgid "The simple donation button allows you to take simple paypal donations with one click."
+msgstr ""
+
+#: lib/form.blog_dashboard.php:49
+msgid "Fundraiser Progress Bar"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:50
+msgid "Display a progress bar for a particular fundraiser."
+msgstr ""
+
+#: lib/form.blog_dashboard.php:52
+msgid "The ID of the fundraiser you wish to display a progress bar for."
+msgstr ""
+
+#: lib/form.blog_dashboard.php:54
+msgid "(Yes/No) Shows the title of the fundraiser above the progress bar - Default: no"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:55
+msgid "(Yes/No) Shows the fundraising goal and amount raised above the progress bar. - Default: no"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:62
+msgid "Need Help?"
+msgstr ""
+
+#: lib/form.blog_dashboard.php:65
+msgid "Restart the getting started walkthrough?"
+msgstr ""
+
+#: lib/form.blog_settings.php:9
+msgid "Payments"
+msgstr ""
+
+#: lib/form.blog_settings.php:10
+msgid "Presentation"
+msgstr ""
+
+#: lib/form.blog_settings.php:11
+msgid "Other"
+msgstr ""
+
+#: lib/form.blog_settings.php:14
+msgid "Reset"
+msgstr ""
+
+#: lib/form.blog_settings.php:27
+msgid " Settings"
+msgstr ""
+
+#: lib/form.blog_settings.php:46
+msgid "Plugin Menu Name"
+msgstr ""
+
+#: lib/form.blog_settings.php:54
+msgid "Supporter Labels"
+msgstr ""
+
+#: lib/form.blog_settings.php:55
+msgid "Used to describe someone who makes a payment"
+msgstr ""
+
+#: lib/form.blog_settings.php:60
+msgid "Single Supporter"
+msgstr ""
+
+#: lib/form.blog_settings.php:68
+msgid "Multiple Supporters"
+msgstr ""
+
+#: lib/form.blog_settings.php:77
+msgid "Level / Reward Labels"
+msgstr ""
+
+#: lib/form.blog_settings.php:78
+msgid "This is used to describe suggested payment levels"
+msgstr ""
+
+#: lib/form.blog_settings.php:83
+msgid "Singlular Level"
+msgstr ""
+
+#: lib/form.blog_settings.php:91
+msgid "Plural Level"
+msgstr ""
+
+#: lib/form.blog_settings.php:99
+msgid "Fundraiser Labels"
+msgstr ""
+
+#: lib/form.blog_settings.php:100
+msgid "Each fundraising project will be labeled with these"
+msgstr ""
+
+#: lib/form.blog_settings.php:106
+#: lib/form.blog_settings.php:139
+msgid "Singular Name"
+msgstr ""
+
+#: lib/form.blog_settings.php:115
+#: lib/form.blog_settings.php:147
+msgid "Plural Name"
+msgstr ""
+
+#: lib/form.blog_settings.php:125
+msgid "Pledge Labels"
+msgstr ""
+
+#: lib/form.blog_settings.php:126
+msgid "Any payment made towards a fundraiser will use this label"
+msgstr ""
+
+#: lib/form.blog_settings.php:155
+msgid "Action Name"
+msgstr ""
+
+#: lib/form.blog_settings.php:155
+msgid "This is describing the action of making a payment.  It is used as a call to action for making a payment."
+msgstr ""
+
+#: lib/form.blog_settings.php:163
+msgid "Checkout Presentation"
+msgstr ""
+
+#: lib/form.blog_settings.php:164
+msgid "An eloborated checkout page allows backers to view additional information about your fundraiser.  Checking out directly from the fundraising panel will begin the payment process immediately"
+msgstr ""
+
+#: lib/form.blog_settings.php:169
+msgid "Choose a default checkout type"
+msgstr ""
+
+#: lib/form.blog_settings.php:173
+#: lib/form.meta_boxes.php:263
+msgid "Checkout directly from panel"
+msgstr ""
+
+#: lib/form.blog_settings.php:174
+#: lib/form.meta_boxes.php:264
+msgid "Use elaborated checkout page"
+msgstr ""
+
+#: lib/form.blog_settings.php:180
+msgid "Allow per fundraiser checkout types?"
+msgstr ""
+
+#: lib/form.blog_settings.php:184
+#: lib/form.blog_settings.php:215
+#: lib/form.blog_settings.php:346
+#: lib/form.meta_boxes.php:246
+#: lib/form.meta_boxes.php:330
+#: lib/form.meta_boxes.php:367
+#: lib/form.meta_boxes.php:530
+#: lib/bp/bp-wdf-notifications.php:52
+msgid "No"
+msgstr ""
+
+#: lib/form.blog_settings.php:185
+#: lib/form.blog_settings.php:216
+#: lib/form.blog_settings.php:344
+#: lib/form.meta_boxes.php:245
+#: lib/form.meta_boxes.php:331
+#: lib/form.meta_boxes.php:368
+#: lib/form.meta_boxes.php:531
+#: lib/bp/bp-wdf-notifications.php:51
+msgid "Yes"
+msgstr ""
+
+#: lib/form.blog_settings.php:191
+msgid "Style Settings"
+msgstr ""
+
+#: lib/form.blog_settings.php:196
+msgid "Choose a default display style"
+msgstr ""
+
+#: lib/form.blog_settings.php:211
+msgid "Allow per fundraiser styles"
+msgstr ""
+
+#: lib/form.blog_settings.php:217
+msgid "Allowing this option will allow each fundraiser to override your site's default styles"
+msgstr ""
+
+#: lib/form.blog_settings.php:225
+msgid "Custom CSS"
+msgstr ""
+
+#: lib/form.blog_settings.php:225
+msgid "CSS styles saved in this box will be loaded on any page containing fundraising content. Do not use "
+msgstr ""
+
+#: lib/form.blog_settings.php:239
+msgid "Permalink Settings"
+msgstr ""
+
+#: lib/form.blog_settings.php:247
+msgid "Fundraising Permalink Structure"
+msgstr ""
+
+#: lib/form.blog_settings.php:250
+msgid "You Need To Setup Your Permalink Structure Before Setting Your Donations Slugs"
+msgstr ""
+
+#: lib/form.blog_settings.php:258
+msgid "Fundraising Directory Location"
+msgstr ""
+
+#: lib/form.blog_settings.php:267
+msgid "Checkout Page"
+msgstr ""
+
+#: lib/form.blog_settings.php:276
+msgid "Thank You Page"
+msgstr ""
+
+#: lib/form.blog_settings.php:307
+msgid "Currency Settings"
+msgstr ""
+
+#: lib/form.blog_settings.php:312
+msgid "Set Your Currency"
+msgstr ""
+
+#: lib/form.blog_settings.php:325
+msgid "Currency Symbol Position"
+msgstr ""
+
+#: lib/form.blog_settings.php:340
+msgid "Show Decimal in Prices"
+msgstr ""
+
+#: lib/form.blog_settings.php:351
+msgid "Allowed Fundraiser Types"
+msgstr ""
+
+#: lib/form.blog_settings.php:357
+#: lib/form.meta_boxes.php:227
+msgid "Simple Donations"
+msgstr ""
+
+#: lib/form.blog_settings.php:376
+#: lib/form.meta_boxes.php:227
+msgid "Advanced Crowdfunding"
+msgstr ""
+
+#: lib/form.blog_settings.php:380
+msgid "Crowdfunding allows you to create fundraisers with Goals & Rewards.  Payments for advanced crowdfunding are not processed until the goal has been reached."
+msgstr ""
+
+#: lib/form.blog_settings.php:389
+msgid "Available Payment Gateways"
+msgstr ""
+
+#: lib/form.blog_settings.php:417
+msgid "Settings"
+msgstr ""
+
+#: lib/form.blog_settings.php:432
+msgid "Reset your installation to the default settings?"
+msgstr ""
+
+#: lib/form.meta_boxes.php:7
+msgid "Add Archive Page To Menu"
+msgstr ""
+
+#: lib/form.meta_boxes.php:30
+msgid "Gateway Status"
+msgstr ""
+
+#: lib/form.meta_boxes.php:34
+msgid "Complete"
+msgstr ""
+
+#: lib/form.meta_boxes.php:35
+msgid "Approved"
+msgstr ""
+
+#: lib/form.meta_boxes.php:36
+msgid "Refunded"
+msgstr ""
+
+#: lib/form.meta_boxes.php:37
+msgid "Canceled"
+msgstr ""
+
+#: lib/form.meta_boxes.php:53
+msgid "You have not made any fundraisers yet.  You must create a fundraiser to make a pledge to."
+msgstr ""
+
+#: lib/form.meta_boxes.php:61
+msgid "Choose The Fundraiser"
+msgstr ""
+
+#: lib/form.meta_boxes.php:75
+msgid "First & Last Name"
+msgstr ""
+
+#: lib/form.meta_boxes.php:83
+msgid "Email Address"
+msgstr ""
+
+#: lib/form.meta_boxes.php:91
+msgid "Donation Amount"
+msgstr ""
+
+#: lib/form.meta_boxes.php:99
+#: lib/form.meta_boxes.php:141
+msgid "Payment Source"
+msgstr ""
+
+#: lib/form.meta_boxes.php:107
+msgid "Check/Cash"
+msgstr ""
+
+#: lib/form.meta_boxes.php:117
+msgid "Fundraiser"
+msgstr ""
+
+#: lib/form.meta_boxes.php:122
+#, php-format
+msgid "You have not made any %s yet."
+msgstr ""
+
+#: lib/form.meta_boxes.php:124
+#, php-format
+msgid "Not attached to any %s please choose one"
+msgstr ""
+
+#: lib/form.meta_boxes.php:134
+msgid "From"
+msgstr ""
+
+#: lib/form.meta_boxes.php:134
+msgid "Name:"
+msgstr ""
+
+#: lib/form.meta_boxes.php:134
+msgid "Email:"
+msgstr ""
+
+#: lib/form.meta_boxes.php:135
+msgid "Amount Donated"
+msgstr ""
+
+#: lib/form.meta_boxes.php:142
+msgid "Last Gateway Activity"
+msgstr ""
+
+#: lib/form.meta_boxes.php:143
+msgid "Transaction ID"
+msgstr ""
+
+#: lib/form.meta_boxes.php:154
+msgid "Your "
+msgstr ""
+
+#: lib/form.meta_boxes.php:158
+msgid "Amount Raised So Far"
+msgstr ""
+
+#: lib/form.meta_boxes.php:174
+msgid "Simple Donations: "
+msgstr ""
+
+#: lib/form.meta_boxes.php:175
+msgid "Allows for a simple continuous donations with no Goals or Rewards"
+msgstr ""
+
+#: lib/form.meta_boxes.php:177
+msgid "Advanced Crowdfunding: "
+msgstr ""
+
+#: lib/form.meta_boxes.php:178
+msgid "Set fundraising goals and rewards.  Pledges are only authorized and payments are not processed until your goal is reached."
+msgstr ""
+
+#: lib/form.meta_boxes.php:213
+msgid "Save Fundraising Type"
+msgstr ""
+
+#: lib/form.meta_boxes.php:216
+msgid "No payment types have been enabled yet."
+msgstr ""
+
+#: lib/form.meta_boxes.php:227
+msgid "Type : "
+msgstr ""
+
+#: lib/form.meta_boxes.php:231
+msgid "Choose a display style"
+msgstr ""
+
+#: lib/form.meta_boxes.php:243
+msgid "Allow Recurring Donations?"
+msgstr ""
+
+#: lib/form.meta_boxes.php:252
+msgid "Panel Position"
+msgstr ""
+
+#: lib/form.meta_boxes.php:254
+msgid "Above Content"
+msgstr ""
+
+#: lib/form.meta_boxes.php:255
+msgid "Below Content"
+msgstr ""
+
+#: lib/form.meta_boxes.php:257
+msgid "If you are not using the Fundraiser sidebar widget, choose the position of your info panel."
+msgstr ""
+
+#: lib/form.meta_boxes.php:261
+msgid "Checkout Type"
+msgstr ""
+
+#: lib/form.meta_boxes.php:282
+msgid "You must set a starting date"
+msgstr ""
+
+#: lib/form.meta_boxes.php:287
+msgid "You must set a ending date that is after the current date"
+msgstr ""
+
+#: lib/form.meta_boxes.php:292
+msgid "You must set a goal amount greater than at least 1"
+msgstr ""
+
+#: lib/form.meta_boxes.php:299
+msgid "Are you sure you are ready to publish?  You will be unable to change your fundraising type, goals and rewards after publishing."
+msgstr ""
+
+#: lib/form.meta_boxes.php:324
+msgid "Your fundraising dates, goals and rewards are locked in."
+msgstr ""
+
+#: lib/form.meta_boxes.php:328
+msgid "Create a crowdfunding goal?"
+msgstr ""
+
+#: lib/form.meta_boxes.php:342
+msgid "Start Date"
+msgstr ""
+
+#: lib/form.meta_boxes.php:343
+msgid "End Date"
+msgstr ""
+
+#: lib/form.meta_boxes.php:344
+msgid "Goal Amount"
+msgstr ""
+
+#: lib/form.meta_boxes.php:365
+msgid "Create "
+msgstr ""
+
+#: lib/form.meta_boxes.php:376
+msgid "Choose Amount"
+msgstr ""
+
+#: lib/form.meta_boxes.php:377
+msgid " Description"
+msgstr ""
+
+#: lib/form.meta_boxes.php:398
+#: lib/form.meta_boxes.php:422
+#: lib/form.meta_boxes.php:443
+msgid "Delete"
+msgstr ""
+
+#: lib/form.meta_boxes.php:405
+#: lib/form.meta_boxes.php:429
+#: lib/form.meta_boxes.php:448
+msgid "Describe Your "
+msgstr ""
+
+#: lib/form.meta_boxes.php:453
+msgid "Add A "
+msgstr ""
+
+#: lib/form.meta_boxes.php:477
+msgid "Amount"
+msgstr ""
+
+#: lib/form.meta_boxes.php:478
+msgid "Status"
+msgstr ""
+
+#: lib/form.meta_boxes.php:480
+msgid "Method"
+msgstr ""
+
+#: lib/form.meta_boxes.php:481
+msgid "Date"
+msgstr ""
+
+#: lib/form.meta_boxes.php:514
+msgid "Text or HTML Allowed"
+msgstr ""
+
+#: lib/form.meta_boxes.php:528
+msgid "Send a confirmation email after a payment?"
+msgstr ""
+
+#: lib/form.meta_boxes.php:537
+msgid "Create a custom email message or use the default one."
+msgstr ""
+
+#: lib/form.meta_boxes.php:538
+msgid "Email Subject"
+msgstr ""
+
+#: lib/form.meta_boxes.php:539
+msgid "Thank you for your Donation"
+msgstr ""
+
+#: lib/template-functions.php:23
+msgid "No ID Given"
+msgstr ""
+
+#: lib/template-functions.php:56
+#: lib/template-functions.php:377
+msgid "raised of a"
+msgstr ""
+
+#: lib/template-functions.php:56
+#: lib/template-functions.php:377
+msgid "goal"
+msgstr ""
+
+#: lib/template-functions.php:59
+msgid "raised"
+msgstr ""
+
+#: lib/template-functions.php:250
+msgid "Day Left"
+msgstr ""
+
+#: lib/template-functions.php:250
+msgid "Days Left"
+msgstr ""
+
+#: lib/template-functions.php:252
+msgid "Minute Left"
+msgstr ""
+
+#: lib/template-functions.php:252
+msgid "Minutes Left"
+msgstr ""
+
+#: lib/template-functions.php:254
+msgid "Hour Left"
+msgstr ""
+
+#: lib/template-functions.php:254
+msgid "Hours Left"
+msgstr ""
+
+#: lib/template-functions.php:257
+msgid "Starts In"
+msgstr ""
+
+#: lib/template-functions.php:257
+msgid "Day"
+msgstr ""
+
+#: lib/template-functions.php:257
+msgid "Days"
+msgstr ""
+
+#: lib/template-functions.php:257
+msgid "Hour"
+msgstr ""
+
+#: lib/template-functions.php:257
+msgid "Hours"
+msgstr ""
+
+#: lib/template-functions.php:281
+msgid "Support This"
+msgstr ""
+
+#: lib/template-functions.php:337
+#, php-format
+msgid "%s made a %s %s towards %s"
+msgstr ""
+
+#: lib/template-functions.php:355
+#, php-format
+msgid "Oh No, we can't find your %s.  Sometimes it take a few moments for your %s to be logged.  You can try refreshing this page "
+msgstr ""
+
+#: lib/template-functions.php:370
+#, php-format
+msgid "Your %s of %s was successful"
+msgstr ""
+
+#: lib/template-functions.php:467
+msgid "No Payment Gateways Have Been Enabled"
+msgstr ""
+
+#: lib/template-functions.php:482
+#, php-format
+msgid "This %s is not accepting %s yet."
+msgstr ""
+
+#: lib/template-functions.php:522
+msgid "None"
+msgstr ""
+
+#: lib/template-functions.php:537
+msgid "You must pledge at least"
+msgstr ""
+
+#: lib/template-functions.php:653
 msgid "Donate Now"
 msgstr ""
 
-#: lib/template-functions.php:166
-msgid "Donate your own amount"
+#: lib/template-functions.php:661
+msgid "Choose An Amount"
 msgstr ""
 
-#: lib/template-functions.php:176
+#: lib/template-functions.php:670
 msgid "Once"
 msgstr ""
 
-#: lib/template-functions.php:177
+#: lib/template-functions.php:671
 msgid "Daily"
 msgstr ""
 
-#: lib/template-functions.php:178
+#: lib/template-functions.php:672
 msgid "Weekly"
 msgstr ""
 
-#: lib/template-functions.php:179
+#: lib/template-functions.php:673
 msgid "Monthly"
 msgstr ""
 
-#: lib/template-functions.php:180
+#: lib/template-functions.php:674
 msgid "Yearly"
 msgstr ""
 
-#: lib/external/class_wd_help_tooltips.php:296
-msgid "Help"
+#: lib/template-functions.php:683
+msgid "Post this to your profile"
 msgstr ""
 
-#: lib/external/pointer-tutorials.php:134
-#: lib/external/pointers_tutorial.php:134
+#: lib/wdf_tutorials.php:15
+msgid "Getting Started Is Easy"
+msgstr ""
+
+#: lib/wdf_tutorials.php:16
+msgid "Follow these tutorial steps to get your Fundraising project up and running quickly."
+msgstr ""
+
+#: lib/wdf_tutorials.php:19
+msgid "Choose your currency"
+msgstr ""
+
+#: lib/wdf_tutorials.php:20
+msgid "Choose your preferred currency for your incoming donations."
+msgstr ""
+
+#: lib/wdf_tutorials.php:23
+msgid "Choose your allowed payment types."
+msgstr ""
+
+#: lib/wdf_tutorials.php:24
+msgid "Simple payments act like regular donations.  Advanced payments allow for the creation of Goals and Rewards.  Advanced payments will only be approved initially.  Approved payments will not process until the goal has been reached."
+msgstr ""
+
+#: lib/wdf_tutorials.php:28
+msgid "Turn On Permalinks"
+msgstr ""
+
+#: lib/wdf_tutorials.php:29
+msgid "Permalinks must been enabled and configured before your donation page can be seen publicly."
+msgstr ""
+
+#: lib/wdf_tutorials.php:33
+msgid "Choose your page locations"
+msgstr ""
+
+#: lib/wdf_tutorials.php:34
+msgid "You can customize the url structure of all your fundraisers projects here.  The directory is an archive of all the fundraisers.  The checkout page is used when a user starts the pledge process.  The thank you page is used after a successful donation or pledge."
+msgstr ""
+
+#: lib/wdf_tutorials.php:37
+msgid "Create your First Fundraiser"
+msgstr ""
+
+#: lib/wdf_tutorials.php:38
+msgid "Now that you have setup your presentation and payment settings you can create your first fundraiser. Start by adding a title."
+msgstr ""
+
+#: lib/wdf_tutorials.php:41
+msgid "Choose a fundraising type"
+msgstr ""
+
+#: lib/wdf_tutorials.php:42
+msgid "This step is crucial to how your fundraiser will operate.  Remember: Simple Donations process automatically but can not set goals or rewards.  Advanced Crowdfunding allows for goals and rewards but will only be approved until the goal has been reached.  After you save your fundraising type you will have additional options depending on your choice.  Enjoy!"
+msgstr ""
+
+#: lib/bp/bp-wdf-actions.php:21
+msgid "You can't fund yourself :"
+msgstr ""
+
+#: lib/bp/bp-wdf-actions.php:24
+msgid "Funding Sent!"
+msgstr ""
+
+#: lib/bp/bp-wdf-actions.php:26
+msgid "Funding could not be sent."
+msgstr ""
+
+#: lib/bp/bp-wdf-admin.php:25
+#: lib/bp/bp-wdf-admin.php:51
+msgid "Fundraising Admin"
+msgstr ""
+
+#: lib/bp/bp-wdf-admin.php:54
+msgid "Settings Updated."
+msgstr ""
+
+#: lib/bp/bp-wdf-admin.php:60
+msgid "Option One"
+msgstr ""
+
+#: lib/bp/bp-wdf-admin.php:65
+msgid "Option Two"
+msgstr ""
+
+#: lib/bp/bp-wdf-admin.php:72
+msgid "Save Settings"
+msgstr ""
+
+#: lib/bp/bp-wdf-ajax.php:40
+msgid "Friendship could not be canceled."
+msgstr ""
+
+#: lib/bp/bp-wdf-ajax.php:42
+msgid "Add Friend"
+msgstr ""
+
+#: lib/bp/bp-wdf-ajax.php:48
+msgid "Friendship could not be requested."
+msgstr ""
+
+#: lib/bp/bp-wdf-ajax.php:50
+msgid "Friendship Requested"
+msgstr ""
+
+#: lib/bp/bp-wdf-ajax.php:54
+msgid "Request Pending"
+msgstr ""
+
+#: lib/bp/bp-wdf-classes.php:111
+#, php-format
+msgid "%1$s high-fives %2$s"
+msgstr ""
+
+#: lib/bp/bp-wdf-classes.php:127
+#, php-format
+msgid "%1$s donated to %2$s"
+msgstr ""
+
+#: lib/bp/bp-wdf-functions.php:90
+#, php-format
+msgid "%s accepted the really exciting terms and conditions!"
+msgstr ""
+
+#: lib/bp/bp-wdf-functions.php:134
+#, php-format
+msgid "%s rejected the really exciting terms and conditions."
+msgstr ""
+
+#: lib/bp/bp-wdf-functions.php:206
+#, php-format
+msgid "%s supported %s!"
+msgstr ""
+
+#: lib/bp/bp-wdf-loader.php:53
+#: lib/bp/bp-wdf-loader.php:262
+msgid "Fundraising"
+msgstr ""
+
+#: lib/bp/bp-wdf-loader.php:238
+msgid "Search Donations..."
+msgstr ""
+
+#: lib/bp/bp-wdf-loader.php:273
+msgid "Screen One"
+msgstr ""
+
+#: lib/bp/bp-wdf-loader.php:283
+msgid "Screen Two"
+msgstr ""
+
+#: lib/bp/bp-wdf-notifications.php:50
+msgid "Donations"
+msgstr ""
+
+#: lib/bp/bp-wdf-notifications.php:59
+msgid "Action One"
+msgstr ""
+
+#: lib/bp/bp-wdf-notifications.php:65
+msgid "Action Two"
+msgstr ""
+
+#: lib/bp/bp-wdf-notifications.php:123
+msgid "Multiple Donations"
+msgstr ""
+
+#: lib/bp/bp-wdf-notifications.php:123
+#, php-format
+msgid "%d new high-fives, multi-five!"
+msgstr ""
+
+#: lib/bp/bp-wdf-notifications.php:127
+#, php-format
+msgid "%s sent you a high-five!"
+msgstr ""
+
+#: lib/bp/bp-wdf-notifications.php:167
+#, php-format
+msgid "%s high-fived you!"
+msgstr ""
+
+#: lib/bp/bp-wdf-notifications.php:170
+#, php-format
+msgid ""
+"%s sent you a high-five! Why not send one back?\n"
+"\n"
+"To see %s's profile: %s\n"
+"\n"
+"To send %s a high five: %s\n"
+"\n"
+"---------------------\n"
+msgstr ""
+
+#: lib/bp/bp-wdf-notifications.php:179
+#, php-format
+msgid "To disable these notifications please log in and go to: %s"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:120
+msgid "Fundraiser Projects"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:135
+msgid "Your Fundraisers"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:136
+#, php-format
+msgid "Send %s a <a href=\"%s\" title=\"Send high-five!\">high-five!</a>"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:139
+msgid "Received Donations!"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:170
+msgid "Terms were accepted!"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:173
+msgid "Terms could not be accepted."
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:186
+msgid "Terms were rejected!"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:189
+msgid "Terms could not be rejected."
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:219
+msgid "Recieved Donations"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:222
+msgid "Accept"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:223
+msgid "Reject"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:226
+#, php-format
+msgid "You must %s or %s the terms of use policy."
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:257
+msgid "Fundraising Settings Header"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:261
+msgid "Fundraising Settings"
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:269
+msgid "Changes Saved."
+msgstr ""
+
+#: lib/bp/bp-wdf-screens.php:275
+msgid "Do you love clicking checkboxes?"
+msgstr ""
+
+#: lib/bp/bp-wdf-template.php:113
+#, php-format
+msgid "Viewing page %1$s of %2$s"
+msgstr ""
+
+#: lib/bp/bp-wdf-template.php:194
+#, php-format
+msgid "%1$s gave %2$s a high-five!"
+msgstr ""
+
+#: lib/bp/bp-wdf-widgets.php:23
+msgid "Fundraising Widget"
+msgstr ""
+
+#: lib/bp/bp-wdf-widgets.php:65
+msgid "Number of Items Per Page:"
+msgstr ""
+
+#: lib/bp/bp-wdf-widgets.php:66
+msgid "Max items to show:"
+msgstr ""
+
+#: lib/bp/templates/wdf/index.php:22
+msgid "High Fives Directory"
+msgstr ""
+
+#: lib/bp/templates/wdf/index.php:30
+#, php-format
+msgid "All High Fives <span>%s</span>"
+msgstr ""
+
+#: lib/bp/templates/wdf/screen-one.php:26
+msgid "Welcome to Screen One"
+msgstr ""
+
+#: lib/bp/templates/wdf/screen-one.php:30
+msgid "Received High Fives!"
+msgstr ""
+
+#: lib/bp/templates/wdf/wdf-loop.php:77
+msgid "There were no donations found."
+msgstr ""
+
+#: lib/classes/class.gateway.php:28
+msgid "You must override the on_creation() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:31
+msgid "You must override the payment_form() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:34
+msgid "You must override the create_query() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:37
+msgid "You must override the process() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:40
+msgid "You must override the process_standard() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:43
+msgid "You must override the process_advanced() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:46
+msgid "You must override the execute_advanced_payment() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:49
+msgid "You must override the payment_info() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:52
+msgid "You must override the confirm() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:55
+msgid "You must override the handle_ipn() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:58
+msgid "You must override the admin_settings() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:61
+msgid "You must override the save_gateway_settings() method in your payment gateway plugin!"
+msgstr ""
+
+#: lib/classes/class.gateway.php:66
+#, php-format
+msgid "Your pledge of %s is almost complete."
+msgstr ""
+
+#: lib/classes/class.gateway.php:77
+msgid "Complete Pledge"
+msgstr ""
+
+#: lib/classes/class.gateway.php:85
+msgid "There was an unknown problem processing your payment."
+msgstr ""
+
+#: lib/classes/class.wdf_admin_ms.php:19
+msgid "You lack sufficient privledges to view this page"
+msgstr ""
+
+#: lib/classes/class.wdf_admin_ms.php:24
+msgid "Network Donation Options"
+msgstr ""
+
+#: lib/external/class.pointers_tutorial.php:134
 msgid "Tutorial"
 msgstr ""
 
-#: lib/external/pointer-tutorials.php:417
-#: lib/external/pointers_tutorial.php:421
+#: lib/external/class.pointers_tutorial.php:421
 msgid "Next &raquo;"
 msgstr ""
 
-#: lib/external/pointer-tutorials.php:429
-#: lib/external/pointer-tutorials.php:448
-#: lib/external/pointers_tutorial.php:436
-#: lib/external/pointers_tutorial.php:458
+#: lib/external/class.pointers_tutorial.php:436
+#: lib/external/class.pointers_tutorial.php:458
 msgid "Dismiss"
 msgstr ""
 
-#: lib/external/pointer-tutorials.php:430
-#: lib/external/pointer-tutorials.php:449
-#: lib/external/pointers_tutorial.php:437
-#: lib/external/pointers_tutorial.php:459
+#: lib/external/class.pointers_tutorial.php:437
+#: lib/external/class.pointers_tutorial.php:459
 #, php-format
 msgid "Dismiss %s"
 msgstr ""
 
-#: lib/external/pointer-tutorials.php:436
-#: lib/external/pointers_tutorial.php:443
+#: lib/external/class.pointers_tutorial.php:443
 msgid "&laquo; Previous"
 msgstr ""
 
-#: lib/external/pointer-tutorials.php:488
-#: lib/external/pointers_tutorial.php:498
+#: lib/external/class.pointers_tutorial.php:498
 #, php-format
 msgid "%s: Step %d of %d"
 msgstr ""
 
-#: lib/widgets/widget.featured_fundraisers.php:11
-#: lib/widgets/widget.featured_fundraisers.php:48
-msgid "Featured Fundraisers"
+#: lib/external/class.wd_help_tooltips.php:296
+msgid "Help"
 msgstr ""
 
-#: lib/widgets/widget.featured_fundraisers.php:12
-msgid "Show a list of featured fundraisers with this simple widget"
+#: lib/gateways/paypal.php:85
+msgid "Click Here To Complete Your Donation"
 msgstr ""
 
-#: lib/widgets/widget.featured_fundraisers.php:48
-#: lib/widgets/widget.simple_donation.php:57
+#: lib/gateways/paypal.php:108
+msgid "Could not determine fundraiser"
+msgstr ""
+
+#: lib/gateways/paypal.php:130
+msgid "If the goal is reached your account will be charged immediately"
+msgstr ""
+
+#: lib/gateways/paypal.php:159
+msgid "No status code given"
+msgstr ""
+
+#: lib/gateways/paypal.php:166
+msgid "There was an error contacting PayPal's servers."
+msgstr ""
+
+#: lib/gateways/paypal.php:181
+msgid "There was a problem connecting with the paypal gateway.  (CODE)"
+msgstr ""
+
+#: lib/gateways/paypal.php:217
+msgid "There was a problem connecting to PayPal. Please try again."
+msgstr ""
+
+#: lib/gateways/paypal.php:255
+msgid "Pre-Approved"
+msgstr ""
+
+#: lib/gateways/paypal.php:256
+#: lib/gateways/paypal.php:261
+msgid "Transaction Pre-Approved"
+msgstr ""
+
+#: lib/gateways/paypal.php:265
+#: lib/gateways/paypal.php:410
+msgid "Unknown"
+msgstr ""
+
+#: lib/gateways/paypal.php:266
+msgid "Unknown PayPal status."
+msgstr ""
+
+#: lib/gateways/paypal.php:274
+msgid "There was a problem verifying the IPN string with PayPal. Please try again."
+msgstr ""
+
+#: lib/gateways/paypal.php:311
+msgid "Pending/Approved"
+msgstr ""
+
+#: lib/gateways/paypal.php:312
+msgid "Missing Pending Status."
+msgstr ""
+
+#: lib/gateways/paypal.php:317
+msgid "Payment Refunded"
+msgstr ""
+
+#: lib/gateways/paypal.php:321
+msgid "Reversed"
+msgstr ""
+
+#: lib/gateways/paypal.php:322
+msgid "Payment Reversed"
+msgstr ""
+
+#: lib/gateways/paypal.php:326
+msgid "Expired"
+msgstr ""
+
+#: lib/gateways/paypal.php:327
+msgid "Payment Expired"
+msgstr ""
+
+#: lib/gateways/paypal.php:331
+msgid "Processed"
+msgstr ""
+
+#: lib/gateways/paypal.php:332
+msgid "Payment Processed"
+msgstr ""
+
+#: lib/gateways/paypal.php:336
+msgid "Payment Completed"
+msgstr ""
+
+#: lib/gateways/paypal.php:340
+msgid "Unknown Payment Status"
+msgstr ""
+
+#: lib/gateways/paypal.php:345
+msgid "Payment Status Not Given"
+msgstr ""
+
+#: lib/gateways/paypal.php:379
+msgid "Completed"
+msgstr ""
+
+#: lib/gateways/paypal.php:380
+msgid "Payment Complete."
+msgstr ""
+
+#: lib/gateways/paypal.php:385
+msgid "Incomplete"
+msgstr ""
+
+#: lib/gateways/paypal.php:386
+msgid "Pre-Approval Incomplete."
+msgstr ""
+
+#: lib/gateways/paypal.php:390
+msgid "Error"
+msgstr ""
+
+#: lib/gateways/paypal.php:391
+msgid "Error Capturing Payment"
+msgstr ""
+
+#: lib/gateways/paypal.php:395
+msgid "Reversal Error"
+msgstr ""
+
+#: lib/gateways/paypal.php:396
+msgid "Error Reversing Payment."
+msgstr ""
+
+#: lib/gateways/paypal.php:400
+msgid "Processing"
+msgstr ""
+
+#: lib/gateways/paypal.php:401
+msgid "Processing Payment."
+msgstr ""
+
+#: lib/gateways/paypal.php:405
+msgid "Pending"
+msgstr ""
+
+#: lib/gateways/paypal.php:406
+msgid "Error Reserving Payment."
+msgstr ""
+
+#: lib/gateways/paypal.php:411
+msgid "Unknown Payment Response Status after attempting to execute."
+msgstr ""
+
+#: lib/gateways/paypal.php:470
+msgid "PayPal Mode"
+msgstr ""
+
+#: lib/gateways/paypal.php:473
+msgid "Live"
+msgstr ""
+
+#: lib/gateways/paypal.php:474
+msgid "Sandbox"
+msgstr ""
+
+#: lib/gateways/paypal.php:480
+msgid "Simple Payment Options"
+msgstr ""
+
+#: lib/gateways/paypal.php:481
+msgid "In order for PayPal simple payments to log properly you must turn on PayPal Instant Payment Notifications and point it to"
+msgstr ""
+
+#: lib/gateways/paypal.php:485
+msgid "PayPal Email Address:"
+msgstr ""
+
+#: lib/gateways/paypal.php:490
+msgid "PayPal Checkout Header Image "
+msgstr ""
+
+#: lib/gateways/paypal.php:500
+msgid "Advanced Payment Options"
+msgstr ""
+
+#: lib/gateways/paypal.php:512
+msgid "PayPal Email Address"
+msgstr ""
+
+#: lib/gateways/paypal.php:514
+msgid "Please enter your PayPal email address or business id you want to recieve fees at."
+msgstr ""
+
+#: lib/gateways/paypal.php:519
+msgid "Paypal Currency"
+msgstr ""
+
+#: lib/gateways/paypal.php:559
+msgid "PayPal API Credentials"
+msgstr ""
+
+#: lib/gateways/paypal.php:561
+msgid "You must login to PayPal and create an API signature to get your credentials. <a target=\"_blank\" href=\"https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_NVPAPIBasics#id084DN0AK0HS\">Instructions &raquo;</a>"
+msgstr ""
+
+#: lib/gateways/paypal.php:565
+msgid "API Username"
+msgstr ""
+
+#: lib/gateways/paypal.php:572
+msgid "API Password"
+msgstr ""
+
+#: lib/gateways/paypal.php:579
+msgid "Signature"
+msgstr ""
+
+#: lib/gateways/paypal.php:585
+msgid "You must register this application with PayPal using your business account login to get an Application ID that will work with your API credentials. A bit of a hassle, but worth it!  <a target=\"_blank\" href=\"https://www.x.com/developers/paypal\">Register then submit your application</a> while logged in to the developer portal.</a> Note that you do not need an Application ID for testing in sandbox mode. <a target=\"_blank\" href=\"https://www.x.com/developers/paypal/documentation-tools/going-live-with-your-application\">More Information &raquo;</a>"
+msgstr ""
+
+#: lib/gateways/paypal.php:587
+msgid "View an example form &raquo;"
+msgstr ""
+
+#: lib/gateways/paypal.php:591
+msgid "Application ID"
+msgstr ""
+
+#: lib/gateways/paypal.php:594
+msgid "No application ID is required when using PayPal in sandbox mode."
+msgstr ""
+
+#: lib/widgets/widget.fundraisers_list.php:7
+msgid "Fundraisers List"
+msgstr ""
+
+#: lib/widgets/widget.fundraisers_list.php:8
+msgid "Choose a list of simple fundraiser links you wish to display."
+msgstr ""
+
+#: lib/widgets/widget.fundraisers_list.php:43
+#: lib/widgets/widget.fundraiser_panel.php:120
+#: lib/widgets/widget.simple_donation.php:66
 msgid "Title"
 msgstr ""
 
-#: lib/widgets/widget.featured_fundraisers.php:49
-#: lib/widgets/widget.simple_donation.php:61
+#: lib/widgets/widget.fundraisers_list.php:43
+#: lib/widgets/widget.fundraiser_panel.php:120
+msgid "Featured Fundraisers"
+msgstr ""
+
+#: lib/widgets/widget.fundraisers_list.php:44
+#: lib/widgets/widget.simple_donation.php:70
 msgid "Description"
+msgstr ""
+
+#: lib/widgets/widget.fundraiser_panel.php:12
+msgid " Panel"
+msgstr ""
+
+#: lib/widgets/widget.fundraiser_panel.php:14
+msgid "If the current page is a single Fundraiser page then this panel will display information and call to actions for the fundraiser.  You can also use it to display information for a specific fundraiser."
+msgstr ""
+
+#: lib/widgets/widget.fundraiser_panel.php:121
+msgid "Extra Description"
+msgstr ""
+
+#: lib/widgets/widget.fundraiser_panel.php:124
+msgid "Include Featured Image"
+msgstr ""
+
+#: lib/widgets/widget.fundraiser_panel.php:125
+msgid "Max Image Width"
+msgstr ""
+
+#: lib/widgets/widget.fundraiser_panel.php:126
+msgid "Max Image Height"
+msgstr ""
+
+#: lib/widgets/widget.fundraiser_panel.php:132
+msgid "Default"
+msgstr ""
+
+#: lib/widgets/widget.fundraiser_panel.php:140
+msgid "Display a specific fundraiser"
+msgstr ""
+
+#: lib/widgets/widget.fundraiser_panel.php:158
+msgid "You have not created any fundraisers yet"
 msgstr ""
 
 #: lib/widgets/widget.recent_fundraisers.php:11
@@ -144,54 +1445,66 @@ msgid "The most recent fundraisers on your site"
 msgstr ""
 
 #: lib/widgets/widget.simple_donation.php:11
-msgid "Simple Donation Button"
+msgid " Button"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:66
-msgid "Donation Amount (blank = choice)"
+#: lib/widgets/widget.simple_donation.php:14
+msgid "Create a simple button for taking donations."
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:61
+msgid "Button Type"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:62
+msgid "Default PayPal Button"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:63
+msgid "Custom Button"
 msgstr ""
 
 #: lib/widgets/widget.simple_donation.php:75
-msgid "Choose a display style"
+msgid "Donation Amount (blank = choice)"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:77
+#: lib/widgets/widget.simple_donation.php:82
 msgid "Basic"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:78
+#: lib/widgets/widget.simple_donation.php:83
 msgid "Dark"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:79
+#: lib/widgets/widget.simple_donation.php:84
 msgid "Fresh"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:80
+#: lib/widgets/widget.simple_donation.php:85
 msgid "Note"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:81
+#: lib/widgets/widget.simple_donation.php:86
 msgid "None (Custom CSS)"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:92
+#: lib/widgets/widget.simple_donation.php:90
+msgid "Donate Button Text"
+msgstr ""
+
+#: lib/widgets/widget.simple_donation.php:97
 msgid "Show Accepted Credit Cards"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:93
+#: lib/widgets/widget.simple_donation.php:98
 msgid "Allow extra note field"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:94
+#: lib/widgets/widget.simple_donation.php:99
 msgid "Use Small Button"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:98
+#: lib/widgets/widget.simple_donation.php:103
 msgid "Override PayPal Email Address"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:104
-msgid "Thank You Message"
 msgstr ""
 
