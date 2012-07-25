@@ -1,0 +1,28 @@
+You can create new files inside your active theme's root folder to be used when displaying a fundraiser.
+
+There are 3 types of templates you can create.
+
+Template Hierarchy
+
+Single Fundraiser
+wdf_funder-{ID}.php
+wdf_funder-{slug}.php
+wdf_funder.php
+ 
+Fundraiser Checkout
+wdf_checkout-{ID}.php
+wdf_checkout-{slug}.php
+wdf_checkout.php
+
+Fundraiser Confirmation Page
+wdf_confirm-{ID}.php
+wdf_confirm-{slug}.php
+wdf_confirm.php
+
+
+== Custom Template Functions ==
+You can change the location of the template-functions that are loaded in fundraising to an external location.
+This will insure that any custom changes you make to your template functions are not broken when updating the plugin in the future.
+
+Add a new define statement in your wp-config.php file containing a string pointing to the location.
+define('WDF_CUSTOM_TEMPLATE_FUNCTIONS','/full-server-path/and/filename.php');
