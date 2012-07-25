@@ -7,8 +7,12 @@ class WDF_Simple_Donation extends WP_Widget {
      */
 	
 	function WDF_Simple_Donation() {
+		$settings = get_option('wdf_settings');
+		$title = esc_attr($settings['donation_labels']['singular_name']) . __(' Button','wdf');
 		// Instantiate the parent object
-		parent::__construct( false, __('Simple Donation Button','wdf') );
+		parent::__construct( false, $title, array(
+			'description' =>  __('Create a simple button for taking donations.','wdf')
+		) );
 	}
 
 	function widget( $args, $instance ) {
@@ -51,58 +55,56 @@ class WDF_Simple_Donation extends WP_Widget {
 
 	function form( $instance ) {
 		$settings = get_option('wdf_settings');
+		global $wdf;
 		?>
 		<p>
-			<label><?php echo __('Title','wdf') ?><br />
-			<input type="text" class="widefat" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" /></label>
+			<label><?php _e('Button Type','wdf'); ?></label><br/>
+			<label><input class="autosave_widget" type="radio" name="<?php echo $this->get_field_name('button_type'); ?>" value="default" <?php if(isset($instance['button_type'])) checked($instance['button_type'],'default'); ?> /> <?php _e('Default PayPal Button','wdf'); ?></label><br />
+			<label><input class="autosave_widget" type="radio" name="<?php echo $this->get_field_name('button_type'); ?>" value="custom" <?php if(isset($instance['button_type'])) checked($instance['button_type'],'custom'); ?> /> <?php _e('Custom Button','wdf'); ?></label>
 		</p>
 		<p>
-			<label><?php echo __('Description','wdf') ?></label><br />
-			<textarea class="widefat" name="<?php echo $this->get_field_name('description'); ?>"><?php echo esc_attr($instance['description']); ?></textarea>
+			<label><?php _e('Title','wdf') ?><br />
+			<input type="text" class="widefat" name="<?php echo $this->get_field_name('title'); ?>" value="<?php if(isset($instance['title'])) echo esc_attr($instance['title']); ?>" /></label>
+		</p>
+		<p>
+			<label><?php _e('Description','wdf') ?></label><br />
+			<textarea class="widefat" name="<?php echo $this->get_field_name('description'); ?>"><?php if(isset($instance['description']))  echo esc_attr($instance['description']); ?></textarea>
 		</p>
 		
 		<p>
-			<label><?php echo __('Donation Amount (blank = choice)','wdf') ?><input type="text" name="<?php echo $this->get_field_name('donation_amount'); ?>" value="<?php echo ($instance['donation_amount'] == '' ? '' : round(preg_replace("/[^0-9.]/", "", $instance['donation_amount']), 2)); ?>" /></label>
+			<label><?php _e('Donation Amount (blank = choice)','wdf') ?><input type="text" name="<?php echo $this->get_field_name('donation_amount'); ?>" value="<?php if(isset($instance['donation_amount'])) echo ($instance['donation_amount'] == '' ? '' : $wdf->filter_price($instance['donation_amount'])); ?>" /></label>
 		</p>
-		<p>
-			<label>Button Type</label><br/>
-			<label><input type="radio" name="<?php echo $this->get_field_name('button_type'); ?>" value="default" <?php checked($instance['button_type'],'default'); ?> /> Default PayPal Button</label><br />
-			<label><input type="radio" name="<?php echo $this->get_field_name('button_type'); ?>" value="custom" <?php checked($instance['button_type'],'custom'); ?> /> Custom Button</label>
-		</p>
-		<?php if($instance['button_type'] == 'custom') : ?>
+		
+		<?php if( isset($instance['button_type']) && $instance['button_type'] == 'custom') : ?>
 			<p>
 				<label><?php echo __('Choose a display style','wdf'); ?>
 				<select name="<?php echo $this->get_field_name('style'); ?>">
-					<option <?php selected($instance['style'],'wdf_default'); ?> value="wdf_default"><?php echo __('Basic','wdf'); ?></option>
-					<option <?php selected($instance['style'],'wdf_dark'); ?> value="wdf_dark"><?php echo __('Dark','wdf'); ?></option>
-					<option <?php selected($instance['style'],'wdf_fresh'); ?> value="wdf_fresh"><?php echo __('Fresh','wdf'); ?></option>
-					<option <?php selected($instance['style'],'wdf_note'); ?> value="wdf_note"><?php echo __('Note','wdf'); ?></option>
-					<option <?php selected($instance['style'],'wdf_custom'); ?> value="custom"><?php echo __('None (Custom CSS)','wdf'); ?></option>
+					<option <?php if(isset($instance['style'])) selected($instance['style'],'wdf_default'); ?> value="wdf_default"><?php _e('Basic','wdf'); ?></option>
+					<option <?php if(isset($instance['style'])) selected($instance['style'],'wdf_dark'); ?> value="wdf_dark"><?php _e('Dark','wdf'); ?></option>
+					<option <?php if(isset($instance['style'])) selected($instance['style'],'wdf_fresh'); ?> value="wdf_fresh"><?php _e('Fresh','wdf'); ?></option>
+					<option <?php if(isset($instance['style'])) selected($instance['style'],'wdf_note'); ?> value="wdf_note"><?php _e('Note','wdf'); ?></option>
+					<option <?php if(isset($instance['style'])) selected($instance['style'],'wdf_custom'); ?> value="custom"><?php _e('None (Custom CSS)','wdf'); ?></option>
 				</select></label>
 			</p>
 			<p>
-			<label>Donate Button Text<br />
-				<input type="text" class="widefat" name="<?php echo $this->get_field_name('button_text'); ?>" value="<?php echo esc_attr($instance['button_text']); ?>" />
+			<label><?php _e('Donate Button Text','wdf'); ?><br />
+				<input type="text" class="widefat" name="<?php echo $this->get_field_name('button_text'); ?>" value="<?php if(isset($instance['button_text'])) echo esc_attr($instance['button_text']); ?>" />
 			</label>
 		</p>
 		<?php endif; ?>
-		<?php if($instance['button_type'] == 'default') : ?>
+		<?php if(isset($instance['button_type']) && $instance['button_type'] == 'default') : ?>
 			<p>
-				<label><input type="checkbox" name="<?php echo $this->get_field_name('show_cc'); ?>" value="yes" <?php checked($instance['show_cc'],'1'); ?> /> <?php echo __('Show Accepted Credit Cards','wdf'); ?></label><br />
-				<label><input type="checkbox" name="<?php echo $this->get_field_name('allow_note'); ?>" value="yes" <?php checked($instance['allow_note'],'1'); ?> /> <?php echo __('Allow extra note field','wdf'); ?></label><br />
-				<label><input type="checkbox" name="<?php echo $this->get_field_name('small_button'); ?>" value="yes" <?php checked($instance['small_button'],'1'); ?> /> <?php echo __('Use Small Button','wdf'); ?></label>
+				<label><input type="checkbox" name="<?php echo $this->get_field_name('show_cc'); ?>" value="yes" <?php if(isset($instance['show_cc'])) checked($instance['show_cc'],'1'); ?> /> <?php _e('Show Accepted Credit Cards','wdf'); ?></label><br />
+				<label><input type="checkbox" name="<?php echo $this->get_field_name('allow_note'); ?>" value="yes" <?php if(isset($instance['allow_note'])) checked($instance['allow_note'],'1'); ?> /> <?php _e('Allow extra note field','wdf'); ?></label><br />
+				<label><input type="checkbox" name="<?php echo $this->get_field_name('small_button'); ?>" value="yes" <?php if(isset($instance['small_button'])) checked($instance['small_button'],'1'); ?> /> <?php _e('Use Small Button','wdf'); ?></label>
 			</p>
 		<?php endif; ?>
 		<p>
 			<label><?php _e('Override PayPal Email Address','wdf') ?></label><br />
 				<label class="code"><?php echo $settings['paypal_email']; ?></label><br />
-				<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'paypal_email' ); ?>" value="<?php echo is_email($instance['paypal_email']); ?>" />
+				<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'paypal_email' ); ?>" value="<?php if(isset($instance['paypal_email'])) echo is_email($instance['paypal_email']); ?>" />
 			</label>
 		</p>
-		<?php /*?><p>
-			<label><?php echo __('Thank You Message','wdf') ?></label><br />
-			<textarea class="widefat" name="<?php echo $this->get_field_name( 'thankyou_msg' ); ?>"><?php echo esc_textarea($instance['thankyou_msg']); ?></textarea>
-		</p><?php */?>
 		<?php
 	}
 }

@@ -2,11 +2,12 @@
 
 global $pagenow;
 
-if($pagenow == 'nav-menus.php') {
-	$funder_obj = get_post_type('funder');
-	$funder_obj = apply_filters( 'nav_menu_meta_box_object', $funder_obj);
-	//var_export($funder_obj);
-	//wp_nav_menu_item_post_type_meta_box('', $funder_obj);
+if($pagenow == 'nav-menus.php') { ?>
+	
+	<p><a href="#" id="wdf_add_nav_archive" class="button secondary-button"><?php _e('Add Archive Page To Menu','wdf'); ?></a></p>
+	<?php 
+	$funder_obj['args']->name = 'funder';
+	wp_nav_menu_item_post_type_meta_box('', $funder_obj);
 } else {
 	
 	//Setup tooltips for all metaboxes
@@ -132,7 +133,7 @@ if($pagenow == 'nav-menus.php') {
 					<?php $trans = $this->get_transaction(); ?>
 					<h3><?php _e('From','wdf'); ?>:</h3><p><label><strong><?php echo __('Name:','wdf'); ?> </strong></label><?php echo $trans['first_name'] . ' ' . $trans['last_name']; ?></p><p><label><strong><?php echo __('Email:','wdf'); ?> </strong></label><?php echo $trans['payer_email']; ?></p>
 					<h3><?php _e('Amount Donated','wdf'); ?>:</h3>
-					<?php if($trans['recurring'] == 1) :?>
+					<?php if(isset($trans['recurring']) && $trans['recurring'] == 1) :?>
 						<p><?php echo $this->format_currency($trans['currency_code'],$trans['gross']); ?> every <?php echo $trans['cycle']; ?></p>
 					<?php else: ?>
 						<p><?php echo $this->format_currency($trans['currency_code'],$trans['gross']); ?></p>
@@ -246,33 +247,27 @@ if($pagenow == 'nav-menus.php') {
 						</select>
 					</label>
 				</p>
-			
-				<?php /*?><p>
-					<label><?php echo __('Override Default PayPal Email Address','wdf'); ?><br />
-						<input type="text" class="widefat" name="wdf[paypal_email_override]" value="<?php echo $meta['wdf_paypal_email_override'][0]; ?>" />
-					</label>
-				</p><?php */?>
-				<?php //$cycles = maybe_unserialize($meta['wdf_recurring_cycle'][0]); ?>
-				<?php /*?><p rel="wdf_recurring" <?php echo ($meta['wdf_recurring'][0] == 'yes'? '' : 'style="display:none;"') ?>>
-					<input type="hidden" name="wdf[recurring_cycle][d]" value="" />
-					<input type="hidden" name="wdf[recurring_cycle][w]" value="" />
-					<input type="hidden" name="wdf[recurring_cycle][m]" value="" />
-					<input type="hidden" name="wdf[recurring_cycle][y]" value="" />
-					<label><input type="checkbox" name="wdf[recurring_cycle][d]" value="1" <?php echo checked($cycles['d'],'1'); ?> />Daily</label><br />
-					<label><input type="checkbox" name="wdf[recurring_cycle][w]" value="1" <?php echo checked($cycles['w'],'1'); ?> />Weekley</label><br />
-					<label><input type="checkbox" name="wdf[recurring_cycle][m]" value="1" <?php echo checked($cycles['m'],'1'); ?> />Monthly</label><br />
-					<label><input type="checkbox" name="wdf[recurring_cycle][y]" value="1" <?php echo checked($cycles['y'],'1'); ?> />Yearly</label>
-				</p><?php */?>
 			<?php endif; ?>
-			<p><label><span class="description"><?php _e('Panel Position','wdf') ?></span>
-					<select name="wdf[panel_pos]">
-						<option value="top" <?php (isset($meta['wdf_recurring'][0]) ? selected($meta['wdf_recurring'][0],'top') : ''); ?>><?php _e('Above Content','wdf'); ?></option>
-						<option value="bottom" <?php (isset($meta['wdf_recurring'][0]) ? selected($meta['wdf_recurring'][0],'bottom') : ''); ?>><?php _e('Below Content','wdf'); ?></option>
-					</select>
-				</label><?php echo $tips->add_tip(__('If you are not using the Fundraiser sidebar widget, choose the position of your info panel.','wdf')); ?>
-			</p>
+				<p>
+					<label><span class="description"><?php _e('Panel Position','wdf') ?></span>
+						<select name="wdf[panel_pos]">
+							<option value="top" <?php (isset($meta['wdf_recurring'][0]) ? selected($meta['wdf_recurring'][0],'top') : ''); ?>><?php _e('Above Content','wdf'); ?></option>
+							<option value="bottom" <?php (isset($meta['wdf_recurring'][0]) ? selected($meta['wdf_recurring'][0],'bottom') : ''); ?>><?php _e('Below Content','wdf'); ?></option>
+						</select>
+					</label><?php echo $tips->add_tip(__('If you are not using the Fundraiser sidebar widget, choose the position of your info panel.','wdf')); ?>
+				</p>
+				<?php if($settings['single_checkout_type'] == '1') : ?>
+					<p>
+						<label><span class="description"><?php _e('Checkout Type','wdf') ?></span>
+							<select name="wdf[checkout_type]">
+									<option value="1" <?php (isset($meta['checkout_type'][0]) ? selected($meta['checkout_type'][0],'1') : ''); ?>><?php _e('Checkout directly from panel','wdf'); ?></option>
+									<option value="2" <?php (isset($meta['checkout_type'][0]) ? selected($meta['checkout_type'][0],'2') : ''); ?>><?php _e('Use elaborated checkout page','wdf'); ?></option>
+								</select>
+						</label>
+					</p>
+				<?php endif; ?>
 			
-			<?php if($post->post_status == 'draft' && $meta['wdf_type'][0] == 'advanced') : ?>
+			<?php if(isset($meta['wdf_type'][0]) && $meta['wdf_type'][0] == 'advanced') : ?>
 				<script type="text/javascript">
 					jQuery(document).ready( function($) {
 						
@@ -301,14 +296,14 @@ if($pagenow == 'nav-menus.php') {
 								}
 							}
 							
-							var check = confirm("<?php _e('Are you sure you are ready to publish?  You will be unable to change your fundraising type, goals and rewards after publishing.','wdf'); ?>");
-							if (check == true)  {
-								return true;
-							} else {
-								e.preventDefault();
-								e.stopImmediatePropagation();
-								return false;
-							}
+							//var check = confirm("<?php _e('Are you sure you are ready to publish?  You will be unable to change your fundraising type, goals and rewards after publishing.','wdf'); ?>");
+							//if (check == true)  {
+								//return true;
+							//} else {
+								//e.preventDefault();
+								//e.stopImmediatePropagation();
+								//return false;
+							//}
 						});
 					});
 				</script>
@@ -542,9 +537,7 @@ if($pagenow == 'nav-menus.php') {
 			<label><?php echo __('Create a custom email message or use the default one.','wdf'); ?></label><?php $tips->add_tip('The email will come from your Administrator email <strong>'.get_bloginfo('admin_email').'</strong>')?><br />
 			<p><label><?php echo __('Email Subject','wdf'); ?></label><br />
 			<input class="regular-text" type="text" name="wdf[email_subject]" value="<?php echo (isset($meta['email_subject'][0]) ? $meta['email_subject'][0] : __('Thank you for your Donation', 'wdf')); ?>" /></p>
-			<p><textarea id="wdf_email_msg" name="wdf[email_msg]">
-				<?php echo (isset($meta['wdf_email_msg'][0]) ? $meta['wdf_email_msg'][0] : $settings['default_email']); ?>
-			</textarea></p>
+			<p><textarea id="wdf_email_msg" name="wdf[email_msg]"><?php echo (isset($meta['wdf_email_msg'][0]) ? $meta['wdf_email_msg'][0] : esc_textarea($settings['default_email'])); ?></textarea></p>
 		</div>
 		<?php break;
 	}

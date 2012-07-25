@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.1.2
+Version: 2.1.5
 Text Domain: wdf
 Author: Cole (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -62,13 +62,28 @@ if (is_multisite() && defined('WPMU_PLUGIN_URL') && defined('WPMU_PLUGIN_DIR') &
 }
 $textdomain_handler('wdf', false, WDF_PLUGIN_SELF_DIRNAME . '/languages/');
 
+
+// Gotta do this here so it doesnt save over what we just deleted.
+if(isset($_POST['wdf_reset'])) {
+	$wdf_posts = get_posts(array(
+		'post_type' => array('funder','donation'),
+		'numberposts' => -1
+	));
+	if($wdf_posts) {
+		foreach($wdf_posts as $wdf_post) {
+			wp_delete_post( $wdf_post->ID, true );
+		}
+	}
+	delete_option('wdf_settings');
+}
+
 class WDF {
 	function WDF() {
 		$this->_vars();
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.1.2';
+		$this->version = '2.1.5';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -83,6 +98,7 @@ class WDF {
 			'panel_in_sidebar' => 'no',
 			'payment_types' => array('simple'),
 			'curr_symbol_position' => 1,
+			'single_checkout_type' => 0,
 			'curr_decimal' => 1,
 			'default_email' => 'Thank you for your pledge. Your donation of %DONATIONTOTAL% has been recieved and is greatly appreciated. Thanks for your support.',
 			'current_version' => $this->version,
@@ -107,20 +123,7 @@ class WDF {
 		require_once(WDF_PLUGIN_BASE_DIR . '/lib/wdf_data.php');
 	}
 	function _construct() {
-		
-		if(isset($_POST['wdf_reset'])) {
-			$wdf_posts = get_posts(array(
-				'post_type' => array('funder','donation'),
-				'numberposts' => -1
-			));
-			if($wdf_posts) {
-				foreach($wdf_posts as $wdf_post) {
-					wp_delete_post( $wdf_post->ID, true );
-				}
-			}
-			delete_option('wdf_settings');
-		}
-		
+
 		$settings = get_option('wdf_settings');
 		if(!is_array($settings) || !$settings || empty($settings) ) {
 			update_option('wdf_settings',$this->defaults);
@@ -129,11 +132,13 @@ class WDF {
 		if(!isset($settings['current_version'])) {
 			$this->upgrade_settings();
 		}
-		
-		if(version_compare($this->version, $settings['current_version']) == 1) {
-			$settings['current_version'] = $this->version;
-			$settings = array_merge($this->defaults, $settings);
-			update_option('wdf_settings',$settings);
+		$version_compare = version_compare($this->version, $settings['current_version']);
+		if($version_compare == 1) {
+			// Upgrade
+			$this->upgrade_settings();
+		} else if($version_compare == -1) {
+			// Downgrade
+			$this->upgrade_settings();
 		}
 		
 		//load APIs and plugins
@@ -147,6 +152,9 @@ class WDF {
 		
 		// Include Widgets
 			add_action( 'widgets_init', array(&$this,'register_widgets') );
+			
+		// Include our template functions
+			add_action( 'after_setup_theme', array(&$this,'after_setup_theme') );
 		
 		if(is_admin()) {
 
@@ -183,10 +191,6 @@ class WDF {
 			// Very low priority number is needed here to make sure it fires before themes can output headers
 			add_action( 'wp', array(&$this, 'handle_payment'), 1 );
 			add_action( 'template_redirect', array(&$this, 'template_redirect'), 20 );
-			
-			if($settings['inject_menu'] == 'yes') {
-				add_filter( 'wp_list_pages', array(&$this, 'filter_nav_menu'), 10, 2 );
-			}
 		}
 	}
 	function register_widgets() {
@@ -384,6 +388,11 @@ class WDF {
 	function upgrade_settings() {
 		// Re-Merge our defaults so we don't have any unexpected errors on an upgrade.
 		$settings = get_option('wdf_settings');
+		
+		// Update the current_version
+		$settings['current_version'] = $this->version;
+		
+		// Merge and save
 		$settings = array_merge($this->defaults, $settings);
 		update_option('wdf_settings', $settings);
 	}
@@ -435,11 +444,10 @@ class WDF {
 					
 			if (isset($wp_query->query_vars['funder_checkout']) && $wp_query->query_vars['funder_checkout'] == 1) {
 				$this->is_funder_checkout = true;
-				
-				if ( $funder_name )
-					$templates[] = "wdf_checkout-$funder_name.php";
 				if ( $funder_id )
 					$templates[] = "wdf_checkout-$funder_id.php";
+				if ( $funder_name )
+					$templates[] = "wdf_checkout-$funder_name.php";
 				$templates[] = "wdf_checkout.php";
 				add_filter( 'the_content', array(&$this,'funder_content'), 99 );
 				if ($this->funder_template = locate_template($templates)) {
@@ -447,35 +455,24 @@ class WDF {
 				}
 			} elseif ( isset($wp_query->query_vars['funder_confirm']) && $wp_query->query_vars['funder_confirm'] == 1) {
 				$this->is_funder_confirm = true;
-				
-				if ( $funder_name )
-					$templates[] = "wdf_confirm-$funder_name.php";
 				if ( $funder_id )
 					$templates[] = "wdf_confirm-$funder_id.php";
+				if ( $funder_name )
+					$templates[] = "wdf_confirm-$funder_name.php";
 				$templates[] = "wdf_confirm.php";
 				add_filter( 'the_content', array(&$this,'funder_content'), 99 );
 				if ($this->funder_template = locate_template($templates)) {
 					add_filter( 'template_include', array(&$this, 'custom_funder_template') );	
 				}
-			}/* elseif ($wp_query->query_vars['funder_activity'] == 1) {
-				$this->is_funder_activity = true;
-				if ( $funder_name )
-					$templates[] = "wdf_activity-$funder_name.php";
-				if ( $funder_id )
-					$templates[] = "wdf_activity-$funder_id.php";
-				$templates[] = "wdf_activity.php";
-				add_filter( 'the_content', array(&$this,'funder_content'), 99 );
-				if ($this->funder_template = locate_template($templates)) {
-					add_filter( 'template_include', array(&$this, 'custom_funder_template') );
-				}
-			}*/ elseif ($wp_query->is_single()) {
+			} elseif ($wp_query->is_single()) {
 				$this->is_funder_single = true;
-				if ( $funder_name )
-					$templates[] = "wdf_funder-$funder_name.php";
+				
 				if ( $funder_id )
 					$templates[] = "wdf_funder-$funder_id.php";
+				if ( $funder_name )
+					$templates[] = "wdf_funder-$funder_name.php";
 				$templates[] = "wdf_funder.php";
-				
+					
 				if ($this->funder_template = locate_template($templates)) {
 					add_filter( 'template_include', array(&$this, 'custom_funder_template') );
 				} else {
@@ -494,7 +491,7 @@ class WDF {
 		$settings = get_option('wdf_settings');
 		global $post;
 		
-		if($this->is_funder_single && !is_active_widget( false, false, 'wdf_fundraiser_panel', true )) {
+		if(isset($this->is_funder_single) && $this->is_funder_single && !is_active_widget( false, false, 'wdf_fundraiser_panel', true )) {
 			$position = get_post_meta($post->ID,'wdf_panel_pos',true);
 			if($position == 'top')
 				$content = wdf_fundraiser_page(false, $post->ID) . $content;
@@ -503,7 +500,8 @@ class WDF {
 		}
 		
 		if(isset($this->is_funder_checkout) && $this->is_funder_checkout) {
-			$content = wdf_show_checkout( false, $post->ID, $_POST['wdf_step'] );
+			$content = wdf_show_checkout( false, $post->ID, (isset($_POST['wdf_step']) ? $_POST['wdf_step'] : '')  );
+			
 		}
 		
 		if(isset($this->is_funder_confirm) && $this->is_funder_confirm) {
@@ -516,10 +514,12 @@ class WDF {
 		return $content;
 	}
 	
+	// Depreciated in favor of using the Appearance -> Menus page
 	function filter_nav_menu($list, $args = array()) {
-    	$settings = get_option('wdf_settings');
+    	/*$settings = get_option('wdf_settings');
 		$list = $list . '<li class="page_item'. ((get_query_var('post_type') == 'funder') ? ' current_page_item' : '') . '"><a href="' . home_url($settings['dir_slug'].'/') . '" title="' . esc_attr($settings['funder_labels']['plural_name']) . '">' . esc_attr($settings['funder_labels']['plural_name']) . '</a></li>';
-		return $list;
+		return $list;*/
+		return;
 	}
 
 	function load_plugins() {
@@ -629,9 +629,23 @@ class WDF {
 		// $add_style will always be used before a saved style.
 		if($add_style != false) {
 			wp_enqueue_style('wdf-style-'.$add_style);
-		} else if(!empty($id) && $style = wdf_get_style($id))
+		} else if(!empty($id) && $style = $this->get_style($id))
 			wp_enqueue_style('wdf-style-'.$style);
 
+	}
+	function get_style( $post_id = '' ) {
+		global $post;
+		$settings = get_option('wdf_settings');
+		$post_id = (empty($post_id) ? $post->ID : $post_id );
+		
+		if( $settings['single_styles'] == 'no' ) {
+			$style = $settings['default_style'];
+		} else {
+			$meta = get_post_meta($post_id,'wdf_style',true);
+			$style = ($meta != false ? $meta : $settings['default_style'] );
+		}
+		
+		return $style;
 	}
 	function inject_custom_css() {
 		$settings = get_option('wdf_settings');
@@ -810,7 +824,19 @@ class WDF {
 		return $id;
 	}
 	function add_menu_meta_boxes() {
-		add_meta_box( 'add-funder', __('Fundraising','wdf'), array(&$this,'meta_box_display'), 'nav-menus', 'side', 'default');
+		$settings = get_option('wdf_settings');
+		add_meta_box( 'add-funder', __('Fundraisers','wdf'), array(&$this,'meta_box_display'), 'nav-menus', 'side', 'default');
+		?>
+			<script type="text/javascript">
+				jQuery(document).ready( function($) {
+					$('#wdf_add_nav_archive').on('click', function() {
+						<?php $funder_slug = $settings['dir_slug']; ?>
+						wpNavMenu.addLinkToMenu('<?php echo home_url($funder_slug); ?>','Fundraisers');						
+						return false;
+					});
+				});
+			</script>
+		<?php
 	}
 	function add_meta_boxes() {
 		global $post, $wp_meta_boxes, $typenow, $pagenow;
@@ -875,11 +901,17 @@ class WDF {
 		include(WDF_PLUGIN_BASE_DIR . '/lib/form.meta_boxes.php');
 	}
 	function admin_menu() {
+		global $submenu;
 		$settings = get_option('wdf_settings');
 		
 		add_submenu_page( 'edit.php?post_type=funder', $settings['donation_labels']['plural_name'], $settings['donation_labels']['plural_name'], 'manage_options', 'wdf_donations', array(&$this,'admin_display') );		
 		add_submenu_page( 'edit.php?post_type=funder', $settings['funder_labels']['menu_name'] . __(' Settings','wdf'), __('Settings','wdf'), 'manage_options', 'wdf_settings', array(&$this,'admin_display') );
-		add_submenu_page( 'edit.php?post_type=funder', __('Getting Started','wdf'), __('Getting Started','wdf'), 'manage_options', 'wdf', array(&$this,'admin_display') );	
+		add_submenu_page( 'edit.php?post_type=funder', __('Getting Started','wdf'), __('Getting Started','wdf'), 'manage_options', 'wdf', array(&$this,'admin_display') );
+		foreach($submenu['edit.php?post_type=funder'] as $key => $menu_item) {
+			if($menu_item['2'] == 'wdf_donations')
+				$submenu['edit.php?post_type=funder'][$key][2] = 'edit.php?post_type=donation';
+		}
+		
 	}
 	
 	function admin_display(){
@@ -1007,6 +1039,7 @@ class WDF {
 	}
 	function enqueue_scripts() {
 		wp_register_script( 'wdf-base', WDF_PLUGIN_URL . '/js/wdf-base.js', array('jquery'), $this->version, false );
+		wp_register_style( 'jquery-ui-base', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css', null, null, 'screen' );
 		if(is_array($this->styles) && !empty($this->styles)) {
 			foreach($this->styles as $key => $label) {
 				wp_register_style( 'wdf-style-'.$key, WDF_PLUGIN_URL . '/styles/'.$key.'.css', null, $this->version );
@@ -1017,7 +1050,7 @@ class WDF {
 		global $typenow, $pagenow;
 		
 		// Google external jQuery UI
-		wp_register_style( 'jquery-ui-base', WDF_PLUGIN_URL . '/css/jquery-ui-base.css', null, $this->version, 'screen' );
+		wp_register_style( 'jquery-ui-base', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css', null, null, 'screen' );
 		wp_register_style( 'wdf-admin', WDF_PLUGIN_URL . '/css/wdf-admin.css', null, $this->version, 'all' );
 		
 		//Register Styles and Scripts For The Admin Area
@@ -1057,7 +1090,7 @@ class WDF {
 		if( $pagenow == 'widgets.php') {
 			wp_enqueue_script('wdf-widget');
 			
-			if((int)$_GET['wdf_show_widgets'] == 1)
+			if(isset($_GET['wdf_show_widgets']) && (int)$_GET['wdf_show_widgets'] == 1)
 				wp_enqueue_style('wdf-admin');
 		}
 		
@@ -1157,7 +1190,7 @@ class WDF {
 				break;
 			case 'pledge_recurring' :
 				$trans = $this->get_transaction();
-				if($trans['cycle'])
+				if(isset($trans['cycle']))
 					echo $trans['cycle'];
 				break;
 			case 'pledge_funder' :
@@ -1217,29 +1250,59 @@ class WDF {
 		media_upload_header(); ?>
 		<form class="wdf_media_cont media-item" id="media_progress_bar">
 			<h3 class="media-title"><?php _e('Add a progress bar'); ?></h3>
-			<p>
-				<span class="description"><?php _e('Only fundraisers that have a goal can display a progress bar','wdf'); ?></span>
-				<select class="widefat" id="wdf_funder_select" name="id">
-					<option value="0"><?php echo __('Choose a ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?></option>
-						<?php foreach($funders as $funder) { ?>
-							<?php if(wdf_has_goal($funder->ID) != false) : ?>
-								<option value="<?php echo $funder->ID; ?>"><?php echo $funder->post_title ?></option>
-							<?php endif; ?>
-						<?php } ?>
-				</select>
-			</p>
-			<p><label><input type="checkbox" name="show_title" value="yes" /> <?php _e('Show Title','wdf'); ?></label></p>
-			<p><label><input type="checkbox" name="show_totals" value="yes" /> <?php _e('Show Totals','wdf'); ?></label></p>
-			<p><label><?php _e('Choose a style','wdf'); ?></label>
-			<select name="style">
-				<?php if(is_array($this->styles) && !empty($this->styles)) : ?>
-					<option value="0"><?php _e('Default','wdf'); ?></option>
-					<?php foreach($this->styles as $key => $label) : ?>
-						<option <?php selected($settings['default_style'],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
-					<?php endforeach; ?>
-				<?php endif; ?>
-			</select></p>
-			<p><a class="button" href="#" id="wdf_add_shortcode" onclick="window.parent.wdf_inject_shortcode(); return false;"><?php _e('Insert Shortcode','wdf'); ?></a></p>
+			<span class="description"><?php _e('Only fundraisers that have a goal can display a progress bar','wdf'); ?></span>
+			<div id="media-items">
+				<div class="media-item media-blank">
+					<table class="describe">
+						<tbody>
+							<tr>
+								<th valign="top" scope="row" class="label">
+									<span class="alignleft"><?php echo __('Choose a ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?></span>
+								</th>
+								<td>
+									<?php if(!$funders || empty($funders)) : ?>
+										<div class="message alert"><?php echo __('You have not created any ','wdf') . esc_attr($settings['funder_labels']['plural_name']) . __(' yet.','wdf'); ?></div>
+									<?php else : ?>
+									<select id="wdf_funder_select" name="id">
+										<option value="0"></option>
+											<?php foreach($funders as $funder) { ?>
+												<?php if(wdf_has_goal($funder->ID) != false) : ?>
+													<option value="<?php echo $funder->ID; ?>"><?php echo $funder->post_title ?></option>
+												<?php endif; ?>
+											<?php } ?>
+									</select>
+									<?php endif; ?>
+								</td>
+							</tr>
+							<tr>
+								<th valign="top" scope="row" class="label"><span class="alignleft"><label><?php _e('Show Title','wdf'); ?></label></span></th>
+								<td><input type="checkbox" name="show_title" value="yes" /></td>
+							</tr>
+							<tr>
+								<th valign="top" scope="row" class="label"><span class="alignleft"><label><?php _e('Show Totals','wdf'); ?></label></span></th>
+								<td><input type="checkbox" name="show_totals" value="yes" /></td>
+							</tr>
+							<tr>
+								<th valign="top" scope="row" class="label"><span class="alignleft"><label><?php _e('Choose a style','wdf'); ?></label></span></th>
+								<td>
+									<select name="style">
+										<?php if(is_array($this->styles) && !empty($this->styles)) : ?>
+											<option value="0"><?php _e('Default','wdf'); ?></option>
+											<?php foreach($this->styles as $key => $label) : ?>
+												<option <?php selected($settings['default_style'],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
+											<?php endforeach; ?>
+										<?php endif; ?>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th valign="top" scope="row" class="label"></th>
+								<td><p class="alignright"><a class="button" href="#" id="wdf_add_shortcode" onclick="window.parent.wdf_inject_shortcode(); return false;"><?php _e('Insert Shortcode','wdf'); ?></a></p></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</form>
 		
 		<?php
@@ -1321,7 +1384,7 @@ class WDF {
 							</tr>
 							<tr>
 								<td></td>
-								<td><a class="button" href="#" id="wdf_add_shortcode" onclick="window.parent.wdf_inject_shortcode(); return false;"><?php _e('Insert Shortcode','wdf'); ?></a></td>
+								<td><p class="alignright"><a class="button" href="#" id="wdf_add_shortcode" onclick="window.parent.wdf_inject_shortcode(); return false;"><?php _e('Insert Shortcode','wdf'); ?></a></p></td>
 							</tr>
 						</tbody>			
 					</table>
@@ -1345,25 +1408,58 @@ class WDF {
 			<form class="wdf_media_cont media-item" id="media_fundraising">
 			<h3 class="media-title"><?php _e('Add A Fundraising Form','wdf'); ?></h3>
 			
-			<p><select class="widefat" id="wdf_funder_select" name="id">
-				<option value="0"><?php echo __('Choose a ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?></option>
-					<?php foreach($funders as $funder) { ?>
-						<option value="<?php echo $funder->ID; ?>"><?php echo $funder->post_title ?></option>
-					<?php } ?>
-			</select></p>
-						
-			<p><select name="style">
-				<?php if(is_array($this->styles) && !empty($this->styles)) : ?>
-					<?php foreach($this->styles as $key => $label) : ?>
-						<option <?php selected($settings['default_style'],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
-					<?php endforeach; ?>
-				<?php endif; ?>
-			</select></p>
+			<div id="media-items">
+				<div class="media-item media-blank">
+					<table class="describe">
+						<tbody>
+							<tr>
+								<th valign="top" scope="row" class="label">
+									<span class="alignleft"><?php echo __('Choose a ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?></span>
+								</th>
+								<td>
+									<?php if(!$funders || empty($funders)) : ?>
+										<div class="message alert"><?php echo __('You have not created any ','wdf') . esc_attr($settings['funder_labels']['plural_name']) . __(' yet.','wdf'); ?></div>
+									<?php else : ?>
+									<select id="wdf_funder_select" name="id">
+										<option value="0"></option>
+											<?php foreach($funders as $funder) { ?>
+												<?php if(wdf_has_goal($funder->ID) != false) : ?>
+													<option value="<?php echo $funder->ID; ?>"><?php echo $funder->post_title ?></option>
+												<?php endif; ?>
+											<?php } ?>
+									</select>
+									<?php endif; ?>
+								</td>
+							</tr>
+							<tr>
+								<th valign="top" scope="row" class="label"><span class="alignleft"><label><?php _e('Choose a style','wdf'); ?></label></span></th>
+								<td>
+									<select name="style">
+										<?php if(is_array($this->styles) && !empty($this->styles)) : ?>
+											<option value="0"><?php _e('Default','wdf'); ?></option>
+											<?php foreach($this->styles as $key => $label) : ?>
+												<option <?php selected($settings['default_style'],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
+											<?php endforeach; ?>
+										<?php endif; ?>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th valign="top" scope="row" class="label"><span class="alignleft"><label><?php _e('Show Title','wdf'); ?></label></span></th>
+								<td><input type="checkbox" name="show_title" value="yes" /></td>
+							</tr>
+							<tr>
+								<th valign="top" scope="row" class="label"><span class="alignleft"><label><?php _e('Show Content','wdf'); ?></label></span></th>
+								<td><input type="checkbox" name="show_content" value="yes" /></td>
+							</tr>
+							<tr>
+							<th></th>
+							<td><p class="alignright"><a class="button" href="#" id="wdf_add_shortcode" onclick="window.parent.wdf_inject_shortcode(); return false;"><?php _e('Insert Shortcode','wdf'); ?></a></p></td>
+						</tbody>
+					</table>
+				</div>
+			</div>
 			
-			<p><label><input type="checkbox" name="show_title" value="yes" /> <?php _e('Show Title','wdf'); ?></label></p>
-			<p><label><input type="checkbox" name="show_content" value="yes" /> <?php _e('Show Content','wdf'); ?></label></p>
-			
-			<p><a class="button" href="#" id="wdf_add_shortcode" onclick="window.parent.wdf_inject_shortcode(); return false;"><?php _e('Insert Shortcode','wdf'); ?></a></p>
 			</form><?php
 			
 	}
@@ -1637,16 +1733,19 @@ class WDF {
 		else 
 			return false;
 	}
+	function after_setup_theme() {
+		do_action('wdf_custom_template_functions');
+		if(defined('WDF_CUSTOM_TEMPLATE_FUNCTIONS') && file_exists(WDF_CUSTOM_TEMPLATE_FUNCTIONS)) {
+			require_once(WDF_CUSTOM_TEMPLATE_FUNCTIONS);
+		} else {
+			require_once( WDF_PLUGIN_BASE_DIR . '/lib/template-functions.php');
+		}
+	}
 }
 		
 global $wdf;
 $wdf = &new WDF();
 
-//Load Our Template Function
-// Use the action below to override any template functions you want.
-// All the functions in template-functions.php are wrapped with if(!function_exists)
-do_action('wdf_custom_template_functions');
-require_once( WDF_PLUGIN_BASE_DIR . '/lib/template-functions.php');
 
 // Check for BuddyPress and boot up our component structure
 if (defined('BP_VERSION') && version_compare( BP_VERSION, '1.5', '>' ) )

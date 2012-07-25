@@ -3,6 +3,17 @@ Author: Cole Stevenson (Incsub)
 
 == Changelog ==
 
+= 2.1.5 =
+Fundraising now has it's own metabox in your Theme's Appearance Menus
+Multiple php warning fixes
+Corrected x.com links for creating an application
+Added the ability to set checkout type per fundraiser
+Fixed currency display issues
+Better display of options on the shortcode generator pop-up
+Small change to menu order due to compatibility errors with other plugins and hosting services
+New fundraising-templates.txt file in root folder that explains the template hierarchy
+
+
 = 2.1.1 =
 Fixed Manual Pledge Payments
 Rewards and Goals can now be set independently of each other

@@ -222,5 +222,6 @@ ul.wdf_shortcode_breakdown li p.attr_description {
 ul.wdf_shortcode_breakdown code {
 	font-size: 1.25em;
 }
-
-/* 62863-1338483608 */
+.wdf_shortcode_ss {
+	float:right;
+}

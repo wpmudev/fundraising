@@ -8,7 +8,9 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 	
 	function WDF_Fundraiser_Panel() {
 		// Instantiate the parent object
-		parent::__construct( 'wdf_fundraiser_panel', __('Fundraiser Panel','wdf'), array(
+		$settings = get_option('wdf_settings');
+		$title = esc_attr($settings['funder_labels']['singular_name']) . __(' Panel','wdf');
+		parent::__construct( 'wdf_fundraiser_panel', $title, array(
 			'description' =>  __('If the current page is a single Fundraiser page then this panel will display information and call to actions for the fundraiser.  You can also use it to display information for a specific fundraiser.','wdf')
 		) );
 		

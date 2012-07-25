@@ -160,6 +160,34 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									</tr>
 								</tbody>
 							</table>
+							<h3><?php _e('Checkout Presentation','wdf'); ?></h3>
+							<span class="description"><?php _e('An eloborated checkout page allows backers to view additional information about your fundraiser.  Checking out directly from the fundraising panel will begin the payment process immediately','wdf')?></span>
+							<table class="form-table">
+								<tbody>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Choose a default checkout type','wdf'); ?></label>
+										</th>
+										<td>
+											<select name="wdf_settings[checkout_type]">
+												<option value="1" <?php selected($settings['checkout_type'],'1') ?>><?php _e('Checkout directly from panel','wdf'); ?></option>
+												<option value="2" <?php selected($settings['checkout_type'],'2') ?>><?php _e('Use elaborated checkout page','wdf'); ?></option>
+											</select>
+										</td>
+									</tr>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Allow per fundraiser checkout types?','wdf'); ?></label>
+										</th>
+										<td>
+											<select name="wdf_settings[single_checkout_type]">
+												<option value="0" <?php selected($settings['single_checkout_type'],'0') ?>><?php _e('No','wdf'); ?></option>
+												<option value="1" <?php selected($settings['single_checkout_type'],'1') ?>><?php _e('Yes','wdf'); ?></option>
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 							<h3><?php _e('Style Settings','wdf'); ?></h3>
 							<table class="form-table">
 								<tbody>											
@@ -190,17 +218,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</td>
 									</tr>
 									
-									<tr valign="top">
-										<th scope="row">
-											<label><?php _e('Choose a checkout style','wdf'); ?></label>
-										</th>
-										<td>
-											<select name="wdf_settings[checkout_type]">
-												<option value="2" <?php selected($settings['checkout_type'],'2') ?>><?php _e('Use elaborated checkout page','wdf'); ?></option>
-												<option value="1" <?php selected($settings['checkout_type'],'1') ?>><?php _e('Checkout directly from panel','wdf'); ?></option>
-											</select><?php echo $tips->add_tip(__('An eloborated checkout page allows backers to view additional information about your fundraiser.  Checking out from the fundraising panel will begin the payment process immediately','wdf')); ?>
-										</td>
-									</tr>
+									
 									
 									<tr valign="top">
 										<th scope="row">
@@ -264,7 +282,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									<?php endif; ?>
 								</tbody>
 							</table>
-							<h3><?php _e('Other Settings','wdf'); ?></h3>
+							<?php /*?><h3><?php _e('Other Settings','wdf'); ?></h3>
 							<table class="form-table">
 								<tbody>
 									
@@ -281,7 +299,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									</tr>
 								
 								</tbody>
-							</table>
+							</table><?php */?>
 						
 						<?php break;
 						

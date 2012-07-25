@@ -101,13 +101,16 @@ jQuery(document).ready( function($) {
 	$('select.wdf_toggle').bind('change', function(e) {
 		var rel = $(this).attr('rel');
 		var val = $(this).val();
-		
 		if(rel == 'wdf_has_goal' && val == '1') {
 			var elm = $('*[rel="'+rel+'"]').not(this);
 			elm.show();
-		} else if(rel == 'wdf_has_reward' && val == '1') {
+		} else if(rel == 'wdf_has_reward') {
 			var elm = $('*[rel="'+rel+'"]').not(this);
-			elm.show();
+			if(val == '1') {
+				elm.show();
+			} else {
+				elm.hide();
+			}
 		} else if(rel == 'wdf_thanks_type') {
 			$('*[rel="'+rel+'"]').not(this).hide(1, function() {
 				$('.wdf_thanks_'+val+'[rel="'+rel+'"]').show();

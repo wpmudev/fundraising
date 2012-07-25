@@ -21,6 +21,7 @@
 		<div class="postbox">
 			<h3 class="hndle"><span><?php _e('Available Shortcodes','wdf'); ?></span></h3>
 			<div class="inside">
+				<p class="wdf_shortcode_ss"><img src="<?php echo WDF_PLUGIN_URL . '/img/shortcode-generator-screenshot.jpg' ?>" /></p>
 				<ul class="wdf_shortcode_breakdown">
 					<li>
 						<h4><strong><?php _e('Fundraiser Panel','wdf'); ?></strong></h4>

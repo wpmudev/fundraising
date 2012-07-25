@@ -7,7 +7,11 @@ jQuery(document).ready( function($) {
 			$('#'+id).addClass('wdf_widget_highlite');
 		}
 	});
-	
+	$(document).on('change', '.autosave_widget', function(e) {
+		console.log('trigger');
+		$(this).parents('form').find('input[type="submit"]').trigger('click');
+		return false;
+	});
 	$(document).on('change', 'select.wdf_toggle', function(e) {
 		var rel = $(this).attr('rel');
 		var val = $(this).val();

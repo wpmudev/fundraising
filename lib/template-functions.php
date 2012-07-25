@@ -12,15 +12,17 @@ if(!function_exists('donate_button_shortcode')) {
 
 if(!function_exists('fundraiser_panel_shortcode')) {
 	function fundraiser_panel_shortcode($atts) {
+		$content = '';
 		if(isset($atts['id']) && !empty($atts['id']) ) {
 			global $wdf;
 			$wdf->front_scripts($atts['id'],$atts['style']);
 			$atts['shortcode'] = true;
-			$content .= wdf_fundraiser_panel(false, (int)$atts['id'], 'shortcode', $atts);
-			return $content;
+			$content .= wdf_fundraiser_panel(false, $atts['id'], 'shortcode', $atts);
+			
 		} else {
-			return __('No ID Given','wdf');
+			$content .= __('No ID Given','wdf');
 		}
+		return $content;
 	}
 }
 
@@ -59,7 +61,7 @@ if(!function_exists('wdf_fundraiser_panel')) {
 				
 				// Checking to see if this fundraiser can accept pledges yet.
 				if( wdf_time_left(false, $post_id, true) === false ) {
-					if(wdf_panel_checkout()) {
+					if(wdf_panel_checkout($post_id)) {
 						global $wdf_checkout_from_panel;
 						$wdf_checkout_from_panel = true;
 						
@@ -74,11 +76,11 @@ if(!function_exists('wdf_fundraiser_panel')) {
 				}
 					
 				// Show the time left or time till start if a date range is available
-				if(wdf_has_date_range($post_id) && $wdf_checkout_from_panel !== true)
+				if(wdf_has_date_range($post_id) && isset($wdf_checkout_from_panel) && $wdf_checkout_from_panel !== true)
 					$content .= '<div class="wdf_time_left">'.wdf_time_left(false, $post_id).'</div>';					
 			
 				
-				if(wdf_has_rewards($post_id) && $wdf_checkout_from_panel !== true) {
+				if(wdf_has_rewards($post_id) && isset($wdf_checkout_from_panel) && $wdf_checkout_from_panel !== true) {
 					$content .= '<div>'.wdf_rewards(false, $post_id).'</div>';
 				}
 				$content .= '</div>';
@@ -135,10 +137,18 @@ if(!function_exists('wdf_has_rewards')) {
 	}
 }
 if(!function_exists('wdf_panel_checkout')) {
-	function wdf_panel_checkout() {
+	function wdf_panel_checkout($post_id = false) {
 		$settings = get_option('wdf_settings');
-		
-		if( $settings['checkout_type'] == '1' )
+		if($post_id = false) {
+			global $post;
+			$post_id = $post->ID;
+		}
+		$type = get_post_meta($post_id, 'checkout_type', true);
+		if( isset($settings['single_checkout_type']) && $settings['single_checkout_type'] == '1' ) {
+			if( !$type )
+				$type = $settings['checkout_type'];
+		}
+		if( $type == '1' )
 			return true;
 		else
 			return false;
@@ -308,31 +318,37 @@ if(!function_exists('wdf_confirmation_page')) {
 	function wdf_confirmation_page( $echo = true, $post_id = '' ) {
 		global $wdf; $content = '';
 		$settings = get_option('wdf_settings');
+		
 		$pledge_id = (isset($_SESSION['wdf_pledge_id']) ? $_SESSION['wdf_pledge_id'] : $_REQUEST['pledge_id']);
+		if(empty($post_id))	 {
+			global $post; 
+			$post_id = $post->ID;
+		}
+		$wdf->front_scripts($post_id);
 		$content .= '<div class="wdf_confirmation_page">';
-		if( $funder = get_post($post_id) && $pledge = get_page_by_title( $pledge_id, null, 'donation' ) ) {
+		if( get_post($post_id) && $pledge = get_page_by_title( $pledge_id, null, 'donation' ) ) {
 			
 			$transaction = $wdf->get_transaction($pledge->ID);
 			
-			if($_SESSION['wdf_bp_activity'] == true) {
+			if(isset($_SESSION['wdf_bp_activity']) && $_SESSION['wdf_bp_activity'] == true) {
 				global $bp;
 				if( isset($bp->loggedin_user->id) ) {
 					$activity_args = array(
-						'action' => sprintf( __('%s made a %s %s towards %s','wdf'), '<a href="'.$bp->loggedin_user->domain.'">'.$bp->loggedin_user->fullname.'</a>', $wdf->format_currency('',$transaction['gross']), esc_attr($settings['donation_labels']['singular_name']), '<a href="'.wdf_get_funder_page('',$funder->ID).'">'.get_the_title($funder->ID).'</a>' ),
-						'primary_link' => wdf_get_funder_page('',$funder->ID),
+						'action' => sprintf( __('%s made a %s %s towards %s','wdf'), '<a href="'.$bp->loggedin_user->domain.'">'.$bp->loggedin_user->fullname.'</a>', $wdf->format_currency('',$transaction['gross']), esc_attr($settings['donation_labels']['singular_name']), '<a href="'.wdf_get_funder_page('',$post_id).'">'.get_the_title($post_id).'</a>' ),
+						'primary_link' => wdf_get_funder_page('',$post_id),
 						'type' => 'pledge'
 					);
 					$activity_args = apply_filters('wdf_bp_activity_args',$activity_args);
 					bp_wdf_record_activity($activity_args);
 				}
 			}
-
 			
-			$content .= wdf_thanks_panel( false, $funder->ID, $transaction );
+			$content .= wdf_thanks_panel( false, $post_id, $transaction );
 			
-			// The gateway can use this filter to provide any transactional details that you need to display
-			$content .= '<div class="wdf_gateway_payment_info">'.apply_filters('wdf_gateway_payment_info_'.$_SESSION['wdf_gateway'], '', $transaction).'</div>';
-			
+			if(isset($_SESSION['wdf_gateway'])) {
+				// The gateway can use this filter to provide any transactional details that you need to display
+				$content .= '<div class="wdf_gateway_payment_info">'.apply_filters('wdf_gateway_payment_info_'.$_SESSION['wdf_gateway'], '', $transaction).'</div>';
+			}
 			//Unset all the session information
 			$wdf->clear_session();
 		} else {
@@ -362,7 +378,7 @@ if(!function_exists('wdf_thanks_panel')) {
 				$content .= wdf_progress_bar(false, $post_id);
 			}
 				
-			if($meta['wdf_thanks_custom'][0]) {
+			if(isset($meta['wdf_thanks_custom'][0]) && $meta['wdf_thanks_custom'][0]) {
 				$thanksmsg = $meta['wdf_thanks_custom'][0];
 				$thanksmsg = $wdf->filter_thank_you($thanksmsg, $trans);
 				$content .= '<div class="wdf_custom_thanks">' . $thanksmsg . '</div>';
@@ -588,7 +604,14 @@ if(!function_exists('wdf_pledge_button')) {
 		$args = array_merge($default_args,$args);
 		
 		if($context == 'widget_simple_donate') {
-			$paypal_email = is_email((isset($args['widget_args']['paypal_email']) ? $args['widget_args']['paypal_email'] : $settings['paypal_email'] ));
+			if( isset($args['widget_args']['paypal_email']) ) {
+				$paypal_email = is_email($args['widget_args']['paypal_email']);
+			} else if(isset($settings['paypal_email'])) {
+				$paypal_email = is_email($settings['paypal_email']);
+			} else {
+				$paypal_email = '';
+			}
+			
 			$style = (isset($args['widget_args']['style']) ? $args['widget_args']['style'] : $meta['wdf_style'][0] );
 			$content .= '
 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="'.$style.'">
@@ -640,7 +663,7 @@ if(!function_exists('wdf_pledge_button')) {
 			$content .= '<input type="text" name="wdf_pledge" class="wdf_pledge_amount" value="" />';
 			$content .= ($settings['curr_symbol_position'] == 3 || $settings['curr_symbol_position'] == 4 ? '<span class="currency">'.$wdf->format_currency().'</span>' : '');
 	
-			if($meta['wdf_recurring'][0] == 'yes' && $meta['wdf_type'][0] == 'simple') {			
+			if(isset($meta['wdf_recurring'][0]) && $meta['wdf_recurring'][0] == 'yes' && isset($meta['wdf_type'][0]) && $meta['wdf_type'][0] == 'simple') {			
 				$content .= '
 				<label>Make this donation </label>
 				<select name="wdf_recurring">
