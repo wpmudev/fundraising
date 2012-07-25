@@ -763,8 +763,8 @@ class WDF {
 		if($send_email = get_post_meta($funder_id,'wdf_send_email',true) && $trans != false) {
 						
 			//remove any other filters
-			remove_all_filters( 'wp_mail_from' );
-			remove_all_filters( 'wp_mail_from_name' );
+			//remove_all_filters( 'wp_mail_from' );
+			//remove_all_filters( 'wp_mail_from_name' );
 	
 			//add our own filters
 			//add_filter( 'wp_mail_from_name', create_function('', 'return get_bloginfo("name");') );
