@@ -3,6 +3,10 @@ Author: Cole Stevenson (Incsub)
 
 == Changelog ==
 
+= 2.1.6 =
+Fixed bug with not allowing more than 10 rewards
+
+
 = 2.1.5 =
 Fundraising now has it's own metabox in your Theme's Appearance Menus
 Multiple php warning fixes
