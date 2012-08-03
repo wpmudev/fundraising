@@ -42,20 +42,23 @@ jQuery(document).ready( function($) {
 	//Fire fixDelete() on load
 	fixDelete();
 	
+	function returnNameIndex(string) {
+		if($('#wdf_levels_table tr.wdf_level').length > 9)
+			return string.substr(12,2);
+		else
+			return string.substr(12,1);
+	}
+	
 	$('#wdf_add_level').bind('click', function(e) {
 		e.preventDefault();
-		console.log($('#wdf_levels_table tr.wdf_level.last').find('input:first').attr('name'));
-		var current = $('#wdf_levels_table tr.wdf_level.last').find('input:first').attr('name').substr(12,1);
+		var current = returnNameIndex($('#wdf_levels_table tr.wdf_level.last').find('input:first').attr('name'));
 		var newi = parseInt(current) + 1;
 		$('#wdf_level_index').val(parseInt($('#wdf_level_index').val()) + 1);
 		var template = $('tr[rel="wdf_level_template"]').clone().removeAttr('rel').show();
 		var level = template.filter('tr:first').addClass('wdf_level');
 		//Replace the name for all inputs with the appropriate index
-		console.log($(template).find(':input'));
 		$.each($(template).find(':input'), function(i,e) {
-			console.log($(e));
 			var rel = $(e).attr('rel');
-			console.log(rel);
 			$(e).attr('name',rel.replace('wdf[levels][','wdf[levels][' + String(newi)))
 			$(e).removeAttr('rel');
 		});
