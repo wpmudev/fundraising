@@ -3,11 +3,14 @@ Author: Cole Stevenson (Incsub)
 
 == Changelog ==
 
-= 2.1.6 =
+= 2.1.7 =
 Shortcode generator now inserts properly into both the HTML and Visual editor
 Fixed problem with above/below content option not displaying the current setting
 Backer Label now displays a singular label when only one pledge has been taken
 Fixed issue with displaying email settings correctly
+
+= 2.1.6 =
+Fixed bug with not allowing more than 10 rewards
 
 = 2.1.5 =
 Fundraising now has it's own metabox in your Theme's Appearance Menus
