@@ -50,8 +50,8 @@ if(!function_exists('wdf_fundraiser_panel')) {
 						$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_content', '<div class="wdf_shortcode_content">%s</div>'), $funder_content );
 					}
 				}
-					
-				$content .= '<div class="wdf_total_backers"><div class="wdf_big_num">'.wdf_total_backers(false, $post_id).'</div><p>'.apply_filters('wdf_backer_label', $settings['donation_labels']['backer_plural']).'</p></div>';
+				$backer_total = wdf_total_backers(false, $post_id);
+				$content .= '<div class="wdf_total_backers"><div class="wdf_big_num">'.$backer_total.'</div><p>'.apply_filters('wdf_backer_label', ($backer_total > 1 ? esc_attr($settings['donation_labels']['backer_plural']) : esc_attr($settings['donation_labels']['backer_single'])) ).'</p></div>';
 				if(wdf_has_goal($post_id)) {
 					$content .= '<div class="wdf_amount_raised"><div class="wdf_big_num">'.wdf_amount_raised(false, $post_id).'</div><p>'.__('raised of a','wdf').' '.wdf_goal(false, $post_id).' '.__('goal','wdf').'</p></div>';
 					$content .= '<div class="wdf_panel_progress_bar">'.wdf_progress_bar(false, $post_id).'</div>';

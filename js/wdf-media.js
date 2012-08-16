@@ -16,9 +16,13 @@ function wdf_inject_shortcode () {
 			});
 			
 			shortcode = shortcode + ']';
-			
-			window.parent.tinyMCE.execCommand("mceInsertContent", true, shortcode);
-			window.parent.tb_remove();
+			if(jQuery('#wp-content-wrap').hasClass('tmce-active')) {
+				window.parent.tinyMCE.execCommand("mceInsertContent", true, shortcode);
+				window.parent.tb_remove();
+			} else {
+				window.parent.edInsertContent('',shortcode);
+				window.parent.tb_remove();
+			}
 		break;
 		
 		case 'media_donate_button' :
@@ -28,8 +32,13 @@ function wdf_inject_shortcode () {
 					shortcode = shortcode + ' '+e.name+'="'+e.value+'"';
 			});
 			shortcode = shortcode + ']';
-			window.parent.tinyMCE.execCommand("mceInsertContent", true, shortcode);
-			window.parent.tb_remove();
+			if(jQuery('#wp-content-wrap').hasClass('tmce-active')) {
+				window.parent.tinyMCE.execCommand("mceInsertContent", true, shortcode);
+				window.parent.tb_remove();
+			} else {
+				window.parent.edInsertContent('',shortcode);
+				window.parent.tb_remove();
+			}
 		break;
 		
 		case 'media_progress_bar' :
@@ -39,8 +48,13 @@ function wdf_inject_shortcode () {
 					shortcode = shortcode + ' '+e.name+'="'+e.value+'"';
 			});
 			shortcode = shortcode + ']';
-			window.parent.tinyMCE.execCommand("mceInsertContent", true, shortcode);
-			window.parent.tb_remove();
+			if(jQuery('#wp-content-wrap').hasClass('tmce-active')) {
+				window.parent.tinyMCE.execCommand("mceInsertContent", true, shortcode);
+				window.parent.tb_remove();
+			} else {
+				window.parent.edInsertContent('',shortcode);
+				window.parent.tb_remove();
+			}
 		break;		
 		
 	}
@@ -49,11 +63,7 @@ function wdf_input_switch(elm) {
 	elm = jQuery(elm);
 	var iFrame = jQuery('#TB_iframeContent').contents();
 	var rel = elm.attr('rel');
-	var val = elm.val(); 
-	
-	console.log(rel,val);
-	console.log(iFrame.find('.' + rel).hide());
-	console.log(iFrame.find('.' + rel + '[rel='+val+']').show());
+	var val = elm.val();
 	
 	/*$('select.wdf_toggle').on('change', function(e) {
 		var rel = $(this).attr('rel');

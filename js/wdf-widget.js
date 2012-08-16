@@ -8,7 +8,6 @@ jQuery(document).ready( function($) {
 		}
 	});
 	$(document).on('change', '.autosave_widget', function(e) {
-		console.log('trigger');
 		$(this).parents('form').find('input[type="submit"]').trigger('click');
 		return false;
 	});

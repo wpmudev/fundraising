@@ -26,10 +26,7 @@ jQuery(document).ready( function($) {
 		var _this = $(this);
 		var rel = _this.find('.wdf_level_amount').attr('rel');
 		var pledge = _this.parent().find('input.wdf_pledge_amount');
-		if(typeof rel != 'undefined') {
-			if(parseInt(pledge.val()) < parseInt(rel) || pledge.val() == '' )
-				_this.parent().find('input.wdf_pledge_amount').val(rel);
-		}
+		_this.parent().find('input.wdf_pledge_amount').val(rel);
 			
 		_this.find('input:radio').prop('checked', true);
 	});
@@ -55,14 +52,10 @@ jQuery(document).ready( function($) {
 		var _this = $(this);
 		var initVal = _this.val();
 		if(e.type == 'focusin') {
-			//_this.val('')
+			
 		} else if(e.type == 'focusout') {
-			//console.log(e.type);
-			//if(_this.val() != initVal) {
-				
-			//}
+			
 		} else {
-			//console.log(e);
 		}
 	});
 });

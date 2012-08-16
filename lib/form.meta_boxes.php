@@ -251,8 +251,8 @@ if($pagenow == 'nav-menus.php') { ?>
 				<p>
 					<label><span class="description"><?php _e('Panel Position','wdf') ?></span>
 						<select name="wdf[panel_pos]">
-							<option value="top" <?php (isset($meta['wdf_recurring'][0]) ? selected($meta['wdf_recurring'][0],'top') : ''); ?>><?php _e('Above Content','wdf'); ?></option>
-							<option value="bottom" <?php (isset($meta['wdf_recurring'][0]) ? selected($meta['wdf_recurring'][0],'bottom') : ''); ?>><?php _e('Below Content','wdf'); ?></option>
+							<option value="top" <?php (isset($meta['wdf_panel_pos'][0]) ? selected($meta['wdf_panel_pos'][0],'top') : ''); ?>><?php _e('Above Content','wdf'); ?></option>
+							<option value="bottom" <?php (isset($meta['wdf_panel_pos'][0]) ? selected($meta['wdf_panel_pos'][0],'bottom') : ''); ?>><?php _e('Below Content','wdf'); ?></option>
 						</select>
 					</label><?php echo $tips->add_tip(__('If you are not using the Fundraiser sidebar widget, choose the position of your info panel.','wdf')); ?>
 				</p>
@@ -527,13 +527,13 @@ if($pagenow == 'nav-menus.php') { ?>
 			<p>
 				<label><?php echo __('Send a confirmation email after a payment?','wdf'); ?>
 					<select class="wdf_toggle" rel="wdf_send_email" name="wdf[send_email]" id="wdf_send_email">
-						<option value="0" <?php (isset($meta['wdf_send_email'][0]) ? selected($meta['wdf_send_email'][0],0) : ''); ?>><?php _e('No','wdf'); ?></option>
-						<option value="1" <?php (isset($meta['wdf_send_email'][0]) ? selected($meta['wdf_send_email'][0],1) : ''); ?>><?php _e('Yes','wdf'); ?></option>
+						<option value="0" <?php (isset($meta['wdf_send_email'][0]) ? selected($meta['wdf_send_email'][0],'0') : ''); ?>><?php _e('No','wdf'); ?></option>
+						<option value="1" <?php (isset($meta['wdf_send_email'][0]) ? selected($meta['wdf_send_email'][0],'1') : ''); ?>><?php _e('Yes','wdf'); ?></option>
 					</select>
 				</label>
 			</p>
 		
-		<div <?php echo (isset($meta['wdf_send_email']) && $meta['wdf_send_email'] == 1 ? '' : 'style="display: none;"');?> rel="wdf_send_email">
+		<div <?php echo (isset($meta['wdf_send_email'][0]) && $meta['wdf_send_email'][0] == '1' ? '' : 'style="display: none;"');?> rel="wdf_send_email">
 			<label><?php echo __('Create a custom email message or use the default one.','wdf'); ?></label><?php $tips->add_tip('The email will come from your Administrator email <strong>'.get_bloginfo('admin_email').'</strong>')?><br />
 			<p><label><?php echo __('Email Subject','wdf'); ?></label><br />
 			<input class="regular-text" type="text" name="wdf[email_subject]" value="<?php echo (isset($meta['email_subject'][0]) ? $meta['email_subject'][0] : __('Thank you for your Donation', 'wdf')); ?>" /></p>
