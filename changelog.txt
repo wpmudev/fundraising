@@ -3,6 +3,9 @@ Author: Cole Stevenson (Incsub)
 
 == Changelog ==
 
+= 2.1.8 =
+Fixed issue with fundraisers with goals not showing in shortcode generator
+
 = 2.1.7 =
 Shortcode generator now inserts properly into both the HTML and Visual editor
 Fixed problem with above/below content option not displaying the current setting
