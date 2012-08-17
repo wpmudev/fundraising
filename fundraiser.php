@@ -604,7 +604,7 @@ class WDF {
 							break;
 						default :
 							if(preg_match('/.css/',$file) ) {
-								$name = apply_filters( 'wdf_custom_style_name', str_replace('.css','',$style) );
+								$name = apply_filters( 'wdf_custom_style_name', str_replace('.css','',$file), $file );
 								$styles[$name] = $name;
 							}
 							break;
@@ -1044,6 +1044,11 @@ class WDF {
 			foreach($this->styles as $key => $label) {
 				wp_register_style( 'wdf-style-'.$key, WDF_PLUGIN_URL . '/styles/'.$key.'.css', null, $this->version );
 			}
+		}
+		global $wp_query;
+		if ($wp_query->query_vars['post_type'] == 'funder') {
+			$funder_id = (int) $wp_query->get_queried_object_id();
+			$this->front_scripts($funder_id);
 		}
 	}
 	function admin_enqueue_scripts($hook) {

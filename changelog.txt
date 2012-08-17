@@ -5,6 +5,8 @@ Author: Cole Stevenson (Incsub)
 
 = 2.1.8 =
 Fixed issue with fundraisers with goals not showing in shortcode generator
+Fixed problem with styles not loading in particular situations
+Custom css styling available, but simply adding a css file to /styles folder, see fundraising-templates.txt for more info
 
 = 2.1.7 =
 Shortcode generator now inserts properly into both the HTML and Visual editor

@@ -26,3 +26,18 @@ This will insure that any custom changes you make to your template functions are
 
 Add a new define statement in your wp-config.php file containing a string pointing to the location.
 define('WDF_CUSTOM_TEMPLATE_FUNCTIONS','/full-server-path/and/filename.php');
+
+
+== Custom Styles ==
+Add any CSS file to your fundraising /styles/ folder for it to be available in your settings.
+By default the name of the style is the name of the file.  You can manually adjust this using the "wdf_custom_style_name" filter
+
+Exmaple:
+add_filter('wdf_custom_style_name', 'my_custom_filter_style_name', 10, 2);
+
+function my_custom_filter_style_name($name, $file_name) {
+	if($file_name == 'my-file.css') {
+		$name = "My Custom Style";
+	}
+	return $name;
+}
