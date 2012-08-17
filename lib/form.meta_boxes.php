@@ -151,7 +151,7 @@ if($pagenow == 'nav-menus.php') { ?>
 	
 			<?php if($this->has_goal($post->ID)) : ?>
 				<?php if(strtotime($meta['wdf_goal_start'][0]) > time()) : ?>
-					<div class="below-h2 updated"><p><?php echo __('Your ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?><?php wdf_time_left(true,$post->ID); ?></p></div>
+					<div class="below-h2 updated"><p><?php echo __('Your ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?> <?php wdf_time_left(true,$post->ID); ?></p></div>
 				<?php endif; ?>
 				<?php echo $this->prepare_progress_bar($post->ID,null,null,'admin_metabox',true); ?>
 			<?php else : ?>
@@ -260,8 +260,8 @@ if($pagenow == 'nav-menus.php') { ?>
 					<p>
 						<label><span class="description"><?php _e('Checkout Type','wdf') ?></span>
 							<select name="wdf[checkout_type]">
-									<option value="1" <?php (isset($meta['checkout_type'][0]) ? selected($meta['checkout_type'][0],'1') : ''); ?>><?php _e('Checkout directly from panel','wdf'); ?></option>
-									<option value="2" <?php (isset($meta['checkout_type'][0]) ? selected($meta['checkout_type'][0],'2') : ''); ?>><?php _e('Use elaborated checkout page','wdf'); ?></option>
+									<option value="1" <?php (isset($meta['wdf_checkout_type'][0]) ? selected($meta['wdf_checkout_type'][0],'1') : ''); ?>><?php _e('Checkout directly from panel','wdf'); ?></option>
+									<option value="2" <?php (isset($meta['wdf_checkout_type'][0]) ? selected($meta['wdf_checkout_type'][0],'2') : ''); ?>><?php _e('Use elaborated checkout page','wdf'); ?></option>
 								</select>
 						</label>
 					</p>
