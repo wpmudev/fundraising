@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.1.8
+Version: 2.1.9
 Text Domain: wdf
 Author: Cole (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -83,7 +83,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.1.8';
+		$this->version = '2.1.9';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -187,6 +187,9 @@ class WDF {
 			
 			//Not the admin area so lets load up our front-end actions, scripts and filters
 			add_action('wp_enqueue_scripts', array(&$this,'enqueue_scripts'));
+			
+			// Menu Fix for displaying parent archive page correctly
+			add_filter( 'wp_nav_menu_objects', array(&$this, 'filter_nav_menu'), 10, 2 );
 			
 			// Very low priority number is needed here to make sure it fires before themes can output headers
 			add_action( 'wp', array(&$this, 'handle_payment'), 1 );
@@ -402,8 +405,11 @@ class WDF {
 	}
 	function add_rewrite_rules($rules){
 		$settings = get_option('wdf_settings');
-	
+		
 		$new_rules = array();
+		// Archive Page Fix For Multi-Site Sub-Directory Installs
+		$new_rules[$settings['dir_slug'] . '/?$'] = 'index.php?post_type=funder';
+		
 		// Checkout Page
 		$new_rules[$settings['dir_slug'] . '/([^/]+)/' . $settings['checkout_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_checkout=1';
 		
@@ -432,7 +438,22 @@ class WDF {
 		
 		return $vars;
 	}
-	
+	function filter_nav_menu($list, $args = array()) {
+		$settings = get_option('wdf_settings');
+		global $wp_query;
+		$archive_url = home_url($settings['dir_slug']);
+		foreach($list as $key => $menu_item) {
+			if( strstr($menu_item->url,$archive_url)) {
+				if(isset($wp_query->query_vars['funder']) && $wp_query->is_single) {
+					$list[$key]->current_item_ancestor = true;
+					$list[$key]->current_item_parent = true;
+					$list[$key]->classes[] = 'current-menu-ancestor';
+					$list[$key]->classes[] = 'current-menu-parent';
+				}
+			}
+		}
+		return $list;
+	}
 	function template_redirect() {
 		global $wp_query;
 		
@@ -501,7 +522,6 @@ class WDF {
 		
 		if(isset($this->is_funder_checkout) && $this->is_funder_checkout) {
 			$content = wdf_show_checkout( false, $post->ID, (isset($_POST['wdf_step']) ? $_POST['wdf_step'] : '')  );
-			
 		}
 		
 		if(isset($this->is_funder_confirm) && $this->is_funder_confirm) {
@@ -513,15 +533,6 @@ class WDF {
 		
 		return $content;
 	}
-	
-	// Depreciated in favor of using the Appearance -> Menus page
-	function filter_nav_menu($list, $args = array()) {
-    	/*$settings = get_option('wdf_settings');
-		$list = $list . '<li class="page_item'. ((get_query_var('post_type') == 'funder') ? ' current_page_item' : '') . '"><a href="' . home_url($settings['dir_slug'].'/') . '" title="' . esc_attr($settings['funder_labels']['plural_name']) . '">' . esc_attr($settings['funder_labels']['plural_name']) . '</a></li>';
-		return $list;*/
-		return;
-	}
-
 	function load_plugins() {
 		$settings = get_option('wdf_settings');
 		
@@ -831,7 +842,7 @@ class WDF {
 				jQuery(document).ready( function($) {
 					$('#wdf_add_nav_archive').on('click', function() {
 						<?php $funder_slug = $settings['dir_slug']; ?>
-						wpNavMenu.addLinkToMenu('<?php echo home_url($funder_slug); ?>','Fundraisers');						
+						wpNavMenu.addLinkToMenu('<?php echo trailingslashit(home_url($funder_slug)); ?>','Fundraisers');						
 						return false;
 					});
 				});
@@ -851,7 +862,7 @@ class WDF {
 			if( !in_array($wdf_type,$settings['payment_types']) || $has_pledges == false ) {
 				
 				if($post->post_status != 'publish' && $has_pledges == false)
-					add_meta_box( 'wdf_type', esc_attr($settings['funder_labels']['menu_name']) . __(' Type','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
+					add_meta_box( 'wdf_type', sprintf(__('%s Type','wdf'),esc_attr($settings['funder_labels']['menu_name'])), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
 					
 				if( $post->post_status == 'auto-draft' || $wdf_type == '' ) {
 					// Search for the submit div and remove it
@@ -868,22 +879,22 @@ class WDF {
 			if($wdf_type != false && !empty($wdf_type)) { // We have a type so show the available options
 				
 				if( $has_pledges != false || $post->post_status == 'publish' )
-					add_meta_box( 'wdf_progress', esc_attr($settings['funder_labels']['singular_name']) . __(' Progress','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
+					add_meta_box( 'wdf_progress', sprintf(__('%s Progress','wdf'),esc_attr($settings['funder_labels']['singular_name'])), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
 				
-				add_meta_box( 'wdf_options', esc_attr($settings['funder_labels']['singular_name']) . __(' Settings','wdf'), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
-				add_meta_box( 'wdf_goals', __('Set Your '.esc_attr($settings['funder_labels']['singular_name']).' Goals','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
+				add_meta_box( 'wdf_options', sprintf(__('%s Settings','wdf'),esc_attr($settings['funder_labels']['singular_name'])), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
+				add_meta_box( 'wdf_goals', sprintf(__('Set Your %s Goals','wdf'),esc_attr($settings['funder_labels']['singular_name'])), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
 					
 				add_meta_box( 'wdf_messages', __('Thank You Message Settings','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');	
 				// Show pledge activity if funds have been raised
 				if( $has_pledges != false )
-					add_meta_box( 'wdf_activity', esc_attr($settings['donation_labels']['singular_name']) . __(' Activity','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
+					add_meta_box( 'wdf_activity', sprintf(__('%s Activity','wdf'), esc_attr($settings['donation_labels']['singular_name'])), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
 			}
 			
 			
 				
 		} elseif($typenow == 'donation') {
-			add_meta_box( 'wdf_pledge_info', esc_attr($settings['donation_labels']['singular_name']) . __(' Information','wdf'), array(&$this,'meta_box_display'), 'donation', 'normal', 'high');
-			add_meta_box( 'wdf_pledge_status', esc_attr($settings['donation_labels']['singular_name']) . __(' Status','wdf'), array(&$this,'meta_box_display'), 'donation', 'side', 'high');
+			add_meta_box( 'wdf_pledge_info', sprintf(__('%s Information','wdf'),esc_attr($settings['donation_labels']['singular_name'])), array(&$this,'meta_box_display'), 'donation', 'normal', 'high');
+			add_meta_box( 'wdf_pledge_status', sprintf(__('%s Status','wdf'), esc_attr($settings['donation_labels']['singular_name'])), array(&$this,'meta_box_display'), 'donation', 'side', 'high');
 			
 			// Search for the submit div and remove it
 			foreach($wp_meta_boxes['donation'] as $context => $priorities) {
@@ -905,7 +916,7 @@ class WDF {
 		$settings = get_option('wdf_settings');
 		
 		add_submenu_page( 'edit.php?post_type=funder', $settings['donation_labels']['plural_name'], $settings['donation_labels']['plural_name'], 'manage_options', 'wdf_donations', array(&$this,'admin_display') );		
-		add_submenu_page( 'edit.php?post_type=funder', $settings['funder_labels']['menu_name'] . __(' Settings','wdf'), __('Settings','wdf'), 'manage_options', 'wdf_settings', array(&$this,'admin_display') );
+		add_submenu_page( 'edit.php?post_type=funder', sprintf(__('%s Settings','wdf'), $settings['funder_labels']['menu_name']), __('Settings','wdf'), 'manage_options', 'wdf_settings', array(&$this,'admin_display') );
 		add_submenu_page( 'edit.php?post_type=funder', __('Getting Started','wdf'), __('Getting Started','wdf'), 'manage_options', 'wdf', array(&$this,'admin_display') );
 		foreach($submenu['edit.php?post_type=funder'] as $key => $menu_item) {
 			if($menu_item['2'] == 'wdf_donations')
@@ -1134,7 +1145,7 @@ class WDF {
 			$columns['pledge_funder'] = esc_attr($settings['funder_labels']['singular_name']);
 			$columns['pledge_from'] = esc_attr($settings['donation_labels']['backer_single']);
 			$columns['pledge_method'] = __('Method', 'wdf');
-			$columns['title'] = esc_attr($settings['donation_labels']['singular_name']) . __(' ID', 'wdf');
+			$columns['title'] = sprintf(__('%s ID', 'wdf'),esc_attr($settings['donation_labels']['singular_name']));
 			$title_move = $columns['title'];
 			unset($columns['title']);
 			$move_date = $columns['date'];
@@ -1221,8 +1232,8 @@ class WDF {
 		if(isset($_GET['tab'])) {
 			if($_GET['tab'] == 'fundraising' || $_GET['tab'] == 'donate_button' || $_GET['tab'] == 'progress_bar') {
 				$tabs = array();
-				$tabs['donate_button'] = esc_attr($settings['donation_labels']['singular_name']) . __(' Button','wdf');
-				$tabs['fundraising'] = esc_attr($settings['funder_labels']['singular_name']) . __(' Form','wdf');
+				$tabs['donate_button'] = sprintf(__('%s Button','wdf'),esc_attr($settings['donation_labels']['singular_name']));
+				$tabs['fundraising'] = sprintf(__('%s Form','wdf'),esc_attr($settings['funder_labels']['singular_name']));
 				$tabs['progress_bar'] = __('Progress Bar','wdf');
 			}
 		}
@@ -1262,11 +1273,11 @@ class WDF {
 						<tbody>
 							<tr>
 								<th valign="top" scope="row" class="label">
-									<span class="alignleft"><?php echo __('Choose a ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?></span>
+									<span class="alignleft"><?php echo sprintf(__('Choose a %s','wdf'),esc_attr($settings['funder_labels']['singular_name'])); ?></span>
 								</th>
 								<td>
 									<?php if(!$funders || empty($funders)) : ?>
-										<div class="message alert"><?php echo __('You have not created any ','wdf') . esc_attr($settings['funder_labels']['plural_name']) . __(' yet.','wdf'); ?></div>
+										<div class="message alert"><?php echo sprintf(__('You have not created any %s yet.','wdf'),esc_attr($settings['funder_labels']['plural_name'])); ?></div>
 									<?php else : ?>
 									<select id="wdf_funder_select" name="id">
 										<option value="0"></option>
@@ -1345,7 +1356,7 @@ class WDF {
 							</tr>
 							<tr>
 								<th valign="top" scope="row" class="label">
-									<span class="alignleft"><label><?php echo esc_attr($settings['donation_labels']['singular_name']) . __(' Amount','wdf') ?><br /><span class="description"><?php _e('(blank = choice)','wdf'); ?></span></label></span>
+									<span class="alignleft"><label><?php echo sprintf(__('%s Amount','wdf'),esc_attr($settings['donation_labels']['singular_name'])); ?><br /><span class="description"><?php _e('(blank = choice)','wdf'); ?></span></label></span>
 								</th>
 								<td class="field"><input type="text" name="donation_amount" value="" /></td>
 							</tr>
@@ -1419,11 +1430,11 @@ class WDF {
 						<tbody>
 							<tr>
 								<th valign="top" scope="row" class="label">
-									<span class="alignleft"><?php echo __('Choose a ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?></span>
+									<span class="alignleft"><?php echo sprintf(__('Choose a %s','wdf'),esc_attr($settings['funder_labels']['singular_name'])); ?></span>
 								</th>
 								<td>
 									<?php if(!$funders || empty($funders)) : ?>
-										<div class="message alert"><?php echo __('You have not created any ','wdf') . esc_attr($settings['funder_labels']['plural_name']) . __(' yet.','wdf'); ?></div>
+										<div class="message alert"><?php echo sprintf(__('You have not created any %s yet','wdf'),esc_attr($settings['funder_labels']['plural_name'])); ?></div>
 									<?php else : ?>
 									<select id="wdf_funder_select" name="id">
 										<option value="0"></option>

@@ -29,7 +29,7 @@ if($pagenow == 'nav-menus.php') { ?>
 			<?php $trans = $this->get_transaction($post->ID); ?>
 			<label><?php _e('Gateway Status','wdf'); ?>: <?php echo $trans['status']; ?></label>
 			<p>
-				<label>Pledge Status</label><br />
+				<label><?php _e('Pledge Status','wdf'); ?></label><br />
 				<select class="widefat" name="post_status">
 					<option value="wdf_complete" <?php selected($post->post_status,'wdf_complete'); ?>><?php _e('Complete','wdf'); ?></option>
 					<option value="wdf_approved" <?php selected($post->post_status,'wdf_approved'); ?>><?php _e('Approved','wdf'); ?></option>
@@ -151,7 +151,7 @@ if($pagenow == 'nav-menus.php') { ?>
 	
 			<?php if($this->has_goal($post->ID)) : ?>
 				<?php if(strtotime($meta['wdf_goal_start'][0]) > time()) : ?>
-					<div class="below-h2 updated"><p><?php echo __('Your ','wdf') . esc_attr($settings['funder_labels']['singular_name']); ?> <?php wdf_time_left(true,$post->ID); ?></p></div>
+					<div class="below-h2 updated"><p><?php echo sprintf(__('Your %s %s','wdf'),esc_attr($settings['funder_labels']['singular_name']), wdf_time_left(false,$post->ID)); ?></p></div>
 				<?php endif; ?>
 				<?php echo $this->prepare_progress_bar($post->ID,null,null,'admin_metabox',true); ?>
 			<?php else : ?>
@@ -362,7 +362,7 @@ if($pagenow == 'nav-menus.php') { ?>
 						</tbody>
 					</table>
 				</div>
-				<p><label><?php echo __('Create ','wdf') . esc_attr($settings['funder_labels']['plural_level']); ?>
+				<p><label><?php echo sprintf(__('Create %s','wdf'), esc_attr($settings['funder_labels']['plural_level'])); ?>
 					<select <?php echo $disabled; ?> class="wdf_toggle" rel="wdf_has_reward" name="wdf[has_reward]">
 						<option <?php (isset($meta['wdf_has_reward'][0]) ? selected($meta['wdf_has_reward'][0],'0') : ''); ?> value="0"><?php _e('No','wdf'); ?></option>
 						<option <?php (isset($meta['wdf_has_reward'][0]) ? selected($meta['wdf_has_reward'][0],'1') : ''); ?> value="1"><?php _e('Yes','wdf'); ?></option>
@@ -374,7 +374,7 @@ if($pagenow == 'nav-menus.php') { ?>
 						<thead>
 							<tr>
 								<th class="wdf_level_amount"><?php echo __('Choose Amount','wdf'); ?></th>
-								<th class="wdf_level_description"><?php echo esc_attr($settings['funder_labels']['singular_level']) . __(' Description','wdf'); ?></th>
+								<th class="wdf_level_description"><?php echo sprintf(__('%s Description','wdf'), esc_attr($settings['funder_labels']['singular_level'])); ?></th>
 								<th class="delete" align="right"></th>
 							</tr>
 						</thead>
@@ -402,7 +402,7 @@ if($pagenow == 'nav-menus.php') { ?>
 									<tr class="wdf_reward_options">
 										<td colspan="5">
 											<div class="wdf_reward_toggle" <?php echo ( isset($data['reward']) && $data['reward'] == 1 ? '' : 'style="display:none"'); ?>>
-												<p><label><?php echo __('Describe Your ','wdf') . esc_attr($settings['funder_labels']['singular_level']); ?><input <?php echo $disabled; ?> type="text" name="wdf[levels][<?php echo $index ?>][reward_description]" value="<?php echo $data['reward_description'] ?>" class="widefat" /></label></p>
+												<p><label><?php echo sprintf(__('Describe Your %s','wdf'), esc_attr($settings['funder_labels']['singular_level'])); ?><input <?php echo $disabled; ?> type="text" name="wdf[levels][<?php echo $index ?>][reward_description]" value="<?php echo $data['reward_description'] ?>" class="widefat" /></label></p>
 											</div>
 										</td>
 									</tr>
@@ -426,7 +426,7 @@ if($pagenow == 'nav-menus.php') { ?>
 									<tr class="wdf_reward_options">
 										<td colspan="5">
 											<div class="wdf_reward_toggle" style="display:none">
-												<p><label><?php echo __('Describe Your ','wdf') . esc_attr($settings['funder_labels']['singular_level']); ?><input type="text" name="wdf[levels][0][reward_description]" value="<?php echo $data['reward_description'] ?>" class="widefat" /></label></p>
+												<p><label><?php echo sprintf(__('Describe Your %s','wdf'),esc_attr($settings['funder_labels']['singular_level'])); ?><input type="text" name="wdf[levels][0][reward_description]" value="<?php echo $data['reward_description'] ?>" class="widefat" /></label></p>
 											</div>
 										</td>
 									</tr>
@@ -445,12 +445,12 @@ if($pagenow == 'nav-menus.php') { ?>
 									<tr rel="wdf_level_template" class="wdf_reward_options" style="display:none">
 										<td colspan="5">
 											<div class="wdf_reward_toggle" style="display:none">
-												<p><label><?php echo __('Describe Your ','wdf') . esc_attr($settings['funder_labels']['singular_level']) ?><input type="text" rel="wdf[levels][][reward_description]" value="" class="widefat" /></label></p>
+												<p><label><?php echo sprintf(__('Describe Your %s','wdf'),esc_attr($settings['funder_labels']['singular_level'])); ?><input type="text" rel="wdf[levels][][reward_description]" value="" class="widefat" /></label></p>
 											</div>
 										</td>
 									</tr>
 									<?php if($disabled == false) : ?>
-										<tr><td colspan="3" align="right"><a href="#" id="wdf_add_level"><?php echo __('Add A ','wdf') . esc_attr($settings['funder_labels']['singular_level']); ?></a></td></tr>
+										<tr><td colspan="3" align="right"><a href="#" id="wdf_add_level"><?php echo sprintf(__('Add A %s','wdf'), esc_attr($settings['funder_labels']['singular_level'])); ?></a></td></tr>
 									<?php endif; ?>
 								</tbody>
 							</table>

@@ -51,7 +51,7 @@ function bp_wdf_admin() {
 		<h2><?php _e( 'Fundraising Admin', 'wdf' ) ?></h2>
 		<br />
 
-		<?php if ( isset($updated) ) : ?><?php echo "<div id='message' class='updated fade'><p>" . __( 'Settings Updated.', 'wdf' ) . "</p></div>" ?><?php endif; ?>
+		<?php if ( isset($updated) ) : ?><?php echo "<div id='message' class='updated fade'><p>" . __('Settings Updated.', 'wdf') . "</p></div>" ?><?php endif; ?>
 
 		<form action="<?php echo site_url() . '/wp-admin/admin.php?page=bp-wdf-settings' ?>" name="wdf-settings-form" id="wdf-settings-form" method="post">
 

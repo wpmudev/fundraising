@@ -120,11 +120,11 @@ function bp_wdf_format_notifications( $action, $item_id, $secondary_item_id, $to
 			 * notification is rendered differently.
 			 */
 			if ( (int)$total_items > 1 ) {
-				return apply_filters( 'bp_wdf_multiple_new_donation_notification', '<a href="' . $bp->loggedin_user->domain . $bp->wdf->slug . '/screen-one/" title="' . __( 'Multiple Donations', 'wdf' ) . '">' . sprintf( __( '%d new high-fives, multi-five!', 'wdf' ), (int)$total_items ) . '</a>', $total_items );
+				return apply_filters( 'bp_wdf_multiple_new_donation_notification', '<a href="' . $bp->loggedin_user->domain . $bp->wdf->slug . '/screen-one/" title="' . __('Multiple Donations', 'wdf') . '">' . sprintf( __( '%d new high-fives, multi-five!', 'wdf' ), (int)$total_items ) . '</a>', $total_items );
 			} else {
 				$user_fullname = bp_core_get_user_displayname( $item_id, false );
 				$user_url = bp_core_get_user_domain( $item_id );
-				return apply_filters( 'bp_wdf_single_new_donation_notification', '<a href="' . $user_url . '?new" title="' . $user_fullname .'\'s profile">' . sprintf( __( '%s sent you a high-five!', 'wdf' ), $user_fullname ) . '</a>', $user_fullname );
+				return apply_filters( 'bp_wdf_single_new_donation_notification', '<a href="' . $user_url . '?new" title="' . $user_fullname .'\'s profile">' . sprintf( __('%s sent you a high-five!', 'wdf'), $user_fullname ) . '</a>', $user_fullname );
 			}
 		break;
 	}

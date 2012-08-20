@@ -3,6 +3,12 @@ Author: Cole Stevenson (Incsub)
 
 == Changelog ==
 
+= 2.1.9 =
+Fundraising slug now functional with multisite subdirectory.
+Fundraiser menu ancestry now works properly when using menus in your theme.
+Fixed problem concerning per checkout types breaking panel display.
+Adjusted all concatenated translation strings to sprintf() strings.
+
 = 2.1.8 =
 Fixed issue with fundraisers with goals not showing in shortcode generator
 Fixed problem with styles not loading in particular situations

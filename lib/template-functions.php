@@ -26,6 +26,18 @@ if(!function_exists('fundraiser_panel_shortcode')) {
 	}
 }
 
+if(!function_exists('wdf_fundraiser_page')) {
+	function wdf_fundraiser_page($echo = true, $post_id = false, $atts = array()) {
+		global $post; $content = '';
+		$post_id = (empty($post_id) ? $post->ID : $post_id );
+		if(!get_post($post_id))
+			return false;
+		$content = wdf_fundraiser_panel(false,$post_id,'','');
+
+		if($echo) {echo $content;} else {return $content;}
+	}
+}
+
 if(!function_exists('wdf_fundraiser_panel')) {
 	function wdf_fundraiser_panel($echo = true, $post_id = '', $context = '', $args = array() ) {
 		$settings = get_option('wdf_settings');
@@ -34,59 +46,55 @@ if(!function_exists('wdf_fundraiser_panel')) {
 		$funder = get_post($post_id);
 		if(!$funder)
 			return false;
-		
+
 		$style = ( isset($args['style']) && !empty($args['style']) ? $args['style'] : wdf_get_style($post_id) );
 		
-		switch($context) {
-			
-			default :
-				$content .= '<div class="wdf_fundraiser_panel '.$style.'">';
-				
-				if(isset($args['shortcode']) && $args['shortcode'] == true) {
-					if( strtolower($args['show_title']) == 'yes' )
-						$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_title', '<div class="wdf_shortcode_title"><h2>%s</h2></div>'), get_the_title($post_id) );
-					if( strtolower($args['show_content']) == 'yes') {
-						$funder_content = apply_filters('the_content',$funder->post_content);
-						$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_content', '<div class="wdf_shortcode_content">%s</div>'), $funder_content );
-					}
-				}
-				$backer_total = wdf_total_backers(false, $post_id);
-				$content .= '<div class="wdf_total_backers"><div class="wdf_big_num">'.$backer_total.'</div><p>'.apply_filters('wdf_backer_label', ($backer_total > 1 ? esc_attr($settings['donation_labels']['backer_plural']) : esc_attr($settings['donation_labels']['backer_single'])) ).'</p></div>';
-				if(wdf_has_goal($post_id)) {
-					$content .= '<div class="wdf_amount_raised"><div class="wdf_big_num">'.wdf_amount_raised(false, $post_id).'</div><p>'.__('raised of a','wdf').' '.wdf_goal(false, $post_id).' '.__('goal','wdf').'</p></div>';
-					$content .= '<div class="wdf_panel_progress_bar">'.wdf_progress_bar(false, $post_id).'</div>';
-				} else {
-					$content .= '<div class="wdf_amount_raised"><div class="wdf_big_num">'.wdf_amount_raised(false, $post_id).'</div><p>'.__('raised','wdf').'</p></div>';
-				}
-				
-				// Checking to see if this fundraiser can accept pledges yet.
-				if( wdf_time_left(false, $post_id, true) === false ) {
-					if(wdf_panel_checkout($post_id)) {
-						global $wdf_checkout_from_panel;
-						$wdf_checkout_from_panel = true;
-						
-						// Show the time left or time till start if a date range is available
-						if(wdf_has_date_range($post_id))
-							$content .= '<div class="wdf_time_left">'.wdf_time_left(false, $post_id).'</div>';
-						
-						$content .= wdf_checkout_page(false, $post_id);
-					} else {
-						$content .= '<div class="wdf_backer_button">'.wdf_backer_button(false, $post_id).'</div>';
-					}
-				}
-					
-				// Show the time left or time till start if a date range is available
-				if(wdf_has_date_range($post_id) && isset($wdf_checkout_from_panel) && $wdf_checkout_from_panel !== true)
-					$content .= '<div class="wdf_time_left">'.wdf_time_left(false, $post_id).'</div>';					
-			
-				
-				if(wdf_has_rewards($post_id) && isset($wdf_checkout_from_panel) && $wdf_checkout_from_panel !== true) {
-					$content .= '<div>'.wdf_rewards(false, $post_id).'</div>';
-				}
-				$content .= '</div>';
-				break;	
-			
+
+		$content .= '<div class="wdf_fundraiser_panel '.$style.'">';
+		
+		if(isset($args['shortcode']) && $args['shortcode'] == true) {
+			if( strtolower($args['show_title']) == 'yes' )
+				$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_title', '<div class="wdf_shortcode_title"><h2>%s</h2></div>'), get_the_title($post_id) );
+			if( strtolower($args['show_content']) == 'yes') {
+				$funder_content = apply_filters('the_content',$funder->post_content);
+				$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_content', '<div class="wdf_shortcode_content">%s</div>'), $funder_content );
+			}
 		}
+		$backer_total = wdf_total_backers(false, $post_id);
+		$content .= '<div class="wdf_total_backers"><div class="wdf_big_num">'.$backer_total.'</div><p>'.apply_filters('wdf_backer_label', ($backer_total > 1 ? esc_attr($settings['donation_labels']['backer_plural']) : esc_attr($settings['donation_labels']['backer_single'])) ).'</p></div>';
+		if(wdf_has_goal($post_id)) {
+			$content .= '<div class="wdf_amount_raised"><div class="wdf_big_num">'.wdf_amount_raised(false, $post_id).'</div><p>'.sprintf(__('raised of a %s goal','wdf'),wdf_goal(false, $post_id)).'</p></div>';
+			$content .= '<div class="wdf_panel_progress_bar">'.wdf_progress_bar(false, $post_id).'</div>';
+		} else {
+			$content .= '<div class="wdf_amount_raised"><div class="wdf_big_num">'.wdf_amount_raised(false, $post_id).'</div><p>'.__('raised','wdf').'</p></div>';
+		}
+		
+		// Checking to see if this fundraiser can accept pledges yet.
+		if( wdf_time_left(false, $post_id, true) === false ) {
+			if(wdf_panel_checkout($post_id)) {
+				global $wdf_checkout_from_panel;
+				$wdf_checkout_from_panel = true;
+				
+				// Show the time left or time till start if a date range is available
+				if(wdf_has_date_range($post_id))
+					$content .= '<div class="wdf_time_left">'.wdf_time_left(false, $post_id).'</div>';
+				
+				$content .= wdf_checkout_page(false, $post_id);
+			} else {
+				$content .= '<div class="wdf_backer_button">'.wdf_backer_button(false, $post_id).'</div>';
+			}
+		}
+			
+		// Show the time left or time till start if a date range is available
+		if(wdf_has_date_range($post_id) && isset($wdf_checkout_from_panel) && $wdf_checkout_from_panel !== true)
+			$content .= '<div class="wdf_time_left">'.wdf_time_left(false, $post_id).'</div>';					
+	
+		
+		if(wdf_has_rewards($post_id) && isset($wdf_checkout_from_panel) && $wdf_checkout_from_panel !== true) {
+			$content .= '<div>'.wdf_rewards(false, $post_id).'</div>';
+		}
+		$content .= '</div>';
+
 		if($echo) {echo $content;} else {return $content;}
 		
 	}
@@ -139,19 +147,19 @@ if(!function_exists('wdf_has_rewards')) {
 if(!function_exists('wdf_panel_checkout')) {
 	function wdf_panel_checkout($post_id = false) {
 		$settings = get_option('wdf_settings');
-		if($post_id = false) {
+		if($post_id == false) {
 			global $post;
 			$post_id = $post->ID;
 		}
-		$type = get_post_meta($post_id, 'checkout_type', true);
-		if( isset($settings['single_checkout_type']) && $settings['single_checkout_type'] == '1' ) {
-			if( !$type )
-				$type = $settings['checkout_type'];
+		$type = $settings['checkout_type'];
+		if( isset($settings['single_checkout_type']) && $settings['single_checkout_type'] === '1' ) {
+			$type = get_post_meta($post_id, 'wdf_checkout_type', true);
 		}
-		if( $type == '1' )
-			return true;
-		else
+		
+		if( $type === '2' )
 			return false;
+		else
+			return true;
 
 	}
 }
@@ -254,7 +262,7 @@ if(!function_exists('wdf_time_left')) {
 					$time = $hours . ' ' . ((int)$hours == 1 ? __('Hour Left','wdf') : __('Hours Left','wdf'));
 				}
 				if($future_start === true) {
-					$time = __('Starts In','wdf') .  ' ' . ( (int)$days >= 2 ? (int)$days == 1 ? $days . ' ' . __('Day','wdf') : $days . ' ' . __('Days','wdf') : ((int)$hours == 1 ? $hours . ' ' . __('Hour','wdf') : $hours . ' ' . __('Hours','wdf')) );
+					$time = sprintf(__('Starts In %s','wdf'), ( (int)$days >= 2 ? (int)$days == 1 ? $days . ' ' . __('Day','wdf') : $days . ' ' . __('Days','wdf') : ((int)$hours == 1 ? $hours . ' ' . __('Hour','wdf') : $hours . ' ' . __('Hours','wdf')) ));
 				}
 				
 				$content = apply_filters('wdf_time_left', $time, $hours, $days, $weeks, $months, $start_date, $end_date );
@@ -374,7 +382,7 @@ if(!function_exists('wdf_thanks_panel')) {
 			$content .= '</h3>';
 			
 			if(wdf_has_goal($post_id)) {
-				$content .= '<div class="wdf_amount_raised"><div class="wdf_big_num">'.wdf_amount_raised(false, $post_id).'</div><p>'.__('raised of a','wdf').' '.wdf_goal(false, $post_id).' '.__('goal','wdf').'</p></div>';
+				$content .= '<div class="wdf_amount_raised"><div class="wdf_big_num">'.wdf_amount_raised(false, $post_id).'</div><p>'.sprintf(__('raised of a %s goal','wdf'),wdf_goal(false, $post_id)).'</p></div>';
 				$content .= wdf_progress_bar(false, $post_id);
 			}
 				
@@ -534,7 +542,7 @@ if(!function_exists('wdf_show_checkout')) {
 		if(isset($_SESSION['wdf_pledge']) && (int)$_SESSION['wdf_pledge'] < 1) {
 			$checkout_step = '';
 			global $wdf;
-			$wdf->create_error(__('You must pledge at least','wdf').' '.$wdf->format_currency('',1),'checkout_top');
+			$wdf->create_error(sprintf(__('You must pledge at least %s','wdf'),$wdf->format_currency('',1)),'checkout_top');
 		}
 		
 		switch($checkout_step) {
@@ -549,17 +557,6 @@ if(!function_exists('wdf_show_checkout')) {
 		
 		if($echo) {echo $content;} else {return $content;}
 	
-	}
-}
-
-if(!function_exists('wdf_fundraiser_page')) {
-	function wdf_fundraiser_page($echo = true, $post_id = false, $atts = array()) {
-		global $post; $content = '';
-		$post_id = (empty($post_id) ? $post->ID : $post_id );
-		if(!get_post($post_id))
-			return false;
-		$content = wdf_fundraiser_panel(false,$post_id,'','');
-		if($echo) {echo $content;} else {return $content;}
 	}
 }
 

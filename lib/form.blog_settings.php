@@ -24,7 +24,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 ?>
 <div class="wrap">
 	<div id="icon-wdf-admin" class="icon32"><br></div>
-		<h2><?php echo $settings['funder_labels']['menu_name'] . __(' Settings','wdf') ?></h2>
+		<h2><?php echo sprintf(__('%s Settings','wdf'),esc_attr($settings['funder_labels']['menu_name'])); ?></h2>
 		<?php do_action('wdf_msg_general');?>
 		<form action="" method="post" id="wdf_settings_<?php echo $active_tab ?>" class="nav-tabs">
 			<input type="hidden" name="wdf_nonce" value="<?php echo wp_create_nonce('_wdf_settings_nonce');?>" />
@@ -359,18 +359,8 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</th>
 										<td>
 											<input class="wdf_auto_submit" type="checkbox" name="wdf_settings[payment_types][]" value="simple" <?php checked( in_array( 'simple', $settings['payment_types'] ), true ); ?> />
-											<?php //echo $tips->add_tip(__('Simple donations only require a valid paypal email address.','wdf')); ?>
 										</td>
 									</tr>
-									<?php /*?><tr valign="top">
-										<th scope="row">
-											<label><?php _e('Standard Fundraising','wdf'); ?></label>
-										</th>
-										<td>
-											<input class="wdf_auto_submit" type="checkbox" name="wdf_settings[payment_type][]" value="standard" <?php checked( in_array( 'standard', $settings['payment_types']), true ); ?> />
-											<?php echo $tips->add_tip(__('Standard Fundraising','wdf')); ?>
-										</td>
-									</tr><?php */?>
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Advanced Crowdfunding','wdf'); ?></label>
