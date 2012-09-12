@@ -27,8 +27,8 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 				$wdf->load_style($instance['style']);
 			
 			$content = $args['before_widget'];
-			
-			if(!isset($instance['title']) || empty($instance['title']))
+				
+			if(isset($instance['title']) && !empty($instance['title']))
 				$content .= $args['before_title'] . get_the_title($instance['funder']) . $args['after_title'];
 				
 			$content .= $this->show_thumb($instance);
