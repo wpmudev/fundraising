@@ -286,7 +286,7 @@ if(!function_exists('wdf_backer_button')) {
 		
 		$link = apply_filters('wdf_backer_button_link',trailingslashit(get_permalink($post_id) . $settings['checkout_slug']) );
 		$classes = apply_filters('wdf_backer_button_classes','wdf_button');
-		$button = '<a class="'.$classes.'" href="'.$link.'">'.__('Support This','wdf').'</a>';
+		$button = '<a class="'.$classes.'" href="'.$link.'">'.$settings['donation_labels']['action_name'].'</a>';
 		return apply_filters('wdf_backer_button', $button);
 	}
 }
@@ -378,7 +378,7 @@ if(!function_exists('wdf_thanks_panel')) {
 			$content .= '<h3 class="wdf_confirm_pledge_amount">' . sprintf(__('Your %s of %s was successful','wdf'), esc_attr($settings['donation_labels']['singular_name']), $wdf->format_currency($trans['currency_code'],$trans['gross']) ) . '</h3>';
 			$content .= '<h3 class="wdf_left_to_go">';
 			if(!wdf_has_goal($post_id))
-				$content .= wdf_amount_raised(false, $post_id) . ' Raised so far';
+				$content .= sprintf(__('%s Raised so far','wdf'), wdf_amount_raised(false, $post_id));
 			$content .= '</h3>';
 			
 			if(wdf_has_goal($post_id)) {
