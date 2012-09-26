@@ -918,9 +918,11 @@ class WDF {
 		add_submenu_page( 'edit.php?post_type=funder', $settings['donation_labels']['plural_name'], $settings['donation_labels']['plural_name'], 'manage_options', 'wdf_donations', array(&$this,'admin_display') );		
 		add_submenu_page( 'edit.php?post_type=funder', sprintf(__('%s Settings','wdf'), $settings['funder_labels']['menu_name']), __('Settings','wdf'), 'manage_options', 'wdf_settings', array(&$this,'admin_display') );
 		add_submenu_page( 'edit.php?post_type=funder', __('Getting Started','wdf'), __('Getting Started','wdf'), 'manage_options', 'wdf', array(&$this,'admin_display') );
-		foreach($submenu['edit.php?post_type=funder'] as $key => $menu_item) {
-			if($menu_item['2'] == 'wdf_donations')
-				$submenu['edit.php?post_type=funder'][$key][2] = 'edit.php?post_type=donation';
+		if( isset($submenu['edit.php?post_type=funder']) && is_array($submenu['edit.php?post_type=funder']) ) {
+			foreach($submenu['edit.php?post_type=funder'] as $key => $menu_item) {
+				if($menu_item['2'] == 'wdf_donations')
+					$submenu['edit.php?post_type=funder'][$key][2] = 'edit.php?post_type=donation';
+			}
 		}
 		
 	}
