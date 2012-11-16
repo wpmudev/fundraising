@@ -30,6 +30,13 @@ define('WDF_CUSTOM_TEMPLATE_FUNCTIONS','/full-server-path/and/filename.php');
 
 == Custom Styles ==
 Add any CSS file to your fundraising /styles/ folder for it to be available in your settings.
+
+You can also create a folder named "wdf-styles" in your wp-content folder 
+OR 
+you can set an external location using the following code in your wp-config.php file.
+
+define('WDF_EXTERNAL_STYLE_DIRECTORY','/full/server/path/to/styles/')
+
 By default the name of the style is the name of the file.  You can manually adjust this using the "wdf_custom_style_name" filter
 
 Exmaple:

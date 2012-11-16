@@ -3,6 +3,9 @@ Author: Cole Stevenson (Incsub)
 
 == Changelog ==
 
+= 2.2.4 =
+Added new external style locations. Check fundraising-templates.txt for more info
+
 = 2.2.3 =
 Rewrite Flush Issue Fixed
 Fixed issue with subscriber error in admin panel

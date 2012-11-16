@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.2.3
+Version: 2.2.4
 Text Domain: wdf
 Author: Cole (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -25,17 +25,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-///////////////////////////////////////////////////////////////////////////
-/* -------------------- Update Notifications Notice -------------------- */
-if ( !function_exists( 'wdp_un_check' ) ) {
-	add_action( 'admin_notices', 'wdp_un_check', 5 );
-	add_action( 'network_admin_notices', 'wdp_un_check', 5 );
-	function wdp_un_check() {
-		if ( !class_exists( 'WPMUDEV_Update_Notifications' ) && current_user_can( 'install_plugins' ) )
-			echo '<div class="error fade"><p>' . __('Please install the latest version of <a href="http://premium.wpmudev.org/project/update-notifications/" title="Download Now &raquo;">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href="http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/">More information &raquo;</a>', 'wpmudev') . '</a></p></div>';
-	}
-}
-/* --------------------------------------------------------------------- */
 
 define ('WDF_PLUGIN_SELF_DIRNAME', basename(dirname(__FILE__)), true);
 
@@ -83,7 +72,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.2.3';
+		$this->version = '2.2.4';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -123,6 +112,8 @@ class WDF {
 		require_once(WDF_PLUGIN_BASE_DIR . '/lib/wdf_data.php');
 	}
 	function _construct() {
+		
+		include_once(WDF_PLUGIN_BASE_DIR . '/lib/external/class.wpmudev_dash_notification.php');
 
 		$settings = get_option('wdf_settings');
 		if(!is_array($settings) || !$settings || empty($settings) ) {
@@ -600,35 +591,48 @@ class WDF {
 	
 	}
 	function load_styles() {
-		$style_dir = WDF_PLUGIN_BASE_DIR.'/styles/';
+		
+		$style_dirs = array();
+		
+		$style_dirs[] = WDF_PLUGIN_BASE_DIR.'/styles/';
+		
+		if(defined('WDF_EXTERNAL_STYLE_DIRECTORY') && is_dir(WDF_EXTERNAL_STYLE_DIRECTORY))
+			$style_dirs[] = WDF_EXTERNAL_STYLE_DIRECTORY;
+
+		if(is_dir(WP_CONTENT_DIR . '/wdf-styles/'))
+			$style_dirs[] = WP_CONTENT_DIR . '/wdf-styles/';
+		
 		$styles = array();
-		if( $files = scandir($style_dir) ) {
-			 foreach ($files as $file) {
-				 //TO DO Tokenize each CSS file to have a name generated automatically
-				//$string = file_get_contents($style_dir.$style,null,null,null,100);
-					switch($file) {
-						case 'wdf-basic.css' :
-							$styles['wdf-basic'] = __('Basic','wdf');
-							break;
-						case 'wdf-dark.css' :
-							$styles['wdf-dark'] = __('Dark','wdf');
-							break;
-						case 'wdf-fresh.css' :
-							$styles['wdf-fresh'] = __('Fresh','wdf');
-							break;
-						case 'wdf-minimal.css' :
-							$styles['wdf-minimal'] = __('Minimal','wdf');
-							break;
-						case 'wdf-note.css' :
-							$styles['wdf-note'] = __('Note','wdf');
-							break;
-						default :
-							if(preg_match('/.css/',$file) ) {
-								$name = apply_filters( 'wdf_custom_style_name', str_replace('.css','',$file), $file );
-								$styles[$name] = $name;
-							}
-							break;
-					}
+		
+		foreach($style_dirs as $style_dir) {
+			if( $files = scandir($style_dir) ) {
+				foreach ($files as $file) {
+					//TO DO Tokenize each CSS file to have a name generated automatically
+					//$string = file_get_contents($style_dir.$style,null,null,null,100);
+						switch($file) {
+							case 'wdf-basic.css' :
+								$styles['wdf-basic'] = __('Basic','wdf');
+								break;
+							case 'wdf-dark.css' :
+								$styles['wdf-dark'] = __('Dark','wdf');
+								break;
+							case 'wdf-fresh.css' :
+								$styles['wdf-fresh'] = __('Fresh','wdf');
+								break;
+							case 'wdf-minimal.css' :
+								$styles['wdf-minimal'] = __('Minimal','wdf');
+								break;
+							case 'wdf-note.css' :
+								$styles['wdf-note'] = __('Note','wdf');
+								break;
+							default :
+								if(preg_match('/.css/',$file) ) {
+									$name = apply_filters( 'wdf_custom_style_name', str_replace('.css','',$file), $file );
+									$styles[$name] = $name;
+								}
+								break;
+						}
+				}
 			}
 		}
 		$styles['wdf-custom'] = __('None (Custom CSS)','wdf');
