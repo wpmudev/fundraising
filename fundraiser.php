@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.2
+Version: 2.2.3
 Text Domain: wdf
 Author: Cole (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -64,7 +64,7 @@ $textdomain_handler('wdf', false, WDF_PLUGIN_SELF_DIRNAME . '/languages/');
 
 
 // Gotta do this here so it doesnt save over what we just deleted.
-if(isset($_POST['wdf_reset'])) {
+if(isset($_POST['wdf_reset']) && current_user_can('manage_options')) {
 	$wdf_posts = get_posts(array(
 		'post_type' => array('funder','donation'),
 		'numberposts' => -1
@@ -83,7 +83,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.2';
+		$this->version = '2.2.3';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -100,7 +100,7 @@ class WDF {
 			'curr_symbol_position' => 1,
 			'single_checkout_type' => 0,
 			'curr_decimal' => 1,
-			'default_email' => 'Thank you for your pledge. Your donation of %DONATIONTOTAL% has been recieved and is greatly appreciated. Thanks for your support.',
+			'default_email' => 'Thank you for your pledge. Your donation of %DONATIONTOTAL% has been received and is greatly appreciated. Thanks for your support.',
 			'current_version' => $this->version,
 			'checkout_type' => '1',
 			'funder_labels' => array(
@@ -146,6 +146,7 @@ class WDF {
 
 		// Initialize our post types and rewrite structures
 			add_action( 'init', array(&$this,'_init'),1);
+			
 			add_action( 'init', array(&$this, 'flush_rewrite'), 999 );
 			add_filter( 'rewrite_rules_array', array(&$this, 'add_rewrite_rules') );
 			add_filter( 'query_vars', array(&$this, 'add_queryvars') );
@@ -401,7 +402,15 @@ class WDF {
 	}
 	function flush_rewrite() {
 		global $wp_rewrite;
-		$wp_rewrite->flush_rules();
+		$settings = get_option('wdf_settings');		
+		if(isset($wp_rewrite->extra_permastructs['funder']['struct'])) {
+			if(!isset($settings['rewrite_match']) || $wp_rewrite->extra_permastructs['funder']['struct'] !== $settings['rewrite_match']) {
+				$wp_rewrite->flush_rules();
+				$settings['rewrite_match'] = $wp_rewrite->extra_permastructs['funder']['struct'];
+				update_option('wdf_settings',$settings);
+			}
+		}
+		
 	}
 	function add_rewrite_rules($rules){
 		$settings = get_option('wdf_settings');
@@ -761,7 +770,7 @@ class WDF {
 		do_action('wdf_after_goal_complete', $pledges);
 	}
 	function filter_thank_you( $msg = '', $trans = false) {
-		if($trans !== false) {
+		if($trans !== false && !empty($msg)) {
 			$search = array('%DONATIONTOTAL%','%FIRSTNAME%','%LASTNAME%');
 			$replace = array($this->format_currency('',$trans['gross']),$trans['first_name'],$trans['last_name']);
 			$msg = str_replace($search, $replace, $msg);
@@ -785,8 +794,8 @@ class WDF {
 			$replace = array($this->format_currency('',$trans['gross']),$trans['first_name'],$trans['last_name']);
 			
 			$subject = get_post_meta($funder_id,'wdf_email_subject',true);
-			$msg = str_replace($search, $replace, $msg);
-			$subject = str_replace($search, $replace, $subject);
+			$msg = html_entity_decode(str_replace($search, $replace, $msg));
+			$subject = html_entity_decode(str_replace($search, $replace, $subject));
 			
 			if($subject && $msg && $trans['payer_email']) {
 				wp_mail($trans['payer_email'],$subject,$msg);
@@ -1577,7 +1586,6 @@ class WDF {
 			return false;
 		else
 			return $list;
-			
 	}
 	function get_amount_raised($post_id = false) {
 		global $post;

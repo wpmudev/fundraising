@@ -88,7 +88,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$nvp .= '&no_shipping=1';
 				$nvp .= '&business='.urlencode($settings['paypal_email']);
 				$nvp .= '&item_name='.urlencode($funder->post_title);
-				$nvp .= '&item_number='.urlencode(site_url() . ' : ' . $funder->ID);
+				$nvp .= '&item_number='.apply_filters('wdf_paypal_gateway_standard_item_number',urlencode(site_url() . ' : ' . $funder->ID));
 				$nvp .= '&custom='.urlencode($funder->ID.'||'.$pledge_id);
 				$nvp .= '&currency_code='.$settings['currency'];
 				$nvp .= '&cpp_header_image='.urlencode($settings['paypal_image_url']);
@@ -223,7 +223,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			}
 		}
 		function handle_ipn() {
-			
+						
 			if( isset($_POST['transaction_type']) && $_POST['transaction_type'] == 'Adaptive Payment PREAPPROVAL' && isset($_REQUEST['pledge_id']) ) {
 				//Handle IPN for advanced payments	
 				if($this->verify_paypal()) {

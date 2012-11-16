@@ -3,6 +3,12 @@ Author: Cole Stevenson (Incsub)
 
 == Changelog ==
 
+= 2.2.3 =
+Rewrite Flush Issue Fixed
+Fixed issue with subscriber error in admin panel
+Currency characters are properly decoded for thank you emails
+New "wdf_paypal_gateway_standard_item_number" filter for changing the "Reference" on checkout
+
 = 2.2 =
 Fundraising slug now functional with multisite subdirectory.
 Fundraiser menu ancestry now works properly when using menus in your theme.
