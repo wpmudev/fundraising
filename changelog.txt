@@ -5,6 +5,7 @@ Author: Cole Stevenson (Incsub)
 
 = 2.2.4 =
 Added new external style locations. Check fundraising-templates.txt for more info
+Added new filter and reference label option for standard payments and simple donation buttons 
 
 = 2.2.3 =
 Rewrite Flush Issue Fixed

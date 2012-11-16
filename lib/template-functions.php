@@ -627,7 +627,11 @@ if(!function_exists('wdf_pledge_button')) {
 				$content .= '</label><br />';
 			}
 			
-			if($args['widget_args']['button_type'] == 'default') {
+			if(isset($args['widget_args']['ref_label'])) {
+				$content .= '<input type="hidden" name="item_number" value="'.esc_attr($args['widget_args']['ref_label']).'" />';
+			}
+			
+			if(isset($args['widget_args']['button_type']) && $args['widget_args']['button_type'] == 'default') {
 				//Use default PayPal Button
 				
 				if($args['widget_args']['small_button'] == 'yes') {

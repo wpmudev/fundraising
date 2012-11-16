@@ -38,6 +38,7 @@ class WDF_Simple_Donation extends WP_Widget {
 		$instance['show_cc'] = esc_attr($new_instance['show_cc']);
 		$instance['allow_note'] = esc_attr($new_instance['allow_note']);
 		$instance['small_button'] = esc_attr($new_instance['small_button']);
+		$instance['ref_label'] = esc_attr($new_instance['ref_label']);
 		
 		if($new_instance['donation_amount'] == '')
 			unset($instance['donation_amount']);
@@ -48,6 +49,8 @@ class WDF_Simple_Donation extends WP_Widget {
 			unset($instance['paypal_email']);
 		else
 			$instance['paypal_email'] = is_email($new_instance['paypal_email']);
+		
+		
 			
 		
 		return $instance;
@@ -99,6 +102,13 @@ class WDF_Simple_Donation extends WP_Widget {
 				<label><input type="checkbox" name="<?php echo $this->get_field_name('small_button'); ?>" value="yes" <?php if(isset($instance['small_button'])) checked($instance['small_button'],'1'); ?> /> <?php _e('Use Small Button','wdf'); ?></label>
 			</p>
 		<?php endif; ?>
+		
+		<p>
+			<label><?php _e('Reference Label (optional description)','wdf') ?></label><br />
+				<input class="widefat" type="text" name="<?php echo $this->get_field_name( 'ref_label' ); ?>" value="<?php if(isset($instance['ref_label'])) echo esc_attr($instance['ref_label']); ?>" />
+			</label>
+		</p>
+		
 		<p>
 			<label><?php _e('Override PayPal Email Address','wdf') ?></label><br />
 				<label class="code"><?php echo $settings['paypal_email']; ?></label><br />
