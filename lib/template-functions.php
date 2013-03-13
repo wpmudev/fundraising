@@ -53,9 +53,9 @@ if(!function_exists('wdf_fundraiser_panel')) {
 		$content .= '<div class="wdf_fundraiser_panel '.$style.'">';
 		
 		if(isset($args['shortcode']) && $args['shortcode'] == true) {
-			if( strtolower($args['show_title']) == 'yes' )
+			if( isset($args['show_title']) && strtolower($args['show_title']) == 'yes' )
 				$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_title', '<div class="wdf_shortcode_title"><h2>%s</h2></div>'), get_the_title($post_id) );
-			if( strtolower($args['show_content']) == 'yes') {
+			if( isset($args['show_content']) && strtolower($args['show_content']) == 'yes') {
 				$funder_content = apply_filters('the_content',$funder->post_content);
 				$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_content', '<div class="wdf_shortcode_content">%s</div>'), $funder_content );
 			}
@@ -503,7 +503,7 @@ if(!function_exists('wdf_checkout_page')) {
 		$content .= '<form class="wdf_checkout_form '.$style.'" action="'.wdf_get_funder_page('checkout',$post_id).'" method="post" >';
 				global $wp_filter;
 				$raised = $wdf->get_amount_raised($post_id);
-				$goal = $meta['wdf_goal_amount'][0];
+				//$goal = $meta['wdf_goal_amount'][0];
 			
 				$content .= '<div class="wdf_rewards">';
 				$content .= apply_filters('wdf_error_payment_submit','');
@@ -634,11 +634,11 @@ if(!function_exists('wdf_pledge_button')) {
 			if(isset($args['widget_args']['button_type']) && $args['widget_args']['button_type'] == 'default') {
 				//Use default PayPal Button
 				
-				if($args['widget_args']['small_button'] == 'yes') {
+				if(isset($args['widget_args']['small_button']) && $args['widget_args']['small_button'] == 'yes') {
 					$content .= '<input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_SM.gif:NonHostedGuest">';
 					$content .= '<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">';
 				} else {
-					if($args['widget_args']['show_cc'] == 'yes') {
+					if(isset($args['widget_args']['show_cc']) && $args['widget_args']['show_cc'] == 'yes') {
 						$content .= '<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">';
 						$content .= '<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">';
 					} else {
@@ -648,7 +648,7 @@ if(!function_exists('wdf_pledge_button')) {
 				}
 				$content .= '<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">';
 				$content .= '</form>';
-			} else if ($args['widget_args']['button_type'] == 'custom') {
+			} else if (isset($args['widget_args']['button_type']) && $args['widget_args']['button_type'] == 'custom') {
 				//Use Custom Submit Button	
 				wp_enqueue_style('wdf-style-'.$args['widget_args']['style']);
 				$button_text = (!empty($args['widget_args']['button_text']) ? esc_attr($args['widget_args']['button_text']) : __('Donate Now','wdf'));

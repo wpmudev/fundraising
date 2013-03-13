@@ -82,7 +82,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				} else {
 					$nvp = 'cmd=_donations';
 					$nvp .= '&amount='.urlencode($_SESSION['wdf_pledge']);
-					$nvp .= '&cbt='.urlencode( ($settings['paypal_return_text'] ? $settings['paypal_return_text'] : __('Click Here To Complete Your Donation', 'wdf')) );
+					$nvp .= '&cbt='.urlencode( isset($settings['paypal_return_text']) ? $settings['paypal_return_text'] : __('Click Here To Complete Your Donation', 'wdf') );
 					$nvp .= '&bn=WPMUDonations_Donate_WPS_'.$settings['currency'];
 				}
 				$nvp .= '&no_shipping=1';
@@ -352,6 +352,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					
 				}
 			}
+
 			die();
 		}
 		function execute_payment($type, $pledge, $transaction) {
@@ -429,28 +430,26 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$domain = 'https://www.paypal.com/cgi-bin/webscr';
 			}
 			
-			$return = array();
-			$return += array('cmd' => '_notify-validate');
-			$return += $_POST;
-			/*foreach ($_POST as $k => $v) {
+			$req = 'cmd=_notify-validate';
+			if (!isset($_POST)) $_POST = $HTTP_POST_VARS;
+			foreach ($_POST as $k => $v) {
 				if (get_magic_quotes_gpc()) $v = stripslashes($v);
 				$req .= '&' . $k . '=' . urlencode($v);
-			}*/
+			}
+			
 			$args = array();
 			$args['user-agent'] = "Fundraising/{$wdf->version}: http://premium.wpmudev.org/project/fundraising/";
-			$args['body'] = $return;
+			$args['body'] = $req;
 			$args['sslverify'] = false;
 			$args['timeout'] = 60;
 			
-			
-			
-			  //use built in WP http class to work with most server setups
-				$response = wp_remote_post($domain, $args);
+			//use built in WP http class to work with most server setups
+			$response = wp_remote_post($domain, $args);
 			if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200 || $response['body'] != 'VERIFIED') {
 				return false;
-			  } else {
+			} else {
 				return true;
-			  }
+			}
 		}
 		
 		//This function will take NVPString and convert it to an Associative Array and it will decode the response.

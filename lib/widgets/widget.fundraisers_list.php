@@ -10,7 +10,8 @@ class WDF_Fundraisers_List extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		// Widget output
+		// Widget output	
+		$instance['numberposts'] = (isset($instance['numberposts']) && is_numeric($instance['numberposts'])) ? $instance['numberposts'] : -1;
 		
 		$content = $args['before_widget'];
 		$content .= $args['before_title'] . esc_attr($instance['title']) . $args['after_title'];
@@ -42,7 +43,7 @@ class WDF_Fundraisers_List extends WP_Widget {
 		?>
 		<p><label><?php echo __('Title','wdf') ?><br /><input type="text" name="<?php echo $this->get_field_name('title'); ?>" class="widefat" value="<?php echo (isset($instance['title']) ? $instance['title'] : __('Featured Fundraisers','wdf')); ?>" /></label></p>
 		<p><label><?php echo __('Description','wdf') ?></label><br />
-		<textarea class="widefat" name="<?php echo $this->get_field_name('description'); ?>"><?php echo esc_textarea($instance['description']) ?></textarea></p>
+		<textarea class="widefat" name="<?php echo $this->get_field_name('description'); ?>"><?php echo (isset($instance['description']) ? esc_textarea($instance['description']) : ''); ?></textarea></p>
 		<?php $query = array( 'numberposts' => -1, 'post_type' => 'funder', 'post_status' => 'publish');
 			$query = get_posts($query);?>
 		<?php foreach($query as $funder) : ?>

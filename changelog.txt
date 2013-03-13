@@ -1,7 +1,11 @@
 Plugin Name: Fundraising
-Author: Cole Stevenson (Incsub)
+Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
+
+= 2.2.5 =
+Fixed php notices about undefined indexes
+Fixed notifications from paypal to wordpress about payments with special characters in payment details ( ', " ...)
 
 = 2.2.4 =
 Added new external style locations. Check fundraising-templates.txt for more info

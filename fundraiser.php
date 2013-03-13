@@ -3,9 +3,9 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.2.4
+Version: 2.2.5
 Text Domain: wdf
-Author: Cole (Incsub)
+Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
 WDP ID: 259
 
@@ -743,7 +743,7 @@ class WDF {
 				$this->create_error(__('Fundraiser could not be determined.','wdf'),'payment_submit');
 			}
 			
-			if($this->wdf_error !== true) {
+			if(!isset($this->wdf_error) || $this->wdf_error !== true) {
 				do_action('wdf_gateway_pre_process_'.$_SESSION['wdf_gateway']);
 				do_action('wdf_gateway_process_'.$_SESSION['wdf_type'].'_'.$_SESSION['wdf_gateway']);
 			}

@@ -38,7 +38,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 			$content .= $args['after_widget'];
 			echo $content;
 		} else { 
-			if($wp_query->query_vars['post_type'] == 'funder' && $wp_query->is_single && $wp_query->query_vars['funder_checkout'] != '1' && $wp_query->query_vars['funder_confirm'] != '1' ) {
+			if($wp_query->query_vars['post_type'] == 'funder' && $wp_query->is_single && (!isset($wp_query->query_vars['funder_checkout']) || $wp_query->query_vars['funder_checkout'] != '1') && (!isset($wp_query->query_vars['funder_confirm']) || $wp_query->query_vars['funder_confirm'] != '1') ) {
 				// Single Fundraiser Page
 				$wdf->front_scripts($wp_query->posts[0]->ID);
 				if(isset($instance['style']) && !empty($instance['style']))
@@ -115,6 +115,10 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 
 	function form( $instance ) {
 		global $wdf;
+		$instance_defaults = array( 'description', 'show_thumb', 'thumb_width', 'thumb_height', 'style', 'single_fundraiser', 'funder' );
+		foreach($instance_defaults as $instance_default)
+			if(!isset($instance[$instance_default]))
+				$instance[$instance_default] = '';
 		?>
 		
 		<p><label><?php _e('Title','wdf') ?><br /><input type="text" name="<?php echo $this->get_field_name('title'); ?>" class="widefat" value="<?php echo (isset($instance['title']) ? $instance['title'] : __('Featured Fundraisers','wdf')); ?>" /></label></p>
@@ -129,7 +133,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 			<label><?php _e('Choose a display style','wdf'); ?>
 			<select name="<?php echo $this->get_field_name('style'); ?>">
 				<?php if(is_array($wdf->styles) && !empty($wdf->styles)) : ?>
-					<option <?php selected($instance['style'],$key); ?> value=""><?php _e('Default','wdf'); ?></option>
+					<option <?php selected($instance['style'],''); ?> value=""><?php _e('Default','wdf'); ?></option>
 					<?php foreach($wdf->styles as $key => $label) : ?>
 						<option <?php selected($instance['style'],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
 					<?php endforeach; ?>
