@@ -3,7 +3,7 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
-= 2.3 =
+= 2.3.1 =
 Added manual payment getaway
 
 = 2.2.5 =
