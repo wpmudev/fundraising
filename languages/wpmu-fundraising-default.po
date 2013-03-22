@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPMU Fundraising\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-13 11:39+0100\n"
-"PO-Revision-Date: 2013-03-13 11:40+0100\n"
+"POT-Creation-Date: 2013-03-22 18:13+0100\n"
+"PO-Revision-Date: 2013-03-22 18:13+0100\n"
 "Last-Translator: Cole <cole@imakethe.com>\n"
 "Language-Team: Incsub <cole@incsub.com>\n"
 "Language: en_US\n"
@@ -380,11 +380,11 @@ msgstr ""
 msgid "Pledge Status"
 msgstr ""
 
-#: lib/form.meta_boxes.php:34
+#: lib/form.meta_boxes.php:34 lib/gateways/manual.php:115
 msgid "Complete"
 msgstr ""
 
-#: lib/form.meta_boxes.php:35
+#: lib/form.meta_boxes.php:35 lib/gateways/manual.php:116
 msgid "Approved"
 msgstr ""
 
@@ -392,7 +392,8 @@ msgstr ""
 msgid "Refunded"
 msgstr ""
 
-#: lib/form.meta_boxes.php:37 lib/gateways/paypal.php:260
+#: lib/form.meta_boxes.php:37 lib/gateways/manual.php:117
+#: lib/gateways/paypal.php:260
 msgid "Canceled"
 msgstr ""
 
@@ -1226,12 +1227,48 @@ msgid ""
 "strong>."
 msgstr ""
 
-#: lib/gateways/paypal.php:85
-msgid "Click Here To Complete Your Donation"
+#: lib/gateways/manual.php:32
+msgid "Please fill out all details"
 msgstr ""
 
-#: lib/gateways/paypal.php:108
+#: lib/gateways/manual.php:33
+msgid "Fisrt Name"
+msgstr ""
+
+#: lib/gateways/manual.php:35
+msgid "Last Name"
+msgstr ""
+
+#: lib/gateways/manual.php:37
+msgid "E-mail"
+msgstr ""
+
+#: lib/gateways/manual.php:67 lib/gateways/paypal.php:311
+msgid "Pending/Approved"
+msgstr ""
+
+#: lib/gateways/manual.php:68
+msgid "Manual Payment."
+msgstr ""
+
+#: lib/gateways/manual.php:79 lib/gateways/paypal.php:108
 msgid "Could not determine fundraiser"
+msgstr ""
+
+#: lib/gateways/manual.php:83
+msgid "Make sure all details are filled out correctly."
+msgstr ""
+
+#: lib/gateways/manual.php:112
+msgid "Default status for payments"
+msgstr ""
+
+#: lib/gateways/manual.php:123
+msgid "Information displayed after pledging(you can HTML)"
+msgstr ""
+
+#: lib/gateways/paypal.php:85
+msgid "Click Here To Complete Your Donation"
 msgstr ""
 
 #: lib/gateways/paypal.php:130
@@ -1273,10 +1310,6 @@ msgstr ""
 #: lib/gateways/paypal.php:274
 msgid ""
 "There was a problem verifying the IPN string with PayPal. Please try again."
-msgstr ""
-
-#: lib/gateways/paypal.php:311
-msgid "Pending/Approved"
 msgstr ""
 
 #: lib/gateways/paypal.php:312
