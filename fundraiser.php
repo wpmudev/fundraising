@@ -3,13 +3,13 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.2.5
+Version: 2.3.1
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
 WDP ID: 259
 
-Copyright 2009-2011 Incsub (http://incsub.com)
+Copyright 2009-2013 Incsub (http://incsub.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
