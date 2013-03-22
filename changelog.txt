@@ -3,6 +3,9 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.3 =
+Added manual payment getaway
+
 = 2.2.5 =
 Fixed php notices about undefined indexes
 Fixed notifications from paypal to wordpress about payments with special characters in payment details ( ', " ...)
