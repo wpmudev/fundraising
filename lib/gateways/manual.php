@@ -63,7 +63,7 @@ if(!class_exists('WDF_Gateway_Manual')) {
 					$transaction['payer_email'] = (isset($_POST['e-mail']) ? $_POST['e-mail'] : '' );
 					$transaction['gateway_public'] = $this->public_name;
 					$transaction['gateway'] = $this->plugin_name;
-					$status = $settings['manual_status'];
+					$status = (isset($settings['manual']['status']) ? $settings['manual']['status'] : 'wdf_complete' );
 					$transaction['status'] = __('Pending/Approved','wdf');
 					$transaction['gateway_msg'] = __('Manual Payment.','wdf');
 				
@@ -75,6 +75,7 @@ if(!class_exists('WDF_Gateway_Manual')) {
 					}
 				
 				} else {
+					$_POST['wdf_step'] = 'gateway';
 					//No $_SESSION['funder_id'] was passed to this function.
 					$this->create_gateway_error(__('Could not determine fundraiser','wdf'));
 				}
@@ -134,6 +135,11 @@ if(!class_exists('WDF_Gateway_Manual')) {
 			
 			if( isset($_POST['wdf_settings']['manual']) ) {
 				$new['manual']['after_info'] = htmlentities($_POST['wdf_settings']['manual']['after_info']);
+				$statuses = array('wdf_complete', 'wdf_approved', 'wdf_canceled');
+				if(in_array($_POST['wdf_settings']['manual']['status'], $statuses))
+					$new['manual']['status'] = $_POST['wdf_settings']['manual']['status'];
+				else
+					$new['manual']['status'] = 'wdf_complete';
 				
 				$settings = get_option('wdf_settings');
 				$settings = array_merge($settings,$new);

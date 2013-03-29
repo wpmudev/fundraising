@@ -252,13 +252,30 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									</tr>
 									
 									<?php else : ?>
+									<?php
+									$front_permlink = $this->get_mu_front_permlink('/', '');
+									if(is_main_site()) {
+									?>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Enable "front" in permlinks','wdf'); echo ' ("'.$this->get_mu_front_permlink('/', '/', 1).'")'; ?></label>
+										</th>
+										<td>
+											<label><input class="wdf_auto_submit" value="1" name="wdf_settings[permlinks_front]" type="radio" <?php checked( $settings['permlinks_front'], 1 ); ?>> <?php _e('Yes','wdf'); ?></label>
+											<label><input class="wdf_auto_submit" value="0" name="wdf_settings[permlinks_front]" type="radio" <?php checked( $settings['permlinks_front'], 0 ); ?>> <?php _e('No','wdf'); ?></label>
+												
+										</td>
+									</tr>
+									<?php
+									}
+									?>
 									
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Fundraising Directory Location','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url(); ?>/</span><input id="wdf_dir_slug" type="text" name="wdf_settings[dir_slug]" value="<?php echo esc_attr($settings['dir_slug']); ?>" />
+											<span class="code"><?php echo home_url().$front_permlink; ?>/</span><input id="wdf_dir_slug" type="text" name="wdf_settings[dir_slug]" value="<?php echo esc_attr($settings['dir_slug']); ?>" />
 										</td>
 									</tr>
 									
@@ -267,7 +284,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<label><?php _e('Checkout Page','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_checkout_slug" type="text" name="wdf_settings[checkout_slug]" value="<?php echo esc_attr($settings['checkout_slug']); ?>" />
+											<span class="code"><?php echo home_url().$front_permlink.'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_checkout_slug" type="text" name="wdf_settings[checkout_slug]" value="<?php echo esc_attr($settings['checkout_slug']); ?>" />
 										</td>
 									</tr>
 									
@@ -276,7 +293,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<label><?php _e('Thank You Page','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_confirm_slug" type="text" name="wdf_settings[confirm_slug]" value="<?php echo esc_attr($settings['confirm_slug']); ?>" />
+											<span class="code"><?php echo home_url().$front_permlink.'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_confirm_slug" type="text" name="wdf_settings[confirm_slug]" value="<?php echo esc_attr($settings['confirm_slug']); ?>" />
 										</td>
 									</tr>
 									<?php endif; ?>
@@ -379,6 +396,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									<h3><?php _e('Available Payment Gateways'); ?></h3>
 									<table class="form-table">
 										<tbody>
+											<?php $getaways_select = array(); ?>
 											<?php foreach( $wdf_gateway_plugins as $gateway => $data) : ?>
 												<?php $flag = false; ?>
 												<?php foreach($data[2] as $type) {
@@ -386,17 +404,40 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 														$flag = true;
 												} ?>
 												<?php if($flag != false) : ?>
+												<?php 
+												
+												$checked = isset($settings['active_gateways'][$gateway]) ? checked($settings['active_gateways'][$gateway],'1' , false) : '';
+												
+												if(!empty($checked))
+													$getaways_select[$gateway] = $data[1];
+												
+												?>
 												<tr valign="top">
 													<th scope="row">
 														<label for="wdf_settings_gateway_<?php echo $gateway; ?>"><span class="title"><?php echo $data[1] ?></span></label>
 													</th>
 													<td>
 														<input type="hidden" name="wdf_settings[active_gateways][<?php echo $gateway ?>]" value="0" />
-														<input class="gateway_switch wdf_auto_submit" type="checkbox" id="wdf_active_gateway_<?php echo $gateway; ?>" name="wdf_settings[active_gateways][<?php echo $gateway ?>]" value="1" <?php (isset($settings['active_gateways'][$gateway]) ? checked($settings['active_gateways'][$gateway],'1') : ''); ?> />
+														<input class="gateway_switch wdf_auto_submit" type="checkbox" id="wdf_active_gateway_<?php echo $gateway; ?>" name="wdf_settings[active_gateways][<?php echo $gateway ?>]" value="1" <?php echo $checked; ?> />
 													</td>
 												</tr>
 												<?php endif; ?>
 											<?php endforeach; ?>
+											<?php if(count($getaways_select) > 1) {?>
+												<tr valign="top">
+													<th scope="row">
+														<label for="wdf_settings[default_gateway]"><span class="title" style="font-weight:bold;"><?php _e('Default Getaway'); ?></span></label>
+													</th>
+													<td>
+														<select name="wdf_settings[default_gateway]">
+															<?php 
+															$settings['default_gateway'] = isset($settings['default_gateway']) ? $settings['default_gateway'] : 'paypal';
+															$this->the_select_options( $getaways_select, $settings['default_gateway']);
+															?>
+														</select>
+													</td>
+												</tr>
+											<?php } ?>
 										</tbody>
 									</table>
 								<?php endif; ?>

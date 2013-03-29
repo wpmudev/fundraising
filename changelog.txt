@@ -3,6 +3,12 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.3.5 =
+Fixed manual payment status not saving
+Changed/fixed behavior of permalinks and rewrite flushing
+Added ability to disable "front" in permalinks from main MU site ("blog/" by default)
+Added option to select default getaway
+
 = 2.3.1 =
 Added manual payment getaway
 

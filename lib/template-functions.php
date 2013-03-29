@@ -276,6 +276,32 @@ if(!function_exists('wdf_time_left')) {
 	}
 }
 
+if(!function_exists('wdf_get_page_link')) {
+	function wdf_get_page_link($post_id, $type) {
+		$permlink = get_option('permalink_structure');
+		if($permlink)
+			$settings = get_option('wdf_settings');
+			
+		switch($type) {
+			case'checkout' :
+				if($permlink)
+					$link = get_post_permalink($post_id) . $settings['checkout_slug'] .'/';
+				else
+					$link = add_query_arg( array('funder_checkout' => '1'), get_post_permalink($post_id) );
+				break;
+			case'confirmation' :
+				if($permlink)
+					$link = get_post_permalink($post_id) . $settings['confirm_slug'] .'/';
+				else
+					$link = add_query_arg( array('funder_confirm' => '1'), get_post_permalink($post_id) );
+				break;
+			default:
+				$link = '';
+		}
+		return $link;
+	}
+}
+
 if(!function_exists('wdf_backer_button')) {
 	function wdf_backer_button($echo = false, $post_id = '') {
 		global $post;
@@ -284,7 +310,9 @@ if(!function_exists('wdf_backer_button')) {
 		if(!get_post($post_id))
 			return false;
 		
-		$link = apply_filters('wdf_backer_button_link',trailingslashit(get_permalink($post_id) . $settings['checkout_slug']) );
+		$link = wdf_get_page_link($post_id,'checkout');;
+		$link = apply_filters('wdf_backer_button_link',trailingslashit($link) );
+		
 		$classes = apply_filters('wdf_backer_button_classes','wdf_button');
 		$button = '<a class="'.$classes.'" href="'.$link.'">'.$settings['donation_labels']['action_name'].'</a>';
 		return apply_filters('wdf_backer_button', $button);
@@ -327,7 +355,7 @@ if(!function_exists('wdf_confirmation_page')) {
 		global $wdf; $content = '';
 		$settings = get_option('wdf_settings');
 		
-		$pledge_id = (isset($_SESSION['wdf_pledge_id']) ? $_SESSION['wdf_pledge_id'] : $_REQUEST['pledge_id']);
+		$pledge_id = (isset($_SESSION['wdf_pledge_id']) ? $_SESSION['wdf_pledge_id'] : (isset($_REQUEST['pledge_id']) ? $_REQUEST['pledge_id'] : ''));
 		if(empty($post_id))	 {
 			global $post; 
 			$post_id = $post->ID;
@@ -455,7 +483,7 @@ if(!function_exists('wdf_progress_bar_shortcode')) {
 }*/
 
 if(!function_exists('wdf_gateway_choices')) {
-	function wdf_gateway_choices( $echo = true ) {
+	function wdf_gateway_choices( $echo = true, $default = '' ) {
 		global $wdf_gateway_active_plugins; $content = '';
 		
 		if(count($wdf_gateway_active_plugins) == 1 ) {
@@ -464,11 +492,15 @@ if(!function_exists('wdf_gateway_choices')) {
 			$content .= '<input type="hidden" name="wdf_step" value="gateway" />';
 			$content .= '<input type="hidden" name="wdf_gateway" value="'.$gateway.'" />';
 		} elseif(count($wdf_gateway_active_plugins) > 1) {
+			$getaway_names = array_keys($wdf_gateway_active_plugins);
+			if(!in_array($default, $getaway_names))
+				$default = 'paypal';
+			
 			$content .= '<input type="hidden" name="wdf_step" value="gateway" />';
 			$content .= '<div class="wdf_payment_options_title">Payment Options</div>';
 			$content .= '<div class="wdf_payment_options">';
 			foreach($wdf_gateway_active_plugins as $gateway => $data) {
-				$content .= '<label><input type="radio" name="wdf_gateway" value="'.$gateway.'" />'.$data->public_name.'</label>';
+				$content .= '<label><input type="radio" name="wdf_gateway" value="'.$gateway.'" '.checked( $gateway, $default, false ).'/>'.$data->public_name.'</label>';
 			}
 			$content .= '</div>';
 		} else {
@@ -511,7 +543,7 @@ if(!function_exists('wdf_checkout_page')) {
 				$content .= '
 				<div class="wdf_payment_options">
 					<div class="wdf_donate_button">'.wdf_pledge_button(false, 'single', $post_id).'</div>
-					<div class="wdf_gateway_choices">'.wdf_gateway_choices(false).'</div>
+					<div class="wdf_gateway_choices">'.wdf_gateway_choices(false, (isset($settings['default_gateway']) ? $settings['default_gateway'] : '')).'</div>
 				</div>';
 				
 				if(wdf_has_rewards($post_id) && isset($meta['wdf_levels'][0])) {
@@ -539,7 +571,7 @@ if(!function_exists('wdf_checkout_page')) {
 
 if(!function_exists('wdf_show_checkout')) {
 	function wdf_show_checkout( $echo = true, $post_id = '', $checkout_step = '' ) {
-		if(isset($_SESSION['wdf_pledge']) && (int)$_SESSION['wdf_pledge'] < 1) {
+		if( (isset($_SESSION['wdf_pledge']) && (int)$_SESSION['wdf_pledge'] < 1) || !isset($_SESSION['wdf_pledge']) ) {
 			$checkout_step = '';
 			global $wdf;
 			$wdf->create_error(sprintf(__('You must pledge at least %s','wdf'),$wdf->format_currency('',1)),'checkout_top');
@@ -568,13 +600,12 @@ if(!function_exists('wdf_get_funder_page')) {
 		}
 		if($funder = get_post($post_id)) {
 			$settings = get_option('wdf_settings');
-			if($context == 'checkout') {
-				return get_post_permalink($post_id) . $settings['checkout_slug'] .'/';
-			} else if($context == 'confirmation') {
-				return get_post_permalink($post_id) . $settings['confirm_slug'] .'/';
-			} else {
+			
+			$context_types = array( 'checkout', 'confirmation' );
+			if(in_array($context, $context_types))
+				return wdf_get_page_link($post_id,$context);
+			else
 				return get_post_permalink($post_id);
-			}
 		} else {
 			return false;
 		}

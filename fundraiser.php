@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.3.1
+Version: 2.3.5
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -72,10 +72,12 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.2.4';
+		$this->version = '2.3.5';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
+			'permlinks_front' => 1,
+			'default_gateway' => 'paypal',
 			'checkout_slug' => __('pledge','wdf'),
 			'confirm_slug' => __('thank-you','wdf'),
 			'activity_slug' => __('activity','wdf'),
@@ -278,7 +280,7 @@ class WDF {
 			'query_var'          => true,
 			'rewrite'            => array(
 				'slug' => $settings['dir_slug'],
-				'with_front' => true,
+				'with_front' => $settings['permlinks_front'],
 				'feeds'      => true
 			),
 			'capability_type'    => 'post',
@@ -360,6 +362,7 @@ class WDF {
 			// The is the best way to determine the 1.0 to 2.0 jump remove after 2.1
 			$this->upgrade_fundraisers();
 		}
+
 	}
 	function upgrade_fundraisers() {
 		// A few things to cycle through if we think we are upgrading from an earlier version.
@@ -389,13 +392,16 @@ class WDF {
 		
 		// Merge and save
 		$settings = array_merge($this->defaults, $settings);
-		update_option('wdf_settings', $settings);
+		update_option('wdf_settings', $settings);	
 	}
-	function flush_rewrite() {
+	function flush_rewrite($force = 0) {
 		global $wp_rewrite;
-		$settings = get_option('wdf_settings');		
-		if(isset($wp_rewrite->extra_permastructs['funder']['struct'])) {
-			if(!isset($settings['rewrite_match']) || $wp_rewrite->extra_permastructs['funder']['struct'] !== $settings['rewrite_match']) {
+		if(isset($_POST['wdf_settings']) && is_array($_POST['wdf_settings']))
+			$force = 1;
+			
+		$settings = get_option('wdf_settings');
+		if(isset($wp_rewrite->extra_permastructs['funder']['struct']) || $force == 1) {
+			if(!isset($settings['rewrite_match']) || $wp_rewrite->extra_permastructs['funder']['struct'] !== $settings['rewrite_match'] || $force == 1) {
 				$wp_rewrite->flush_rules();
 				$settings['rewrite_match'] = $wp_rewrite->extra_permastructs['funder']['struct'];
 				update_option('wdf_settings',$settings);
@@ -406,15 +412,18 @@ class WDF {
 	function add_rewrite_rules($rules){
 		$settings = get_option('wdf_settings');
 		
+		$permlink_front = $this->get_mu_front_permlink();
+		
 		$new_rules = array();
+		
 		// Archive Page Fix For Multi-Site Sub-Directory Installs
-		$new_rules[$settings['dir_slug'] . '/?$'] = 'index.php?post_type=funder';
+		$new_rules[$permlink_front.$settings['dir_slug'] . '/?$'] = 'index.php?post_type=funder';
 		
 		// Checkout Page
-		$new_rules[$settings['dir_slug'] . '/([^/]+)/' . $settings['checkout_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_checkout=1';
+		$new_rules[$permlink_front.$settings['dir_slug'] . '/([^/]+)/' . $settings['checkout_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_checkout=1';
 		
 		// Thank You / Confirmation Page
-		$new_rules[$settings['dir_slug'] . '/([^/]+)/' . $settings['confirm_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_confirm=1';
+		$new_rules[$permlink_front.$settings['dir_slug'] . '/([^/]+)/' . $settings['confirm_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_confirm=1';
 		
 		// Fundraiser Activity Page - Coming Soon
 		//$new_rules[$settings['dir_slug'] . '/([^/]+)/' . $settings['activity_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_activity=1';
@@ -706,6 +715,7 @@ class WDF {
 		}
 		if( isset($_POST['wdf_pledge']) && !empty($_POST['wdf_pledge']) )	
 			$_SESSION['wdf_pledge'] = $this->filter_price($_POST['wdf_pledge']);
+			
 		if( isset($_POST['wdf_gateway']) && !empty($_POST['wdf_gateway']) )	
 			$_SESSION['wdf_gateway'] = $_POST['wdf_gateway'];
 		if( isset($_POST['wdf_step']) && !empty($_POST['wdf_step']) )	
@@ -1633,6 +1643,36 @@ class WDF {
 			
 		return maybe_unserialize(get_post_meta($post_id,'wdf_transaction',true));
 			
+	}
+	function the_select_options($array, $current) {
+		if(empty($array))
+			$array = array( 1 => 'True', 0 => 'False' );
+			
+		foreach( $array as $name => $label ) {
+			$selected = selected( $current, $name, false );
+			echo '<option value="'.$name.'" '.$selected.'>'.$label.'</option>';
+		}
+	}
+	function get_mu_front_permlink($before = '', $after = '/', $force = 0) {
+		if(is_main_site()) {
+			$settings = get_option('wdf_settings');
+			if($settings['permlinks_front'] || $force == 1) {
+				$mu_permlink = get_option('permalink_structure');
+				$mu_permlink = explode('/',$mu_permlink);
+				foreach($mu_permlink as $id => $part) {
+					if(empty($part) || $part == '%postname%')
+						unset($mu_permlink[$id]);
+				}
+				$mu_permlink = implode('/', $mu_permlink);
+				if(!empty($mu_permlink))
+					return $before.$mu_permlink.$after;
+				else
+					return '';
+			}
+		}
+		else
+			return '';
+		
 	}
 	function datediff($interval, $datefrom, $dateto, $using_timestamps = false) {
 		/*
