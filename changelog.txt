@@ -8,6 +8,7 @@ Fixed manual payment status not saving
 Changed/fixed behavior of permalinks and rewrite flushing
 Added ability to disable "front" in permalinks from main MU site ("blog/" by default)
 Added option to select default getaway
+Added workaround for EURO sign in email
 
 = 2.3.1 =
 Added manual payment getaway

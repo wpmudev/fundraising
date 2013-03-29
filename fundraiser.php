@@ -805,7 +805,7 @@ class WDF {
 			//add_filter( 'wp_mail_from', create_function('', 'return get_option("admin_email")') );
 			$msg = get_post_meta($funder_id,'wdf_email_msg', true);
 			$search = array('%DONATIONTOTAL%','%FIRSTNAME%','%LASTNAME%');
-			$replace = array($this->format_currency('',$trans['gross']),$trans['first_name'],$trans['last_name']);
+			$replace = array($this->format_currency('',$trans['gross'], 1),$trans['first_name'],$trans['last_name']);
 			
 			$subject = get_post_meta($funder_id,'wdf_email_subject',true);
 			$msg = html_entity_decode(str_replace($search, $replace, $msg));
@@ -1503,7 +1503,7 @@ class WDF {
 			
 	}
 
-	function format_currency($currency = '', $amount = false) {
+	function format_currency($currency = '', $amount = false, $for_mail = 0) {
 		
 		$settings = get_option('wdf_settings');
 	
@@ -1512,15 +1512,23 @@ class WDF {
 			
 		// get the currency symbol
 		$symbol = $this->currencies[$currency][1];
-		// if many symbols are found, rebuild the full symbol
-		$symbols = explode(', ', $symbol);
-		if (is_array($symbols)) {
-			$symbol = "";
-			foreach ($symbols as $temp) {
-				$symbol .= '&#x'.$temp.';';
+		$symbol_mail = isset($this->currencies[$currency][2]) ? $this->currencies[$currency][2]: '';
+		
+		if(empty($symbol_mail) || $for_mail == 0) {
+			// if many symbols are found, rebuild the full symbol
+			$symbols = explode(', ', $symbol);
+			if (is_array($symbols)) {
+				$symbol = "";
+				foreach ($symbols as $temp) {
+					$symbol .= '&#x'.$temp.';';
+				}
+			} else {
+				$symbol = '&#x'.$symbol.';';
 			}
-		} else {
-			$symbol = '&#x'.$symbol.';';
+		}
+		else {
+			$settings['curr_symbol_position'] = 4;
+			$symbol = $symbol_mail;
 		}
 	
 		//check decimal option

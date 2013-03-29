@@ -500,60 +500,60 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					</td>
 				</tr>
 				<?php /*?><tr>
-					<th scope="row"><?php _e('Fees To Collect', 'wdf'); ?></th>
-					<td><span class="description">
-						<?php _e('Enter a percentage of all store sales to collect as a fee. Decimals allowed.', 'wdf') ?>
-						</span><br />
-						<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['percentage']) ? $settings['paypal']['advanced']['percentage'] : '') ); ?>" size="3" name="wdf_settings[paypal][advanced][percentage]" type="text" />% 
-					</td>
+				<th scope="row"><?php _e('Fees To Collect', 'wdf'); ?></th>
+				<td><span class="description">
+					<?php _e('Enter a percentage of all store sales to collect as a fee. Decimals allowed.', 'wdf') ?>
+					</span><br />
+					<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['percentage']) ? $settings['paypal']['advanced']['percentage'] : '') ); ?>" size="3" name="wdf_settings[paypal][advanced][percentage]" type="text" />% 
+				</td>
 				</tr><?php */?>
 				<tr>
-					<th scope="row"><?php _e('PayPal Email Address', 'wdf') ?></th>
-					<td><span class="description">
-						<?php _e('Please enter your PayPal email address or business id you want to recieve fees at.', 'wdf') ?>
-						</span><br />
-						<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['email']) ? $settings['paypal']['advanced']['email'] : '') ); ?>" size="40" name="wdf_settings[paypal][advanced][email]" type="text" /></td>
+				<th scope="row"><?php _e('PayPal Email Address', 'wdf') ?></th>
+				<td><span class="description">
+					<?php _e('Please enter your PayPal email address or business id you want to recieve fees at.', 'wdf') ?>
+					</span><br />
+					<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['email']) ? $settings['paypal']['advanced']['email'] : '') ); ?>" size="40" name="wdf_settings[paypal][advanced][email]" type="text" /></td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><?php _e('Paypal Currency', 'mp') ?></th>
 					<td>
-					  <select name="wdf_settings[paypal][advanced][currency]">
-					  <?php
-					  $sel_currency = isset($settings['paypal']['advanced']['currency']) ? $settings['paypal']['advanced']['currency'] : $settings['currency'];
-					  $currencies = array(
-						  'AUD' => 'AUD - Australian Dollar',
-						  'BRL' => 'BRL - Brazilian Real',
-						  'CAD' => 'CAD - Canadian Dollar',
-						  'CHF' => 'CHF - Swiss Franc',
-						  'CZK' => 'CZK - Czech Koruna',
-						  'DKK' => 'DKK - Danish Krone',
-						  'EUR' => 'EUR - Euro',
-						  'GBP' => 'GBP - Pound Sterling',
-						  'ILS' => 'ILS - Israeli Shekel',
-						  'HKD' => 'HKD - Hong Kong Dollar',
-						  'HUF' => 'HUF - Hungarian Forint',
-						  'JPY' => 'JPY - Japanese Yen',
-						  'MYR' => 'MYR - Malaysian Ringgits',
-						  'MXN' => 'MXN - Mexican Peso',
-						  'NOK' => 'NOK - Norwegian Krone',
-						  'NZD' => 'NZD - New Zealand Dollar',
-						  'PHP' => 'PHP - Philippine Pesos',
-						  'PLN' => 'PLN - Polish Zloty',
-						  'SEK' => 'SEK - Swedish Krona',
-						  'SGD' => 'SGD - Singapore Dollar',
-						  'TWD' => 'TWD - Taiwan New Dollars',
-						  'THB' => 'THB - Thai Baht',
-										'TRY' => 'TRY - Turkish lira',
-						  'USD' => 'USD - U.S. Dollar'
-					  );
-			
-					  foreach ($currencies as $k => $v) {
-						  echo '		<option value="' . $k . '"' . ($k == $sel_currency ? ' selected' : '') . '>' . esc_html($v, true) . '</option>' . "\n";
-					  }
-					  ?>
-					  </select>
+						<select name="wdf_settings[paypal][advanced][currency]">
+						<?php
+						$sel_currency = isset($settings['paypal']['advanced']['currency']) ? $settings['paypal']['advanced']['currency'] : $settings['currency'];
+						$currencies = array(
+							'AUD' => 'AUD - Australian Dollar',
+							'BRL' => 'BRL - Brazilian Real',
+							'CAD' => 'CAD - Canadian Dollar',
+							'CHF' => 'CHF - Swiss Franc',
+							'CZK' => 'CZK - Czech Koruna',
+							'DKK' => 'DKK - Danish Krone',
+							'EUR' => 'EUR - Euro',
+							'GBP' => 'GBP - Pound Sterling',
+							'ILS' => 'ILS - Israeli Shekel',
+							'HKD' => 'HKD - Hong Kong Dollar',
+							'HUF' => 'HUF - Hungarian Forint',
+							'JPY' => 'JPY - Japanese Yen',
+							'MYR' => 'MYR - Malaysian Ringgits',
+							'MXN' => 'MXN - Mexican Peso',
+							'NOK' => 'NOK - Norwegian Krone',
+							'NZD' => 'NZD - New Zealand Dollar',
+							'PHP' => 'PHP - Philippine Pesos',
+							'PLN' => 'PLN - Polish Zloty',
+							'SEK' => 'SEK - Swedish Krona',
+							'SGD' => 'SGD - Singapore Dollar',
+							'TWD' => 'TWD - Taiwan New Dollars',
+							'THB' => 'THB - Thai Baht',
+							'TRY' => 'TRY - Turkish lira',
+							'USD' => 'USD - U.S. Dollar'
+						);
+						
+						foreach ($currencies as $k => $v) {
+							echo '		<option value="' . $k . '"' . ($k == $sel_currency ? ' selected' : '') . '>' . esc_html($v, true) . '</option>' . "\n";
+						}
+						?>
+						</select>
 					</td>
-					</tr>
+				</tr>
 				<tr>
 					<th scope="row"><?php _e('PayPal API Credentials', 'wdf') ?></th>
 					<td><span class="description">
