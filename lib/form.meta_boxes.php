@@ -189,8 +189,11 @@ if($pagenow == 'nav-menus.php') { ?>
 							<?php //if(isset($settings['payment_types']) && count($settings['payment_types']) >= 1 ) : ?>
 								<?php //if(count($settings['payment_types']) > 1) : ?>
 									<h3>
-										<label><span class="description"><?php echo $label; ?></span></label>
-										<div style="float:right;"><input name="wdf[type]" type="radio" value="<?php echo $name; ?>" <?php (isset($meta['wdf_type'][0]) ? checked($meta['wdf_type'][0],$name) : ''); ?>/><?php echo $tips->add_tip($description); ?></div>
+										<label>
+											<span class="description"><?php echo $label; ?></span>
+											<input name="wdf[type]" type="radio" value="<?php echo $name; ?>" <?php (isset($meta['wdf_type'][0]) ? checked($meta['wdf_type'][0],$name) : ''); ?>/>
+										</label>
+										<?php echo $tips->add_tip($description); ?>
 									</h3>
 								<?php /*?><?php else : ?>
 									<h3>
@@ -426,7 +429,7 @@ if($pagenow == 'nav-menus.php') { ?>
 									<tr class="wdf_reward_options">
 										<td colspan="5">
 											<div class="wdf_reward_toggle" style="display:none">
-												<p><label><?php echo sprintf(__('Describe Your %s','wdf'),esc_attr($settings['funder_labels']['singular_level'])); ?><input type="text" name="wdf[levels][0][reward_description]" value="<?php echo $data['reward_description'] ?>" class="widefat" /></label></p>
+												<p><label><?php echo sprintf(__('Describe Your %s','wdf'),esc_attr($settings['funder_labels']['singular_level'])); ?><input type="text" name="wdf[levels][0][reward_description]" value="<?php echo isset($data['reward_description']) ? $data['reward_description'] : ''; ?>" class="widefat" /></label></p>
 											</div>
 										</td>
 									</tr>

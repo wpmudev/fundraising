@@ -6,50 +6,19 @@ jQuery(document).ready( function($) {
 			numberOfMonths: 2,
 		});
 
-	
-	
-	$('.wdf_level .wdf_check_switch').live('change', function(e) {
-		if($(this).is(':checked')) {
-			$(this).parents('.wdf_level').next('tr').find('div.wdf_reward_toggle').slideDown(400);
-		} else {
-			$(this).parents('.wdf_level').next('tr').find('div.wdf_reward_toggle').slideUp(400);
-		}
-	});
+	//$('.wdf_level .wdf_check_switch').live('change', function(e) {
+	//	if($(this).is(':checked')) {
+	//		$(this).parents('.wdf_level').next('tr').find('div.wdf_reward_toggle').slideDown(400);
+	//	} else {
+	//		$(this).parents('.wdf_level').next('tr').find('div.wdf_reward_toggle').slideUp(400);
+	//	}
+	//});
 
-	//Delete Level Line Item
-	$('.wdf_level.last .delete').live('click', function(e) {
-		e.preventDefault();
-		var reward = $(this).parents('tr.wdf_level.last').next('tr.wdf_reward_options');
-		$(this).parents('tr.wdf_level.last').add(reward).remove();
-		fixDelete();
-		return false;
-	});
-	
-	$('#tooltip_submit').live('click', function() {
-		$('#publish').trigger('click');
-		return false;
-	});
-	
-	function fixDelete() {
-		if($('#wdf_levels_table tbody .wdf_level').length < 2){
-			return false;
-		}
-		$('#wdf_levels_table tbody .wdf_level').removeClass('last');
-		$('#wdf_levels_table tbody .wdf_level:last').addClass('last');
-		fixInputs();
-	}
-	
 	//Fire fixDelete() on load
 	fixDelete();
-	
-	function returnNameIndex(string) {
-		if($('#wdf_levels_table tr.wdf_level').length > 9)
-			return string.substr(12,2);
-		else
-			return string.substr(12,1);
-	}
-	
-	$('#wdf_add_level').bind('click', function(e) {
+
+	//Delete Level Line Item
+	$('#wdf_levels_table').on('click', "#wdf_add_level", function(e){
 		e.preventDefault();
 		var current = returnNameIndex($('#wdf_levels_table tr.wdf_level.last').find('input:first').attr('name'));
 		var newi = parseInt(current) + 1;
@@ -64,8 +33,43 @@ jQuery(document).ready( function($) {
 		});
 		$('tr[rel="wdf_level_template"]:first').before(template);
 		fixDelete();
+
+		$('.wdf_level.last .delete a').click(function(e) {
+			e.preventDefault();
+			var reward = $(this).parents('tr.wdf_level.last').next('tr.wdf_reward_options');
+			$(this).parents('tr.wdf_level.last').add(reward).remove();
+			fixDelete();
+		});
 		return false;
 	});
+	$('#wdf_levels_table').on('click', ".wdf_level.last .delete a", function(e){
+			e.preventDefault();
+			var reward = $(this).parents('tr.wdf_level.last').next('tr.wdf_reward_options');
+			$(this).parents('tr.wdf_level.last').add(reward).remove();
+			fixDelete();
+			return false;
+	});
+	
+	$('.postbox-container').on('click', "#tooltip_submit", function(){
+		$('#publish').trigger('click');
+		return false;
+	});
+	
+	function fixDelete() {
+		if($('#wdf_levels_table tbody .wdf_level').length < 1){
+			return false;
+		}
+		$('#wdf_levels_table tbody .wdf_level').removeClass('last');
+		$('#wdf_levels_table tbody .wdf_level:last').addClass('last');
+		fixInputs();
+	}
+	
+	function returnNameIndex(string) {
+		if($('#wdf_levels_table tr.wdf_level').length > 9)
+			return string.substr(12,2);
+		else
+			return string.substr(12,1);
+	}
 	
 	$('.wdf_actvity_level').hover( function() {
 		$(this).find('td:last a').show();

@@ -3,6 +3,11 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.3.6 =
+Replaced .live jQuery functions with .on
+Fixed small UI issue in chrome for fundraising type chooser
+Fixed "Add reward" button not working after deleting all rewards before last
+
 = 2.3.5 =
 Fixed manual payment status not saving
 Changed/fixed behavior of permalinks and rewrite flushing
