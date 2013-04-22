@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.3.6
+Version: 2.3.7
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -702,6 +702,7 @@ class WDF {
 		unset($_SESSION['wdf_pledge_id']);
 		unset($_SESSION['wdf_sender_email']);
 		unset($_SESSION['wdf_recurring']);
+		unset($_SESSION['wdf_reward']);
 		
 		// Action hook for plugins that need to clear session variables.
 		do_action('wdf_clear_session');
@@ -715,6 +716,8 @@ class WDF {
 		}
 		if( isset($_POST['wdf_pledge']) && !empty($_POST['wdf_pledge']) )	
 			$_SESSION['wdf_pledge'] = $this->filter_price($_POST['wdf_pledge']);
+		if( isset($_POST['wdf_reward']) && is_numeric($_POST['wdf_reward']) )	
+			$_SESSION['wdf_reward'] = $_POST['wdf_reward'] + 1;
 			
 		if( isset($_POST['wdf_gateway']) && !empty($_POST['wdf_gateway']) )	
 			$_SESSION['wdf_gateway'] = $_POST['wdf_gateway'];
@@ -824,7 +827,7 @@ class WDF {
 		global $wpdb;
 		//Check to see if we have created this donation yet
 		$search = false;
-		$search = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title = '" . $post_title . "'" );
+		$search = $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_title = %s", $post_title) );
 		$donation = array();
 		if(!empty($search) &&  $search != false) {
 			$donation['ID'] = $search;
@@ -1227,7 +1230,8 @@ class WDF {
 			case 'pledge_amount' :
 				$trans = $this->get_transaction();
 				$currency = (isset($trans['currency_code']) ? $trans['currency_code'] : '');
-				echo '<a href="'.get_edit_post_link($post->ID).'">'.$this->format_currency( $currency, $trans['gross'] ).'</a>';
+				$reward = (isset($trans['reward'])) ? ' ('.__('Reward: ','wdf').$trans['reward'].')' : '';
+				echo '<a href="'.get_edit_post_link($post->ID).'">'.$this->format_currency( $currency, $trans['gross'] ).$reward.'</a>';
 				break;
 			case 'pledge_recurring' :
 				$trans = $this->get_transaction();

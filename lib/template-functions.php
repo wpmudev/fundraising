@@ -553,7 +553,7 @@ if(!function_exists('wdf_checkout_page')) {
 							$content .= '
 							<div class="wdf_reward_item">
 								<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="'.$index.'" /><span class="wdf_level_amount" rel="'.$data['amount'].'">'.$wdf->format_currency('',$data['amount']).'</span></div>
-								<div class="wdf_reward_description">'.$data['description'].'</div>
+								<div class="wdf_reward_description">'.html_entity_decode($data['description']).'</div>
 							</div>';
 						}
 						$content .= '

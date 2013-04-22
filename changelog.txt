@@ -3,6 +3,12 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.3.7 =
+Allowed HTML tags in reward description
+Added information about choosen reward(id) in admin panel
+Changed paypal url for possible ipn problem fixes
+Fixed security issue
+
 = 2.3.6 =
 Replaced .live jQuery functions with .on
 Fixed small UI issue in chrome for fundraising type chooser

@@ -66,6 +66,10 @@ if(!class_exists('WDF_Gateway_Manual')) {
 					$status = (isset($settings['manual']['status']) ? $settings['manual']['status'] : 'wdf_complete' );
 					$transaction['status'] = __('Pending/Approved','wdf');
 					$transaction['gateway_msg'] = __('Manual Payment.','wdf');
+
+					if (isset($_SESSION['wdf_reward'])) {
+						$transaction['reward'] = $_SESSION['wdf_reward'];
+					}
 				
 					$wdf->update_pledge( $pledge_id, $funder_id, $status, $transaction);
 					

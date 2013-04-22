@@ -63,6 +63,12 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 		function process_simple() {
 			$settings = get_option('wdf_settings');
 			global $wdf;
+
+			if (isset($_SESSION['wdf_reward']))
+				$reward = $_SESSION['wdf_reward'];
+			else
+				$reward = 0;
+
 			if($funder = get_post($_SESSION['funder_id']) ){
 				$pledge_id = $wdf->generate_pledge_id();
 				$this->return_url =  wdf_get_funder_page('confirmation',$funder->ID);
@@ -89,12 +95,12 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$nvp .= '&business='.urlencode($settings['paypal_email']);
 				$nvp .= '&item_name='.urlencode($funder->post_title);
 				$nvp .= '&item_number='.apply_filters('wdf_paypal_gateway_standard_item_number',$pledge_id);
-				$nvp .= '&custom='.urlencode($funder->ID.'||'.$pledge_id);
+				$nvp .= '&custom='.urlencode($funder->ID.'||'.$pledge_id.'||'.$reward);
 				$nvp .= '&currency_code='.$settings['currency'];
 				$nvp .= '&cpp_header_image='.urlencode($settings['paypal_image_url']);
 				$nvp .= '&return='.urlencode($this->return_url);
 				$nvp .= '&rm=2';
-				$nvp .= '&amp;notify_url='.urlencode($this->ipn_url);
+				$nvp .= '&notify_url='.urlencode($this->ipn_url);
 			
 				$_SESSION['wdf_pledge_id'] = $pledge_id;
 
@@ -117,6 +123,11 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			$start_stamp = time();
 			$end_stamp =  strtotime(get_post_meta($funder_id, 'wdf_goal_end', true));
 			$this->ipn_url = $this->ipn_url.'&fundraiser='.$funder_id.'&pledge_id='.$pledge_id;
+
+			if (isset($_SESSION['wdf_reward']))
+				$reward = $_SESSION['wdf_reward'];
+			else
+				$reward = 0;
 			
 			$nvpstr = "actionType=Preapproval";
 			$nvpstr .= "&returnUrl=" . wdf_get_funder_page('confirmation', $funder_id) . '?pledge_id=' . $pledge_id;
@@ -130,6 +141,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			$nvpstr .= "&memo=" . urlencode(__('If the goal is reached your account will be charged immediately', 'wdf'));
 			$nvpstr .= "&startingDate=".gmdate('Y-m-d\Z',$start_stamp);
 			$nvpstr .= "&endingDate=".gmdate('Y-m-d\Z',$end_stamp);
+			$nvpstr .= '&custom='.urlencode($reward);
 			
 			// Make the API Call to receive a token
 			$response = $this->adaptive_api_call('Preapproval',$nvpstr);
@@ -232,6 +244,10 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					$details = $this->adaptive_api_call( 'PreapprovalDetails', $nvp );
 										
 					global $wdf;
+
+					$custom = explode('||',$_POST['custom']);
+					$reward = $custom[0];
+
 					$post_title = $_REQUEST['pledge_id'];
 					$funder_id = $_REQUEST['fundraiser'];
 					$transaction = array();
@@ -243,6 +259,9 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					$transaction['ipn_id'] = ( isset($_POST['preapproval_key']) ? $_POST['preapproval_key'] : '' );
 					//Make sure you pass the correct type back into the transaction
 					$transaction['type'] = 'advanced';
+
+					if($reward)
+						$transaction['reward'] = $reward;
 					
 					$full_name = (isset($details['addressList_address(0)_addresseeName']) ? explode(' ',$details['addressList_address(0)_addresseeName'],2) : false);
 					if($full_name != false) {
@@ -282,6 +301,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					$custom = explode('||',$_POST['custom']);
 					$funder_id = $custom[0];
 					$post_title = $custom[1];
+					$reward = $custom[2];
 					$transaction = array();
 					
 					if($_POST['txn_type'] == 'subscr_signup') {
@@ -304,6 +324,10 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					$transaction['payer_email'] = (isset($_POST['payer_email']) ? $_POST['payer_email'] : 'johndoe@' . home_url() );
 					$transaction['gateway_public'] = $this->public_name;
 					$transaction['gateway'] = $this->plugin_name;
+
+					if($reward)
+						$transaction['reward'] = $reward;
+
 					if( isset($_POST['payment_status']) ) {
 						switch($_POST['payment_status']) {
 							case 'Pending' :

@@ -133,10 +133,11 @@ if($pagenow == 'nav-menus.php') { ?>
 					<?php $trans = $this->get_transaction(); ?>
 					<h3><?php _e('From','wdf'); ?>:</h3><p><label><strong><?php echo __('Name:','wdf'); ?> </strong></label><?php echo $trans['first_name'] . ' ' . $trans['last_name']; ?></p><p><label><strong><?php echo __('Email:','wdf'); ?> </strong></label><?php echo $trans['payer_email']; ?></p>
 					<h3><?php _e('Amount Donated','wdf'); ?>:</h3>
+					<?php $reward = (isset($trans['reward'])) ? ' ('.__('Reward: ','wdf').$trans['reward'].')' : ''; ?>
 					<?php if(isset($trans['recurring']) && $trans['recurring'] == 1) :?>
-						<p><?php echo $this->format_currency($trans['currency_code'],$trans['gross']); ?> every <?php echo $trans['cycle']; ?></p>
+						<p><?php echo $this->format_currency($trans['currency_code'],$trans['gross']); ?> every <?php echo $trans['cycle']; ?><?php echo $reward; ?></p>
 					<?php else: ?>
-						<p><?php echo $this->format_currency($trans['currency_code'],$trans['gross']); ?></p>
+						<p><?php echo $this->format_currency($trans['currency_code'],$trans['gross']); ?><?php echo $reward; ?></p>
 					<?php endif; ?>
 					<?php if( isset($trans['gateway_public']) ) : ?><h3><?php _e('Payment Source','wdf'); ?>:</h3><p><?php echo esc_attr($trans['gateway_public']); ?></p><?php endif; ?>
 					<?php if( isset($trans['gateway_msg']) ) : ?><h3><?php _e('Last Gateway Activity','wdf'); ?>:</h3><p><?php echo esc_attr($trans['gateway_msg']); ?></p><?php endif; ?>
