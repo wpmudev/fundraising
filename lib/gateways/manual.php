@@ -30,7 +30,7 @@ if(!class_exists('WDF_Gateway_Manual')) {
 			$content = '';
 			$content .= '<p class="wdf_manual_payment_form wdf_payment_form">';
 			$content .= __('Please fill out all details','wdf').'<br/>';
-			$content .= '<label for="first_name class="wdf_first_name">'.__('Fisrt Name','wdf').':</label><br />';
+			$content .= '<label for="first_name class="wdf_first_name">'.__('First Name','wdf').':</label><br />';
 			$content .= '<input type="text" class="wdf_first_name" name="first_name" value="'.( isset($_POST['first_name']) ? esc_attr($_POST['first_name']) : '' ).'" /><br />';
 			$content .= '<label for="last_name class="wdf_last_name">'.__('Last Name','wdf').':</label><br />';
 			$content .= '<input type="text" class="wdf_last_name" name="last_name" value="'.( isset($_POST['last_name']) ? esc_attr($_POST['last_name']) : '' ).'" /><br />';

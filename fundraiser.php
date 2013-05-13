@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.3.7
+Version: 2.3.8
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -518,10 +518,23 @@ class WDF {
 		if ( !in_the_loop() )
 			return $content;
 
+		//checks if single fundraiser widget is displayed
 		$settings = get_option('wdf_settings');
 		global $post;
+
+		$fundraising_widget_active = 0;
+		$fundraising_widget_options = get_option( 'widget_wdf_fundraiser_panel', array() );
+		foreach ($fundraising_widget_options as $id => $value) {
+			$widget_position = 0;
+			$widget_position = is_active_widget( false, 'wdf_fundraiser_panel-'.$id, 'wdf_fundraiser_panel', true );
+
+			if(!empty($widget_position) && $value['single_fundraiser'] == 0) {
+				$fundraising_widget_active = 1;
+				break;
+			}
+		}
 		
-		if(isset($this->is_funder_single) && $this->is_funder_single && !is_active_widget( false, false, 'wdf_fundraiser_panel', true )) {
+		if(isset($this->is_funder_single) && $this->is_funder_single && $fundraising_widget_active == 0) {
 			$position = get_post_meta($post->ID,'wdf_panel_pos',true);
 			if($position == 'top')
 				$content = wdf_fundraiser_page(false, $post->ID) . $content;
