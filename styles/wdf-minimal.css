@@ -46,6 +46,8 @@
 	text-decoration:none;
 	background: #eaeaea;
 	padding: 5px 9px 6px;
+	box-shadow: none;
+	text-shadow:none;
 }
 .wdf-minimal .wdf_send_donation:hover {
 	

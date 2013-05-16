@@ -3,6 +3,9 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.3.9 =
+Fixed styles on older browsers
+
 = 2.3.8 =
 Fixed bug with fundraising panel not being displayed when only specific fundraising widget is configured in sidebar
 Fixed mistype in manual payment getaway
