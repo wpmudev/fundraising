@@ -56,7 +56,10 @@ if(!function_exists('wdf_fundraiser_panel')) {
 			if( isset($args['show_title']) && strtolower($args['show_title']) == 'yes' )
 				$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_title', '<div class="wdf_shortcode_title"><h2>%s</h2></div>'), get_the_title($post_id) );
 			if( isset($args['show_content']) && strtolower($args['show_content']) == 'yes') {
-				$funder_content = apply_filters('the_content',$funder->post_content);
+				global $wdf;
+
+				$funder_content = $wdf->funder_remove_funder_shortcode($funder->post_content);
+				$funder_content = apply_filters('the_content', $funder_content);
 				$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_content', '<div class="wdf_shortcode_content">%s</div>'), $funder_content );
 			}
 		}

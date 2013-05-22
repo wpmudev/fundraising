@@ -3,6 +3,10 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.4 =
+Disables fundraising shortcodes inside fundraising
+PayPal Support for all UTF-8 characters
+
 = 2.3.9 =
 Fixed styles on older browsers
 

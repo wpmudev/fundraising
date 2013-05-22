@@ -101,6 +101,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$nvp .= '&return='.urlencode($this->return_url);
 				$nvp .= '&rm=2';
 				$nvp .= '&notify_url='.urlencode($this->ipn_url);
+				$nvp .= '&charset='.urlencode('utf-8');
 			
 				$_SESSION['wdf_pledge_id'] = $pledge_id;
 
@@ -142,6 +143,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			$nvpstr .= "&startingDate=".gmdate('Y-m-d\Z',$start_stamp);
 			$nvpstr .= "&endingDate=".gmdate('Y-m-d\Z',$end_stamp);
 			$nvpstr .= '&custom='.urlencode($reward);
+			$nvpstr .= '&charset='.urlencode('utf-8');
 			
 			// Make the API Call to receive a token
 			$response = $this->adaptive_api_call('Preapproval',$nvpstr);
