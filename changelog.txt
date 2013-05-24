@@ -3,6 +3,9 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.4.1 =
+Fixed problem with fundraising content not being displayed
+
 = 2.4 =
 Disables fundraising shortcodes inside fundraising
 PayPal Support for all UTF-8 characters
