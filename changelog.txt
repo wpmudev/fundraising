@@ -3,6 +3,9 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.4.2 =
+Allows shortcodes inside fundraising if ID is not the same as current fundraising
+
 = 2.4.1 =
 Fixed problem with fundraising content not being displayed
 

@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.4.1
+Version: 2.4.2
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -72,7 +72,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.4.1';
+		$this->version = '2.4.2';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -471,8 +471,6 @@ class WDF {
 			$funder_id = (int) $wp_query->get_queried_object_id();
 			$templates = array();
 			$this->front_scripts($funder_id);
-
-			remove_shortcode( 'fundraiser_panel' );
 					
 			if (isset($wp_query->query_vars['funder_checkout']) && $wp_query->query_vars['funder_checkout'] == 1) {
 				$this->is_funder_checkout = true;

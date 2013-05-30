@@ -40,15 +40,18 @@ if(!function_exists('wdf_fundraiser_page')) {
 
 if(!function_exists('wdf_fundraiser_panel')) {
 	function wdf_fundraiser_panel($echo = true, $post_id = '', $context = '', $args = array() ) {
+		global $post;
+		if(isset($args['shortcode']) && $args['shortcode'] == true && isset($args['id']) && $args['id'] == $post->ID)
+			return false;
+
 		$settings = get_option('wdf_settings');
-		$content = ''; global $post;
+		$content = ''; 
 		$post_id = (empty($post_id) ? $post->ID : $post_id );
 		$funder = get_post($post_id);
 		if(!$funder)
 			return false;
 
 		$style = ( isset($args['style']) && !empty($args['style']) ? $args['style'] : wdf_get_style($post_id) );
-		
 
 		$content .= '<div class="wdf_fundraiser_panel '.$style.'">';
 		
@@ -58,7 +61,6 @@ if(!function_exists('wdf_fundraiser_panel')) {
 			if( isset($args['show_content']) && strtolower($args['show_content']) == 'yes') {
 				global $wdf;
 
-				remove_shortcode( 'fundraiser_panel' );
 				$funder_content = apply_filters('the_content', $funder->post_content);
 				$content .= sprintf( apply_filters( 'wdf_fundaiser_panel_shortcode_content', '<div class="wdf_shortcode_content">%s</div>'), $funder_content );
 			}
