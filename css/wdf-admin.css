@@ -225,3 +225,6 @@ ul.wdf_shortcode_breakdown code {
 .wdf_shortcode_ss {
 	float:right;
 }
+#wdf_permissions {
+	width: auto;
+}

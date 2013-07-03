@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.4.2
+Version: 2.5
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -53,7 +53,7 @@ $textdomain_handler('wdf', false, WDF_PLUGIN_SELF_DIRNAME . '/languages/');
 
 
 // Gotta do this here so it doesnt save over what we just deleted.
-if(isset($_POST['wdf_reset']) && current_user_can('manage_options')) {
+if(isset($_POST['wdf_reset']) && current_user_can('wdf_edit_settings')) {
 	$wdf_posts = get_posts(array(
 		'post_type' => array('funder','donation'),
 		'numberposts' => -1
@@ -72,7 +72,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.4.2';
+		$this->version = '2.5';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -109,6 +109,12 @@ class WDF {
 				'action_name' => __('Back This Project','wdf')
 			)
 		);
+		$this->capabilities = array(
+			'wdf_add_fundraisers' => __('Add and manage users\'s fundraisers','wdf'),
+			'wdf_manage_all_fundraisers' => __('Manage all fundraisers','wdf'),
+			'wdf_manage_pledges' => __('Manage pledges','wdf'),
+			'wdf_edit_settings' => __('Edit settings','wdf'),
+		);
 		
 		// Setup Additional Data Structure
 		require_once(WDF_PLUGIN_BASE_DIR . '/lib/wdf_data.php');
@@ -143,7 +149,11 @@ class WDF {
 			add_action( 'init', array(&$this, 'flush_rewrite'), 999 );
 			add_filter( 'rewrite_rules_array', array(&$this, 'add_rewrite_rules') );
 			add_filter( 'query_vars', array(&$this, 'add_queryvars') );
-		
+			add_filter( 'map_meta_cap', array(&$this, 'map_meta_cap'), 10, 4 );
+
+		// Initialize our post types and rewrite structures
+			add_action( 'admin_init', array(&$this,'set_capabilities') );
+
 		// Include Widgets
 			add_action( 'widgets_init', array(&$this,'register_widgets') );
 			
@@ -174,8 +184,6 @@ class WDF {
 			add_filter( 'manage_edit-funder_columns', array(&$this,'edit_columns') );
 			add_filter( 'manage_edit-donation_columns', array(&$this,'edit_columns') );
 			add_filter( 'media_upload_tabs', array(&$this,'media_upload_tabs') );
-						
-			
 			
 		} else {
 			
@@ -268,8 +276,19 @@ class WDF {
 		// Create A New Labels Array Based on the settings input
 		$funder_labels = $this->create_funder_labels();
 		$donation_labels = $this->create_donation_labels();
-		
+
 		//Funder Custom Post Type Arguments
+		$capabilities_funder = array(
+		    'publish_posts' => 'wdf_add_fundraisers',
+		    'edit_posts' => 'wdf_add_fundraisers',
+		    'edit_others_posts' => 'wdf_manage_all_fundraisers',
+		    'delete_posts' => 'wdf_add_fundraisers',
+		    'delete_others_posts' => 'wdf_manage_all_fundraisers',
+		    'read_private_posts' => 'wdf_add_fundraisers',
+		    'edit_post' => 'edit_funder', 
+		    'read_post' => 'read_funder', 
+		    'delete_post' => 'delete_funder'
+		);
 		$funder_args = array(
 			'labels' => $funder_labels,
 			'public'             => true,
@@ -283,7 +302,8 @@ class WDF {
 				'with_front' => $settings['permlinks_front'],
 				'feeds'      => true
 			),
-			'capability_type'    => 'post',
+			'capability_type' => 'funder',
+			'capabilities' => $capabilities_funder,
 			'has_archive'        => true, 
 			'hierarchical'       => false,
 			'menu_position'      => null,
@@ -291,6 +311,17 @@ class WDF {
 			'supports'           => array('title','thumbnail','editor','excerpt','author','comments')
 		);
 		//Donation Custom Post Type arguments
+		$capabilities_donation = array(
+		    'publish_posts' => 'wdf_manage_pledges',
+		    'edit_posts' => 'wdf_manage_pledges',
+		    'edit_others_posts' => 'wdf_manage_pledges',
+		    'delete_posts' => 'wdf_manage_pledges',
+		    'delete_others_posts' => 'wdf_manage_pledges',
+		    'read_private_posts' => 'wdf_manage_pledges',
+		    'edit_post' => 'edit_donation', 
+		    'read_post' => 'read_donation', 
+		    'delete_post' => 'delete_donation'
+		);
 		$donation_args = array(
 			'labels' => $donation_labels,
 			'public'             => false,
@@ -299,7 +330,8 @@ class WDF {
 			'show_in_menu'       => false, 
 			'query_var'          => false,
 			'rewrite'            => false,
-			'capability_type'    => 'post',
+			'capability_type'    => 'donation',
+			'capabilities' => $capabilities_donation,
 			'has_archive'        => false, 
 			'hierarchical'       => false,
 			'menu_position'      => null,
@@ -363,6 +395,52 @@ class WDF {
 			$this->upgrade_fundraisers();
 		}
 
+	}
+	function set_capabilities() {
+		//adds cap for admin
+        $admin_role = get_role('administrator');
+        $caps = $this->capabilities;
+        $caps['read_funder'] = 1;
+        $caps['edit_funder'] = 1;
+        $caps['delete_funder'] = 1;
+        foreach($caps as $key => $cap) {
+            if(!isset($admin_role->capabilities[$key]) || $admin_role->capabilities[$key] == false ) {
+                $admin_role->add_cap($key,true);
+            }
+        }
+	}
+	function map_meta_cap( $caps, $cap, $user_id, $args ) {
+
+	    if ( 'edit_funder' == $cap || 'delete_funder' == $cap || 'read_funder' == $cap || 'edit_donation' == $cap || 'delete_donation' == $cap || 'read_donation' == $cap ) {
+	        $post = get_post( $args[0] );
+	        $post_type = get_post_type_object( $post->post_type );
+	        $caps = array();
+	    }
+
+	    if ( 'edit_funder' == $cap || 'edit_donation' == $cap ) {
+	        if ( $user_id == $post->post_author )
+	            $caps[] = $post_type->cap->edit_posts;
+	        else
+	            $caps[] = $post_type->cap->edit_others_posts;
+	    }
+
+	    elseif ( 'delete_funder' == $cap || 'delete_donation' == $cap ) {
+	        if ( $user_id == $post->post_author )
+	            $caps[] = $post_type->cap->delete_posts;
+	        else
+	            $caps[] = $post_type->cap->delete_others_posts;
+	    }
+
+	    elseif ( 'read_funder' == $cap || 'read_donation' == $cap ) {
+	        if ( 'private' != $post->post_status )
+	            $caps[] = 'read';
+	        elseif ( $user_id == $post->post_author )
+	            $caps[] = 'read';
+	        else
+	            $caps[] = $post_type->cap->read_private_posts;
+	    }
+
+	    return $caps;
 	}
 	function upgrade_fundraisers() {
 		// A few things to cycle through if we think we are upgrading from an earlier version.
@@ -954,9 +1032,9 @@ class WDF {
 		global $submenu;
 		$settings = get_option('wdf_settings');
 		
-		add_submenu_page( 'edit.php?post_type=funder', $settings['donation_labels']['plural_name'], $settings['donation_labels']['plural_name'], 'manage_options', 'wdf_donations', array(&$this,'admin_display') );		
-		add_submenu_page( 'edit.php?post_type=funder', sprintf(__('%s Settings','wdf'), $settings['funder_labels']['menu_name']), __('Settings','wdf'), 'manage_options', 'wdf_settings', array(&$this,'admin_display') );
-		add_submenu_page( 'edit.php?post_type=funder', __('Getting Started','wdf'), __('Getting Started','wdf'), 'manage_options', 'wdf', array(&$this,'admin_display') );
+		add_submenu_page( 'edit.php?post_type=funder', $settings['donation_labels']['plural_name'], $settings['donation_labels']['plural_name'], 'wdf_manage_pledges', 'wdf_donations', array(&$this,'admin_display') );		
+		add_submenu_page( 'edit.php?post_type=funder', sprintf(__('%s Settings','wdf'), $settings['funder_labels']['menu_name']), __('Settings','wdf'), 'wdf_edit_settings', 'wdf_settings', array(&$this,'admin_display') );
+		add_submenu_page( 'edit.php?post_type=funder', __('Getting Started','wdf'), __('Getting Started','wdf'), 'wdf_add_fundraisers', 'wdf', array(&$this,'admin_display') );
 		if( isset($submenu['edit.php?post_type=funder']) && is_array($submenu['edit.php?post_type=funder']) ) {
 			foreach($submenu['edit.php?post_type=funder'] as $key => $menu_item) {
 				if($menu_item['2'] == 'wdf_donations')
@@ -968,19 +1046,25 @@ class WDF {
 	
 	function admin_display(){
 		$content = '';
-		if(!current_user_can('manage_options'))
-			wp_die(__('You are not allowed to view this page.','wdf'));
 			
 		switch($_GET['page']) {
-			case 'wdf_settings' : 
+			case 'wdf_settings' :
+				if(!current_user_can('wdf_edit_settings'))
+					wp_die(__('You are not allowed to view this page.','wdf'));
+
+				global $wp_roles;
 				include(WDF_PLUGIN_BASE_DIR . '/lib/form.blog_settings.php');
 				break;
-			default : 
+			default :
+				if(!current_user_can('wdf_add_fundraisers'))
+					wp_die(__('You are not allowed to view this page.','wdf'));
+
 				include(WDF_PLUGIN_BASE_DIR . '/lib/form.blog_dashboard.php');
 				break;
 		}
 	}
 	function save_settings($new) {
+		global $wp_roles;
 		$die = false;
 		
 		if(isset($_POST['wdf_nonce'])) {
@@ -990,6 +1074,33 @@ class WDF {
 			$this->create_error(__('Security Check Failed.  Whatchu doing??','wdf'), 'wdf_nonce');
 			$die = true;
 		}
+
+		unset($new['user_caps']['viewed']);
+		$caps = $new['user_caps'];
+		foreach($wp_roles->get_names() as $name => $obj) {
+			if($name == 'administrator') continue;
+			$role_obj = get_role($name);
+			if($role_obj) {
+				foreach($this->capabilities as $cap => $label) {
+					if(isset($caps[$cap][$name])) {
+						$role_obj->add_cap($cap);
+						if($cap == 'wdf_manage_all_fundraisers' || $cap == 'wdf_add_fundraisers') {
+							$role_obj->add_cap('read_funder');
+							$role_obj->add_cap('edit_funder');
+							$role_obj->add_cap('delete_funder');
+						}
+					} else {
+						$role_obj->remove_cap($cap);
+						if($cap == 'wdf_manage_all_fundraisers' || $cap == 'wdf_add_fundraisers') {
+							$role_obj->remove_cap('read_funder');
+							$role_obj->remove_cap('edit_funder');
+							$role_obj->remove_cap('delete_funder');
+						}
+					}
+				}
+			}
+		}
+		unset($new['user_caps']);
 		
 		foreach($new as $k => $v) {
 			if($k == 'slug') {
@@ -1025,8 +1136,9 @@ class WDF {
 			$classes = 'updated below-h2';
 		else
 			$classes = 'wdf_msg';
-		$content = 'return "<div class=\"'.$classes.'\"><p>' . $msg . '</p></div>";';
+		$content = 'echo "<div class=\"'.$classes.'\"><p>' . $msg . '</p></div>";';
 		add_filter('wdf_msg_' . $context, create_function('', $content));
+		//add_action('wdf_msg_' . $context, create_function('', $content));
 		$this->wdf_msg = true;
 	}
 	
@@ -1043,35 +1155,35 @@ class WDF {
 		
 		if ( 'funder' == $_POST['post_type'] && is_array($_POST['wdf'])) {
 			foreach($_POST['wdf'] as $key => $value) {
-					if($value != '') {
-						if($key == 'goal') {
-							$value = $this->filter_price($value);
-						} else if($key == 'levels') {
-							foreach($value as $level => $data) {
-								$value[$level]['amount'] = $this->filter_price($data['amount']);
-								$value[$level]['description'] = esc_textarea($data['description']);
-							}
-						} else if($key == 'recurring_cycle') {
-							
-						} else if($key == 'thanks_url') {
-							$value = esc_attr($value);
-						} else if($key == 'thanks_custom') {
-							$value = wp_kses_post($value);
-						} else if($key == 'thanks_post') {
-							$value = absint($value);
-							$is_page = get_page($value);
-							$is_post = get_post($value);
-							if($is_page == false && $is_post == false) {
-								$this->create_error('You must supply a valid post or page ID','thanks_post');
-								$value = '';
-							}
-						} else {
-							$value = esc_attr($value);
+				if($value != '') {
+					if($key == 'goal') {
+						$value = $this->filter_price($value);
+					} else if($key == 'levels') {
+						foreach($value as $level => $data) {
+							$value[$level]['amount'] = $this->filter_price($data['amount']);
+							$value[$level]['description'] = esc_textarea($data['description']);
 						}
-						update_post_meta($post->ID,'wdf_'.$key,$value);
+					} else if($key == 'recurring_cycle') {
+						
+					} else if($key == 'thanks_url') {
+						$value = esc_attr($value);
+					} else if($key == 'thanks_custom') {
+						$value = wp_kses_post($value);
+					} else if($key == 'thanks_post') {
+						$value = absint($value);
+						$is_page = get_page($value);
+						$is_post = get_post($value);
+						if($is_page == false && $is_post == false) {
+							$this->create_error('You must supply a valid post or page ID','thanks_post');
+							$value = '';
+						}
 					} else {
-						delete_post_meta($post->ID,'wdf_'.$key);
+						$value = esc_attr($value);
 					}
+					update_post_meta($post->ID,'wdf_'.$key,$value);
+				} else {
+					delete_post_meta($post->ID,'wdf_'.$key);
+				}
 			}
 		} elseif ( 'donation' == $_POST['post_type'] && isset($_POST['wdf'])) {
 			if(isset($_POST['wdf']['transaction'])) {

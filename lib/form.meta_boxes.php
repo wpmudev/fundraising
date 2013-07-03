@@ -540,7 +540,7 @@ if($pagenow == 'nav-menus.php') { ?>
 		<div <?php echo (isset($meta['wdf_send_email'][0]) && $meta['wdf_send_email'][0] == '1' ? '' : 'style="display: none;"');?> rel="wdf_send_email">
 			<label><?php echo __('Create a custom email message or use the default one.','wdf'); ?></label><?php $tips->add_tip('The email will come from your Administrator email <strong>'.get_bloginfo('admin_email').'</strong>')?><br />
 			<p><label><?php echo __('Email Subject','wdf'); ?></label><br />
-			<input class="regular-text" type="text" name="wdf[email_subject]" value="<?php echo (isset($meta['email_subject'][0]) ? $meta['email_subject'][0] : __('Thank you for your Donation', 'wdf')); ?>" /></p>
+			<input class="regular-text" type="text" name="wdf[email_subject]" value="<?php echo (isset($meta['wdf_email_subject'][0]) ? $meta['wdf_email_subject'][0] : __('Thank you for your Donation', 'wdf')); ?>" /></p>
 			<p><textarea id="wdf_email_msg" name="wdf[email_msg]"><?php echo (isset($meta['wdf_email_msg'][0]) ? $meta['wdf_email_msg'][0] : esc_textarea($settings['default_email'])); ?></textarea></p>
 		</div>
 		<?php break;

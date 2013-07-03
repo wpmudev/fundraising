@@ -4,6 +4,7 @@
 	<p><?php _e('The Fundraising plugin can help you fund your important projects.','wdf') ?></p> 
 	<div class="metabox-holder">
 		
+		<?php if(current_user_can('wdf_edit_settings')) { ?>
 		<div class="postbox">
 			<h3 class="hndle"><span><?php _e('First Time Setup Guide','wdf'); ?></span></h3>
 			<div class="inside">
@@ -17,6 +18,7 @@
 				</ol>
 			</div>
 		</div>
+		<?php } ?>
 		
 		<div class="postbox">
 			<h3 class="hndle"><span><?php _e('Available Shortcodes','wdf'); ?></span></h3>
@@ -58,6 +60,7 @@
 			</div>
 		</div>
 		
+		<?php if(current_user_can('wdf_edit_settings')) { ?>
 		<div class="postbox">
 			<h3 class="hndle"><span><?php _e('Need Help?','wdf'); ?></span></h3>
 			<div class="inside">
@@ -67,6 +70,7 @@
 				</form>
 			</div>
 		</div>
+		<?php } ?>
 		
 	</div>
 </div><!-- #wdf_dashboard -->

@@ -8,6 +8,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 	$tabs = array(
 		'payments' => __('Payments','wdf'),
 		'presentation' => __('Presentation','wdf'),
+		'permissions' => __('Permissions','wdf'),
 		'other' => __('Other','wdf'),
 	);
 	if( defined('WDF_ALLOW_RESET') && WDF_ALLOW_RESET == true )
@@ -232,8 +233,8 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									
 								</tbody>
 							</table>
-								<?php break;
-									
+
+						<?php break;			
 						case 'other' : ?>
 													
 							<h3><?php _e('Permalink Settings','wdf'); ?></h3>
@@ -254,7 +255,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									<?php else : ?>
 									<?php
 									$front_permlink = $this->get_mu_front_permlink('/', '');
-									if(is_main_site()) {
+									if(is_main_site() && is_multisite()) {
 									?>
 									<tr valign="top">
 										<th scope="row">
@@ -317,10 +318,43 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 								
 								</tbody>
 							</table><?php */?>
-						
+
 						<?php break;
-						
+						case 'permissions' : ?>
+													
+							<h3><?php _e('Permissions Settings','wdf'); ?></h3>
+							<p><?php _e('Controll access to fundraising features for every user role available in your WP installation. Administrator gets access to all of them by default.','wdf'); ?></p>
+						<table id="wdf_permissions" class="widefat">
+							<thead>
+								<tr>
+									<th><strong><?php _e('User Role','wdf'); ?></strong></th>
+									<?php foreach($this->capabilities as $key => $label) : ?>
+										<th class="num">
+											<?php echo $label; ?>
+										</th>
+									<?php endforeach; ?>
+								</tr>
+							</thead>
+
+							<tbody>						
+								<?php foreach($wp_roles->get_names() as $name => $label) : ?>
+									<?php if($name == 'administrator') continue; ?>
+									<tr>
+										<?php $role_obj = get_role($name); ?>
+										<td><strong><?php echo $label; ?></strong></td>
+										<?php foreach($this->capabilities as $key => $label) : ?>
+												<td class="num"><input id="<?php echo $name.'_'.$key; ?>" type="checkbox" value="1" name="wdf_settings[user_caps][<?php echo $key; ?>][<?php echo $name; ?>]" <?php checked(isset($wp_roles->roles[$name]['capabilities'][$key]) ? $wp_roles->roles[$name]['capabilities'][$key] : '',true); ?> /></td>
+										<?php endforeach; ?>
+									</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+
+						<input type="hidden" value="1" name="wdf_settings[user_caps][viewed]" />
+											
+						<?php break;
 						case 'payments' : ?>
+
 							<h3><?php _e('Currency Settings','wdf'); ?></h3>
 							<table class="form-table">
 								<tbody>
@@ -480,7 +514,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 					} ?>
 					
 				</div>			
-				<p><input type="submit" value="Save Changes" class="button-primary" name="save_settings" /></p>
+				<p class="submit"><input type="submit" value="Save Changes" class="button-primary" name="save_settings" /></p>
 			</form>
 	<script type="text/javascript">
 		jQuery(document).ready( function($) {

@@ -10,7 +10,7 @@ $tutorial->set_textdomain = 'wdf';
 
 $tutorial->add_style('');
 
-$tutorial->set_capability = 'manage_options';
+$tutorial->set_capability = 'wdf_edit_settings';
 
 $tutorial->add_step(admin_url('admin.php?page=wdf'), 'funder_page_wdf', '#icon-wdf-admin', __('Getting Started Is Easy', 'wdf'), array(
 		'content'  => '<p>' . esc_js( __('Follow these tutorial steps to get your Fundraising project up and running quickly.', 'wdf') ) . '</p>',
