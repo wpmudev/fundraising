@@ -3,6 +3,10 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.5 =
+Added ability to control access to fundraisings features for all available user types
+Fixed email subject in fundraising not saving correctly
+
 = 2.4.2 =
 Allows shortcodes inside fundraising if ID is not the same as current fundraising
 
