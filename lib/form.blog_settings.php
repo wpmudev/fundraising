@@ -253,23 +253,6 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									</tr>
 									
 									<?php else : ?>
-									<?php
-									$front_permlink = $this->get_mu_front_permlink('/', '');
-									if(is_main_site() && is_multisite()) {
-									?>
-									<tr valign="top">
-										<th scope="row">
-											<label><?php _e('Enable "front" in permlinks','wdf'); echo ' ("'.$this->get_mu_front_permlink('/', '/', 1).'")'; ?></label>
-										</th>
-										<td>
-											<label><input class="wdf_auto_submit" value="1" name="wdf_settings[permlinks_front]" type="radio" <?php checked( $settings['permlinks_front'], 1 ); ?>> <?php _e('Yes','wdf'); ?></label>
-											<label><input class="wdf_auto_submit" value="0" name="wdf_settings[permlinks_front]" type="radio" <?php checked( $settings['permlinks_front'], 0 ); ?>> <?php _e('No','wdf'); ?></label>
-												
-										</td>
-									</tr>
-									<?php
-									}
-									?>
 									
 									<tr valign="top">
 										<th scope="row">

@@ -3,6 +3,11 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.5.1 =
+Removed "front" permalink option for multisite
+Fixed permalink problem with /%category%/ inside
+Other small improvements
+
 = 2.5 =
 Added ability to control access to fundraisings features for all available user types
 Fixed email subject in fundraising not saving correctly

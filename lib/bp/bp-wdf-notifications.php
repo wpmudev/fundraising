@@ -73,7 +73,7 @@ function bp_wdf_screen_notification_settings() {
 	</table>
 <?php
 }
-add_action( 'bp_notification_settings', 'bp_wdf_screen_notification_settings' );
+//add_action( 'bp_notification_settings', 'bp_wdf_screen_notification_settings' );
 
 
 /**

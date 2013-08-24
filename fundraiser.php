@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.5
+Version: 2.5.1
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -72,7 +72,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.5';
+		$this->version = '2.5.1';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -490,18 +490,16 @@ class WDF {
 	function add_rewrite_rules($rules){
 		$settings = get_option('wdf_settings');
 		
-		$permlink_front = $this->get_mu_front_permlink();
-		
 		$new_rules = array();
 		
 		// Archive Page Fix For Multi-Site Sub-Directory Installs
-		$new_rules[$permlink_front.$settings['dir_slug'] . '/?$'] = 'index.php?post_type=funder';
+		$new_rules[$settings['dir_slug'] . '/?$'] = 'index.php?post_type=funder';
 		
 		// Checkout Page
-		$new_rules[$permlink_front.$settings['dir_slug'] . '/([^/]+)/' . $settings['checkout_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_checkout=1';
+		$new_rules[$settings['dir_slug'] . '/([^/]+)/' . $settings['checkout_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_checkout=1';
 		
 		// Thank You / Confirmation Page
-		$new_rules[$permlink_front.$settings['dir_slug'] . '/([^/]+)/' . $settings['confirm_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_confirm=1';
+		$new_rules[$settings['dir_slug'] . '/([^/]+)/' . $settings['confirm_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_confirm=1';
 		
 		// Fundraiser Activity Page - Coming Soon
 		//$new_rules[$settings['dir_slug'] . '/([^/]+)/' . $settings['activity_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_activity=1';
@@ -1150,7 +1148,7 @@ class WDF {
 		if(!isset($_POST['wdf']) || !is_array($_POST['wdf']))
 			return;
 			
-		if(isset($_POST['wdf']['levels']) && count($_POST['wdf']['levels']) < 2 && $_POST['wdf']['levels'][0]['amount'] == '')
+		if(isset($_POST['wdf']['levels']) && count($_POST['wdf']['levels']) < 2 && isset($_POST['wdf']['levels'][0]['amount']) && $_POST['wdf']['levels'][0]['amount'] == '')
 			$_POST['wdf']['levels'] = '';
 		
 		if ( 'funder' == $_POST['post_type'] && is_array($_POST['wdf'])) {
@@ -1789,27 +1787,6 @@ class WDF {
 			$selected = selected( $current, $name, false );
 			echo '<option value="'.$name.'" '.$selected.'>'.$label.'</option>';
 		}
-	}
-	function get_mu_front_permlink($before = '', $after = '/', $force = 0) {
-		if(is_main_site()) {
-			$settings = get_option('wdf_settings');
-			if($settings['permlinks_front'] || $force == 1) {
-				$mu_permlink = get_option('permalink_structure');
-				$mu_permlink = explode('/',$mu_permlink);
-				foreach($mu_permlink as $id => $part) {
-					if(empty($part) || $part == '%postname%')
-						unset($mu_permlink[$id]);
-				}
-				$mu_permlink = implode('/', $mu_permlink);
-				if(!empty($mu_permlink))
-					return $before.$mu_permlink.$after;
-				else
-					return '';
-			}
-		}
-		else
-			return '';
-		
 	}
 	function datediff($interval, $datefrom, $dateto, $using_timestamps = false) {
 		/*
