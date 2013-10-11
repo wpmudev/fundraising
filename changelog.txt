@@ -3,6 +3,10 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.5.2 =
+Added missing translation
+Unnecessary string removal
+
 = 2.5.1 =
 Removed "front" permalink option for multisite
 Fixed permalink problem with /%category%/ inside
@@ -56,7 +60,7 @@ Fixed notifications from paypal to wordpress about payments with special charact
 
 = 2.2.4 =
 Added new external style locations. Check fundraising-templates.txt for more info
-Added new filter and reference label option for standard payments and simple donation buttons 
+Added new filter and reference label option for standard payments and simple donation buttons
 
 = 2.2.3 =
 Rewrite Flush Issue Fixed
@@ -164,5 +168,3 @@ New custom template structure for your theme
 - wdf_confirm-{$name/$id}.php
 
 Addition of several action and filter hooks for external plugins or theme function files.
-
-62863-1338483608

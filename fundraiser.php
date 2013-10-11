@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.5.1
+Version: 2.5.2
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -115,12 +115,12 @@ class WDF {
 			'wdf_manage_pledges' => __('Manage pledges','wdf'),
 			'wdf_edit_settings' => __('Edit settings','wdf'),
 		);
-		
+
 		// Setup Additional Data Structure
 		require_once(WDF_PLUGIN_BASE_DIR . '/lib/wdf_data.php');
 	}
 	function _construct() {
-		
+
 		include_once(WDF_PLUGIN_BASE_DIR . '/lib/external/class.wpmudev_dash_notification.php');
 
 		$settings = get_option('wdf_settings');
@@ -139,13 +139,13 @@ class WDF {
 			// Downgrade
 			$this->upgrade_settings();
 		}
-		
+
 		//load APIs and plugins
 			add_action( 'plugins_loaded', array(&$this, 'load_plugins') );
 
 		// Initialize our post types and rewrite structures
 			add_action( 'init', array(&$this,'_init'),1);
-			
+
 			add_action( 'init', array(&$this, 'flush_rewrite'), 999 );
 			add_filter( 'rewrite_rules_array', array(&$this, 'add_rewrite_rules') );
 			add_filter( 'query_vars', array(&$this, 'add_queryvars') );
@@ -156,16 +156,16 @@ class WDF {
 
 		// Include Widgets
 			add_action( 'widgets_init', array(&$this,'register_widgets') );
-			
+
 		// Include our template functions
 			add_action( 'after_setup_theme', array(&$this,'after_setup_theme') );
-		
+
 		if(is_admin()) {
 
 			// Load tutorials for first time installations
 			if($settings['first_time'] == '1')
 				add_action( 'admin_init', array(&$this,'tutorial') );
-			
+
 			add_action( 'add_meta_boxes_funder', array(&$this,'add_meta_boxes') );
 			add_action( 'add_meta_boxes_donation', array(&$this,'add_meta_boxes') );
 			add_action( 'admin_head-nav-menus.php', array(&$this,'add_menu_meta_boxes') );
@@ -179,27 +179,27 @@ class WDF {
 			add_action( 'media_upload_donate_button', array(&$this,'media_donate_button'));
 			add_action( 'media_upload_progress_bar', array(&$this,'media_progress_bar'));
 			add_action( 'wp_insert_post', array(&$this,'wp_insert_post') );
-			
-			// Add Admin Only Filters		
+
+			// Add Admin Only Filters
 			add_filter( 'manage_edit-funder_columns', array(&$this,'edit_columns') );
 			add_filter( 'manage_edit-donation_columns', array(&$this,'edit_columns') );
 			add_filter( 'media_upload_tabs', array(&$this,'media_upload_tabs') );
-			
+
 		} else {
-			
+
 			//Not the admin area so lets load up our front-end actions, scripts and filters
 			add_action('wp_enqueue_scripts', array(&$this,'enqueue_scripts'));
-			
+
 			// Menu Fix for displaying parent archive page correctly
 			add_filter( 'wp_nav_menu_objects', array(&$this, 'filter_nav_menu'), 10, 2 );
-			
+
 			// Very low priority number is needed here to make sure it fires before themes can output headers
 			add_action( 'wp', array(&$this, 'handle_payment'), 1 );
 			add_action( 'template_redirect', array(&$this, 'template_redirect'), 20 );
 		}
 	}
 	function register_widgets() {
-		
+
 		if(!class_exists('WDF_Simple_Donation')) {
 			require_once(WDF_PLUGIN_BASE_DIR.'/lib/widgets/widget.simple_donation.php');
 			register_widget('WDF_Simple_Donation');
@@ -222,11 +222,11 @@ class WDF {
 	}
 	function create_funder_labels() {
 		$settings = get_option('wdf_settings');
-		
+
 		$menu = apply_filters( 'wdf_funder_menu_name', esc_attr($settings['funder_labels']['menu_name'], $this->defaults['funder_labels']['menu_name']) );
 		$single = apply_filters( 'wdf_funder_singular_name', esc_attr($settings['funder_labels']['singular_name'], $this->defaults['funder_labels']['singular_name']) );
 		$plural = apply_filters( 'wdf_funder_plural_name', esc_attr($settings['funder_labels']['plural_name'], $this->defaults['funder_labels']['plural_name']) );
-				
+
 		$funder_labels = array(
 			'name' => $plural,
 			'singular_name' => $single,
@@ -238,20 +238,20 @@ class WDF {
 			'view_item' => __('View '.$single,'wdf'),
 			'search_items' => __('Search '.$plural,'wdf'),
 			'not_found' =>  __('No '.$plural.' found','wdf'),
-			'not_found_in_trash' => __('No '.$plural.' found in Trash','wdf'), 
+			'not_found_in_trash' => __('No '.$plural.' found in Trash','wdf'),
 			'parent_item_colon' => '',
 			'menu_name' => $menu
 		);
-		
+
 		return apply_filters('wdf_create_funder_labels', $funder_labels);
 	}
 	function create_donation_labels() {
 		$settings = get_option('wdf_settings');
-		
+
 		$single = apply_filters( 'wdf_donation_singular_name', esc_attr($settings['donation_labels']['singular_name'], $this->defaults['donation_labels']['singular_name']) );
 		$plural = apply_filters( 'wdf_donation_plural_name', esc_attr($settings['donation_labels']['plural_name'], $this->defaults['donation_labels']['plural_name']) );
 		$menu = apply_filters( 'wdf_donation_menu_name', $plural );
-		
+
 		$donation_labels = array(
 			'name' => $plural,
 			'singular_name' => $single,
@@ -263,16 +263,16 @@ class WDF {
 			'view_item' => __('View '.$single,'wdf'),
 			'search_items' => __('Search '.$plural,'wdf'),
 			'not_found' =>  __('No '.$plural.' found','wdf'),
-			'not_found_in_trash' => __('No '.$plural.' found in Trash','wdf'), 
+			'not_found_in_trash' => __('No '.$plural.' found in Trash','wdf'),
 			'parent_item_colon' => '',
 			'menu_name' => $menu
 		);
-		
+
 		return apply_filters('wdf_create_donation_labels', $donation_labels);
 	}
 	function _init() {
 		$settings = get_option('wdf_settings');
-		
+
 		// Create A New Labels Array Based on the settings input
 		$funder_labels = $this->create_funder_labels();
 		$donation_labels = $this->create_donation_labels();
@@ -285,15 +285,15 @@ class WDF {
 		    'delete_posts' => 'wdf_add_fundraisers',
 		    'delete_others_posts' => 'wdf_manage_all_fundraisers',
 		    'read_private_posts' => 'wdf_add_fundraisers',
-		    'edit_post' => 'edit_funder', 
-		    'read_post' => 'read_funder', 
+		    'edit_post' => 'edit_funder',
+		    'read_post' => 'read_funder',
 		    'delete_post' => 'delete_funder'
 		);
 		$funder_args = array(
 			'labels' => $funder_labels,
 			'public'             => true,
 			'publicly_queryable' => true,
-			'show_ui'            => true, 
+			'show_ui'            => true,
 			'show_in_menu'       => true,
 			'show_in_nav_menus'  => true,
 			'query_var'          => true,
@@ -304,7 +304,7 @@ class WDF {
 			),
 			'capability_type' => 'funder',
 			'capabilities' => $capabilities_funder,
-			'has_archive'        => true, 
+			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => null,
 			'menu_icon'          => WDF_PLUGIN_URL . '/img/sm_ico.png',
@@ -318,30 +318,30 @@ class WDF {
 		    'delete_posts' => 'wdf_manage_pledges',
 		    'delete_others_posts' => 'wdf_manage_pledges',
 		    'read_private_posts' => 'wdf_manage_pledges',
-		    'edit_post' => 'edit_donation', 
-		    'read_post' => 'read_donation', 
+		    'edit_post' => 'edit_donation',
+		    'read_post' => 'read_donation',
 		    'delete_post' => 'delete_donation'
 		);
 		$donation_args = array(
 			'labels' => $donation_labels,
 			'public'             => false,
 			'publicly_queryable' => false,
-			'show_ui'            => true, 
-			'show_in_menu'       => false, 
+			'show_ui'            => true,
+			'show_in_menu'       => false,
 			'query_var'          => false,
 			'rewrite'            => false,
 			'capability_type'    => 'donation',
 			'capabilities' => $capabilities_donation,
-			'has_archive'        => false, 
+			'has_archive'        => false,
 			'hierarchical'       => false,
 			'menu_position'      => null,
 			'supports'           => array('')
 		);
-		
+
 		//Register Post Types
 		register_post_type( 'funder', $funder_args );
 		register_post_type( 'donation', $donation_args );
-		
+
 		// Construct Arguments for our pledge status
 		$approved_args = array(
 			'label'       => __('Approved', 'wdf'),
@@ -388,7 +388,7 @@ class WDF {
 		register_post_status('wdf_refunded', $refunded_args);
 		register_post_status('wdf_approved', $approved_args);
 		register_post_status('wdf_complete', $complete_args);
-		
+
 		$pledges = wp_count_posts('donation');
 		if($pledges->publish > 0 || $pledges->draft > 0 ) {
 			// The is the best way to determine the 1.0 to 2.0 jump remove after 2.1
@@ -459,24 +459,24 @@ class WDF {
 					wp_insert_post($post);
 				}
 			}
-		}	
+		}
 	}
 	function upgrade_settings() {
 		// Re-Merge our defaults so we don't have any unexpected errors on an upgrade.
 		$settings = get_option('wdf_settings');
-		
+
 		// Update the current_version
 		$settings['current_version'] = $this->version;
-		
+
 		// Merge and save
 		$settings = array_merge($this->defaults, $settings);
-		update_option('wdf_settings', $settings);	
+		update_option('wdf_settings', $settings);
 	}
 	function flush_rewrite($force = 0) {
 		global $wp_rewrite;
 		if(isset($_POST['wdf_settings']) && is_array($_POST['wdf_settings']))
 			$force = 1;
-			
+
 		$settings = get_option('wdf_settings');
 		if(isset($wp_rewrite->extra_permastructs['funder']['struct']) || $force == 1) {
 			if(!isset($settings['rewrite_match']) || $wp_rewrite->extra_permastructs['funder']['struct'] !== $settings['rewrite_match'] || $force == 1) {
@@ -485,29 +485,29 @@ class WDF {
 				update_option('wdf_settings',$settings);
 			}
 		}
-		
+
 	}
 	function add_rewrite_rules($rules){
 		$settings = get_option('wdf_settings');
-		
+
 		$new_rules = array();
-		
+
 		// Archive Page Fix For Multi-Site Sub-Directory Installs
 		$new_rules[$settings['dir_slug'] . '/?$'] = 'index.php?post_type=funder';
-		
+
 		// Checkout Page
 		$new_rules[$settings['dir_slug'] . '/([^/]+)/' . $settings['checkout_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_checkout=1';
-		
+
 		// Thank You / Confirmation Page
 		$new_rules[$settings['dir_slug'] . '/([^/]+)/' . $settings['confirm_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_confirm=1';
-		
+
 		// Fundraiser Activity Page - Coming Soon
 		//$new_rules[$settings['dir_slug'] . '/([^/]+)/' . $settings['activity_slug'] . '/?$'] = 'index.php?post_type=funder&name=$matches[1]&funder_activity=1';
-		
+
 		$new_rules = apply_filters('wdf_rewrite_rules',$new_rules);
-		
+
 		$rules = array_merge($new_rules, $rules);
-		
+
 		return $rules;
 	}
 	function add_queryvars($vars) {
@@ -518,9 +518,9 @@ class WDF {
 			$vars[] = 'funder_confirm';
 		if(!in_array('funder_activity', $vars))
 			$vars[] = 'funder_activity';
-		
+
 		$vars = apply_filters('wdf_query_vars', $vars);
-		
+
 		return $vars;
 	}
 	function filter_nav_menu($list, $args = array()) {
@@ -541,13 +541,13 @@ class WDF {
 	}
 	function template_redirect() {
 		global $wp_query;
-		
+
 		if ($wp_query->query_vars['post_type'] == 'funder') {
 			$funder_name = get_query_var('funder');
 			$funder_id = (int) $wp_query->get_queried_object_id();
 			$templates = array();
 			$this->front_scripts($funder_id);
-					
+
 			if (isset($wp_query->query_vars['funder_checkout']) && $wp_query->query_vars['funder_checkout'] == 1) {
 				$this->is_funder_checkout = true;
 				if ( $funder_id )
@@ -568,17 +568,17 @@ class WDF {
 				$templates[] = "wdf_confirm.php";
 				add_filter( 'the_content', array(&$this,'funder_content'), 99 );
 				if ($this->funder_template = locate_template($templates)) {
-					add_filter( 'template_include', array(&$this, 'custom_funder_template') );	
+					add_filter( 'template_include', array(&$this, 'custom_funder_template') );
 				}
 			} elseif ($wp_query->is_single()) {
 				$this->is_funder_single = true;
-				
+
 				if ( $funder_id )
 					$templates[] = "wdf_funder-$funder_id.php";
 				if ( $funder_name )
 					$templates[] = "wdf_funder-$funder_name.php";
 				$templates[] = "wdf_funder.php";
-					
+
 				if ($this->funder_template = locate_template($templates)) {
 					add_filter( 'template_include', array(&$this, 'custom_funder_template') );
 				} else {
@@ -609,7 +609,7 @@ class WDF {
 				break;
 			}
 		}
-		
+
 		if(isset($this->is_funder_single) && $this->is_funder_single && $fundraising_widget_active == 0) {
 			$position = get_post_meta($post->ID,'wdf_panel_pos',true);
 			if($position == 'top')
@@ -617,40 +617,40 @@ class WDF {
 			else
 				$content .= wdf_fundraiser_page(false, $post->ID);
 		}
-		
+
 		if(isset($this->is_funder_checkout) && $this->is_funder_checkout) {
 			$content = wdf_show_checkout( false, $post->ID, (isset($_POST['wdf_step']) ? $_POST['wdf_step'] : '')  );
 		}
-		
+
 		if(isset($this->is_funder_confirm) && $this->is_funder_confirm) {
 			$content = wdf_confirmation_page(false, $post->ID);
 		}
-		
+
 		/*if($this->is_funder_activity)
-			$content = wdf_activity_page(false,$post->ID);*/	
-		
+			$content = wdf_activity_page(false,$post->ID);*/
+
 		return $content;
 	}
 	function load_plugins() {
 		$settings = get_option('wdf_settings');
-		
+
 		//load gateway plugin API
 		require_once( WDF_PLUGIN_BASE_DIR . '/lib/classes/class.gateway.php' );
 		$this->load_gateway_plugins();
-		
+
 		// Load up our available styles
 		$this->load_styles();
-		
+
 	}
 	function load_gateway_plugins() {
-		
+
 		if(isset($_POST['wdf_settings']) && is_array($_POST['wdf_settings'])) {
 			$this->save_settings($_POST['wdf_settings']);
 		}
-		
+
 		//get gateway plugins dir
 		$dir = WDF_PLUGIN_BASE_DIR . '/lib/gateways/';
-		
+
 		//search the dir for files
 		$gateway_plugins = array();
 		if ( !is_dir( $dir ) )
@@ -663,45 +663,45 @@ class WDF {
 		}
 		closedir( $dh );
 		sort( $gateway_plugins );
-		
+
 		//include them suppressing errors
 		foreach ($gateway_plugins as $file)
 			include( $file );
-		
+
 		//allow plugins from an external location to register themselves
 		do_action('wdf_load_gateway_plugins');
-		
+
 		//load chosen plugin classes
 		global $wdf_gateway_plugins, $wdf_gateway_active_plugins;
 		$settings = get_option('wdf_settings');
-		
+
 		foreach ((array)$wdf_gateway_plugins as $code => $plugin) {
 			$class = $plugin[0];
 			if( isset($settings['active_gateways']) ) {
 				if ( class_exists($class) && !isset($plugin[3]) && $settings['active_gateways'][$code] == '1'  )
 					$wdf_gateway_active_plugins[$code] = new $class;
 			}
-			
+
 		}
-		
+
 		// Action used for saving gateway settings
 		do_action('wdf_gateway_plugins_loaded');
-	
+
 	}
 	function load_styles() {
-		
+
 		$style_dirs = array();
-		
+
 		$style_dirs[] = WDF_PLUGIN_BASE_DIR.'/styles/';
-		
+
 		if(defined('WDF_EXTERNAL_STYLE_DIRECTORY') && is_dir(WDF_EXTERNAL_STYLE_DIRECTORY))
 			$style_dirs[] = WDF_EXTERNAL_STYLE_DIRECTORY;
 
 		if(is_dir(WP_CONTENT_DIR . '/wdf-styles/'))
 			$style_dirs[] = WP_CONTENT_DIR . '/wdf-styles/';
-		
+
 		$styles = array();
-		
+
 		foreach($style_dirs as $style_dir) {
 			if( $files = scandir($style_dir) ) {
 				foreach ($files as $file) {
@@ -746,7 +746,7 @@ class WDF {
 		wp_enqueue_script('wdf-base');
 		wp_enqueue_script('thickbox');
 		wp_enqueue_style('jquery-ui-base');
-		
+
 		add_action('wp_head', array(&$this,'inject_custom_css'));
 		// $add_style will always be used before a saved style.
 		if($add_style != false) {
@@ -759,14 +759,14 @@ class WDF {
 		global $post;
 		$settings = get_option('wdf_settings');
 		$post_id = (empty($post_id) ? $post->ID : $post_id );
-		
+
 		if( $settings['single_styles'] == 'no' ) {
 			$style = $settings['default_style'];
 		} else {
 			$meta = get_post_meta($post_id,'wdf_style',true);
 			$style = ($meta != false ? $meta : $settings['default_style'] );
 		}
-		
+
 		return $style;
 	}
 	function inject_custom_css() {
@@ -792,80 +792,80 @@ class WDF {
 		unset($_SESSION['wdf_sender_email']);
 		unset($_SESSION['wdf_recurring']);
 		unset($_SESSION['wdf_reward']);
-		
+
 		// Action hook for plugins that need to clear session variables.
 		do_action('wdf_clear_session');
 	}
 	function handle_payment() {
 		$this->start_session();
-			
+
 		if( isset($_POST['funder_id']) && !empty($_POST['funder_id']) ) {
 			$_SESSION['funder_id'] = $_POST['funder_id'];
 			$_SESSION['wdf_type'] = $this->get_payment_type($_POST['funder_id']);
 		}
-		if( isset($_POST['wdf_pledge']) && !empty($_POST['wdf_pledge']) )	
+		if( isset($_POST['wdf_pledge']) && !empty($_POST['wdf_pledge']) )
 			$_SESSION['wdf_pledge'] = $this->filter_price($_POST['wdf_pledge']);
-		if( isset($_POST['wdf_reward']) && is_numeric($_POST['wdf_reward']) )	
+		if( isset($_POST['wdf_reward']) && is_numeric($_POST['wdf_reward']) )
 			$_SESSION['wdf_reward'] = $_POST['wdf_reward'] + 1;
-			
-		if( isset($_POST['wdf_gateway']) && !empty($_POST['wdf_gateway']) )	
+
+		if( isset($_POST['wdf_gateway']) && !empty($_POST['wdf_gateway']) )
 			$_SESSION['wdf_gateway'] = $_POST['wdf_gateway'];
-		if( isset($_POST['wdf_step']) && !empty($_POST['wdf_step']) )	
+		if( isset($_POST['wdf_step']) && !empty($_POST['wdf_step']) )
 			$_SESSION['wdf_step'] = $_POST['wdf_step'];
-		
-		
+
+
 		if( !isset($_POST['wdf_recurring']) || empty($_POST['wdf_recurring']) || $_POST['wdf_recurring'] == '0') {
 			$_SESSION['wdf_recurring'] = false;
 		} else if( isset($_POST['wdf_recurring']) && !empty($_POST['wdf_recurring']) ) {
 			$_SESSION['wdf_recurring'] = $_POST['wdf_recurring'];
 		}
-		
+
 		if( isset($_POST['wdf_bp_activity']) && $_POST['wdf_bp_activity'] == '1' )
 			$_SESSION['wdf_bp_activity'] = true;
-			
+
 		$process_payment = false;
 		global $wdf_gateway_active_plugins;
-		
+
 		$skip_gateway_form = (isset($_SESSION['wdf_gateway']) && isset($wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]->skip_form) ? $wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]->skip_form : false);
-		
+
 		if( isset($_POST['wdf_send_donation']) && $skip_gateway_form === true)
 			$process_payment = true;
-			
+
 		if( isset($_POST['wdf_payment_submit']) )
 			$process_payment = true;
-						
+
 		if($process_payment) {
 			if( !isset($_SESSION['wdf_type']) || empty($_SESSION['wdf_type']) )
 				$this->create_error(__('Could not determine pledge type.','wdf'),'payment_submit');
-				
+
 			if( !isset($_SESSION['wdf_gateway']) || empty($_SESSION['wdf_gateway']) )
 				$this->create_error(__('Please choose a payment method.','wdf'),'payment_submit');
-			
+
 			if( !isset($_SESSION['funder_id']) || empty($_SESSION['funder_id']) ) {
 				$this->create_error(__('Fundraiser could not be determined.','wdf'),'payment_submit');
 			}
-			
+
 			if(!isset($this->wdf_error) || $this->wdf_error !== true) {
 				do_action('wdf_gateway_pre_process_'.$_SESSION['wdf_gateway']);
 				do_action('wdf_gateway_process_'.$_SESSION['wdf_type'].'_'.$_SESSION['wdf_gateway']);
 			}
 		}
 		if(isset($this->is_funder_confirm) && $this->is_funder_confirm){
-			
+
 			if( !isset($_SESSION['wdf_pledge_id']) || empty($_SESSION['wdf_pledge_id']) )
 				$this->create_error(__('You have not made a pledge yet.','wdf'),'no_pledge');
 
 			if(!$this->wdf_error) {
 				do_action('wdf_gateway_confirm_'.$_SESSION['wdf_gateway']);
-				
+
 			}
 		}
 	}
 	function process_complete_funder( $funder_id = false ) {
 		if($funder_id == false || $funder_id == '')
 			return false;
-		
-		if($pledges = $this->get_pledge_list($funder_id)) {	
+
+		if($pledges = $this->get_pledge_list($funder_id)) {
 			foreach($pledges as $pledge) {
 				if($pledge->post_status == 'wdf_approved') {
 					$transaction = $this->get_transaction($pledge->ID);
@@ -881,38 +881,38 @@ class WDF {
 			$replace = array($this->format_currency('',$trans['gross']),$trans['first_name'],$trans['last_name']);
 			$msg = str_replace($search, $replace, $msg);
 		}
-		
+
 		return $msg;
 	}
 	function create_thank_you($funder_id = false, $trans = false) {
-		
+
 		if($send_email = get_post_meta($funder_id,'wdf_send_email',true) && $trans != false) {
-						
+
 			//remove any other filters
 			//remove_all_filters( 'wp_mail_from' );
 			//remove_all_filters( 'wp_mail_from_name' );
-	
+
 			//add our own filters
 			//add_filter( 'wp_mail_from_name', create_function('', 'return get_bloginfo("name");') );
 			//add_filter( 'wp_mail_from', create_function('', 'return get_option("admin_email")') );
 			$msg = get_post_meta($funder_id,'wdf_email_msg', true);
 			$search = array('%DONATIONTOTAL%','%FIRSTNAME%','%LASTNAME%');
 			$replace = array($this->format_currency('',$trans['gross'], 1),$trans['first_name'],$trans['last_name']);
-			
+
 			$subject = get_post_meta($funder_id,'wdf_email_subject',true);
 			$msg = html_entity_decode(str_replace($search, $replace, $msg));
 			$subject = html_entity_decode(str_replace($search, $replace, $subject));
-			
+
 			if($subject && $msg && $trans['payer_email']) {
 				wp_mail($trans['payer_email'],$subject,$msg);
 			}
 		}
-	}	
+	}
 	function update_pledge( $post_title = false, $funder_id = false, $status = false, $transaction = false ) {
 		if( !$post_title || !$funder_id || !$status || !$transaction ) {
 			return false;
 		}
-		
+
 		global $wpdb;
 		//Check to see if we have created this donation yet
 		$search = false;
@@ -935,18 +935,18 @@ class WDF {
 				$transaction[$k] = esc_attr($v);
 			else
 				$transaction[$k] = array_map('esc_attr', $v);
-				
+
 		}
 		update_post_meta($id, 'wdf_transaction', $transaction);
 		update_post_meta($id,'wdf_native', '1');
-		
+
 		// Check and see if we have now hit our goal.
-		if( $this->has_goal($funder_id) ){	
+		if( $this->has_goal($funder_id) ){
 			if( (int)$this->get_amount_raised($funder_id) >= (int)$this->get_goal_amount($funder_id) ) {
 				$this->process_complete_funder( $funder_id );
 			}
 		}
-		
+
 		return $id;
 	}
 	function add_menu_meta_boxes() {
@@ -957,7 +957,7 @@ class WDF {
 				jQuery(document).ready( function($) {
 					$('#wdf_add_nav_archive').on('click', function() {
 						<?php $funder_slug = $settings['dir_slug']; ?>
-						wpNavMenu.addLinkToMenu('<?php echo trailingslashit(home_url($funder_slug)); ?>','Fundraisers');						
+						wpNavMenu.addLinkToMenu('<?php echo trailingslashit(home_url($funder_slug)); ?>','Fundraisers');
 						return false;
 					});
 				});
@@ -966,19 +966,19 @@ class WDF {
 	}
 	function add_meta_boxes() {
 		global $post, $wp_meta_boxes, $typenow, $pagenow;
-		
+
 		$settings = get_option('wdf_settings');
 		if($typenow == 'funder') {
-			
+
 			$wdf_type = get_post_meta($post->ID,'wdf_type',true);
 			$wdf_type = ($wdf_type == false ? '' : $wdf_type);
 			$has_pledges = $this->get_pledge_list($post->ID);
 
 			if( !in_array($wdf_type,$settings['payment_types']) || $has_pledges == false ) {
-				
+
 				if($post->post_status != 'publish' && $has_pledges == false)
 					add_meta_box( 'wdf_type', sprintf(__('%s Type','wdf'),esc_attr($settings['funder_labels']['menu_name'])), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
-					
+
 				if( $post->post_status == 'auto-draft' || $wdf_type == '' ) {
 					// Search for the submit div and remove it
 					foreach($wp_meta_boxes['funder'] as $context => $priorities) {
@@ -989,28 +989,28 @@ class WDF {
 						}
 					}
 				}
-			} 
-			
+			}
+
 			if($wdf_type != false && !empty($wdf_type)) { // We have a type so show the available options
-				
+
 				if( $has_pledges != false || $post->post_status == 'publish' )
 					add_meta_box( 'wdf_progress', sprintf(__('%s Progress','wdf'),esc_attr($settings['funder_labels']['singular_name'])), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
-				
+
 				add_meta_box( 'wdf_options', sprintf(__('%s Settings','wdf'),esc_attr($settings['funder_labels']['singular_name'])), array(&$this,'meta_box_display'), 'funder', 'side', 'high');
 				add_meta_box( 'wdf_goals', sprintf(__('Set Your %s Goals','wdf'),esc_attr($settings['funder_labels']['singular_name'])), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
-					
-				add_meta_box( 'wdf_messages', __('Thank You Message Settings','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');	
+
+				add_meta_box( 'wdf_messages', __('Thank You Message Settings','wdf'), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
 				// Show pledge activity if funds have been raised
 				if( $has_pledges != false )
 					add_meta_box( 'wdf_activity', sprintf(__('%s Activity','wdf'), esc_attr($settings['donation_labels']['singular_name'])), array(&$this,'meta_box_display'), 'funder', 'normal', 'high');
 			}
-			
-			
-				
+
+
+
 		} elseif($typenow == 'donation') {
 			add_meta_box( 'wdf_pledge_info', sprintf(__('%s Information','wdf'),esc_attr($settings['donation_labels']['singular_name'])), array(&$this,'meta_box_display'), 'donation', 'normal', 'high');
 			add_meta_box( 'wdf_pledge_status', sprintf(__('%s Status','wdf'), esc_attr($settings['donation_labels']['singular_name'])), array(&$this,'meta_box_display'), 'donation', 'side', 'high');
-			
+
 			// Search for the submit div and remove it
 			foreach($wp_meta_boxes['donation'] as $context => $priorities) {
 				foreach($priorities as $meta_boxes) {
@@ -1019,9 +1019,9 @@ class WDF {
 					}
 				}
 			}
-				
+
 		}
-		
+
 	}
 	function meta_box_display($post,$data) {
 		include(WDF_PLUGIN_BASE_DIR . '/lib/form.meta_boxes.php');
@@ -1029,8 +1029,8 @@ class WDF {
 	function admin_menu() {
 		global $submenu;
 		$settings = get_option('wdf_settings');
-		
-		add_submenu_page( 'edit.php?post_type=funder', $settings['donation_labels']['plural_name'], $settings['donation_labels']['plural_name'], 'wdf_manage_pledges', 'wdf_donations', array(&$this,'admin_display') );		
+
+		add_submenu_page( 'edit.php?post_type=funder', $settings['donation_labels']['plural_name'], $settings['donation_labels']['plural_name'], 'wdf_manage_pledges', 'wdf_donations', array(&$this,'admin_display') );
 		add_submenu_page( 'edit.php?post_type=funder', sprintf(__('%s Settings','wdf'), $settings['funder_labels']['menu_name']), __('Settings','wdf'), 'wdf_edit_settings', 'wdf_settings', array(&$this,'admin_display') );
 		add_submenu_page( 'edit.php?post_type=funder', __('Getting Started','wdf'), __('Getting Started','wdf'), 'wdf_add_fundraisers', 'wdf', array(&$this,'admin_display') );
 		if( isset($submenu['edit.php?post_type=funder']) && is_array($submenu['edit.php?post_type=funder']) ) {
@@ -1039,12 +1039,12 @@ class WDF {
 					$submenu['edit.php?post_type=funder'][$key][2] = 'edit.php?post_type=donation';
 			}
 		}
-		
+
 	}
-	
+
 	function admin_display(){
 		$content = '';
-			
+
 		switch($_GET['page']) {
 			case 'wdf_settings' :
 				if(!current_user_can('wdf_edit_settings'))
@@ -1064,7 +1064,7 @@ class WDF {
 	function save_settings($new) {
 		global $wp_roles;
 		$die = false;
-		
+
 		if(isset($_POST['wdf_nonce'])) {
 			$nonce = $_POST['wdf_nonce'];
 		}
@@ -1099,7 +1099,7 @@ class WDF {
 			}
 		}
 		unset($new['user_caps']);
-		
+
 		foreach($new as $k => $v) {
 			if($k == 'slug') {
 				$new[$k] = sanitize_title($v,__('donations','wdf'));
@@ -1111,24 +1111,24 @@ class WDF {
 				$new[$k] = esc_attr($v);
 			}
 		}
-		
+
 		// If no die flags have been triggered then lets merge our settings array together and save.
 		if(!$die) {
 			$settings = get_option('wdf_settings');
-			
+
 			$settings = wp_parse_args($new,$settings);
 			update_option('wdf_settings',$settings);
-			$this->create_msg('Settings Saved', 'general');			
+			$this->create_msg('Settings Saved', 'general');
 		}
 	}
-	
+
 	function create_error($msg, $context) {
 		$classes = 'error';
 		$content = 'return $content."<div class=\"'.$classes.'\"><p>' . $msg . '</p></div>";';
 		add_filter('wdf_error_' . $context, create_function('$content', $content));
 		$this->wdf_error = true;
 	}
-	
+
 	function create_msg($msg, $context) {
 		if(is_admin())
 			$classes = 'updated below-h2';
@@ -1139,18 +1139,18 @@ class WDF {
 		//add_action('wdf_msg_' . $context, create_function('', $content));
 		$this->wdf_msg = true;
 	}
-	
+
 	function wp_insert_post() {
 		global $post;
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 			return;
-			
+
 		if(!isset($_POST['wdf']) || !is_array($_POST['wdf']))
 			return;
-			
+
 		if(isset($_POST['wdf']['levels']) && count($_POST['wdf']['levels']) < 2 && isset($_POST['wdf']['levels'][0]['amount']) && $_POST['wdf']['levels'][0]['amount'] == '')
 			$_POST['wdf']['levels'] = '';
-		
+
 		if ( 'funder' == $_POST['post_type'] && is_array($_POST['wdf'])) {
 			foreach($_POST['wdf'] as $key => $value) {
 				if($value != '') {
@@ -1162,7 +1162,7 @@ class WDF {
 							$value[$level]['description'] = esc_textarea($data['description']);
 						}
 					} else if($key == 'recurring_cycle') {
-						
+
 					} else if($key == 'thanks_url') {
 						$value = esc_attr($value);
 					} else if($key == 'thanks_custom') {
@@ -1196,7 +1196,7 @@ class WDF {
 				if(isset($_POST['wdf']['transaction']['gross']))
 					$_POST['wdf']['transaction']['gross'] = $this->filter_price($_POST['wdf']['transaction']['gross']);
 				update_post_meta($post->ID,'wdf_transaction',$_POST['wdf']['transaction']);
-			}	
+			}
 		}
 	}
 	function enqueue_scripts() {
@@ -1215,17 +1215,17 @@ class WDF {
 	}
 	function admin_enqueue_scripts($hook) {
 		global $typenow, $pagenow;
-		
+
 		// Google external jQuery UI
 		wp_register_style( 'jquery-ui-base', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css', null, null, 'screen' );
 		wp_register_style( 'wdf-admin', WDF_PLUGIN_URL . '/css/wdf-admin.css', null, $this->version, 'all' );
-		
+
 		//Register Styles and Scripts For The Admin Area
 		wp_register_script( 'wdf-post', WDF_PLUGIN_URL . '/js/wdf-post.js', array('jquery'), $this->version, false );
 		wp_register_script( 'wdf-edit', WDF_PLUGIN_URL . '/js/wdf-edit.js', array('jquery'), $this->version, false );
 		wp_register_script( 'wdf-media', WDF_PLUGIN_URL . '/js/wdf-media.js', array('jquery'), $this->version, true );
 		wp_register_script( 'wdf-widget', WDF_PLUGIN_URL . '/js/wdf-widget.js', array('jquery'), $this->version, true );
-		
+
 
 		if($typenow == 'funder' || $pagenow == 'admin.php') {
 			if($typenow == 'funder' || $_GET['page'] == 'wdf' || $_GET['page'] == 'wdf_settings')
@@ -1253,33 +1253,33 @@ class WDF {
 				wp_enqueue_style('wdf-base');
 				wp_enqueue_script('wdf-media');
 			}
-		} 
+		}
 		if( $pagenow == 'widgets.php') {
 			wp_enqueue_script('wdf-widget');
-			
+
 			if(isset($_GET['wdf_show_widgets']) && (int)$_GET['wdf_show_widgets'] == 1)
 				wp_enqueue_style('wdf-admin');
 		}
-		
+
 		if($hook = 'edit.php')
 			wp_localize_script('wdf-edit', 'WDF', array( 'hook' => $hook, 'typenow' => $typenow) );
 	}
-	
+
 	function edit_columns($columns) {
 		global $typenow;
 		$settings = get_option('wdf_settings');
 		if($typenow == 'funder') {
 			// Remove Author
 			unset($columns['author']);
-			
+
 			// Move Comments
 			$move_comments = $columns['comments'];
 			unset($columns['comments']);
-			
+
 			//Move Title
 			$move_title = $columns['title'];
 			unset($columns['title']);
-			
+
 			$columns['funder_thumb'] = '';
 			$columns['funder_pledges'] = esc_attr($settings['donation_labels']['plural_name']);
 			$columns['funder_raised'] = __('Raised','wdf');
@@ -1287,7 +1287,7 @@ class WDF {
 			$columns['funder_type'] = __('Type','wdf');
 			$columns['funder_time_left'] = __('Time Left', 'wdf');
 			$columns['comments'] = $move_comments;
-			
+
 			unset($columns['date']);
 		} elseif($typenow == 'donation') {
 			$columns['pledge_amount'] = __('Amount', 'wdf');
@@ -1306,11 +1306,11 @@ class WDF {
 		}
 		return $columns;
 	}
-	
+
 	function column_display($name) {
 		global $post;
 		switch($name) {
-			case 'funder_type' : 
+			case 'funder_type' :
 				if($type = get_post_meta($post->ID,'wdf_type',true)) {
 					if($type == 'simple')
 						$type = __('Donations','wdf');
@@ -1369,7 +1369,7 @@ class WDF {
 				$trans = $this->get_transaction();
 				echo esc_attr($trans['payer_email']);
 				break;
-			case 'pledge_method' : 
+			case 'pledge_method' :
 				$trans = $this->get_transaction();
 				echo esc_attr($trans['gateway_public']);
 				break;
@@ -1389,7 +1389,7 @@ class WDF {
 				$tabs['progress_bar'] = __('Progress Bar','wdf');
 			}
 		}
-	
+
 		return $tabs;
 	}
 	function media_fundraising() {
@@ -1472,7 +1472,7 @@ class WDF {
 				</div>
 			</div>
 		</form>
-		
+
 		<?php
 	}
 	function media_donate_button_iframe () {
@@ -1554,10 +1554,10 @@ class WDF {
 								<td></td>
 								<td><p class="alignright"><a class="button" href="#" id="wdf_add_shortcode" onclick="window.parent.wdf_inject_shortcode(); return false;"><?php _e('Insert Shortcode','wdf'); ?></a></p></td>
 							</tr>
-						</tbody>			
+						</tbody>
 					</table>
-					
-					
+
+
 				</div>
 			</div>
 		</form>
@@ -1575,7 +1575,7 @@ class WDF {
 			media_upload_header();?>
 			<form class="wdf_media_cont media-item" id="media_fundraising">
 			<h3 class="media-title"><?php _e('Add A Fundraising Form','wdf'); ?></h3>
-			
+
 			<div id="media-items">
 				<div class="media-item media-blank">
 					<table class="describe">
@@ -1625,22 +1625,22 @@ class WDF {
 					</table>
 				</div>
 			</div>
-			
+
 			</form><?php
-			
+
 	}
 
 	function format_currency($currency = '', $amount = false, $for_mail = 0) {
-		
+
 		$settings = get_option('wdf_settings');
-	
+
 		if (!$currency || empty($currency))
 			$currency = $settings['currency'];
-			
+
 		// get the currency symbol
 		$symbol = $this->currencies[$currency][1];
 		$symbol_mail = isset($this->currencies[$currency][2]) ? $this->currencies[$currency][2]: '';
-		
+
 		if(empty($symbol_mail) || $for_mail == 0) {
 			// if many symbols are found, rebuild the full symbol
 			$symbols = explode(', ', $symbol);
@@ -1657,7 +1657,7 @@ class WDF {
 			$settings['curr_symbol_position'] = 4;
 			$symbol = $symbol_mail;
 		}
-	
+
 		//check decimal option
 		if ( $settings['curr_decimal'] === '0' ) {
 			$decimal_place = 0;
@@ -1666,7 +1666,7 @@ class WDF {
 			$decimal_place = 2;
 			$zero = '0.00';
 		}
-	
+
 		//format currency amount according to preference
 		if ($amount) {
 		  if ($settings['curr_symbol_position'] == 1 || !$settings['curr_symbol_position'])
@@ -1677,7 +1677,7 @@ class WDF {
 			return number_format_i18n($amount, $decimal_place) . $symbol;
 		  else if ($settings['curr_symbol_position'] == 4)
 			return number_format_i18n($amount, $decimal_place) . ' ' . $symbol;
-	
+
 		} else if ($amount === false) {
 		  return $symbol;
 		} else {
@@ -1699,7 +1699,7 @@ class WDF {
 		if($post_id == false) {
 			global $post; $post_id = $post->ID;
 		}
-		
+
 		if($this->has_goal($post_id)) {
 			$goal = $this->get_goal_amount($post_id);
 			$total = $this->get_amount_raised($post_id);
@@ -1707,7 +1707,7 @@ class WDF {
 			if($context == 'admin_metabox') {
 				$content .= '<h1 class="'.$classes.'">' . $this->format_currency('',$total) . ' / ' . $this->format_currency('',$goal) . '</h1>';
 			} elseif($context == 'general') {
-				
+
 			} elseif($context == 'shortcode_title') {
 				$content .= '<div class="wdf_progress_shortcode_title">'.get_the_title($post_id).'</div>';
 			} elseif($context == 'shortcode_totals') {
@@ -1720,7 +1720,7 @@ class WDF {
 		}
 		if($echo) {echo $content;} else {return $content;}
 	}
-	
+
 	function get_pledge_list($post_id = false) {
 		global $post;
 		$post_id = ($post_id != false ? $post_id : $post->ID);
@@ -1755,34 +1755,34 @@ class WDF {
 		global $post;
 		$post_id = ($post_id != false ? $post_id : $post->ID);
 		$goal = get_post_meta($post_id, 'wdf_goal_amount', true);
-		
+
 		return apply_filters('wdf_get_goal_amount', $goal);
 	}
 	function generate_pledge_id() {
 		global $wpdb;
-		
+
 		$count = true;
 		while ($count) { //make sure it's unique
 			$wdf_pledge_id = substr(sha1(uniqid('')), rand(1, 24), 12);
 			$count = $wpdb->get_var("SELECT COUNT(*) FROM " . $wpdb->posts . " WHERE post_title = '" . $wdf_pledge_id . "' AND post_type = 'donation'");
 		}
-		
+
 		$wdf_pledge_id = apply_filters( 'wdf_pledge_id', $wdf_pledge_id ); //Very important to make sure order numbers are unique and not sequential if filtering
-		
+
 		return $wdf_pledge_id;
 	}
 	function get_transaction($post_id = false) {
 		global $post;
 		if(!$post_id)
 			$post_id = $post->ID;
-			
+
 		return maybe_unserialize(get_post_meta($post_id,'wdf_transaction',true));
-			
+
 	}
 	function the_select_options($array, $current) {
 		if(empty($array))
 			$array = array( 1 => 'True', 0 => 'False' );
-			
+
 		foreach( $array as $name => $label ) {
 			$selected = selected( $current, $name, false );
 			echo '<option value="'.$name.'" '.$selected.'>'.$label.'</option>';
@@ -1803,17 +1803,17 @@ class WDF {
 		n - Number of full minutes
 		s - Number of full seconds (default)
 		*/
-		
+
 		if (!$using_timestamps) {
 			$datefrom = strtotime($datefrom, 0);
 			$dateto = strtotime($dateto, 0);
 		}
 		$difference = $dateto - $datefrom; // Difference in seconds
-		 
+
 		switch($interval) {
-		 
+
 		case 'yyyy': // Number of full years
-	
+
 			$years_difference = floor($difference / 31536000);
 			if (mktime(date("H", $datefrom), date("i", $datefrom), date("s", $datefrom), date("n", $datefrom), date("j", $datefrom), date("Y", $datefrom)+$years_difference) > $dateto) {
 				$years_difference--;
@@ -1823,9 +1823,9 @@ class WDF {
 			}
 			$datediff = $years_difference;
 			break;
-	
+
 		case "q": // Number of full quarters
-	
+
 			$quarters_difference = floor($difference / 8035200);
 			while (mktime(date("H", $datefrom), date("i", $datefrom), date("s", $datefrom), date("n", $datefrom)+($quarters_difference*3), date("j", $dateto), date("Y", $datefrom)) < $dateto) {
 				$months_difference++;
@@ -1833,9 +1833,9 @@ class WDF {
 			$quarters_difference--;
 			$datediff = $quarters_difference;
 			break;
-	
+
 		case "m": // Number of full months
-	
+
 			$months_difference = floor($difference / 2678400);
 			while (mktime(date("H", $datefrom), date("i", $datefrom), date("s", $datefrom), date("n", $datefrom)+($months_difference), date("j", $dateto), date("Y", $datefrom)) < $dateto) {
 				$months_difference++;
@@ -1843,19 +1843,19 @@ class WDF {
 			$months_difference--;
 			$datediff = $months_difference;
 			break;
-	
+
 		case 'y': // Difference between day numbers
-	
+
 			$datediff = date("z", $dateto) - date("z", $datefrom);
 			break;
-	
+
 		case "d": // Number of full days
-	
+
 			$datediff = floor($difference / 86400);
 			break;
-	
+
 		case "w": // Number of full weekdays
-	
+
 			$days_difference = floor($difference / 86400);
 			$weeks_difference = floor($days_difference / 7); // Complete weeks
 			$first_day = date("w", $datefrom);
@@ -1869,50 +1869,50 @@ class WDF {
 			}
 			$datediff = ($weeks_difference * 5) + $days_remainder;
 			break;
-	
+
 		case "ww": // Number of full weeks
-	
+
 			$datediff = floor($difference / 604800);
 			break;
-	
+
 		case "h": // Number of full hours
-	
+
 			$datediff = floor($difference / 3600);
 			break;
-	
+
 		case "n": // Number of full minutes
-	
+
 			$datediff = floor($difference / 60);
 			break;
-	
+
 		default: // Number of full seconds (default)
-	
+
 			$datediff = $difference;
 			break;
-		}    
-	
+		}
+
 		return $datediff;
-	
+
 	}
 	function get_payment_type( $post_id = '' ) {
 		if(empty($post_id))
 			return false;
 		$payment_type = get_post_meta($post_id,'wdf_type',true);
-		
+
 		return $payment_type;
 	}
 	function filter_price($price) {
 		 $price = round(preg_replace("/[^0-9.]/", "", $price), 2);return ($price) ? $price : 0;
 		 return $price;
 	}
-	
+
 	function has_goal($post_id = false) {
 		global $post;
 		$post_id = ($post_id ? $post_id : $post->ID);
 		$goal = get_post_meta($post_id, 'wdf_has_goal', true);
 		if( $goal == '1' && $this->get_goal_amount($post_id) > 0 )
 			return true;
-		else 
+		else
 			return false;
 	}
 	function after_setup_theme() {
@@ -1924,7 +1924,7 @@ class WDF {
 		}
 	}
 }
-		
+
 global $wdf;
 $wdf = &new WDF();
 

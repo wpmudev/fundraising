@@ -702,7 +702,7 @@ if(!function_exists('wdf_pledge_button')) {
 	
 			if(isset($meta['wdf_recurring'][0]) && $meta['wdf_recurring'][0] == 'yes' && isset($meta['wdf_type'][0]) && $meta['wdf_type'][0] == 'simple') {			
 				$content .= '
-				<label>Make this donation </label>
+				<label>'.__('Make this donation','wdf').' </label>
 				<select name="wdf_recurring">
 					<option value="0">'.__('Once','wdf').'</option>
 					<option value="D">'.__('Daily','wdf').'</option>

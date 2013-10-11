@@ -49,7 +49,7 @@
 }
 .wdf-dark .wdf_donate_now input[type="text"], textarea {
 	opacity: 0.5;
-	margin: 0 0 0 5px;	
+	margin: 0 0 0 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -59,7 +59,7 @@
 .wdf-dark .wdf_level_amount {
 
 }
-.wdf-dark .wdf_send_donation, 
+.wdf-dark .wdf_send_donation,
 .wdf-dark .wdf_button {
 	color: #eee;
     cursor: pointer;
@@ -84,7 +84,7 @@
 
 .wdf-dark .wdf_send_donation:hover,
 .wdf-dark .wdf_button:hover {
-	
+
 }
 .wdf-dark .wdf_levels .reward {
 	font-weight: bold;
@@ -131,5 +131,3 @@
 	background: #444;
 	border: 1px solid #111;
 }
-
-/* 62863-1338483608 */

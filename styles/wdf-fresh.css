@@ -43,7 +43,7 @@
 	font-size: 1.4em;
 }
 .wdf-fresh .wdf_donate_now input[type="text"], textarea {
-	margin: 0 0 0 5px;	
+	margin: 0 0 0 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -86,7 +86,7 @@
 }
 .wdf-fresh .wdf_send_donation:hover,
 .wdf-fresh .wdf_button:hover {
-	
+
 }
 .wdf-fresh .wdf_levels .reward {
 	font-weight: bold;
@@ -134,5 +134,3 @@
 	height: 1em;
 	margin: 10px 0 0 0;
 }
-
-/* 62863-1338483608 */
