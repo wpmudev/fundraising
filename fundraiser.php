@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.5.2
+Version: 2.5.3
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -72,7 +72,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.5.1';
+		$this->version = '2.5.3';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -1073,32 +1073,34 @@ class WDF {
 			$die = true;
 		}
 
-		unset($new['user_caps']['viewed']);
-		$caps = $new['user_caps'];
-		foreach($wp_roles->get_names() as $name => $obj) {
-			if($name == 'administrator') continue;
-			$role_obj = get_role($name);
-			if($role_obj) {
-				foreach($this->capabilities as $cap => $label) {
-					if(isset($caps[$cap][$name])) {
-						$role_obj->add_cap($cap);
-						if($cap == 'wdf_manage_all_fundraisers' || $cap == 'wdf_add_fundraisers') {
-							$role_obj->add_cap('read_funder');
-							$role_obj->add_cap('edit_funder');
-							$role_obj->add_cap('delete_funder');
-						}
-					} else {
-						$role_obj->remove_cap($cap);
-						if($cap == 'wdf_manage_all_fundraisers' || $cap == 'wdf_add_fundraisers') {
-							$role_obj->remove_cap('read_funder');
-							$role_obj->remove_cap('edit_funder');
-							$role_obj->remove_cap('delete_funder');
+		if(isset($new['user_caps'])) {
+			unset($new['user_caps']['viewed']);
+			$caps = $new['user_caps'];
+			foreach($wp_roles->get_names() as $name => $obj) {
+				if($name == 'administrator') continue;
+				$role_obj = get_role($name);
+				if($role_obj) {
+					foreach($this->capabilities as $cap => $label) {
+						if(isset($caps[$cap][$name])) {
+							$role_obj->add_cap($cap);
+							if($cap == 'wdf_manage_all_fundraisers' || $cap == 'wdf_add_fundraisers') {
+								$role_obj->add_cap('read_funder');
+								$role_obj->add_cap('edit_funder');
+								$role_obj->add_cap('delete_funder');
+							}
+						} else {
+							$role_obj->remove_cap($cap);
+							if($cap == 'wdf_manage_all_fundraisers' || $cap == 'wdf_add_fundraisers') {
+								$role_obj->remove_cap('read_funder');
+								$role_obj->remove_cap('edit_funder');
+								$role_obj->remove_cap('delete_funder');
+							}
 						}
 					}
 				}
 			}
+			unset($new['user_caps']);
 		}
-		unset($new['user_caps']);
 
 		foreach($new as $k => $v) {
 			if($k == 'slug') {
@@ -1926,7 +1928,7 @@ class WDF {
 }
 
 global $wdf;
-$wdf = &new WDF();
+$wdf = new WDF();
 
 
 // Check for BuddyPress and boot up our component structure

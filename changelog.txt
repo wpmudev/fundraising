@@ -3,6 +3,9 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.5.3 =
+Fixed forms not being closed for custom buttons in some configurations
+
 = 2.5.2 =
 Added missing translation
 Unnecessary string removal
