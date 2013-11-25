@@ -21,17 +21,28 @@ jQuery(document).ready( function($) {
 			$(this).progressbar( "option", "value", value);
 		}
 	};
-	
+
 	$('.wdf_rewards .wdf_reward_item').bind('click', function(e) {
 		var _this = $(this);
-		var rel = _this.find('.wdf_level_amount').attr('rel');
-		var pledge = _this.parent().find('input.wdf_pledge_amount');
-		_this.parent().find('input.wdf_pledge_amount').val(rel);
-			
+		if (!_this.hasClass("wdf_reward_item_disabled")) {
+			var rel = _this.find('.wdf_level_amount').attr('rel');
+			if($.isNumeric( rel ))
+				_this.parent().find('input.wdf_pledge_amount').val(rel);
+
+			_this.find('input:radio').prop('checked', true);
+		}
+	});
+
+	$('.wdf_pledge_amount').bind('focusout', function(e) {
+		var _this = $(this);
+		var pledge_amount = _this.val();
+		var reward_amount = _this.parents('.wdf_rewards').find(".wdf_reward_item input:checked").parent().find('.wdf_level_amount').attr('rel');
+		if(pledge_amount < reward_amount)
+			_this.parents('.wdf_rewards').find(".wdf_reward_item input:checked").prop('checked', false);
+
 		_this.find('input:radio').prop('checked', true);
 	});
-	
-	var donate_inputs = $('.wdf_donate_amount');
+
 	$('.wdf_goal_progress').progressbar(prog_default).bind('enterviewport', function() {
 		if($(this).hasClass('not-seen')) {
 			var value = Math.round( parseInt( $(this).attr('total') * 100) ) / parseInt( $(this).attr('goal') );
@@ -43,19 +54,9 @@ jQuery(document).ready( function($) {
 			//Do Nothing
 		}
 	}).bullseye();
-	
+
 	$('.wdf_donate_btn.oneclick').click( function() {
 		$(this).parents('form').trigger('submit');
 		return false;
-	});
-	donate_inputs.bind('focusin focusout focus', function(e) {
-		var _this = $(this);
-		var initVal = _this.val();
-		if(e.type == 'focusin') {
-			
-		} else if(e.type == 'focusout') {
-			
-		} else {
-		}
 	});
 });

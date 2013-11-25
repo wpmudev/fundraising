@@ -88,9 +88,9 @@ tr.wdf_level > td {
 	width: 180px
 }
 .wdf_level_description {
-	
+
 }
-.wdf_level_amount {
+.wdf_level_amount, .wdf_level_limit {
 	width: 100px;
 }
 .wdf_level_reward {
@@ -104,7 +104,7 @@ th.wdf_level_reward {
 	text-align: center;
 }
 .wdf_level_description {
-	
+
 }
 .wdf_level_amount input {
 	width: 75px;
@@ -138,7 +138,7 @@ td.column-funder_raised .wdf_complete {
 	font-weight: bold;
 }
 #wdf_progress .ui-progressbar-value.wdf_complete {
-	
+
 }
 #wdf_steps li {
     line-height: 30px;
@@ -153,7 +153,7 @@ td.column-funder_raised .wdf_complete {
 	width: 100%;
 }
 .post-new-php .donationstutorial-pointer.wp-pointer-right {
-	
+
 }
 .column-funder_raised {
 	width: 150px;
@@ -167,7 +167,7 @@ td.column-funder_raised .wdf_complete {
 td.column-funder_pledges {
 	vertical-align: middle;
 }
-#wdf_thanks_custom {
+#wdf_thanks_custom, #wdf_collect_address_message {
 	width: 100%;
 	height: 100px;
 }
@@ -200,7 +200,7 @@ td.wdf_goal_end_date input {
 .wdf_widget_highlite.widget {
 	border-color: #003!important;
 }
-.wdf_widget_highlite .widget-top { 
+.wdf_widget_highlite .widget-top {
 	color: white!important;
 	text-shadow: 0 -1px 0 #000000!important;
 	border-color: #003!important;

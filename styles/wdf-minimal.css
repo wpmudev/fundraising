@@ -79,9 +79,11 @@
 .wdf-minimal .wdf_bp_show_on_activity {
 
 }
-.wdf-minimal.wdf_checkout_form .wdf_reward_choice .wdf_level_amount {
-	font-size: 2em;
+.wdf-minimal .wdf_reward_item {
 	cursor: pointer;
+}
+.wdf-minimal .wdf_reward_item_disabled {
+	cursor: default !important;
 }
 .wdf_fundraiser_panel.wdf-minimal .wdf_reward_item {
 	padding: 5px;
@@ -93,4 +95,17 @@
 .wdf-minimal .ui-progressbar{
 	height: 1em;
 	margin: 10px 0 0 0;
+}
+
+.wdf-minimal .wdf_reward_limit {
+	font-size: 0.7em;
+	font-weight: normal;
+	background: #fff7ce;
+	display: inline-block;
+	padding: 2px 4px;
+	color: #000;
+	margin: 2px;
+}
+.wdf-minimal .wdf_reward_limit_gone {
+	background: #f7d4d4;
 }

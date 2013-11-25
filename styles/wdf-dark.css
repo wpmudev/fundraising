@@ -114,9 +114,11 @@
 .wdf-dark .wdf_bp_show_on_activity {
 
 }
-.wdf-dark.wdf_checkout_form .wdf_reward_choice .wdf_level_amount {
-	font-size: 2em;
+.wdf-dark .wdf_reward_item {
 	cursor: pointer;
+}
+.wdf-dark .wdf_reward_item_disabled {
+	cursor: default !important;
 }
 .wdf-dark .wdf_checkout_form .wdf_reward_choice input[type="radio"] {
 	float: left;
@@ -130,4 +132,17 @@
 	margin: 10px 0 0 0;
 	background: #444;
 	border: 1px solid #111;
+}
+.wdf-dark .wdf_reward_limit {
+	font-size: 0.7em;
+	font-weight: normal;
+	background: #787f2c;
+	display: inline-block;
+	padding: 2px 4px;
+	border-radius: 5px;
+	color: #fff;
+	margin: 2px;
+}
+.wdf-dark .wdf_reward_limit_gone {
+	background: #7c2b2b;
 }

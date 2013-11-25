@@ -505,7 +505,7 @@ if(!function_exists('wdf_gateway_choices')) {
 			$content .= '<div class="wdf_payment_options_title">Payment Options</div>';
 			$content .= '<div class="wdf_payment_options">';
 			foreach($wdf_gateway_active_plugins as $gateway => $data) {
-				$content .= '<label><input type="radio" name="wdf_gateway" value="'.$gateway.'" '.checked( $gateway, $default, false ).'/>'.$data->public_name.'</label>';
+				$content .= '<label> <input type="radio" name="wdf_gateway" value="'.$gateway.'" '.checked( $gateway, $default, false ).'/> '.$data->public_name.'</label> ';
 			}
 			$content .= '</div>';
 		} else {
@@ -555,16 +555,29 @@ if(!function_exists('wdf_checkout_page')) {
 					$content .= apply_filters('wdf_before_rewards_title','');
 						$level = maybe_unserialize($meta['wdf_levels'][0]);
 						foreach($level as $index => $data) {
+							$disabled_class = '';
+							if(isset($data['limit']) && is_numeric($data['limit'])) {
+								$reward_left = $data['limit'] - (isset($data['used']) ? $data['used'] : 0);
+								if($reward_left)
+									$limit_text = ' <span class="wdf_reward_limit">'.__('Limited','wdf').' ('.$reward_left.__(' left of ','wdf').$data['limit'].')'.'</span>';
+
+								else {
+									$limit_text = ' <span class="wdf_reward_limit wdf_reward_limit_gone">'.__('All gone.','wdf').'</span>';
+									$disabled_class = ' wdf_reward_item_disabled';
+								}
+							}
+							else
+								$limit_text = '';
+
 							$content .= '
-							<div class="wdf_reward_item">
-								<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="'.$index.'" /><span class="wdf_level_amount" rel="'.$data['amount'].'">'.$wdf->format_currency('',$data['amount']).'</span></div>
+							<div class="wdf_reward_item'.$disabled_class.'">
+								<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="'.$index.'" /><span class="wdf_level_amount" rel="'.$data['amount'].'"> '.$wdf->format_currency('',$data['amount']).$limit_text.'</span></div>
 								<div class="wdf_reward_description">'.html_entity_decode($data['description']).'</div>
 							</div>';
 						}
 						$content .= '
 						<div class="wdf_reward_item">
-							<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="none" /></div>
-							<div class="wdf_reward_description">'.apply_filters('wdf_no_reward_description',__('None','wdf')).'</div>
+							<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="none" /><span class="wdf_level_amount"> '.apply_filters('wdf_no_reward_description',__('None','wdf')).'</span></div>
 						</div>';
 				}
 				$content .= '</div>';
@@ -657,9 +670,9 @@ if(!function_exists('wdf_pledge_button')) {
 			if(!empty($args['widget_args']['donation_amount']) && isset($args['widget_args']['donation_amount'])) {
 				$content .= '<input type="hidden" name="amount" value="'.$wdf->filter_price($args['widget_args']['donation_amount']).'" />';
 				$content .= '<label>Donate ';
-				$content .= ($settings['curr_symbol_position'] == 1 || $settings['curr_symbol_position'] == 2 ? '<span class="currency">'.$wdf->format_currency().'</span>' : '');
+				$content .= ($settings['curr_symbol_position'] == 1 || $settings['curr_symbol_position'] == 2 ? '<span class="currency">'.$wdf->format_currency().' </span>' : '');
 				$content .= $wdf->filter_price($args['widget_args']['donation_amount']);
-				$content .= ($settings['curr_symbol_position'] == 3 || $settings['curr_symbol_position'] == 4 ? '<span class="currency">'.$wdf->format_currency().'</span>' : '');
+				$content .= ($settings['curr_symbol_position'] == 3 || $settings['curr_symbol_position'] == 4 ? '<span class="currency">'.$wdf->format_currency().' </span>' : '');
 				$content .= '</label><br />';
 			}
 
@@ -688,7 +701,7 @@ if(!function_exists('wdf_pledge_button')) {
 				//Use Custom Submit Button
 				wp_enqueue_style('wdf-style-'.$args['widget_args']['style']);
 				$button_text = (!empty($args['widget_args']['button_text']) ? esc_attr($args['widget_args']['button_text']) : __('Donate Now','wdf'));
-				$content .= '<input class="wdf_send_pledge" type="submit" name="submit" value="'.$button_text.'" />';
+				$content .= '<input class="wdf_send_pledge" type="submit" name="submit" value="'.$button_text.'" /> ';
 				$content .= '</form>';
 			}
 		} else {
@@ -697,14 +710,14 @@ if(!function_exists('wdf_pledge_button')) {
 			$content .= '<input type="hidden" name="funder_id" value="'.$post_id.'" />';
 			$content .= '<input type="hidden" name="send_nonce" value="'.wp_create_nonce('send_nonce_'.$post_id).'" />';
 			$content .= '<div class="wdf_custom_donation_label">'.apply_filters('wdf_choose_amount_label',__('Choose An Amount','wdf')).'</div>';
-			$content .= ($settings['curr_symbol_position'] == 1 || $settings['curr_symbol_position'] == 2 ? '<span class="currency">'.$wdf->format_currency().'</span>' : '');
-			$content .= '<input type="text" name="wdf_pledge" class="wdf_pledge_amount" value="" />';
-			$content .= ($settings['curr_symbol_position'] == 3 || $settings['curr_symbol_position'] == 4 ? '<span class="currency">'.$wdf->format_currency().'</span>' : '');
+			$content .= ($settings['curr_symbol_position'] == 1 || $settings['curr_symbol_position'] == 2 ? '<span class="currency">'.$wdf->format_currency().' </span>' : '');
+			$content .= '<input type="text" name="wdf_pledge" class="wdf_pledge_amount" value="" /> ';
+			$content .= ($settings['curr_symbol_position'] == 3 || $settings['curr_symbol_position'] == 4 ? '<span class="currency">'.$wdf->format_currency().' </span>' : '');
 
 			if(isset($meta['wdf_recurring'][0]) && $meta['wdf_recurring'][0] == 'yes' && isset($meta['wdf_type'][0]) && $meta['wdf_type'][0] == 'simple') {
 				$content .= '
-				<label>'.__('Make this donation','wdf').' </label>
-				<select name="wdf_recurring">
+				<label class="wdf_recurring_label">'.__('Make this donation','wdf').' </label>
+				<select class="wdf_recurring_select" name="wdf_recurring">
 					<option value="0">'.__('Once','wdf').'</option>
 					<option value="D">'.__('Daily','wdf').'</option>
 					<option value="W">'.__('Weekly','wdf').'</option>

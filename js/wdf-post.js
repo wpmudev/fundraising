@@ -1,5 +1,5 @@
 jQuery(document).ready( function($) {
-	
+
 	var dates = $( "#wdf_goal_start_date, #wdf_goal_end_date" ).datepicker({
 			dateFormat: 'yy-mm-dd',
 			changeMonth: true,
@@ -49,12 +49,12 @@ jQuery(document).ready( function($) {
 			fixDelete();
 			return false;
 	});
-	
+
 	$('.postbox-container').on('click', "#tooltip_submit", function(){
 		$('#publish').trigger('click');
 		return false;
 	});
-	
+
 	function fixDelete() {
 		if($('#wdf_levels_table tbody .wdf_level').length < 1){
 			return false;
@@ -63,14 +63,14 @@ jQuery(document).ready( function($) {
 		$('#wdf_levels_table tbody .wdf_level:last').addClass('last');
 		fixInputs();
 	}
-	
+
 	function returnNameIndex(string) {
 		if($('#wdf_levels_table tr.wdf_level').length > 9)
 			return string.substr(12,2);
 		else
 			return string.substr(12,1);
 	}
-	
+
 	$('.wdf_actvity_level').hover( function() {
 		$(this).find('td:last a').show();
 	}, function() {
@@ -82,10 +82,10 @@ jQuery(document).ready( function($) {
 			$(this).progressbar( "option", "value", Math.round( parseInt( $(this).attr('total') * 100) ) / parseInt( $(this).attr('goal') ) );
 		}
 	});
-	
+
 	function fixInputs() {
 		var input_switches = $('.wdf_input_switch');
-		
+
 		$.each(input_switches, function(i,elm) {
 			if(elm.localName == 'textarea') {
 				var current = $(elm).html();
@@ -93,7 +93,7 @@ jQuery(document).ready( function($) {
 				var current = $(elm).val();
 			}
 			$(elm).bind('focusin focusout', function(e) {
-				
+
 				if(e.type == 'focusout') {
 					$(elm).prev('.wdf_bignum').addClass('wdf_disabled');
 				} else {
@@ -104,7 +104,7 @@ jQuery(document).ready( function($) {
 	}
 	//run fix_inputs() on load
 	fixInputs();
-	
+
 	$('select.wdf_toggle').bind('change', function(e) {
 		var rel = $(this).attr('rel');
 		var val = $(this).val();
@@ -112,6 +112,13 @@ jQuery(document).ready( function($) {
 			var elm = $('*[rel="'+rel+'"]').not(this);
 			elm.show();
 		} else if(rel == 'wdf_has_reward') {
+			var elm = $('*[rel="'+rel+'"]').not(this);
+			if(val == '1') {
+				elm.show();
+			} else {
+				elm.hide();
+			}
+		} else if(rel == 'wdf_collect_address') {
 			var elm = $('*[rel="'+rel+'"]').not(this);
 			if(val == '1') {
 				elm.show();
@@ -137,5 +144,5 @@ jQuery(document).ready( function($) {
 				$('*[rel="'+rel+'"]').not(this).hide();
 		}
 	});
-	
+
 });

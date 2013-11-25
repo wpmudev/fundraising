@@ -1,10 +1,10 @@
 <?php
 $settings = get_option('wdf_settings');
-				
+
 if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/lib/external/class.wd_help_tooltips.php';
 	$tips = new WpmuDev_HelpTooltips();
 	$tips->set_icon_url(WDF_PLUGIN_URL.'/img/information.png');
-	
+
 	$tabs = array(
 		'payments' => __('Payments','wdf'),
 		'presentation' => __('Presentation','wdf'),
@@ -13,15 +13,15 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 	);
 	if( defined('WDF_ALLOW_RESET') && WDF_ALLOW_RESET == true )
 		$tabs['reset'] = __('Reset','wdf');
-	
+
 	if(!isset($_GET['tab']))
 		$active_tab = 'payments';
 	else
 		$active_tab = $_GET['tab'];
-	
+
 	$tabs = apply_filters('wdf_settings_tabs',$tabs);
 	$active_tab = apply_filters('wdf_settings_active_tab',$active_tab);
-	
+
 ?>
 <div class="wrap">
 	<div id="icon-wdf-admin" class="icon32"><br></div>
@@ -35,10 +35,10 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 				<?php endforeach; ?>
 			</h3>
 			<?php echo apply_filters('wdf_error_wdf_nonce',''); ?>
-				
+
 				<div>
 					<?php switch($active_tab) {
-						
+
 						case 'presentation' : ?>
 							<table class="form-table" id="wdf_label_settings">
 								<tbody>
@@ -74,7 +74,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									</tr>
 								</tbody>
 							</table>
-							
+
 							<h3><?php _e('Level / Reward Labels','wdf'); ?></h3>
 							<span class="description"><?php _e('This is used to describe suggested payment levels','wdf'); ?></span>
 							<table class="form-table" id="wdf_label_settings">
@@ -101,7 +101,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 							<span class="description"><?php _e('Each fundraising project will be labeled with these','wdf'); ?></span>
 							<table class="form-table" id="wdf_label_settings">
 								<tbody>
-									
+
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Singular Name','wdf'); ?></label>
@@ -110,7 +110,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<input type="text" name="wdf_settings[funder_labels][singular_name]" value="<?php echo esc_attr($settings['funder_labels']['singular_name']); ?>" />
 										</td>
 									</tr>
-									
+
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Plural Name','wdf'); ?></label>
@@ -119,10 +119,10 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<input type="text" name="wdf_settings[funder_labels][plural_name]" value="<?php echo esc_attr($settings['funder_labels']['plural_name']); ?>" />
 										</td>
 									</tr>
-									
+
 								</tbody>
 							</table>
-							
+
 							<h3><?php _e('Pledge Labels','wdf'); ?></h3>
 							<span class="description"><?php _e('Any payment made towards a fundraiser will use this label','wdf'); ?></span>
 							<table class="form-table" id="wdf_label_settings">
@@ -191,7 +191,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 							</table>
 							<h3><?php _e('Style Settings','wdf'); ?></h3>
 							<table class="form-table">
-								<tbody>											
+								<tbody>
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Choose a default display style','wdf'); ?></label>
@@ -206,7 +206,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											</select>
 										</td>
 									</tr>
-									
+
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Allow per fundraiser styles','wdf'); ?></label>
@@ -218,9 +218,9 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											</select><?php echo $tips->add_tip(__('Allowing this option will allow each fundraiser to override your site\'s default styles','wdf')); ?>
 										</td>
 									</tr>
-									
-									
-									
+
+
+
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Custom CSS','wdf'); ?></label><?php echo $tips->add_tip(__('CSS styles saved in this box will be loaded on any page containing fundraising content. Do not use '.esc_js('<style>').' tags in this box.','wdf')); ?>
@@ -229,20 +229,20 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<textarea rows="15" class="widefat" id="wdf_custom_css" name="wdf_settings[custom_css]"><?php echo esc_attr($settings['custom_css']); ?></textarea>
 										</td>
 									</tr>
-									
-									
+
+
 								</tbody>
 							</table>
 
-						<?php break;			
+						<?php break;
 						case 'other' : ?>
-													
+
 							<h3><?php _e('Permalink Settings','wdf'); ?></h3>
 							<table class="form-table" id="wdf_permalink_settings">
 								<tbody>
-									
+
 									<?php if(!get_option('permalink_structure')) : ?>
-									
+
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Fundraising Permalink Structure','wdf'); ?></label>
@@ -251,33 +251,33 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<div class="error below-h2"><p><?php _e('You Need To Setup Your Permalink Structure Before Setting Your Donations Slugs','wdf'); ?></p></div>
 										</td>
 									</tr>
-									
+
 									<?php else : ?>
-									
+
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Fundraising Directory Location','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url().$front_permlink; ?>/</span><input id="wdf_dir_slug" type="text" name="wdf_settings[dir_slug]" value="<?php echo esc_attr($settings['dir_slug']); ?>" />
+											<span class="code"><?php echo home_url(); ?>/</span><input id="wdf_dir_slug" type="text" name="wdf_settings[dir_slug]" value="<?php echo esc_attr($settings['dir_slug']); ?>" />
 										</td>
 									</tr>
-									
+
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Checkout Page','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url().$front_permlink.'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_checkout_slug" type="text" name="wdf_settings[checkout_slug]" value="<?php echo esc_attr($settings['checkout_slug']); ?>" />
+											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_checkout_slug" type="text" name="wdf_settings[checkout_slug]" value="<?php echo esc_attr($settings['checkout_slug']); ?>" />
 										</td>
 									</tr>
-									
+
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Thank You Page','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url().$front_permlink.'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_confirm_slug" type="text" name="wdf_settings[confirm_slug]" value="<?php echo esc_attr($settings['confirm_slug']); ?>" />
+											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_confirm_slug" type="text" name="wdf_settings[confirm_slug]" value="<?php echo esc_attr($settings['confirm_slug']); ?>" />
 										</td>
 									</tr>
 									<?php endif; ?>
@@ -286,7 +286,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 							<?php /*?><h3><?php _e('Other Settings','wdf'); ?></h3>
 							<table class="form-table">
 								<tbody>
-									
+
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Add fundraising directory to menu?','wdf'); ?></label>
@@ -298,13 +298,13 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											</select><?php echo $tips->add_tip(__('This option will only work for page menus not custom theme menus','wdf')); ?>
 										</td>
 									</tr>
-								
+
 								</tbody>
 							</table><?php */?>
 
 						<?php break;
 						case 'permissions' : ?>
-													
+
 							<h3><?php _e('Permissions Settings','wdf'); ?></h3>
 							<p><?php _e('Controll access to fundraising features for every user role available in your WP installation. Administrator gets access to all of them by default.','wdf'); ?></p>
 						<table id="wdf_permissions" class="widefat">
@@ -319,7 +319,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 								</tr>
 							</thead>
 
-							<tbody>						
+							<tbody>
 								<?php foreach($wp_roles->get_names() as $name => $label) : ?>
 									<?php if($name == 'administrator') continue; ?>
 									<tr>
@@ -334,7 +334,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 						</table>
 
 						<input type="hidden" value="1" name="wdf_settings[user_caps][viewed]" />
-											
+
 						<?php break;
 						case 'payments' : ?>
 
@@ -347,7 +347,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</th>
 										<td>
 											<select id="wdf_settings_currency" name="wdf_settings[currency]">
-											
+
 												<?php foreach ($this->currencies as $key => $value) { ?>
 													<option value="<?php echo $key; ?>"<?php selected($settings['currency'], $key); ?>><?php echo esc_attr($value[0]) . ' - ' . $this->format_currency($key); ?></option>
 												<?php } ?>
@@ -383,7 +383,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 								</tbody>
 							</table>
 							<h3><?php _e('Allowed Fundraiser Types','wdf'); ?></h3>
-		
+
 							<table class="form-table">
 								<tbody>
 									<tr valign="top">
@@ -406,7 +406,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 									</tr>
 								</tbody>
 							</table>
-							
+
 							<?php if(isset($settings['payment_types']) && !empty($settings['payment_types']) ) : ?>
 								<?php global $wdf_gateway_plugins, $wdf_gateway_active_plugins; ?>
 								<?php if( is_array($wdf_gateway_plugins) ): ?>
@@ -421,13 +421,13 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 														$flag = true;
 												} ?>
 												<?php if($flag != false) : ?>
-												<?php 
-												
+												<?php
+
 												$checked = isset($settings['active_gateways'][$gateway]) ? checked($settings['active_gateways'][$gateway],'1' , false) : '';
-												
+
 												if(!empty($checked))
 													$getaways_select[$gateway] = $data[1];
-												
+
 												?>
 												<tr valign="top">
 													<th scope="row">
@@ -447,7 +447,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 													</th>
 													<td>
 														<select name="wdf_settings[default_gateway]">
-															<?php 
+															<?php
 															$settings['default_gateway'] = isset($settings['default_gateway']) ? $settings['default_gateway'] : 'paypal';
 															$this->the_select_options( $getaways_select, $settings['default_gateway']);
 															?>
@@ -458,7 +458,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</tbody>
 									</table>
 								<?php endif; ?>
-								
+
 								<?php if( is_array($wdf_gateway_active_plugins) ) : ?>
 									<?php foreach( $wdf_gateway_active_plugins as $gateway => $data) : ?>
 										<?php if( isset( $settings['active_gateways'][$gateway]) ) : ?>
@@ -467,12 +467,12 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										<?php endif; ?>
 									<?php endforeach; ?>
 								<?php endif; ?>
-							
+
 							<?php endif; ?>
 						<?php break;
-						
+
 						case 'reset' : ?>
-							
+
 							<table class="form-table">
 									<tbody>
 										<tr valign="top">
@@ -485,18 +485,18 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</tr>
 									</tbody>
 							</table>
-							
-						
+
+
 						<?php break;
 						case 'default' :
-							
-							do_action('wdf_settings_custom_tab_'.$k,$settings);	
-						
+
+							do_action('wdf_settings_custom_tab_'.$k,$settings);
+
 							break;
-					
+
 					} ?>
-					
-				</div>			
+
+				</div>
 				<p class="submit"><input type="submit" value="Save Changes" class="button-primary" name="save_settings" /></p>
 			</form>
 	<script type="text/javascript">

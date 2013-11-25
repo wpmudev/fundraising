@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPMU Fundraising\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-24 13:51+0100\n"
-"PO-Revision-Date: 2013-08-24 13:59+0100\n"
+"POT-Creation-Date: 2013-11-25 12:49+0100\n"
+"PO-Revision-Date: 2013-11-25 12:49+0100\n"
 "Last-Translator: Cole <cole@imakethe.com>\n"
 "Language-Team: Incsub <cole@incsub.com>\n"
 "Language: en_US\n"
@@ -14,815 +14,1604 @@ msgstr ""
 "X-Poedit-Basepath: C:\\Programs Portable\\xampp\\htdocs\\wordpress-incsub"
 "\\wp-content\\plugins\\fundraising\\\n"
 "X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SearchPath-0: C:\\Programs Portable\\xampp\\htdocs\\wordpress-incsub"
+"\\wp-content\\plugins\\fundraising\n"
 
-#: lib/form.blog_dashboard.php:3
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:50
+msgid ""
+"There was an issue determining where the Fundraising plugin is installed. "
+"Please reinstall."
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:78
+msgid "fundraisers"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:81
+msgid "pledge"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:82
+msgid "thank-you"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:83
+msgid "activity"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:98
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-loader.php:53
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-loader.php:262
+msgid "Fundraising"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:99
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:117
+msgid "Fundraiser"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:100
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:973
+msgid "Fundraisers"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:101
+msgid "Reward"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:102
+msgid "Rewards"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:105
+msgid "Backer"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:106
+msgid "Backers"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:107
+msgid "Pledge"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:108
+msgid "Pledges"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:109
+msgid "Back This Project"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:113
+msgid "Add and manage users's fundraisers"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:114
+msgid "Manage all fundraisers"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:115
+msgid "Manage pledges"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:116
+msgid "Edit settings"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:233
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:236
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:258
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:261
+msgid "New "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:234
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:259
+msgid "Add New "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:235
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:260
+msgid "Edit "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:237
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:262
+msgid "All "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:238
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:263
+msgid "View "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:239
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:264
+msgid "Search "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:240
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:241
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:265
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:266
+msgid "No "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:347
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:35
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:162
+msgid "Approved"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:357
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:34
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:161
+msgid "Complete"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:367
+msgid "Cancled"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:377
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:36
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:416
+msgid "Refunded"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:712
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:85
+msgid "Basic"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:715
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:86
+msgid "Dark"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:718
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:87
+msgid "Fresh"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:721
+msgid "Minimal"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:724
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:88
+msgid "Note"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:736
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:89
+msgid "None (Custom CSS)"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:850
+msgid "Could not determine pledge type."
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:853
+msgid "Please choose a payment method."
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:856
+msgid "Fundraiser could not be determined."
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:867
+msgid "You have not made a pledge yet."
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:999
+#, php-format
+msgid "%s Type"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1016
+#, php-format
+msgid "%s Progress"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1018
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1053
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:28
+#, php-format
+msgid "%s Settings"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1019
+#, php-format
+msgid "Set Your %s Goals"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1021
+msgid "Thank You Message Settings"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1024
+#, php-format
+msgid "%s Activity"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1030
+#, php-format
+msgid "%s Information"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1031
+#, php-format
+msgid "%s Status"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1053
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:465
+msgid "Settings"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1054
+msgid "Getting Started"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1070
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1077
+msgid "You are not allowed to view this page."
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1091
+msgid "Security Check Failed.  Whatchu doing??"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1126
+msgid "donations"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1306
+msgid "Raised"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1308
+msgid "Type"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1309
+msgid "Time Left"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1314
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:534
+msgid "Amount"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1315
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:535
+msgid "Status"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1316
+msgid "Recurring"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1319
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:537
+msgid "Method"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1320
+#, php-format
+msgid "%s ID"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1337
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:50
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:213
+msgid "Donations"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1339
+msgid "Crowdfunding"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1377
+msgid "Reward: "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1408
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:11
+#, php-format
+msgid "%s Button"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1409
+#, php-format
+msgid "%s Form"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1410
+msgid "Progress Bar"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1428
+msgid "Insert Fundraising Shortcodes"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1441
+msgid "Add a progress bar"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1442
+msgid "Only fundraisers that have a goal can display a progress bar"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1449
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1606
+#, php-format
+msgid "Choose a %s"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1453
+#, php-format
+msgid "You have not created any %s yet."
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1467
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1635
+msgid "Show Title"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1471
+msgid "Show Totals"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1475
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1622
+msgid "Choose a style"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1479
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1626
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:136
+msgid "Default"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1489
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1576
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1644
+msgid "Insert Shortcode"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1507
+msgid "Add a donation button"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1512
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:65
+msgid "Default PayPal Button"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1513
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:66
+msgid "Custom Button"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1519
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:47
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:124
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:69
+msgid "Title"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1526
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:48
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:73
+msgid "Description"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1532
+#, php-format
+msgid "%s Amount"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1532
+msgid "(blank = choice)"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1538
+msgid "Choose a Style"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1552
+msgid "Button Text"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1558
+msgid "Paypal Options"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1561
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:100
+msgid "Show Accepted Credit Cards"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1562
+msgid "Allow special instruction field"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1563
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:102
+msgid "Use Small Button"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1568
+msgid "PayPal Email"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1568
+msgid "defaults to settings"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1598
+msgid "Add A Fundraising Form"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1610
+#, php-format
+msgid "You have not created any %s yet"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1639
+msgid "Show Content"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:3
 msgid "Getting Started Guide"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:4
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:4
 msgid "The Fundraising plugin can help you fund your important projects."
 msgstr ""
 
-#: lib/form.blog_dashboard.php:9
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:9
 msgid "First Time Setup Guide"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:12
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:12
 msgid "Welcome to the Fundraising Plugin!"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:15
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:15
 msgid ""
 "Configure your settings to start taking simple donations or setup advanced "
 "payments to start your own crowdfunding page."
 msgstr ""
 
-#: lib/form.blog_dashboard.php:15
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:15
 msgid "Configure Settings"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:16
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:16
 msgid "Create your first fundraiser, set a goal, and choose a display style."
 msgstr ""
 
-#: lib/form.blog_dashboard.php:16
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:16
 msgid "Create A Fundraiser"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:17
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:17
 msgid "Choose your presentation style using available widgets or shortcodes."
 msgstr ""
 
-#: lib/form.blog_dashboard.php:17
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:17
 msgid "View All Widgets"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:24
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:24
 msgid "Available Shortcodes"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:29
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:29
 msgid "Fundraiser Panel"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:30
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:30
 msgid ""
 "The fundraiser panel displays relevant information about a particular "
 "fundraiser like: Total Pledges, Goal Information, and links to the pledge "
 "checkout page."
 msgstr ""
 
-#: lib/form.blog_dashboard.php:32
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:32
 msgid "The ID of the fundraiser you wish to display"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:33 lib/form.blog_dashboard.php:55
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:33
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:55
 msgid ""
 "A valid loaded style name. This will use the default fundraiser style if no "
 "style is given."
 msgstr ""
 
-#: lib/form.blog_dashboard.php:34
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:34
 msgid "(Yes/No) Shows the title of the fundraiser above the panel"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:35
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:35
 msgid "(Yes/No) Shows the post content of the fundraiser above the panel"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:38
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:38
 msgid "Simple Donate Button"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:39
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:39
 msgid ""
 "The simple donation button allows you to take simple paypal donations with "
 "one click."
 msgstr ""
 
-#: lib/form.blog_dashboard.php:51
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:51
 msgid "Fundraiser Progress Bar"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:52
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:52
 msgid "Display a progress bar for a particular fundraiser."
 msgstr ""
 
-#: lib/form.blog_dashboard.php:54
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:54
 msgid "The ID of the fundraiser you wish to display a progress bar for."
 msgstr ""
 
-#: lib/form.blog_dashboard.php:56
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:56
 msgid ""
 "(Yes/No) Shows the title of the fundraiser above the progress bar - Default: "
 "no"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:57
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:57
 msgid ""
 "(Yes/No) Shows the fundraising goal and amount raised above the progress "
 "bar. - Default: no"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:65
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:65
 msgid "Need Help?"
 msgstr ""
 
-#: lib/form.blog_dashboard.php:68
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_dashboard.php:68
 msgid "Restart the getting started walkthrough?"
 msgstr ""
 
-#: lib/form.blog_settings.php:9
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:9
 msgid "Payments"
 msgstr ""
 
-#: lib/form.blog_settings.php:10
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:10
 msgid "Presentation"
 msgstr ""
 
-#: lib/form.blog_settings.php:11
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:11
 msgid "Permissions"
 msgstr ""
 
-#: lib/form.blog_settings.php:12
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:12
 msgid "Other"
 msgstr ""
 
-#: lib/form.blog_settings.php:15
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:15
 msgid "Reset"
 msgstr ""
 
-#: lib/form.blog_settings.php:28
-#, php-format
-msgid "%s Settings"
-msgstr ""
-
-#: lib/form.blog_settings.php:47
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:47
 msgid "Plugin Menu Name"
 msgstr ""
 
-#: lib/form.blog_settings.php:55
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:55
 msgid "Supporter Labels"
 msgstr ""
 
-#: lib/form.blog_settings.php:56
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:56
 msgid "Used to describe someone who makes a payment"
 msgstr ""
 
-#: lib/form.blog_settings.php:61
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:61
 msgid "Single Supporter"
 msgstr ""
 
-#: lib/form.blog_settings.php:69
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:69
 msgid "Multiple Supporters"
 msgstr ""
 
-#: lib/form.blog_settings.php:78
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:78
 msgid "Level / Reward Labels"
 msgstr ""
 
-#: lib/form.blog_settings.php:79
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:79
 msgid "This is used to describe suggested payment levels"
 msgstr ""
 
-#: lib/form.blog_settings.php:84
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:84
 msgid "Singlular Level"
 msgstr ""
 
-#: lib/form.blog_settings.php:92
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:92
 msgid "Plural Level"
 msgstr ""
 
-#: lib/form.blog_settings.php:100
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:100
 msgid "Fundraiser Labels"
 msgstr ""
 
-#: lib/form.blog_settings.php:101
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:101
 msgid "Each fundraising project will be labeled with these"
 msgstr ""
 
-#: lib/form.blog_settings.php:107 lib/form.blog_settings.php:140
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:107
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:140
 msgid "Singular Name"
 msgstr ""
 
-#: lib/form.blog_settings.php:116 lib/form.blog_settings.php:148
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:116
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:148
 msgid "Plural Name"
 msgstr ""
 
-#: lib/form.blog_settings.php:126
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:126
 msgid "Pledge Labels"
 msgstr ""
 
-#: lib/form.blog_settings.php:127
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:127
 msgid "Any payment made towards a fundraiser will use this label"
 msgstr ""
 
-#: lib/form.blog_settings.php:156
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:156
 msgid "Action Name"
 msgstr ""
 
-#: lib/form.blog_settings.php:156
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:156
 msgid ""
 "This is describing the action of making a payment.  It is used as a call to "
 "action for making a payment."
 msgstr ""
 
-#: lib/form.blog_settings.php:164
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:164
 msgid "Checkout Presentation"
 msgstr ""
 
-#: lib/form.blog_settings.php:165
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:165
 msgid ""
 "An eloborated checkout page allows backers to view additional information "
 "about your fundraiser.  Checking out directly from the fundraising panel "
 "will begin the payment process immediately"
 msgstr ""
 
-#: lib/form.blog_settings.php:170
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:170
 msgid "Choose a default checkout type"
 msgstr ""
 
-#: lib/form.blog_settings.php:174 lib/form.meta_boxes.php:267
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:174
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:300
 msgid "Checkout directly from panel"
 msgstr ""
 
-#: lib/form.blog_settings.php:175 lib/form.meta_boxes.php:268
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:175
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:301
 msgid "Use elaborated checkout page"
 msgstr ""
 
-#: lib/form.blog_settings.php:181
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:181
 msgid "Allow per fundraiser checkout types?"
 msgstr ""
 
-#: lib/form.blog_settings.php:185 lib/form.blog_settings.php:216
-#: lib/form.blog_settings.php:266 lib/form.blog_settings.php:397
-#: lib/form.meta_boxes.php:250 lib/form.meta_boxes.php:334
-#: lib/form.meta_boxes.php:371 lib/form.meta_boxes.php:534
-#: lib/bp/bp-wdf-notifications.php:52
-#: lib/widgets/widget.fundraiser_panel.php:146
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:185
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:216
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:380
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:283
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:367
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:405
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:500
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:510
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:585
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:52
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:146
 msgid "No"
 msgstr ""
 
-#: lib/form.blog_settings.php:186 lib/form.blog_settings.php:217
-#: lib/form.blog_settings.php:265 lib/form.blog_settings.php:395
-#: lib/form.meta_boxes.php:249 lib/form.meta_boxes.php:335
-#: lib/form.meta_boxes.php:372 lib/form.meta_boxes.php:535
-#: lib/bp/bp-wdf-notifications.php:51
-#: lib/widgets/widget.fundraiser_panel.php:147
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:186
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:217
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:378
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:282
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:368
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:406
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:501
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:511
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:586
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:51
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:147
 msgid "Yes"
 msgstr ""
 
-#: lib/form.blog_settings.php:192
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:192
 msgid "Style Settings"
 msgstr ""
 
-#: lib/form.blog_settings.php:197
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:197
 msgid "Choose a default display style"
 msgstr ""
 
-#: lib/form.blog_settings.php:212
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:212
 msgid "Allow per fundraiser styles"
 msgstr ""
 
-#: lib/form.blog_settings.php:218
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:218
 msgid ""
 "Allowing this option will allow each fundraiser to override your site's "
 "default styles"
 msgstr ""
 
-#: lib/form.blog_settings.php:226
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:226
 msgid "Custom CSS"
 msgstr ""
 
-#: lib/form.blog_settings.php:226
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:226
 msgid ""
 "CSS styles saved in this box will be loaded on any page containing "
 "fundraising content. Do not use "
 msgstr ""
 
-#: lib/form.blog_settings.php:240
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:240
 msgid "Permalink Settings"
 msgstr ""
 
-#: lib/form.blog_settings.php:248
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:248
 msgid "Fundraising Permalink Structure"
 msgstr ""
 
-#: lib/form.blog_settings.php:251
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:251
 msgid ""
 "You Need To Setup Your Permalink Structure Before Setting Your Donations "
 "Slugs"
 msgstr ""
 
-#: lib/form.blog_settings.php:262
-msgid "Enable \"front\" in permlinks"
-msgstr ""
-
-#: lib/form.blog_settings.php:276
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:259
 msgid "Fundraising Directory Location"
 msgstr ""
 
-#: lib/form.blog_settings.php:285
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:268
 msgid "Checkout Page"
 msgstr ""
 
-#: lib/form.blog_settings.php:294
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:277
 msgid "Thank You Page"
 msgstr ""
 
-#: lib/form.blog_settings.php:325
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:308
 msgid "Permissions Settings"
 msgstr ""
 
-#: lib/form.blog_settings.php:326
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:309
 msgid ""
 "Controll access to fundraising features for every user role available in "
 "your WP installation. Administrator gets access to all of them by default."
 msgstr ""
 
-#: lib/form.blog_settings.php:330
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:313
 msgid "User Role"
 msgstr ""
 
-#: lib/form.blog_settings.php:358
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:341
 msgid "Currency Settings"
 msgstr ""
 
-#: lib/form.blog_settings.php:363
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:346
 msgid "Set Your Currency"
 msgstr ""
 
-#: lib/form.blog_settings.php:376
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:359
 msgid "Currency Symbol Position"
 msgstr ""
 
-#: lib/form.blog_settings.php:391
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:374
 msgid "Show Decimal in Prices"
 msgstr ""
 
-#: lib/form.blog_settings.php:402
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:385
 msgid "Allowed Fundraiser Types"
 msgstr ""
 
-#: lib/form.blog_settings.php:408 lib/form.meta_boxes.php:231
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:391
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:264
 msgid "Simple Donations"
 msgstr ""
 
-#: lib/form.blog_settings.php:417 lib/form.meta_boxes.php:231
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:400
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:264
 msgid "Advanced Crowdfunding"
 msgstr ""
 
-#: lib/form.blog_settings.php:421
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:404
 msgid ""
 "Crowdfunding allows you to create fundraisers with Goals & Rewards.  "
 "Payments for advanced crowdfunding are not processed until the goal has been "
 "reached."
 msgstr ""
 
-#: lib/form.blog_settings.php:430
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:413
 msgid "Available Payment Gateways"
 msgstr ""
 
-#: lib/form.blog_settings.php:463
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:446
 msgid "Default Getaway"
 msgstr ""
 
-#: lib/form.blog_settings.php:482
-msgid "Settings"
-msgstr ""
-
-#: lib/form.blog_settings.php:497
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:480
 msgid "Reset your installation to the default settings?"
 msgstr ""
 
-#: lib/form.meta_boxes.php:7
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:7
 msgid "Add Archive Page To Menu"
 msgstr ""
 
-#: lib/form.meta_boxes.php:30
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:30
 msgid "Gateway Status"
 msgstr ""
 
-#: lib/form.meta_boxes.php:32
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:32
 msgid "Pledge Status"
 msgstr ""
 
-#: lib/form.meta_boxes.php:34 lib/gateways/manual.php:120
-msgid "Complete"
-msgstr ""
-
-#: lib/form.meta_boxes.php:35 lib/gateways/manual.php:121
-msgid "Approved"
-msgstr ""
-
-#: lib/form.meta_boxes.php:36 lib/gateways/paypal.php:342
-msgid "Refunded"
-msgstr ""
-
-#: lib/form.meta_boxes.php:37 lib/gateways/manual.php:122
-#: lib/gateways/paypal.php:281
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:37
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:163
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:352
 msgid "Canceled"
 msgstr ""
 
-#: lib/form.meta_boxes.php:53
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:53
 msgid ""
 "You have not made any fundraisers yet.  You must create a fundraiser to make "
 "a pledge to."
 msgstr ""
 
-#: lib/form.meta_boxes.php:61
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:61
 msgid "Choose The Fundraiser"
 msgstr ""
 
-#: lib/form.meta_boxes.php:75
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:75
 msgid "First & Last Name"
 msgstr ""
 
-#: lib/form.meta_boxes.php:83
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:83
 msgid "Email Address"
 msgstr ""
 
-#: lib/form.meta_boxes.php:91
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:91
 msgid "Donation Amount"
 msgstr ""
 
-#: lib/form.meta_boxes.php:99 lib/form.meta_boxes.php:142
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:99
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:174
 msgid "Payment Source"
 msgstr ""
 
-#: lib/form.meta_boxes.php:107
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:107
 msgid "Check/Cash"
 msgstr ""
 
-#: lib/form.meta_boxes.php:117
-msgid "Fundraiser"
-msgstr ""
-
-#: lib/form.meta_boxes.php:122
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:122
 #, php-format
 msgid "You have not made any %s yet."
 msgstr ""
 
-#: lib/form.meta_boxes.php:124
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:124
 #, php-format
 msgid "Not attached to any %s please choose one"
 msgstr ""
 
-#: lib/form.meta_boxes.php:134
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:134
 msgid "From"
 msgstr ""
 
-#: lib/form.meta_boxes.php:134
-msgid "Name:"
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:138
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:141
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:54
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:82
+msgid "Address"
 msgstr ""
 
-#: lib/form.meta_boxes.php:134
-msgid "Email:"
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:140
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:52
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:79
+msgid "Country"
 msgstr ""
 
-#: lib/form.meta_boxes.php:135
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:142
+msgid "Address 2"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:143
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:58
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:86
+msgid "City"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:144
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:60
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:88
+msgid "State"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:145
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:62
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:90
+msgid "Postal/Zip Code"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:149
 msgid "Amount Donated"
 msgstr ""
 
-#: lib/form.meta_boxes.php:136
-msgid "Reward: "
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:169
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:442
+msgid "left"
 msgstr ""
 
-#: lib/form.meta_boxes.php:143
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:175
 msgid "Last Gateway Activity"
 msgstr ""
 
-#: lib/form.meta_boxes.php:144
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:176
 msgid "Transaction ID"
 msgstr ""
 
-#: lib/form.meta_boxes.php:155
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:187
 #, php-format
 msgid "Your %s %s"
 msgstr ""
 
-#: lib/form.meta_boxes.php:159
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:191
 msgid "Amount Raised So Far"
 msgstr ""
 
-#: lib/form.meta_boxes.php:175
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:207
 msgid "Simple Donations: "
 msgstr ""
 
-#: lib/form.meta_boxes.php:176
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:208
 msgid "Allows for a simple continuous donations with no Goals or Rewards"
 msgstr ""
 
-#: lib/form.meta_boxes.php:178
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:210
 msgid "Advanced Crowdfunding: "
 msgstr ""
 
-#: lib/form.meta_boxes.php:179
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:211
 msgid ""
 "Set fundraising goals and rewards.  Pledges are only authorized and payments "
 "are not processed until your goal is reached."
 msgstr ""
 
-#: lib/form.meta_boxes.php:217
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:250
 msgid "Save Fundraising Type"
 msgstr ""
 
-#: lib/form.meta_boxes.php:220
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:253
 msgid "No payment types have been enabled yet."
 msgstr ""
 
-#: lib/form.meta_boxes.php:231
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:264
 msgid "Type : "
 msgstr ""
 
-#: lib/form.meta_boxes.php:235 lib/widgets/widget.fundraiser_panel.php:133
-#: lib/widgets/widget.simple_donation.php:83
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:268
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:133
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:83
 msgid "Choose a display style"
 msgstr ""
 
-#: lib/form.meta_boxes.php:247
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:280
 msgid "Allow Recurring Donations?"
 msgstr ""
 
-#: lib/form.meta_boxes.php:256
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:289
 msgid "Panel Position"
 msgstr ""
 
-#: lib/form.meta_boxes.php:258
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:291
 msgid "Above Content"
 msgstr ""
 
-#: lib/form.meta_boxes.php:259
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:292
 msgid "Below Content"
 msgstr ""
 
-#: lib/form.meta_boxes.php:261
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:294
 msgid ""
 "If you are not using the Fundraiser sidebar widget, choose the position of "
 "your info panel."
 msgstr ""
 
-#: lib/form.meta_boxes.php:265
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:298
 msgid "Checkout Type"
 msgstr ""
 
-#: lib/form.meta_boxes.php:286
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:319
 msgid "You must set a starting date"
 msgstr ""
 
-#: lib/form.meta_boxes.php:291
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:324
 msgid "You must set a ending date that is after the current date"
 msgstr ""
 
-#: lib/form.meta_boxes.php:296
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:329
 msgid "You must set a goal amount greater than at least 1"
 msgstr ""
 
-#: lib/form.meta_boxes.php:303
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:336
 msgid ""
 "Are you sure you are ready to publish?  You will be unable to change your "
 "fundraising type, goals and rewards after publishing."
 msgstr ""
 
-#: lib/form.meta_boxes.php:328
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:361
 msgid "Your fundraising dates, goals and rewards are locked in."
 msgstr ""
 
-#: lib/form.meta_boxes.php:332
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:365
 msgid "Create a crowdfunding goal?"
 msgstr ""
 
-#: lib/form.meta_boxes.php:346
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:379
 msgid "Start Date"
 msgstr ""
 
-#: lib/form.meta_boxes.php:347
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:380
 msgid "End Date"
 msgstr ""
 
-#: lib/form.meta_boxes.php:348
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:381
 msgid "Goal Amount"
 msgstr ""
 
-#: lib/form.meta_boxes.php:369
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:403
 #, php-format
 msgid "Create %s"
 msgstr ""
 
-#: lib/form.meta_boxes.php:380
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:408
+#, php-format
+msgid ""
+"This will enable %s. You can choose minimal amount of money required, limit "
+"amount available and add description for each %s."
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:414
 msgid "Choose Amount"
 msgstr ""
 
-#: lib/form.meta_boxes.php:381
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:415
+msgid "Choose Limit"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:416
 #, php-format
 msgid "%s Description"
 msgstr ""
 
-#: lib/form.meta_boxes.php:402 lib/form.meta_boxes.php:426
-#: lib/form.meta_boxes.php:447
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:448
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:471
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:490
 msgid "Delete"
 msgstr ""
 
-#: lib/form.meta_boxes.php:409 lib/form.meta_boxes.php:433
-#: lib/form.meta_boxes.php:452
-#, php-format
-msgid "Describe Your %s"
-msgstr ""
-
-#: lib/form.meta_boxes.php:457
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:493
 #, php-format
 msgid "Add A %s"
 msgstr ""
 
-#: lib/form.meta_boxes.php:481
-msgid "Amount"
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:498
+msgid "Collect address if reward has been choosen"
 msgstr ""
 
-#: lib/form.meta_boxes.php:482
-msgid "Status"
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:506
+msgid ""
+"Add message visible while donating that will describe the purpuse of "
+"collecting address. Leave blank to disable."
 msgstr ""
 
-#: lib/form.meta_boxes.php:484
-msgid "Method"
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:508
+msgid "Allow \"Country\" field while collecting address"
 msgstr ""
 
-#: lib/form.meta_boxes.php:485
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:538
 msgid "Date"
 msgstr ""
 
-#: lib/form.meta_boxes.php:518
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:571
 msgid "Text or HTML Allowed"
 msgstr ""
 
-#: lib/form.meta_boxes.php:532
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:571
+msgid ""
+"Provide a custom thank you message for users.  You can use the following "
+"codes to display specific information from the payment: %DONATIONTOTAL% "
+"%FIRSTNAME% %LASTNAME%"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:583
 msgid "Send a confirmation email after a payment?"
 msgstr ""
 
-#: lib/form.meta_boxes.php:541
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:591
 msgid "Create a custom email message or use the default one."
 msgstr ""
 
-#: lib/form.meta_boxes.php:542
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:591
+msgid "The email will come from your Administrator email"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:592
 msgid "Email Subject"
 msgstr ""
 
-#: lib/form.meta_boxes.php:543
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:593
 msgid "Thank you for your Donation"
 msgstr ""
 
-#: lib/template-functions.php:23
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:23
 msgid "No ID Given"
 msgstr ""
 
-#: lib/template-functions.php:71 lib/template-functions.php:418
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:71
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:418
 #, php-format
 msgid "raised of a %s goal"
 msgstr ""
 
-#: lib/template-functions.php:74
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:74
 msgid "raised"
 msgstr ""
 
-#: lib/template-functions.php:263
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:263
 msgid "Day Left"
 msgstr ""
 
-#: lib/template-functions.php:263
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:263
 msgid "Days Left"
 msgstr ""
 
-#: lib/template-functions.php:265
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:265
 msgid "Minute Left"
 msgstr ""
 
-#: lib/template-functions.php:265
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:265
 msgid "Minutes Left"
 msgstr ""
 
-#: lib/template-functions.php:267
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:267
 msgid "Hour Left"
 msgstr ""
 
-#: lib/template-functions.php:267
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:267
 msgid "Hours Left"
 msgstr ""
 
-#: lib/template-functions.php:270
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:270
 #, php-format
 msgid "Starts In %s"
 msgstr ""
 
-#: lib/template-functions.php:270
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:270
 msgid "Day"
 msgstr ""
 
-#: lib/template-functions.php:270
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:270
 msgid "Days"
 msgstr ""
 
-#: lib/template-functions.php:270
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:270
 msgid "Hour"
 msgstr ""
 
-#: lib/template-functions.php:270
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:270
 msgid "Hours"
 msgstr ""
 
-#: lib/template-functions.php:378
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:378
 #, php-format
 msgid "%s made a %s %s towards %s"
 msgstr ""
 
-#: lib/template-functions.php:396
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:396
 #, php-format
 msgid ""
 "Oh No, we can't find your %s.  Sometimes it take a few moments for your %s "
 "to be logged.  You can try refreshing this page "
 msgstr ""
 
-#: lib/template-functions.php:411
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:411
 #, php-format
 msgid "Your %s of %s was successful"
 msgstr ""
 
-#: lib/template-functions.php:414
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:414
 #, php-format
 msgid "%s Raised so far"
 msgstr ""
 
-#: lib/template-functions.php:512
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:512
 msgid "No Payment Gateways Have Been Enabled"
 msgstr ""
 
-#: lib/template-functions.php:527
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:527
 #, php-format
 msgid "This %s is not accepting %s yet."
 msgstr ""
 
-#: lib/template-functions.php:567
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:562
+msgid "Limited"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:562
+msgid " left of "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:565
+msgid "All gone."
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:580
 msgid "None"
 msgstr ""
 
-#: lib/template-functions.php:582
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:595
 #, php-format
 msgid "You must pledge at least %s"
 msgstr ""
 
-#: lib/template-functions.php:690
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:703
 msgid "Donate Now"
 msgstr ""
 
-#: lib/template-functions.php:698
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:712
 msgid "Choose An Amount"
 msgstr ""
 
-#: lib/template-functions.php:707
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:719
+msgid "Make this donation"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:721
 msgid "Once"
 msgstr ""
 
-#: lib/template-functions.php:708
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:722
 msgid "Daily"
 msgstr ""
 
-#: lib/template-functions.php:709
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:723
 msgid "Weekly"
 msgstr ""
 
-#: lib/template-functions.php:710
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:724
 msgid "Monthly"
 msgstr ""
 
-#: lib/template-functions.php:711
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:725
 msgid "Yearly"
 msgstr ""
 
-#: lib/template-functions.php:720
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:734
 msgid "Post this to your profile"
 msgstr ""
 
-#: lib/wdf_tutorials.php:15
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:15
 msgid "Getting Started Is Easy"
 msgstr ""
 
-#: lib/wdf_tutorials.php:16
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:16
 msgid ""
 "Follow these tutorial steps to get your Fundraising project up and running "
 "quickly."
 msgstr ""
 
-#: lib/wdf_tutorials.php:19
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:19
 msgid "Choose your currency"
 msgstr ""
 
-#: lib/wdf_tutorials.php:20
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:20
 msgid "Choose your preferred currency for your incoming donations."
 msgstr ""
 
-#: lib/wdf_tutorials.php:23
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:23
 msgid "Choose your allowed payment types."
 msgstr ""
 
-#: lib/wdf_tutorials.php:24
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:24
 msgid ""
 "Simple payments act like regular donations.  Advanced payments allow for the "
 "creation of Goals and Rewards.  Advanced payments will only be approved "
@@ -830,21 +1619,25 @@ msgid ""
 "reached."
 msgstr ""
 
-#: lib/wdf_tutorials.php:28
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:28
 msgid "Turn On Permalinks"
 msgstr ""
 
-#: lib/wdf_tutorials.php:29
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:29
 msgid ""
 "Permalinks must been enabled and configured before your donation page can be "
 "seen publicly."
 msgstr ""
 
-#: lib/wdf_tutorials.php:33
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:33
 msgid "Choose your page locations"
 msgstr ""
 
-#: lib/wdf_tutorials.php:34
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:34
 msgid ""
 "You can customize the url structure of all your fundraisers projects here.  "
 "The directory is an archive of all the fundraisers.  The checkout page is "
@@ -852,21 +1645,25 @@ msgid ""
 "after a successful donation or pledge."
 msgstr ""
 
-#: lib/wdf_tutorials.php:37
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:37
 msgid "Create your First Fundraiser"
 msgstr ""
 
-#: lib/wdf_tutorials.php:38
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:38
 msgid ""
 "Now that you have setup your presentation and payment settings you can "
 "create your first fundraiser. Start by adding a title."
 msgstr ""
 
-#: lib/wdf_tutorials.php:41
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:41
 msgid "Choose a fundraising type"
 msgstr ""
 
-#: lib/wdf_tutorials.php:42
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:42
 msgid ""
 "This step is crucial to how your fundraiser will operate.  Remember: Simple "
 "Donations process automatically but can not set goals or rewards.  Advanced "
@@ -875,131 +1672,153 @@ msgid ""
 "have additional options depending on your choice.  Enjoy!"
 msgstr ""
 
-#: lib/bp/bp-wdf-actions.php:21
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-actions.php:21
 msgid "You can't fund yourself :"
 msgstr ""
 
-#: lib/bp/bp-wdf-actions.php:24
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-actions.php:24
 msgid "Funding Sent!"
 msgstr ""
 
-#: lib/bp/bp-wdf-actions.php:26
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-actions.php:26
 msgid "Funding could not be sent."
 msgstr ""
 
-#: lib/bp/bp-wdf-admin.php:25 lib/bp/bp-wdf-admin.php:51
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-admin.php:25
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-admin.php:51
 msgid "Fundraising Admin"
 msgstr ""
 
-#: lib/bp/bp-wdf-admin.php:54
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-admin.php:54
 msgid "Settings Updated."
 msgstr ""
 
-#: lib/bp/bp-wdf-admin.php:60
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-admin.php:60
 msgid "Option One"
 msgstr ""
 
-#: lib/bp/bp-wdf-admin.php:65
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-admin.php:65
 msgid "Option Two"
 msgstr ""
 
-#: lib/bp/bp-wdf-admin.php:72 lib/bp/bp-wdf-screens.php:277
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-admin.php:72
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:277
 msgid "Save Settings"
 msgstr ""
 
-#: lib/bp/bp-wdf-ajax.php:40
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-ajax.php:40
 msgid "Friendship could not be canceled."
 msgstr ""
 
-#: lib/bp/bp-wdf-ajax.php:42
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-ajax.php:42
 msgid "Add Friend"
 msgstr ""
 
-#: lib/bp/bp-wdf-ajax.php:48
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-ajax.php:48
 msgid "Friendship could not be requested."
 msgstr ""
 
-#: lib/bp/bp-wdf-ajax.php:50
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-ajax.php:50
 msgid "Friendship Requested"
 msgstr ""
 
-#: lib/bp/bp-wdf-ajax.php:54
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-ajax.php:54
 msgid "Request Pending"
 msgstr ""
 
-#: lib/bp/bp-wdf-classes.php:111
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-classes.php:111
 #, php-format
 msgid "%1$s high-fives %2$s"
 msgstr ""
 
-#: lib/bp/bp-wdf-classes.php:127
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-classes.php:127
 #, php-format
 msgid "%1$s donated to %2$s"
 msgstr ""
 
-#: lib/bp/bp-wdf-functions.php:90
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-functions.php:90
 #, php-format
 msgid "%s accepted the really exciting terms and conditions!"
 msgstr ""
 
-#: lib/bp/bp-wdf-functions.php:134
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-functions.php:134
 #, php-format
 msgid "%s rejected the really exciting terms and conditions."
 msgstr ""
 
-#: lib/bp/bp-wdf-functions.php:206
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-functions.php:206
 #, php-format
 msgid "%s supported %s!"
 msgstr ""
 
-#: lib/bp/bp-wdf-loader.php:53 lib/bp/bp-wdf-loader.php:262
-msgid "Fundraising"
-msgstr ""
-
-#: lib/bp/bp-wdf-loader.php:238
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-loader.php:238
 msgid "Search Donations..."
 msgstr ""
 
-#: lib/bp/bp-wdf-loader.php:273
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-loader.php:273
 msgid "Screen One"
 msgstr ""
 
-#: lib/bp/bp-wdf-loader.php:283
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-loader.php:283
 msgid "Screen Two"
 msgstr ""
 
-#: lib/bp/bp-wdf-notifications.php:50 lib/bp/bp-wdf-screens.php:213
-msgid "Donations"
-msgstr ""
-
-#: lib/bp/bp-wdf-notifications.php:59
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:59
 msgid "Action One"
 msgstr ""
 
-#: lib/bp/bp-wdf-notifications.php:65
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:65
 msgid "Action Two"
 msgstr ""
 
-#: lib/bp/bp-wdf-notifications.php:123
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:123
 msgid "Multiple Donations"
 msgstr ""
 
-#: lib/bp/bp-wdf-notifications.php:123
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:123
 #, php-format
 msgid "%d new high-fives, multi-five!"
 msgstr ""
 
-#: lib/bp/bp-wdf-notifications.php:127
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:127
 #, php-format
 msgid "%s sent you a high-five!"
 msgstr ""
 
-#: lib/bp/bp-wdf-notifications.php:167
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:167
 #, php-format
 msgid "%s high-fived you!"
 msgstr ""
 
-#: lib/bp/bp-wdf-notifications.php:170
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:170
 #, php-format
 msgid ""
 "%s sent you a high-five! Why not send one back?\n"
@@ -1011,236 +1830,288 @@ msgid ""
 "---------------------\n"
 msgstr ""
 
-#: lib/bp/bp-wdf-notifications.php:179
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:179
 #, php-format
 msgid "To disable these notifications please log in and go to: %s"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:120
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:120
 msgid "Fundraiser Projects"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:135
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:135
 msgid "Your Fundraisers"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:136
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:136
 #, php-format
 msgid "Send %s a <a href=\"%s\" title=\"Send high-five!\">high-five!</a>"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:139
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:139
 msgid "Received Donations!"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:170
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:170
 msgid "Terms were accepted!"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:173
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:173
 msgid "Terms could not be accepted."
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:186
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:186
 msgid "Terms were rejected!"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:189
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:189
 msgid "Terms could not be rejected."
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:219
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:219
 msgid "Recieved Donations"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:222
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:222
 msgid "Accept"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:223
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:223
 msgid "Reject"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:226
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:226
 #, php-format
 msgid "You must %s or %s the terms of use policy."
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:257
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:257
 msgid "Fundraising Settings Header"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:261
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:261
 msgid "Fundraising Settings"
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:269
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:269
 msgid "Changes Saved."
 msgstr ""
 
-#: lib/bp/bp-wdf-screens.php:275
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:275
 msgid "Do you love clicking checkboxes?"
 msgstr ""
 
-#: lib/bp/bp-wdf-template.php:113
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-template.php:113
 #, php-format
 msgid "Viewing page %1$s of %2$s"
 msgstr ""
 
-#: lib/bp/bp-wdf-template.php:194
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-template.php:194
 #, php-format
 msgid "%1$s gave %2$s a high-five!"
 msgstr ""
 
-#: lib/bp/bp-wdf-widgets.php:23
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-widgets.php:23
 msgid "Fundraising Widget"
 msgstr ""
 
-#: lib/bp/bp-wdf-widgets.php:65
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-widgets.php:65
 msgid "Number of Items Per Page:"
 msgstr ""
 
-#: lib/bp/bp-wdf-widgets.php:66
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-widgets.php:66
 msgid "Max items to show:"
 msgstr ""
 
-#: lib/bp/templates/wdf/index.php:22
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/templates/wdf/index.php:22
 msgid "High Fives Directory"
 msgstr ""
 
-#: lib/bp/templates/wdf/index.php:30
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/templates/wdf/index.php:30
 #, php-format
 msgid "All High Fives <span>%s</span>"
 msgstr ""
 
-#: lib/bp/templates/wdf/screen-one.php:26
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/templates/wdf/screen-one.php:26
 msgid "Welcome to Screen One"
 msgstr ""
 
-#: lib/bp/templates/wdf/screen-one.php:30
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/templates/wdf/screen-one.php:30
 msgid "Received High Fives!"
 msgstr ""
 
-#: lib/bp/templates/wdf/wdf-loop.php:77
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/templates/wdf/wdf-loop.php:77
 msgid "There were no donations found."
 msgstr ""
 
-#: lib/classes/class.gateway.php:28
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:28
 msgid ""
 "You must override the on_creation() method in your payment gateway plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:31
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:31
 msgid ""
 "You must override the payment_form() method in your payment gateway plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:34
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:34
 msgid ""
 "You must override the create_query() method in your payment gateway plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:37
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:37
 msgid "You must override the process() method in your payment gateway plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:40
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:40
 msgid ""
 "You must override the process_standard() method in your payment gateway "
 "plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:43
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:43
 msgid ""
 "You must override the process_advanced() method in your payment gateway "
 "plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:46
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:46
 msgid ""
 "You must override the execute_advanced_payment() method in your payment "
 "gateway plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:49
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:49
 msgid ""
 "You must override the payment_info() method in your payment gateway plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:52
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:52
 msgid "You must override the confirm() method in your payment gateway plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:55
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:55
 msgid ""
 "You must override the handle_ipn() method in your payment gateway plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:58
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:58
 msgid ""
 "You must override the admin_settings() method in your payment gateway plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:61
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:61
 msgid ""
 "You must override the save_gateway_settings() method in your payment gateway "
 "plugin!"
 msgstr ""
 
-#: lib/classes/class.gateway.php:66
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:66
 #, php-format
 msgid "Your pledge of %s is almost complete."
 msgstr ""
 
-#: lib/classes/class.gateway.php:77
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:77
 msgid "Complete Pledge"
 msgstr ""
 
-#: lib/classes/class.gateway.php:85
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.gateway.php:85
 msgid "There was an unknown problem processing your payment."
 msgstr ""
 
-#: lib/classes/class.wdf_admin_ms.php:19
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.wdf_admin_ms.php:19
 msgid "You lack sufficient privledges to view this page"
 msgstr ""
 
-#: lib/classes/class.wdf_admin_ms.php:24
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/classes/class.wdf_admin_ms.php:24
 msgid "Network Donation Options"
 msgstr ""
 
-#: lib/external/class.pointers_tutorial.php:134
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:134
 msgid "Tutorial"
 msgstr ""
 
-#: lib/external/class.pointers_tutorial.php:421
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:421
 msgid "Next &raquo;"
 msgstr ""
 
-#: lib/external/class.pointers_tutorial.php:436
-#: lib/external/class.pointers_tutorial.php:458
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:436
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:458
 msgid "Dismiss"
 msgstr ""
 
-#: lib/external/class.pointers_tutorial.php:437
-#: lib/external/class.pointers_tutorial.php:459
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:437
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:459
 #, php-format
 msgid "Dismiss %s"
 msgstr ""
 
-#: lib/external/class.pointers_tutorial.php:443
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:443
 msgid "&laquo; Previous"
 msgstr ""
 
-#: lib/external/class.pointers_tutorial.php:498
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:498
 #, php-format
 msgid "%s: Step %d of %d"
 msgstr ""
 
-#: lib/external/class.wd_help_tooltips.php:296
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.wd_help_tooltips.php:297
 msgid "Help"
 msgstr ""
 
-#: lib/external/class.wpmudev_dash_notification.php:57
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.wpmudev_dash_notification.php:57
 #, php-format
 msgid ""
 "Easily get updates, support, and one-click WPMU DEV plugin/theme "
@@ -1250,7 +2121,8 @@ msgid ""
 "dev/update-notifications-plugin-information/\">(find out more)</a></small>"
 msgstr ""
 
-#: lib/external/class.wpmudev_dash_notification.php:61
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.wpmudev_dash_notification.php:61
 #, php-format
 msgid ""
 "Updates, Support, Premium Plugins, Community - <strong><a href=\"%s\" title="
@@ -1258,240 +2130,323 @@ msgid ""
 "strong>."
 msgstr ""
 
-#: lib/gateways/manual.php:32
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:32
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:70
 msgid "Please fill out all details"
 msgstr ""
 
-#: lib/gateways/manual.php:33
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:35
 msgid "First Name"
 msgstr ""
 
-#: lib/gateways/manual.php:35
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:37
 msgid "Last Name"
 msgstr ""
 
-#: lib/gateways/manual.php:37
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:39
 msgid "E-mail"
 msgstr ""
 
-#: lib/gateways/manual.php:67 lib/gateways/paypal.php:337
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:54
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:82
+msgid "(Street address, P.O. box, company name, c/o)"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:56
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:84
+msgid "Addres 2"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:56
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:84
+msgid "(Apartment, suite, unit, building, floor, etc.)"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:100
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:411
 msgid "Pending/Approved"
 msgstr ""
 
-#: lib/gateways/manual.php:68
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:101
 msgid "Manual Payment."
 msgstr ""
 
-#: lib/gateways/manual.php:84 lib/gateways/paypal.php:115
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:127
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:166
 msgid "Could not determine fundraiser"
 msgstr ""
 
-#: lib/gateways/manual.php:88
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:131
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:170
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:267
 msgid "Make sure all details are filled out correctly."
 msgstr ""
 
-#: lib/gateways/manual.php:117
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:158
 msgid "Default status for payments"
 msgstr ""
 
-#: lib/gateways/manual.php:128
-msgid "Information displayed after pledging(you can HTML)"
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:169
+msgid "Information displayed after pledging(you can use HTML)"
 msgstr ""
 
-#: lib/gateways/paypal.php:91
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:144
 msgid "Click Here To Complete Your Donation"
 msgstr ""
 
-#: lib/gateways/paypal.php:142
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:211
 msgid "If the goal is reached your account will be charged immediately"
 msgstr ""
 
-#: lib/gateways/paypal.php:173
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:241
 msgid "No status code given"
 msgstr ""
 
-#: lib/gateways/paypal.php:180
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:248
 msgid "There was an error contacting PayPal's servers."
 msgstr ""
 
-#: lib/gateways/paypal.php:195
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:263
 msgid "There was a problem connecting with the paypal gateway.  (CODE)"
 msgstr ""
 
-#: lib/gateways/paypal.php:231
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:301
 msgid "There was a problem connecting to PayPal. Please try again."
 msgstr ""
 
-#: lib/gateways/paypal.php:276
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:347
 msgid "Pre-Approved"
 msgstr ""
 
-#: lib/gateways/paypal.php:277 lib/gateways/paypal.php:282
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:348
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:353
 msgid "Transaction Pre-Approved"
 msgstr ""
 
-#: lib/gateways/paypal.php:286 lib/gateways/paypal.php:437
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:357
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:508
 msgid "Unknown"
 msgstr ""
 
-#: lib/gateways/paypal.php:287
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:358
 msgid "Unknown PayPal status."
 msgstr ""
 
-#: lib/gateways/paypal.php:295
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:366
 msgid ""
 "There was a problem verifying the IPN string with PayPal. Please try again."
 msgstr ""
 
-#: lib/gateways/paypal.php:338
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:412
 msgid "Missing Pending Status."
 msgstr ""
 
-#: lib/gateways/paypal.php:343
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:417
 msgid "Payment Refunded"
 msgstr ""
 
-#: lib/gateways/paypal.php:347
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:421
 msgid "Reversed"
 msgstr ""
 
-#: lib/gateways/paypal.php:348
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:422
 msgid "Payment Reversed"
 msgstr ""
 
-#: lib/gateways/paypal.php:352
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:426
 msgid "Expired"
 msgstr ""
 
-#: lib/gateways/paypal.php:353
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:427
 msgid "Payment Expired"
 msgstr ""
 
-#: lib/gateways/paypal.php:357
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:431
 msgid "Processed"
 msgstr ""
 
-#: lib/gateways/paypal.php:358
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:432
 msgid "Payment Processed"
 msgstr ""
 
-#: lib/gateways/paypal.php:362
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:436
 msgid "Payment Completed"
 msgstr ""
 
-#: lib/gateways/paypal.php:366
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:440
 msgid "Unknown Payment Status"
 msgstr ""
 
-#: lib/gateways/paypal.php:371
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:445
 msgid "Payment Status Not Given"
 msgstr ""
 
-#: lib/gateways/paypal.php:406
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:477
 msgid "Completed"
 msgstr ""
 
-#: lib/gateways/paypal.php:407
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:478
 msgid "Payment Complete."
 msgstr ""
 
-#: lib/gateways/paypal.php:412
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:483
 msgid "Incomplete"
 msgstr ""
 
-#: lib/gateways/paypal.php:413
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:484
 msgid "Pre-Approval Incomplete."
 msgstr ""
 
-#: lib/gateways/paypal.php:417
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:488
 msgid "Error"
 msgstr ""
 
-#: lib/gateways/paypal.php:418
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:489
 msgid "Error Capturing Payment"
 msgstr ""
 
-#: lib/gateways/paypal.php:422
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:493
 msgid "Reversal Error"
 msgstr ""
 
-#: lib/gateways/paypal.php:423
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:494
 msgid "Error Reversing Payment."
 msgstr ""
 
-#: lib/gateways/paypal.php:427
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:498
 msgid "Processing"
 msgstr ""
 
-#: lib/gateways/paypal.php:428
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:499
 msgid "Processing Payment."
 msgstr ""
 
-#: lib/gateways/paypal.php:432
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:503
 msgid "Pending"
 msgstr ""
 
-#: lib/gateways/paypal.php:433
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:504
 msgid "Error Reserving Payment."
 msgstr ""
 
-#: lib/gateways/paypal.php:438
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:509
 msgid "Unknown Payment Response Status after attempting to execute."
 msgstr ""
 
-#: lib/gateways/paypal.php:495
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:566
 msgid "PayPal Mode"
 msgstr ""
 
-#: lib/gateways/paypal.php:498
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:569
 msgid "Live"
 msgstr ""
 
-#: lib/gateways/paypal.php:499
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:570
 msgid "Sandbox"
 msgstr ""
 
-#: lib/gateways/paypal.php:505
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:576
 msgid "Simple Payment Options"
 msgstr ""
 
-#: lib/gateways/paypal.php:506
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:577
 msgid ""
 "In order for PayPal simple payments to log properly you must turn on PayPal "
 "Instant Payment Notifications and point it to"
 msgstr ""
 
-#: lib/gateways/paypal.php:510
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:581
 msgid "PayPal Email Address:"
 msgstr ""
 
-#: lib/gateways/paypal.php:515
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:586
 msgid "PayPal Checkout Header Image "
 msgstr ""
 
-#: lib/gateways/paypal.php:525
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:596
 msgid "Advanced Payment Options"
 msgstr ""
 
-#: lib/gateways/paypal.php:537
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:608
 msgid "PayPal Email Address"
 msgstr ""
 
-#: lib/gateways/paypal.php:539
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:610
 msgid ""
 "Please enter your PayPal email address or business id you want to recieve "
 "fees at."
 msgstr ""
 
-#: lib/gateways/paypal.php:544
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:615
 msgid "Paypal Currency"
 msgstr ""
 
-#: lib/gateways/paypal.php:584
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:655
 msgid "PayPal API Credentials"
 msgstr ""
 
-#: lib/gateways/paypal.php:586
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:657
 msgid ""
 "You must login to PayPal and create an API signature to get your "
 "credentials. <a target=\"_blank\" href=\"https://cms.paypal.com/us/cgi-bin/?"
@@ -1499,19 +2454,23 @@ msgid ""
 "e_howto_api_NVPAPIBasics#id084DN0AK0HS\">Instructions &raquo;</a>"
 msgstr ""
 
-#: lib/gateways/paypal.php:590
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:661
 msgid "API Username"
 msgstr ""
 
-#: lib/gateways/paypal.php:597
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:668
 msgid "API Password"
 msgstr ""
 
-#: lib/gateways/paypal.php:604
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:675
 msgid "Signature"
 msgstr ""
 
-#: lib/gateways/paypal.php:610
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:681
 msgid ""
 "You must register this application with PayPal using your business account "
 "login to get an Application ID that will work with your API credentials. A "
@@ -1523,156 +2482,123 @@ msgid ""
 "your-application\">More Information &raquo;</a>"
 msgstr ""
 
-#: lib/gateways/paypal.php:612
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:683
 msgid "View an example form &raquo;"
 msgstr ""
 
-#: lib/gateways/paypal.php:616
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:687
 msgid "Application ID"
 msgstr ""
 
-#: lib/gateways/paypal.php:619
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:690
 msgid "No application ID is required when using PayPal in sandbox mode."
 msgstr ""
 
-#: lib/widgets/widget.fundraisers_list.php:7
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:7
 msgid "Fundraisers List"
 msgstr ""
 
-#: lib/widgets/widget.fundraisers_list.php:8
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:8
 msgid "Choose a list of simple fundraiser links you wish to display."
 msgstr ""
 
-#: lib/widgets/widget.fundraisers_list.php:44
-#: lib/widgets/widget.fundraiser_panel.php:124
-#: lib/widgets/widget.simple_donation.php:69
-msgid "Title"
-msgstr ""
-
-#: lib/widgets/widget.fundraisers_list.php:44
-#: lib/widgets/widget.fundraiser_panel.php:124
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:47
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:124
 msgid "Featured Fundraisers"
 msgstr ""
 
-#: lib/widgets/widget.fundraisers_list.php:45
-#: lib/widgets/widget.simple_donation.php:73
-msgid "Description"
-msgstr ""
-
-#: lib/widgets/widget.fundraiser_panel.php:12
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:12
 #, php-format
 msgid "%s Panel"
 msgstr ""
 
-#: lib/widgets/widget.fundraiser_panel.php:14
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:14
 msgid ""
 "If the current page is a single Fundraiser page then this panel will display "
 "information and call to actions for the fundraiser.  You can also use it to "
 "display information for a specific fundraiser."
 msgstr ""
 
-#: lib/widgets/widget.fundraiser_panel.php:125
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:125
 msgid "Extra Description"
 msgstr ""
 
-#: lib/widgets/widget.fundraiser_panel.php:128
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:128
 msgid "Include Featured Image"
 msgstr ""
 
-#: lib/widgets/widget.fundraiser_panel.php:129
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:129
 msgid "Max Image Width"
 msgstr ""
 
-#: lib/widgets/widget.fundraiser_panel.php:130
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:130
 msgid "Max Image Height"
 msgstr ""
 
-#: lib/widgets/widget.fundraiser_panel.php:136
-msgid "Default"
-msgstr ""
-
-#: lib/widgets/widget.fundraiser_panel.php:144
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:144
 msgid "Display a specific fundraiser"
 msgstr ""
 
-#: lib/widgets/widget.fundraiser_panel.php:162
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:162
 msgid "You have not created any fundraisers yet"
 msgstr ""
 
-#: lib/widgets/widget.recent_fundraisers.php:11
-#: lib/widgets/widget.recent_fundraisers.php:47
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.recent_fundraisers.php:11
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.recent_fundraisers.php:47
 msgid "Recent Fundraisers"
 msgstr ""
 
-#: lib/widgets/widget.recent_fundraisers.php:12
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.recent_fundraisers.php:12
 msgid "The most recent fundraisers on your site"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:11
-#, php-format
-msgid "%s Button"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:14
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:14
 msgid "Create a simple button for taking donations."
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:64
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:64
 msgid "Button Type"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:65
-msgid "Default PayPal Button"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:66
-msgid "Custom Button"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:78
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:78
 msgid "Donation Amount (blank = choice)"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:85
-msgid "Basic"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:86
-msgid "Dark"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:87
-msgid "Fresh"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:88
-msgid "Note"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:89
-msgid "None (Custom CSS)"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:93
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:93
 msgid "Donate Button Text"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:100
-msgid "Show Accepted Credit Cards"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:101
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:101
 msgid "Allow extra note field"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:102
-msgid "Use Small Button"
-msgstr ""
-
-#: lib/widgets/widget.simple_donation.php:107
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:107
 msgid "Reference Label (optional description)"
 msgstr ""
 
-#: lib/widgets/widget.simple_donation.php:113
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:113
 msgid "Override PayPal Email Address"
 msgstr ""

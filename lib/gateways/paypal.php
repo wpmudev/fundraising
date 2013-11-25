@@ -1,33 +1,49 @@
 <?php
 if(!class_exists('WDF_Gateway_PayPal')) {
 	class WDF_Gateway_PayPal extends WDF_Gateway {
-		
+
 		// Private gateway slug. Lowercase alpha (a-z) and dashes (-) only please!
 		var $plugin_name = 'paypal';
-		
+
 		// Name of your gateway, for the admin side.
 		var $admin_name = 'PayPal';
-		
+
 		// Public name of your gateway, for lists and such.
 		var $public_name = 'PayPal';
-		
+
 		// Whether or not ssl is needed for checkout page
 		var $force_ssl = false;
-		
+
 		// An array of allowed payment types (simple, advanced)
 		var $payment_types = 'simple, advanced';
-		
+
 		// If you are redirecting to a 3rd party make sure this is set to true
 		var $skip_form = true;
-		
+
 		// Allow recurring payments with your gateway
 		var $allow_reccuring = true;
-		
+
+		function skip_form() {
+			if(isset($_SESSION['funder_id']) && isset($_SESSION['wdf_reward'])) {
+				$collect_address = get_post_meta($_SESSION['funder_id'],'wdf_collect_address', true);
+				if($collect_address)
+					return false;
+			}
+
+			return $this->skip_form;
+		}
+
 		function on_creation() {
+			if(isset($_SESSION['funder_id'])) {
+				$collect_address = get_post_meta($_SESSION['funder_id'],'wdf_collect_address', true);
+				if($collect_address)
+					$this->skip_form = false;
+			}
+
 			$settings = get_option('wdf_settings');
 
 			$this->query = array();
-			
+
 			$this->API_Username = (isset($settings['paypal']['advanced']['api_user']) ? $settings['paypal']['advanced']['api_user'] : '');
 			$this->API_Password = (isset($settings['paypal']['advanced']['api_pass']) ? $settings['paypal']['advanced']['api_pass'] : '');
 			$this->API_Signature = (isset($settings['paypal']['advanced']['api_sig']) ? $settings['paypal']['advanced']['api_sig'] : '');
@@ -43,172 +59,226 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$this->paypalURL = "https://www.paypal.com/webscr?cmd=_ap-preapproval&preapprovalkey=";
 				$this->appId = (isset($settings['paypal']['advanced']['app_id']) ? $settings['paypal']['advanced']['app_id'] : '');
 			}
-			
+
 		}
-		
+
 		function payment_form() {
-			// You can override the form and proceed straight to a 3rd party.
-			// The commented section below is an example of a form.
-			// Be sure not to use a <form> element in this area, and always return your content.
-			
-			/*
-			$content .= '<div class="wdf_paypal_payment_form">';
-			$content .= '<label class="wdf_paypal_email">Insert Your PayPal Email Address</label><br />';
-			$content .= '<input type="text" name="paypal_email" value="" />';
+			$funder_id = get_the_ID();
+
+			$content = '<div class="wdf_paypal_payment_form wdf_payment_form">';
+
+			$content .= '<p class="wdf_paypal_payment_form_basic_message wdf_payment_form_basic_message">'.__('Please fill out all details','wdf').'</p>';
+
+			$collect_address_message = get_post_meta($funder_id,'wdf_collect_address_message', true);
+			if($collect_address_message)
+				$content .= '<p class="wdf_paypal_payment_form_address_message wdf_payment_form_address_message">'.$collect_address_message.'</p>';
+
+			$content .= '<p class="wdf_paypal_payment_form_address_info wdf_payment_form_address_info">';
+				$collect_address_country = get_post_meta($funder_id,'wdf_collect_address_country', true);
+				if($collect_address_country) {
+					$content .= '<label for="country" class="wdf_country">'.__('Country','wdf').':</label><br />';
+					$content .= '<input type="text" class="wdf_country" name="country" value="'.( isset($_POST['country']) ? esc_attr($_POST['country']) : '') .'" /><br />';
+				}
+				$content .= '<label for="address1" class="wdf_address1">'.__('Address','wdf').' <small>'.__('(Street address, P.O. box, company name, c/o)','wdf').'</small>:</label><br />';
+				$content .= '<input type="text" class="wdf_address1" name="address1" value="'.( isset($_POST['address1']) ? esc_attr($_POST['address1']) : '') .'" /><br />';
+				$content .= '<label for="address2" class="wdf_address2">'.__('Addres 2','wdf').' <small>'.__('(Apartment, suite, unit, building, floor, etc.)','wdf').'</small>:</label><br />';
+				$content .= '<input type="text" class="wdf_address2" name="address2" value="'.( isset($_POST['address2']) ? esc_attr($_POST['address2']) : '') .'" /><br />';
+				$content .= '<label for="city" class="wdf_city">'.__('City','wdf').':</label><br />';
+				$content .= '<input type="text" class="wdf_city" name="city" value="'.( isset($_POST['city']) ? esc_attr($_POST['city']) : '') .'" /><br />';
+				$content .= '<label for="state" class="wdf_state">'.__('State','wdf').':</label><br />';
+				$content .= '<input type="text" class="wdf_state" name="state" value="'.( isset($_POST['state']) ? esc_attr($_POST['state']) : '') .'" /><br />';
+				$content .= '<label for="zip" class="wdf_zip">'.__('Postal/Zip Code','wdf').':</label><br />';
+				$content .= '<input type="text" class="wdf_zip" name="zip" value="'.( isset($_POST['zip']) ? esc_attr($_POST['zip']) : '') .'" />';
+			$content .= '</p>';
+
 			$content .= '</div>';
 			return $content;
-			*/
 		}
 
 		function process_simple() {
-			$settings = get_option('wdf_settings');
-			global $wdf;
+			if(
+				( (isset($_POST['city']) && !empty($_POST['address1']) && !empty($_POST['city'])) || !isset($_POST['city']) ) &&
+				( (isset($_POST['country']) && !empty($_POST['country'])) || !isset($_POST['country']) )
+			) {
+				$settings = get_option('wdf_settings');
+				global $wdf;
 
-			if (isset($_SESSION['wdf_reward']))
-				$reward = $_SESSION['wdf_reward'];
-			else
-				$reward = 0;
+				if($funder = get_post($_SESSION['funder_id']) ){
+					$pledge_id = $wdf->generate_pledge_id();
+					$_SESSION['wdf_pledge_id'] = $pledge_id;
+					$this->return_url =  add_query_arg('pledge_id', $pledge_id, wdf_get_funder_page('confirmation',$funder->ID));
 
-			if($funder = get_post($_SESSION['funder_id']) ){
-				$pledge_id = $wdf->generate_pledge_id();
-				$this->return_url =  wdf_get_funder_page('confirmation',$funder->ID);
-			
-				if( isset($_SESSION['wdf_recurring']) && $_SESSION['wdf_recurring'] != false ) {
-					//$this->add_query('cmd', '_xclick-auto-billing');
-					//$this->add_query('&min_amount', 1.00);
-					//$this->add_query('&max_amount', $wdf_send_obj->send_amount);
-					$nvp = 'cmd=_xclick-subscriptions';
-					$nvp .= '&a3='.$_SESSION['wdf_pledge'];
-					$nvp .= '&p3=1';
-					$nvp .= '&t3='.$_SESSION['wdf_recurring'];
-					$nvp .= '&bn=WPMUDonations_Subscribe_WPS_'.$settings['currency'];
-					$nvp .= '&src=1';
-					$nvp .= '&sra=1';
-					$nvp .= '&modify=1';
+					$custom = array();
+					$custom['funder_id'] = $funder->ID;
+					$custom['pledge_id'] = $pledge_id;
+
+					//handle custom
+					$custom['reward'] = (isset($_SESSION['wdf_reward'])) ? $_SESSION['wdf_reward'] : 0;
+					$custom['country'] = (isset($_POST['country']) ? $_POST['country'] : 0 );
+					$custom['address1'] = (isset($_POST['address1']) ? $_POST['address1'] : 0 );
+					$custom['address2'] = (isset($_POST['address2']) ? $_POST['address2'] : 0 );
+					$custom['city'] = (isset($_POST['city']) ? $_POST['city'] : 0 );
+					$custom['state'] = (isset($_POST['state']) ? $_POST['state'] : 0 );
+					$custom['zip'] = (isset($_POST['zip']) ? $_POST['zip'] : 0 );
+
+					$custom_ready = array();
+					foreach ($custom as $key => $value)
+						$custom_ready[$key] = str_replace('||', '', $value);
+					$custom = implode('||', $custom_ready);
+
+					if( isset($_SESSION['wdf_recurring']) && $_SESSION['wdf_recurring'] != false ) {
+						//$this->add_query('cmd', '_xclick-auto-billing');
+						//$this->add_query('&min_amount', 1.00);
+						//$this->add_query('&max_amount', $wdf_send_obj->send_amount);
+						$nvp = 'cmd=_xclick-subscriptions';
+						$nvp .= '&a3='.$_SESSION['wdf_pledge'];
+						$nvp .= '&p3=1';
+						$nvp .= '&t3='.$_SESSION['wdf_recurring'];
+						$nvp .= '&bn=WPMUDonations_Subscribe_WPS_'.$settings['currency'];
+						$nvp .= '&src=1';
+						$nvp .= '&sra=1';
+						$nvp .= '&modify=1';
+					} else {
+						$nvp = 'cmd=_donations';
+						$nvp .= '&amount='.urlencode($_SESSION['wdf_pledge']);
+						$nvp .= '&cbt='.urlencode( isset($settings['paypal_return_text']) ? $settings['paypal_return_text'] : __('Click Here To Complete Your Donation', 'wdf') );
+						$nvp .= '&bn=WPMUDonations_Donate_WPS_'.$settings['currency'];
+					}
+					$nvp .= '&no_shipping=1';
+					$nvp .= '&business='.urlencode($settings['paypal_email']);
+					$nvp .= '&item_name='.urlencode($funder->post_title);
+					$nvp .= '&item_number='.apply_filters('wdf_paypal_gateway_standard_item_number',$pledge_id);
+					$nvp .= '&custom='.urlencode($custom);
+					$nvp .= '&currency_code='.$settings['currency'];
+					$nvp .= '&cpp_header_image='.urlencode($settings['paypal_image_url']);
+					$nvp .= '&return='.urlencode($this->return_url);
+					$nvp .= '&rm=2';
+					$nvp .= '&notify_url='.urlencode($this->ipn_url);
+					$nvp .= '&charset='.urlencode('utf-8');
+
+					if(!headers_sent()) {
+						wp_redirect($this->Standard_Endpoint .$nvp);
+						exit;
+					}
+
 				} else {
-					$nvp = 'cmd=_donations';
-					$nvp .= '&amount='.urlencode($_SESSION['wdf_pledge']);
-					$nvp .= '&cbt='.urlencode( isset($settings['paypal_return_text']) ? $settings['paypal_return_text'] : __('Click Here To Complete Your Donation', 'wdf') );
-					$nvp .= '&bn=WPMUDonations_Donate_WPS_'.$settings['currency'];
+					//No $_SESSION['funder_id'] was passed to this function.
+					$this->create_gateway_error(__('Could not determine fundraiser','wdf'));
 				}
-				$nvp .= '&no_shipping=1';
-				$nvp .= '&business='.urlencode($settings['paypal_email']);
-				$nvp .= '&item_name='.urlencode($funder->post_title);
-				$nvp .= '&item_number='.apply_filters('wdf_paypal_gateway_standard_item_number',$pledge_id);
-				$nvp .= '&custom='.urlencode($funder->ID.'||'.$pledge_id.'||'.$reward);
-				$nvp .= '&currency_code='.$settings['currency'];
-				$nvp .= '&cpp_header_image='.urlencode($settings['paypal_image_url']);
-				$nvp .= '&return='.urlencode($this->return_url);
-				$nvp .= '&rm=2';
-				$nvp .= '&notify_url='.urlencode($this->ipn_url);
-				$nvp .= '&charset='.urlencode('utf-8');
-			
-				$_SESSION['wdf_pledge_id'] = $pledge_id;
-
-				if(!headers_sent()) {
-					wp_redirect($this->Standard_Endpoint .$nvp);
-					exit;
-				}
-			
 			} else {
-				//No $_SESSION['funder_id'] was passed to this function.
-				$this->create_gateway_error(__('Could not determine fundraiser','wdf'));
+				$_POST['wdf_step'] = 'gateway';
+				$this->create_gateway_error(__('Make sure all details are filled out correctly.','wdf'));
 			}
-			
 		}
 		function process_advanced() {
-			$settings = get_option('wdf_settings');
-			global $wdf;
-			$funder_id = $_SESSION['funder_id'];
-			$pledge_id = $wdf->generate_pledge_id();
-			$start_stamp = time();
-			$end_stamp =  strtotime(get_post_meta($funder_id, 'wdf_goal_end', true));
-			$this->ipn_url = $this->ipn_url.'&fundraiser='.$funder_id.'&pledge_id='.$pledge_id;
+			if(
+				( (isset($_POST['city']) && !empty($_POST['address1']) && !empty($_POST['city'])) || !isset($_POST['city']) ) &&
+				( (isset($_POST['country']) && !empty($_POST['country'])) || !isset($_POST['country']) )
+			) {
+				$settings = get_option('wdf_settings');
+				global $wdf;
+				$funder_id = $_SESSION['funder_id'];
+				$pledge_id = $wdf->generate_pledge_id();
+				$start_stamp = time();
+				$end_stamp =  strtotime(get_post_meta($funder_id, 'wdf_goal_end', true));
+				$this->return_url =  add_query_arg('pledge_id', $pledge_id, wdf_get_funder_page('confirmation',$funder_id));
 
-			if (isset($_SESSION['wdf_reward']))
-				$reward = $_SESSION['wdf_reward'];
-			else
-				$reward = 0;
-			
-			$nvpstr = "actionType=Preapproval";
-			$nvpstr .= "&returnUrl=" . wdf_get_funder_page('confirmation', $funder_id) . '?pledge_id=' . $pledge_id;
-			$nvpstr .= "&cancelUrl=" . get_post_permalink($funder_id);
-			$nvpstr .= "&ipnNotificationUrl=" . urlencode($this->ipn_url);
-			$nvpstr .= "&currencyCode=" . esc_attr($settings['paypal']['advanced']['currency']);
-			$nvpstr .= "&feesPayer=SENDER";
-			$nvpstr .= "&maxAmountPerPayment=" . $wdf->filter_price($_SESSION['wdf_pledge']);
-			$nvpstr .= "&maxTotalAmountOfAllPayments=" . $wdf->filter_price($_SESSION['wdf_pledge']);
-			$nvpstr .= "&displayMaxTotalAmount=TRUE";
-			$nvpstr .= "&memo=" . urlencode(__('If the goal is reached your account will be charged immediately', 'wdf'));
-			$nvpstr .= "&startingDate=".gmdate('Y-m-d\Z',$start_stamp);
-			$nvpstr .= "&endingDate=".gmdate('Y-m-d\Z',$end_stamp);
-			$nvpstr .= '&custom='.urlencode($reward);
-			$nvpstr .= '&charset='.urlencode('utf-8');
-			
-			// Make the API Call to receive a token
-			$response = $this->adaptive_api_call('Preapproval',$nvpstr);
-			if(isset($response['responseEnvelope_ack'])) {
-				switch($response['responseEnvelope_ack']) {
-					case 'Success' ;
-						$proceed = true;
-						break;
-					case 'Failure' ;
-						$proceed = false;
-						$status_code = ( isset($response['error(0)_errorId']) ? $response['error(0)_errorId'] : '' );
-						$error_msg = ( isset($response['error(0)_message']) ? $response['error(0)_message'] : '' );
-						break;
-					case 'Warning' ;
-						$proceed = true;
-						break;
-					case 'SuccessWithWarning' ;
-						$proceed = true;
-						break;
-					case 'FailureWithWarning' ;
-						$proceed = false;
-						$status_code = ( isset($response['error(0)_errorId']) ? $response['error(0)_errorId'] : '' );
-						$error_msg = ( isset($response['error(0)_message']) ? $response['error(0)_message'] : '' );
-						break;
-					default :
-						$proceed = false;
-						$status_code = __('No status code given','wdf');
-						$error_msg = '';
-				}
-			} else {
-				// We most likely return an WP_Error object instead of a valid paypal response.
-				$proceed = false;
-				$status_code = '';
-				$error_msg = __('There was an error contacting PayPal\'s servers.','wdf');
-			}
-			
-			if( $proceed === true && isset($response['preapprovalKey']) ) {		
-				$_SESSION['wdf_pledge_id'] = $pledge_id;
+				$custom = array();
+				$custom['reward'] = (isset($_SESSION['wdf_reward'])) ? $_SESSION['wdf_reward'] : 0;
+				$custom['country'] = (isset($_POST['country']) ? $_POST['country'] : 0 );
+				$custom['address1'] = (isset($_POST['address1']) ? $_POST['address1'] : 0 );
+				$custom['address2'] = (isset($_POST['address2']) ? $_POST['address2'] : 0 );
+				$custom['city'] = (isset($_POST['city']) ? $_POST['city'] : 0 );
+				$custom['state'] = (isset($_POST['state']) ? $_POST['state'] : 0 );
+				$custom['zip'] = (isset($_POST['zip']) ? $_POST['zip'] : 0 );
 
-				//Set transient data for one day to handle ipn
-				//set_transient( 'wdf_'.$this->plugin_name.'_'.$pledge_id.'_'.$_SESSION['wdf_type'], array('pledge_id' => $pledge_id), 60 * 60 * 24 );
-				if(!headers_sent()) {
-					wp_redirect( $this->paypalURL . $response['preapprovalKey'] );
-					exit;
+				$custom_ready = array();
+				foreach ($custom as $key => $value)
+					$custom_ready[$key] = str_replace('||', '', $value);
+				$custom = implode('||', $custom_ready);
+
+				$this->ipn_url = add_query_arg(array('fundraiser' => $funder_id, 'pledge_id' => $pledge_id, 'custom' => $custom), $this->ipn_url);
+
+				$nvpstr = "actionType=Preapproval";
+				$nvpstr .= "&returnUrl=" . urlencode($this->return_url);
+				$nvpstr .= "&cancelUrl=" . urlencode(get_post_permalink($funder_id));
+				$nvpstr .= "&ipnNotificationUrl=" . urlencode($this->ipn_url);
+				$nvpstr .= "&currencyCode=" . esc_attr($settings['paypal']['advanced']['currency']);
+				$nvpstr .= "&feesPayer=SENDER";
+				$nvpstr .= "&maxAmountPerPayment=" . $wdf->filter_price($_SESSION['wdf_pledge']);
+				$nvpstr .= "&maxTotalAmountOfAllPayments=" . $wdf->filter_price($_SESSION['wdf_pledge']);
+				$nvpstr .= "&displayMaxTotalAmount=TRUE";
+				$nvpstr .= "&memo=" . urlencode(__('If the goal is reached your account will be charged immediately', 'wdf'));
+				$nvpstr .= "&startingDate=".gmdate('Y-m-d\Z',$start_stamp);
+				$nvpstr .= "&endingDate=".gmdate('Y-m-d\Z',$end_stamp);
+				$nvpstr .= '&charset='.urlencode('utf-8');
+
+				// Make the API Call to receive a token
+				$response = $this->adaptive_api_call('Preapproval',$nvpstr);
+				if(isset($response['responseEnvelope_ack'])) {
+					switch($response['responseEnvelope_ack']) {
+						case 'Success' ;
+							$proceed = true;
+							break;
+						case 'Failure' ;
+							$proceed = false;
+							$status_code = ( isset($response['error(0)_errorId']) ? $response['error(0)_errorId'] : '' );
+							$error_msg = ( isset($response['error(0)_message']) ? $response['error(0)_message'] : '' );
+							break;
+						case 'Warning' ;
+							$proceed = true;
+							break;
+						case 'SuccessWithWarning' ;
+							$proceed = true;
+							break;
+						case 'FailureWithWarning' ;
+							$proceed = false;
+							$status_code = ( isset($response['error(0)_errorId']) ? $response['error(0)_errorId'] : '' );
+							$error_msg = ( isset($response['error(0)_message']) ? $response['error(0)_message'] : '' );
+							break;
+						default :
+							$proceed = false;
+							$status_code = __('No status code given','wdf');
+							$error_msg = '';
+					}
 				} else {
-					// TODO create error output for headers already sent
+					// We most likely return an WP_Error object instead of a valid paypal response.
+					$proceed = false;
+					$status_code = '';
+					$error_msg = __('There was an error contacting PayPal\'s servers.','wdf');
+				}
+
+				if( $proceed === true && isset($response['preapprovalKey']) ) {
+					$_SESSION['wdf_pledge_id'] = $pledge_id;
+
+					//Set transient data for one day to handle ipn
+					//set_transient( 'wdf_'.$this->plugin_name.'_'.$pledge_id.'_'.$_SESSION['wdf_type'], array('pledge_id' => $pledge_id), 60 * 60 * 24 );
+					if(!headers_sent()) {
+						wp_redirect( $this->paypalURL . $response['preapprovalKey'] );
+						exit;
+					} else {
+						// TODO create error output for headers already sent
+					}
+				} else {
+					$this->create_gateway_error(__('There was a problem connecting with the paypal gateway.  (CODE)'.$status_code.' ' . $error_msg,'wdf'));
 				}
 			} else {
-				$this->create_gateway_error(__('There was a problem connecting with the paypal gateway.  (CODE)'.$status_code.' ' . $error_msg,'wdf'));
+				$_POST['wdf_step'] = 'gateway';
+				$this->create_gateway_error(__('Make sure all details are filled out correctly.','wdf'));
 			}
-
-			
 		}
 		function confirm() {
 			//$this->process_payment();
 		}
 		function payment_info( $content, $transaction ) {
 			$content = '<div class="paypal_transaction_info">';
-			
+
 			$content .= '</div>';
 			return $content;
 		}
 		function adaptive_api_call($methodName, $nvpStr) {
 			global $wdf;
-			
+
 			//build args
 			$args['headers'] = array(
 				'X-PAYPAL-SECURITY-USERID' => $this->API_Username,
@@ -223,10 +293,10 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			$args['body'] = $nvpStr . '&requestEnvelope.errorLanguage=en_US';
 			$args['sslverify'] = false;
 			$args['timeout'] = 60;
-			
+
 			//use built in WP http class to work with most server setups
 			$response = wp_remote_post($this->Adaptive_Endpoint . $methodName, $args);
-			
+
 			if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200) {
 				$this->create_gateway_error( __('There was a problem connecting to PayPal. Please try again.', 'wdf'));
 				return $response;
@@ -237,22 +307,26 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			}
 		}
 		function handle_ipn() {
-						
 			if( isset($_POST['transaction_type']) && $_POST['transaction_type'] == 'Adaptive Payment PREAPPROVAL' && isset($_REQUEST['pledge_id']) ) {
-				//Handle IPN for advanced payments	
+				//Handle IPN for advanced payments
 				if($this->verify_paypal()) {
 					$nvp = 'preapprovalKey='.$_POST['preapproval_key'];
 					$nvp .= '&getBillingAddress=1';
 					$details = $this->adaptive_api_call( 'PreapprovalDetails', $nvp );
-										
-					global $wdf;
 
-					$custom = explode('||',$_POST['custom']);
-					$reward = $custom[0];
+					global $wdf;
+					$transaction = array();
+
+					$custom = explode('||',$_REQUEST['custom']);
+
+					//proccess additional custom fields
+					$possible_custom_fields = array('reward', 'country', 'address1', 'address2', 'city', 'state', 'zip');
+					foreach ($possible_custom_fields as $key => $possible_custom_field)
+						if(isset($custom[$key]) && $custom[$key])
+							$transaction[$possible_custom_field] = $custom[$key];
 
 					$post_title = $_REQUEST['pledge_id'];
 					$funder_id = $_REQUEST['fundraiser'];
-					$transaction = array();
 					$transaction['currency_code'] = ( isset($_POST['currency_code']) ? $_POST['currency_code'] : $settings['currency']);
 					$transaction['payer_email'] = $_POST['sender_email'];
 					$transaction['gateway_public'] = $this->public_name;
@@ -262,9 +336,6 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					//Make sure you pass the correct type back into the transaction
 					$transaction['type'] = 'advanced';
 
-					if($reward)
-						$transaction['reward'] = $reward;
-					
 					$full_name = (isset($details['addressList_address(0)_addresseeName']) ? explode(' ',$details['addressList_address(0)_addresseeName'],2) : false);
 					if($full_name != false) {
 						$transaction['first_name'] = $full_name[0];
@@ -287,25 +358,31 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 							$transaction['gateway_msg'] = __('Unknown PayPal status.','wdf');
 							break;
 					}
-					
+
 					$wdf->update_pledge( $post_title, $funder_id, $status, $transaction);
-						
+
 				} else {
 					header("HTTP/1.1 503 Service Unavailable");
 					_e( 'There was a problem verifying the IPN string with PayPal. Please try again.', 'mp' );
 					exit;
 				}
 			} elseif ( isset( $_POST['txn_type'] ) ) {
-				
+
 				$settings = get_option('wdf_settings');
 				//Handle IPN for simple payments
 				if($this->verify_paypal()) {
+					$transaction = array();
+
 					$custom = explode('||',$_POST['custom']);
 					$funder_id = $custom[0];
 					$post_title = $custom[1];
-					$reward = $custom[2];
-					$transaction = array();
-					
+
+					//proccess additional custom fields
+					$possible_custom_fields = array('reward', 'country', 'address1', 'address2', 'city', 'state', 'zip');
+					foreach ($possible_custom_fields as $key => $possible_custom_field)
+						if(isset($custom[$key+2]) && $custom[$key+2])
+							$transaction[$possible_custom_field] = $custom[$key+2];
+
 					if($_POST['txn_type'] == 'subscr_signup') {
 						$transaction['gross'] = $_POST['mc_amount3'];
 						$cycle = explode(' ',$_POST['period3']);
@@ -326,9 +403,6 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					$transaction['payer_email'] = (isset($_POST['payer_email']) ? $_POST['payer_email'] : 'johndoe@' . home_url() );
 					$transaction['gateway_public'] = $this->public_name;
 					$transaction['gateway'] = $this->plugin_name;
-
-					if($reward)
-						$transaction['reward'] = $reward;
 
 					if( isset($_POST['payment_status']) ) {
 						switch($_POST['payment_status']) {
@@ -370,23 +444,20 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 						$status = 'wdf_canceled';
 								$transaction['status'] = __('Payment Status Not Given','wdf');
 					}
-				
+
 					global $wdf;
 					$wdf->update_pledge($post_title,$funder_id,$status,$transaction);
-					
-					
-					
 				}
 			}
 
 			die();
 		}
 		function execute_payment($type, $pledge, $transaction) {
-			
+
 			if($type == 'advanced') {
 				$settings = get_option('wdf_settings');
-				global $wdf;				
-				
+				global $wdf;
+
 				$nvp = 'actionType=PAY';
 				$nvp .= '&preapprovalKey='.urlencode($transaction['ipn_id']);
 				$nvp .= '&senderEmail='.urlencode($transaction['payer_email']);
@@ -400,7 +471,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				if( isset($response['responseEnvelope_ack']) && $response['responseEnvelope_ack'] == 'Success' ) {
 					switch($response['paymentExecStatus']) {
 						case 'CREATED' :
-							
+
 							break;
 						case 'COMPLETED' :
 							$transaction['status'] = __('Completed','wdf');
@@ -441,34 +512,34 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					}
 					$wdf->update_pledge($pledge->post_title, $pledge->post_parent, $status, $transaction);
 				}
-				
+
 			} else if($type == 'simple') {
 				// Nothing to do?
 			}
 		}
 		function verify_paypal() {
 			global $wdf;
-			
+
 			$settings = get_option('wdf_settings');
 			if ($settings['paypal_sb'] == 'yes') {
 				$domain = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 			} else {
 				$domain = 'https://www.paypal.com/cgi-bin/webscr';
 			}
-			
+
 			$req = 'cmd=_notify-validate';
 			if (!isset($_POST)) $_POST = $HTTP_POST_VARS;
 			foreach ($_POST as $k => $v) {
 				if (get_magic_quotes_gpc()) $v = stripslashes($v);
 				$req .= '&' . $k . '=' . urlencode($v);
 			}
-			
+
 			$args = array();
 			$args['user-agent'] = "Fundraising/{$wdf->version}: http://premium.wpmudev.org/project/fundraising/";
 			$args['body'] = $req;
 			$args['sslverify'] = false;
 			$args['timeout'] = 60;
-			
+
 			//use built in WP http class to work with most server setups
 			$response = wp_remote_post($domain, $args);
 			if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200 || $response['body'] != 'VERIFIED') {
@@ -477,13 +548,13 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				return true;
 			}
 		}
-		
+
 		//This function will take NVPString and convert it to an Associative Array and it will decode the response.
 		function deformatNVP($nvpstr) {
 			parse_str($nvpstr, $nvpArray);
 			return $nvpArray;
 		}
-		
+
 		function admin_settings() {
 			if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/lib/external/class.wd_help_tooltips.php';
 				$tips = new WpmuDev_HelpTooltips();
@@ -530,7 +601,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				<td><span class="description">
 					<?php _e('Enter a percentage of all store sales to collect as a fee. Decimals allowed.', 'wdf') ?>
 					</span><br />
-					<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['percentage']) ? $settings['paypal']['advanced']['percentage'] : '') ); ?>" size="3" name="wdf_settings[paypal][advanced][percentage]" type="text" />% 
+					<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['percentage']) ? $settings['paypal']['advanced']['percentage'] : '') ); ?>" size="3" name="wdf_settings[paypal][advanced][percentage]" type="text" />%
 				</td>
 				</tr><?php */?>
 				<tr>
@@ -572,7 +643,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 							'TRY' => 'TRY - Turkish lira',
 							'USD' => 'USD - U.S. Dollar'
 						);
-						
+
 						foreach ($currencies as $k => $v) {
 							echo '		<option value="' . $k . '"' . ($k == $sel_currency ? ' selected' : '') . '>' . esc_html($v, true) . '</option>' . "\n";
 						}
@@ -626,31 +697,31 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 						</span><br />
 						<textarea class="mp_msgs_txt" name="mp[gateways][paypal-chained][msg]"><?php echo esc_html($settings['gateways']['paypal-chained']['msg']); ?></textarea></td>
 				</tr><?php */?>
-			
+
 			<?php endif; ?>
 				</tbody>
 			</table>
 			<?php
 		}
 		function save_gateway_settings() {
-			
+
 			if( isset($_POST['wdf_settings']['paypal']) ) {
 				// Init array for new settings
 				$new = array();
-				
+
 				// Advanced Settings
 				if( isset($_POST['wdf_settings']['paypal']['advanced']) && is_array($_POST['wdf_settings']['paypal']['advanced'])) {
 					$new['paypal']['advanced'] = $_POST['wdf_settings']['paypal']['advanced'];
 					$new['paypal']['advanced'] = array_map('esc_attr',$new['paypal']['advanced']);
-					
+
 					$settings = get_option('wdf_settings');
 					$settings = array_merge($settings,$new);
 					update_option('wdf_settings',$settings);
 				}
-					
+
 			}
 		}
-		
+
 	}
 wdf_register_gateway_plugin('WDF_Gateway_PayPal', 'paypal', 'PayPal', array('simple','standard','advanced'));
 }

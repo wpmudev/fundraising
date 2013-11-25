@@ -111,11 +111,25 @@
 .wdf-basic .wdf_bp_show_on_activity {
 
 }
-.wdf-basic.wdf_checkout_form .wdf_reward_choice .wdf_level_amount {
-	font-size: 2em;
+.wdf-basic .wdf_reward_item {
 	cursor: pointer;
+}
+.wdf-basic .wdf_reward_item_disabled {
+	cursor: default !important;
 }
 .wdf-basic .wdf_choose_reward_title {
 	font-size: 2.5em;
 	margin-top: 15px;
+}
+.wdf-basic .wdf_reward_limit {
+	font-size: 0.7em;
+	font-weight: normal;
+	background: #fff7ce;
+	display: inline-block;
+	padding: 2px 4px;
+	color: #000;
+	margin: 2px;
+}
+.wdf-basic .wdf_reward_limit_gone {
+	background: #f7d4d4;
 }

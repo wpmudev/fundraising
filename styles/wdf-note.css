@@ -35,7 +35,7 @@
 	font-size: 1.4em;
 }
 .wdf-note .wdf_donate_now input[type="text"], textarea {
-	margin: 0 0 0 5px;	
+	margin: 0 0 0 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -47,7 +47,7 @@
 	font-size: 1em;
 }
 .wdf-note .wdf_send_donation,
-.wdf-note .wdf_button {	
+.wdf-note .wdf_button {
 	color: #fff;
     cursor: pointer;
     display: inline-block;
@@ -105,9 +105,11 @@
 .wdf-note .wdf_bp_show_on_activity {
 
 }
-.wdf-note.wdf_checkout_form .wdf_reward_choice .wdf_level_amount {
-	font-size: 2em;
+.wdf-note .wdf_reward_item {
 	cursor: pointer;
+}
+.wdf-note .wdf_reward_item_disabled {
+	cursor: default !important;
 }
 .wdf_fundraiser_panel.wdf-note .wdf_reward_item {
 	padding: 5px;
@@ -120,4 +122,15 @@
 	height: 1em;
 	margin: 10px 0 0 0;
 }
-
+.wdf-note .wdf_reward_limit {
+	font-size: 0.7em;
+	font-weight: normal;
+	background: #fff7ce;
+	display: inline-block;
+	padding: 2px 4px;
+	color: #000;
+	margin: 2px;
+}
+.wdf-note .wdf_reward_limit_gone {
+	background: #f7d4d4;
+}

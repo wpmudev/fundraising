@@ -1,0 +1,21 @@
+@font-face {
+	font-family: 'custom_dashicons';
+	src:url('custom_dashicons.eot');
+	src:url('custom_dashicons.eot?#iefix') format('embedded-opentype'),
+		url('custom_dashicons.ttf') format('truetype'),
+		url('custom_dashicons.woff') format('woff'),
+		url('custom_dashicons.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+#adminmenu #menu-posts-funder div.wp-menu-image:before, #add_wdf:before {
+  font-family: 'custom_dashicons' !important;
+  content: "\e600";
+}
+#add_wdf:before {
+  font-size:18px;
+  line-height: 28px
+}
+#adminmenu #menu-posts-funder div.wp-menu-image img, #add_wdf img {
+  display: none;
+}

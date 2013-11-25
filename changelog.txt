@@ -3,6 +3,12 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.6 =
+Added ability to collect address
+Added ability to limit number of rewards
+Small improvements to UI
+Fixed problem with fundraisers list widget
+
 = 2.5.3 =
 Fixed forms not being closed for custom buttons in some configurations
 

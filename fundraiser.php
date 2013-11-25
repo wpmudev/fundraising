@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.5.3
+Version: 2.6
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -72,7 +72,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.5.3';
+		$this->version = '2.6';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -121,7 +121,9 @@ class WDF {
 	}
 	function _construct() {
 
-		include_once(WDF_PLUGIN_BASE_DIR . '/lib/external/class.wpmudev_dash_notification.php');
+		global $wpmudev_notices;
+		$wpmudev_notices[] = array( 'id'=> 259,'name'=> 'Fundraising', 'screens' => array( 'edit-funder', 'funder', 'edit-donation', 'funder_page_wdf_settings', 'funder_page_wdf' ) );
+		include_once(WDF_PLUGIN_BASE_DIR . '/lib/external/wpmudev-dash-notification.php');
 
 		$settings = get_option('wdf_settings');
 		if(!is_array($settings) || !$settings || empty($settings) ) {
@@ -805,8 +807,20 @@ class WDF {
 		}
 		if( isset($_POST['wdf_pledge']) && !empty($_POST['wdf_pledge']) )
 			$_SESSION['wdf_pledge'] = $this->filter_price($_POST['wdf_pledge']);
-		if( isset($_POST['wdf_reward']) && is_numeric($_POST['wdf_reward']) )
-			$_SESSION['wdf_reward'] = $_POST['wdf_reward'] + 1;
+		if( isset($_POST['wdf_reward']) && is_numeric($_POST['wdf_reward']) ) {
+			$rewards = get_post_meta($_POST['funder_id'],'wdf_levels', true);
+			$reward_amount = isset($rewards[$_POST['wdf_reward']]['amount']) ? $rewards[$_POST['wdf_reward']]['amount'] : 0;
+			$reward_limit = isset($rewards[$_POST['wdf_reward']]['limit']) ? $rewards[$_POST['wdf_reward']]['limit'] : 0;
+			if($reward_limit)
+				$reward_left = $reward_limit - (isset($rewards[$_POST['wdf_reward']]['used']) ? $rewards[$_POST['wdf_reward']]['used'] : 0);
+			else
+				$reward_left = 1;
+
+			if($reward_left && $_SESSION['wdf_pledge'] >= $reward_amount)
+				$_SESSION['wdf_reward'] = $_POST['wdf_reward'] + 1;
+			elseif(isset($_SESSION['wdf_reward']))
+				unset($_SESSION['wdf_reward']);
+		}
 
 		if( isset($_POST['wdf_gateway']) && !empty($_POST['wdf_gateway']) )
 			$_SESSION['wdf_gateway'] = $_POST['wdf_gateway'];
@@ -825,8 +839,7 @@ class WDF {
 
 		$process_payment = false;
 		global $wdf_gateway_active_plugins;
-
-		$skip_gateway_form = (isset($_SESSION['wdf_gateway']) && isset($wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]->skip_form) ? $wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]->skip_form : false);
+		$skip_gateway_form = (isset($_SESSION['wdf_gateway']) && method_exists($wdf_gateway_active_plugins[$_SESSION['wdf_gateway']], 'skip_form') ? $wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]->skip_form() : (isset($_SESSION['wdf_gateway']) && isset($wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]->skip_form) ? $wdf_gateway_active_plugins[$_SESSION['wdf_gateway']]->skip_form : false));
 
 		if( isset($_POST['wdf_send_donation']) && $skip_gateway_form === true)
 			$process_payment = true;
@@ -851,14 +864,12 @@ class WDF {
 			}
 		}
 		if(isset($this->is_funder_confirm) && $this->is_funder_confirm){
-
-			if( !isset($_SESSION['wdf_pledge_id']) || empty($_SESSION['wdf_pledge_id']) )
+			$pledge_id = (isset($_SESSION['wdf_pledge_id']) ? $_SESSION['wdf_pledge_id'] : (isset($_REQUEST['pledge_id']) ? $_REQUEST['pledge_id'] : ''));
+			if($pledge_id)
 				$this->create_error(__('You have not made a pledge yet.','wdf'),'no_pledge');
 
-			if(!$this->wdf_error) {
+			if(!$this->wdf_error)
 				do_action('wdf_gateway_confirm_'.$_SESSION['wdf_gateway']);
-
-			}
 		}
 	}
 	function process_complete_funder( $funder_id = false ) {
@@ -939,6 +950,16 @@ class WDF {
 		}
 		update_post_meta($id, 'wdf_transaction', $transaction);
 		update_post_meta($id,'wdf_native', '1');
+
+		if(isset($transaction['reward'])) {
+			$rewards = get_post_meta($funder_id,'wdf_levels', true);
+			if(isset($rewards[$transaction['reward']]['used']) && is_numeric($rewards[$transaction['reward']]['used']))
+				$rewards[$transaction['reward']-1]['used'] ++;
+			else
+				$rewards[$transaction['reward']-1]['used'] = 1;
+
+			update_post_meta($funder_id,'wdf_levels', $rewards);
+		}
 
 		// Check and see if we have now hit our goal.
 		if( $this->has_goal($funder_id) ){
@@ -1216,11 +1237,16 @@ class WDF {
 		}
 	}
 	function admin_enqueue_scripts($hook) {
-		global $typenow, $pagenow;
+		global $typenow, $pagenow, $wp_version;
 
 		// Google external jQuery UI
 		wp_register_style( 'jquery-ui-base', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css', null, null, 'screen' );
 		wp_register_style( 'wdf-admin', WDF_PLUGIN_URL . '/css/wdf-admin.css', null, $this->version, 'all' );
+
+		if ( $wp_version >= 3.7 ) {
+			wp_register_style( 'wdf-mp6', WDF_PLUGIN_URL . '/css/wdf-mp6.css', null, $this->version, 'all' );
+			wp_enqueue_style('wdf-mp6');
+		}
 
 		//Register Styles and Scripts For The Admin Area
 		wp_register_script( 'wdf-post', WDF_PLUGIN_URL . '/js/wdf-post.js', array('jquery'), $this->version, false );
@@ -1369,7 +1395,7 @@ class WDF {
 				break;
 			case 'pledge_from' :
 				$trans = $this->get_transaction();
-				echo esc_attr($trans['payer_email']);
+				echo '<a href="mailto:'.$trans['payer_email'].'">'.esc_attr($trans['payer_email']).'</a>';
 				break;
 			case 'pledge_method' :
 				$trans = $this->get_transaction();
