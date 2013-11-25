@@ -1243,7 +1243,7 @@ class WDF {
 		wp_register_style( 'jquery-ui-base', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css', null, null, 'screen' );
 		wp_register_style( 'wdf-admin', WDF_PLUGIN_URL . '/css/wdf-admin.css', null, $this->version, 'all' );
 
-		if ( $wp_version >= 3.7 ) {
+		if ( $wp_version >= 3.8 ) {
 			wp_register_style( 'wdf-mp6', WDF_PLUGIN_URL . '/css/wdf-mp6.css', null, $this->version, 'all' );
 			wp_enqueue_style('wdf-mp6');
 		}
