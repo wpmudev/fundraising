@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.6
+Version: 2.6.0.1
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -122,7 +122,7 @@ class WDF {
 	function _construct() {
 
 		global $wpmudev_notices;
-		$wpmudev_notices[] = array( 'id'=> 259,'name'=> 'Fundraising', 'screens' => array( 'edit-funder', 'funder', 'edit-donation', 'funder_page_wdf_settings', 'funder_page_wdf' ) );
+		$wpmudev_notices[] = array( 'id'=> 259,'name'=> 'Fundraising', 'screens' => array( 'edit-funder', 'funder', 'edit-donation', 'donation', 'funder_page_wdf_settings', 'funder_page_wdf' ) );
 		include_once(WDF_PLUGIN_BASE_DIR . '/lib/external/wpmudev-dash-notification.php');
 
 		$settings = get_option('wdf_settings');
@@ -1731,7 +1731,7 @@ class WDF {
 		if($this->has_goal($post_id)) {
 			$goal = $this->get_goal_amount($post_id);
 			$total = $this->get_amount_raised($post_id);
-			$classes = ($total >= $goal ? 'wdf_complete' : '');
+			$classes = ($total >= $goal ? 'wdf_goal wdf_complete' : 'wdf_goal');
 			if($context == 'admin_metabox') {
 				$content .= '<h1 class="'.$classes.'">' . $this->format_currency('',$total) . ' / ' . $this->format_currency('',$goal) . '</h1>';
 			} elseif($context == 'general') {

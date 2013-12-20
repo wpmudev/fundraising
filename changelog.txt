@@ -3,6 +3,9 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.6.0.1 =
+Update plugins for WP 3.8. UI changes. 
+
 = 2.6 =
 Added ability to collect address
 Added ability to limit number of rewards

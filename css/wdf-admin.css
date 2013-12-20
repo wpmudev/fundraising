@@ -228,3 +228,7 @@ ul.wdf_shortcode_breakdown code {
 #wdf_permissions {
 	width: auto;
 }
+
+h1.wdf_goal {
+	line-height: 1.0em;
+}
