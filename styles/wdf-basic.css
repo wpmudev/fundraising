@@ -116,6 +116,7 @@
 }
 .wdf-basic .wdf_reward_item_disabled {
 	cursor: default !important;
+	opacity: 0.7;
 }
 .wdf-basic .wdf_choose_reward_title {
 	font-size: 2.5em;

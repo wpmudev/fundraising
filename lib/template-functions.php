@@ -537,7 +537,7 @@ if(!function_exists('wdf_checkout_page')) {
 		$style = ($wdf_checkout_from_panel == true ? '' : wdf_get_style($post_id) );
 
 
-		$content .= '<form class="wdf_checkout_form '.$style.'" action="'.wdf_get_funder_page('checkout',$post_id).'" method="post" >';
+		$content .= '<form class="wdf_checkout_form '.$style.'" action="'.wdf_get_funder_page('checkout',$post_id).'" method="post">';
 				global $wp_filter;
 				$raised = $wdf->get_amount_raised($post_id);
 				//$goal = $meta['wdf_goal_amount'][0];
@@ -555,7 +555,7 @@ if(!function_exists('wdf_checkout_page')) {
 					$content .= apply_filters('wdf_before_rewards_title','');
 						$level = maybe_unserialize($meta['wdf_levels'][0]);
 						foreach($level as $index => $data) {
-							$disabled_class = '';
+							$disabled_class = $disabled_input = '';
 							if(isset($data['limit']) && is_numeric($data['limit'])) {
 								$reward_left = $data['limit'] - (isset($data['used']) ? $data['used'] : 0);
 								if($reward_left)
@@ -564,6 +564,7 @@ if(!function_exists('wdf_checkout_page')) {
 								else {
 									$limit_text = ' <span class="wdf_reward_limit wdf_reward_limit_gone">'.__('All gone.','wdf').'</span>';
 									$disabled_class = ' wdf_reward_item_disabled';
+									$disabled_input = ' disabled';
 								}
 							}
 							else
@@ -571,12 +572,12 @@ if(!function_exists('wdf_checkout_page')) {
 
 							$content .= '
 							<div class="wdf_reward_item'.$disabled_class.'">
-								<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="'.$index.'" /><span class="wdf_level_amount" rel="'.$data['amount'].'"> '.$wdf->format_currency('',$data['amount']).$limit_text.'</span></div>
+								<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="'.$index.'" '.$disabled_input.'/><span class="wdf_level_amount" rel="'.$data['amount'].'"> '.$wdf->format_currency('',$data['amount']).$limit_text.'</span></div>
 								<div class="wdf_reward_description">'.html_entity_decode($data['description']).'</div>
 							</div>';
 						}
 						$content .= '
-						<div class="wdf_reward_item">
+						<div class="wdf_reward_item wdf_reward_item_none">
 							<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="none" /><span class="wdf_level_amount"> '.apply_filters('wdf_no_reward_description',__('None','wdf')).'</span></div>
 						</div>';
 				}
@@ -589,7 +590,7 @@ if(!function_exists('wdf_checkout_page')) {
 
 if(!function_exists('wdf_show_checkout')) {
 	function wdf_show_checkout( $echo = true, $post_id = '', $checkout_step = '' ) {
-		if( (isset($_SESSION['wdf_pledge']) && (int)$_SESSION['wdf_pledge'] < 1) || !isset($_SESSION['wdf_pledge']) ) {
+		if( ((isset($_SESSION['wdf_pledge']) && (int)$_SESSION['wdf_pledge'] < 1) || !isset($_SESSION['wdf_pledge'])) && isset($_POST['wdf_pledge']) ) {
 			$checkout_step = '';
 			global $wdf;
 			$wdf->create_error(sprintf(__('You must pledge at least %s','wdf'),$wdf->format_currency('',1)),'checkout_top');
@@ -667,6 +668,7 @@ if(!function_exists('wdf_pledge_button')) {
 				<input type="hidden" name="item_name" value="'.esc_attr($args['widget_args']['title']).'" />
 				<input type="hidden" name="currency_code" value="'.esc_attr($settings['currency']).'" />
 			';
+
 			if(!empty($args['widget_args']['donation_amount']) && isset($args['widget_args']['donation_amount'])) {
 				$content .= '<input type="hidden" name="amount" value="'.$wdf->filter_price($args['widget_args']['donation_amount']).'" />';
 				$content .= '<label>Donate ';
@@ -696,14 +698,14 @@ if(!function_exists('wdf_pledge_button')) {
 					}
 				}
 				$content .= '<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">';
-				$content .= '</form>';
 			} else if (isset($args['widget_args']['button_type']) && $args['widget_args']['button_type'] == 'custom') {
 				//Use Custom Submit Button
 				wp_enqueue_style('wdf-style-'.$args['widget_args']['style']);
 				$button_text = (!empty($args['widget_args']['button_text']) ? esc_attr($args['widget_args']['button_text']) : __('Donate Now','wdf'));
 				$content .= '<input class="wdf_send_pledge" type="submit" name="submit" value="'.$button_text.'" /> ';
-				$content .= '</form>';
 			}
+
+			$content .= '</form>';
 		} else {
 			$settings = get_option('wdf_settings');
 			//Default Button Display
@@ -733,9 +735,6 @@ if(!function_exists('wdf_pledge_button')) {
 			if(defined('WDF_BP_INSTALLED') && WDF_BP_INSTALLED == true)
 					$content .= '<label class="wdf_bp_show_on_activity">'.__('Post this to your profile','wdf').'<input type="checkbox" name="wdf_bp_activity" value="1" checked="checked" /></label>';
 			$content .= '<input class="wdf_send_donation" type="submit" name="wdf_send_donation" value="'.$pledge_label.'" />';
-			$content .= '</form>';
-
-
 		}
 
 		$content = apply_filters('wdf_pledge_button', $content, $post_id);

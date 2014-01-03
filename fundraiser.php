@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.6.0.1
+Version: 2.6.0.2
 Text Domain: wdf
 Author: Cole (Incsub), Maniu (Incsub)
 Author URI: http://premium.wpmudev.org/
@@ -72,7 +72,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.6';
+		$this->version = '2.6.0.2';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -1772,12 +1772,12 @@ class WDF {
 		if($donations) {
 			foreach($donations as $donation) {
 				$trans = maybe_unserialize(get_post_meta($donation->ID,'wdf_transaction',true));
-				if($trans['gross']) {
-					$totals = $totals + intval($trans['gross']);
+				if($trans['gross'] && is_numeric($trans['gross'])) {
+					$totals = $totals + $trans['gross'];
 				}
 			}
 		}
-		return apply_filters('wdf_get_amount_raised', $totals);
+		return apply_filters('wdf_get_amount_raised', round($totals));
 	}
 	function get_goal_amount($post_id = false){
 		global $post;

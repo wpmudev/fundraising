@@ -119,6 +119,7 @@
 }
 .wdf-dark .wdf_reward_item_disabled {
 	cursor: default !important;
+	opacity: 0.9;
 }
 .wdf-dark .wdf_checkout_form .wdf_reward_choice input[type="radio"] {
 	float: left;

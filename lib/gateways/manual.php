@@ -71,8 +71,8 @@ if(!class_exists('WDF_Gateway_Manual')) {
 		function process_simple() {
 			if( !empty($_POST['first_name']) && !empty($_POST['last_name']) &&
 				!empty($_POST['e-mail']) && preg_match("/^[-+\\.0-9=a-z_]+@([-0-9a-z]+\\.)+([0-9a-z]){2,4}$/i", $_POST['e-mail']) &&
-				( (isset($_POST['city']) && !empty($_POST['address1']) && !empty($_POST['city'])) || !isset($_POST['city']) ) &&
-				( (isset($_POST['country']) && !empty($_POST['country'])) || !isset($_POST['country']) )
+				(isset($_POST['city']) && !empty($_POST['address1']) && !empty($_POST['city'])) || !isset($_POST['city']) &&
+				(isset($_POST['country']) && !empty($_POST['country'])) || !isset($_POST['country'])
 			) {
 				global $wdf;
 				$settings = get_option('wdf_settings');
@@ -132,6 +132,7 @@ if(!class_exists('WDF_Gateway_Manual')) {
 			}
 		}
 		function process_advanced() {
+			$this->process_simple();
 		}
 		function confirm() {
 		}

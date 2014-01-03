@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPMU Fundraising\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-25 12:49+0100\n"
-"PO-Revision-Date: 2013-11-25 12:49+0100\n"
+"POT-Creation-Date: 2014-01-03 12:53+0100\n"
+"PO-Revision-Date: 2014-01-03 12:53+0100\n"
 "Last-Translator: Cole <cole@imakethe.com>\n"
 "Language-Team: Incsub <cole@incsub.com>\n"
 "Language: en_US\n"
@@ -59,7 +59,7 @@ msgstr ""
 
 #: C:\Programs
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:100
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:973
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:975
 msgid "Fundraisers"
 msgstr ""
 
@@ -119,444 +119,444 @@ msgid "Edit settings"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:233
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:236
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:258
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:261
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:235
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:238
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:260
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:263
 msgid "New "
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:234
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:259
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:236
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:261
 msgid "Add New "
-msgstr ""
-
-#: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:235
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:260
-msgid "Edit "
 msgstr ""
 
 #: C:\Programs
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:237
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:262
-msgid "All "
-msgstr ""
-
-#: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:238
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:263
-msgid "View "
+msgid "Edit "
 msgstr ""
 
 #: C:\Programs
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:239
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:264
-msgid "Search "
+msgid "All "
 msgstr ""
 
 #: C:\Programs
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:240
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:241
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:265
+msgid "View "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:241
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:266
+msgid "Search "
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:242
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:243
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:267
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:268
 msgid "No "
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:347
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:349
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:35
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:162
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:163
 msgid "Approved"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:357
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:359
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:34
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:161
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:162
 msgid "Complete"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:367
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:369
 msgid "Cancled"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:377
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:379
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:36
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:416
 msgid "Refunded"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:712
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:714
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:85
 msgid "Basic"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:715
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:717
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:86
 msgid "Dark"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:718
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:720
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:87
 msgid "Fresh"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:721
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:723
 msgid "Minimal"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:724
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:726
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:88
 msgid "Note"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:736
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:738
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:89
 msgid "None (Custom CSS)"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:850
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:852
 msgid "Could not determine pledge type."
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:853
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:855
 msgid "Please choose a payment method."
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:856
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:858
 msgid "Fundraiser could not be determined."
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:867
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:869
 msgid "You have not made a pledge yet."
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:999
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1001
 #, php-format
 msgid "%s Type"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1016
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1018
 #, php-format
 msgid "%s Progress"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1018
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1053
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1020
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1055
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:28
 #, php-format
 msgid "%s Settings"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1019
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1021
 #, php-format
 msgid "Set Your %s Goals"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1021
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1023
 msgid "Thank You Message Settings"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1024
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1026
 #, php-format
 msgid "%s Activity"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1030
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1032
 #, php-format
 msgid "%s Information"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1031
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1033
 #, php-format
 msgid "%s Status"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1053
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1055
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:465
 msgid "Settings"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1054
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1056
 msgid "Getting Started"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1070
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1077
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1072
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1079
 msgid "You are not allowed to view this page."
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1091
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1093
 msgid "Security Check Failed.  Whatchu doing??"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1126
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1128
 msgid "donations"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1306
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1313
 msgid "Raised"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1308
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1315
 msgid "Type"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1309
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1316
 msgid "Time Left"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1314
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1321
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:534
 msgid "Amount"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1315
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1322
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:535
 msgid "Status"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1316
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1323
 msgid "Recurring"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1319
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1326
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:537
 msgid "Method"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1320
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1327
 #, php-format
 msgid "%s ID"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1337
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1344
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:50
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:213
 msgid "Donations"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1339
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1346
 msgid "Crowdfunding"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1377
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1384
 msgid "Reward: "
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1408
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1415
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:11
 #, php-format
 msgid "%s Button"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1409
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1416
 #, php-format
 msgid "%s Form"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1410
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1417
 msgid "Progress Bar"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1428
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1435
 msgid "Insert Fundraising Shortcodes"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1441
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1448
 msgid "Add a progress bar"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1442
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1449
 msgid "Only fundraisers that have a goal can display a progress bar"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1449
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1606
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1456
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1613
 #, php-format
 msgid "Choose a %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1453
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1460
 #, php-format
 msgid "You have not created any %s yet."
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1467
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1635
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1474
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1642
 msgid "Show Title"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1471
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1478
 msgid "Show Totals"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1475
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1622
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1482
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1629
 msgid "Choose a style"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1479
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1626
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1486
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1633
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:136
 msgid "Default"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1489
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1576
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1644
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1496
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1583
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1651
 msgid "Insert Shortcode"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1507
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1514
 msgid "Add a donation button"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1512
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1519
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:65
 msgid "Default PayPal Button"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1513
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1520
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:66
 msgid "Custom Button"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1519
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:47
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1526
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:50
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:124
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:69
 msgid "Title"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1526
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:48
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1533
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:51
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:73
 msgid "Description"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1532
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1539
 #, php-format
 msgid "%s Amount"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1532
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1539
 msgid "(blank = choice)"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1538
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1545
 msgid "Choose a Style"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1552
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1559
 msgid "Button Text"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1558
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1565
 msgid "Paypal Options"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1561
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1568
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:100
 msgid "Show Accepted Credit Cards"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1562
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1569
 msgid "Allow special instruction field"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1563
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1570
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:102
 msgid "Use Small Button"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1568
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1575
 msgid "PayPal Email"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1568
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1575
 msgid "defaults to settings"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1598
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1605
 msgid "Add A Fundraising Form"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1610
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1617
 #, php-format
 msgid "You have not created any %s yet"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1639
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1646
 msgid "Show Content"
 msgstr ""
 
@@ -1043,7 +1043,7 @@ msgstr ""
 
 #: C:\Programs
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:37
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:163
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:164
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:352
 msgid "Canceled"
 msgstr ""
@@ -1528,58 +1528,58 @@ msgid "All gone."
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:580
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:581
 msgid "None"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:595
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:596
 #, php-format
 msgid "You must pledge at least %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:703
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:704
 msgid "Donate Now"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:712
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:714
 msgid "Choose An Amount"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:719
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:721
 msgid "Make this donation"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:721
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:723
 msgid "Once"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:722
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:724
 msgid "Daily"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:723
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:725
 msgid "Weekly"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:724
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:726
 msgid "Monthly"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:725
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:727
 msgid "Yearly"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:734
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:736
 msgid "Post this to your profile"
 msgstr ""
 
@@ -2111,26 +2111,6 @@ msgid "Help"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.wpmudev_dash_notification.php:57
-#, php-format
-msgid ""
-"Easily get updates, support, and one-click WPMU DEV plugin/theme "
-"installations right from in your dashboard - <strong><a href=\"%s\" title="
-"\"Install Now &raquo;\">install the free WPMU DEV Dashboard plugin</a></"
-"strong>. &nbsp;&nbsp;&nbsp;<small><a href=\"http://premium.wpmudev.org/wpmu-"
-"dev/update-notifications-plugin-information/\">(find out more)</a></small>"
-msgstr ""
-
-#: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.wpmudev_dash_notification.php:61
-#, php-format
-msgid ""
-"Updates, Support, Premium Plugins, Community - <strong><a href=\"%s\" title="
-"\"Activate Now &raquo;\">activate the WPMU DEV Dashboard plugin now</a></"
-"strong>."
-msgstr ""
-
-#: C:\Programs
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:32
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:70
 msgid "Please fill out all details"
@@ -2194,12 +2174,12 @@ msgid "Make sure all details are filled out correctly."
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:158
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:159
 msgid "Default status for payments"
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:169
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:170
 msgid "Information displayed after pledging(you can use HTML)"
 msgstr ""
 
@@ -2508,9 +2488,19 @@ msgid "Choose a list of simple fundraiser links you wish to display."
 msgstr ""
 
 #: C:\Programs
-#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:47
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:50
 #: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:124
 msgid "Featured Fundraisers"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:53
+msgid "Maximum number of fundraisers to display"
+msgstr ""
+
+#: C:\Programs
+#: Portable\xampp\htdocs\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:58
+msgid "Optional: select fundraisers to display"
 msgstr ""
 
 #: C:\Programs

@@ -3,6 +3,13 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.6.0.2 =
+Fixed rounding of raised amount
+Fixed problems with older Internet explorers
+Fixed notifications about minimal amount
+Fixed limit of listed fundraisers in widget
+Small visual improvements
+
 = 2.6.0.1 =
 Update plugins for WP 3.8. UI changes. 
 

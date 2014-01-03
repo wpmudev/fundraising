@@ -22,7 +22,7 @@ jQuery(document).ready( function($) {
 		}
 	};
 
-	$('.wdf_rewards .wdf_reward_item').bind('click', function(e) {
+	$('.wdf_rewards .wdf_reward_item').on('click', function(e) {
 		var _this = $(this);
 		if (!_this.hasClass("wdf_reward_item_disabled")) {
 			var rel = _this.find('.wdf_level_amount').attr('rel');
@@ -33,9 +33,11 @@ jQuery(document).ready( function($) {
 		}
 	});
 
-	$('.wdf_pledge_amount').bind('focusout', function(e) {
+	$('.wdf_pledge_amount').on('focusout', function(e) {
 		var _this = $(this);
-		var pledge_amount = _this.val();
+		var pledge_amount = Math.round(_this.val());
+		//_this.val(pledge_amount);
+
 		var reward_amount = _this.parents('.wdf_rewards').find(".wdf_reward_item input:checked").parent().find('.wdf_level_amount').attr('rel');
 		if(pledge_amount < reward_amount)
 			_this.parents('.wdf_rewards').find(".wdf_reward_item input:checked").prop('checked', false);
@@ -43,7 +45,7 @@ jQuery(document).ready( function($) {
 		_this.find('input:radio').prop('checked', true);
 	});
 
-	$('.wdf_goal_progress').progressbar(prog_default).bind('enterviewport', function() {
+	$('.wdf_goal_progress').progressbar(prog_default).on('enterviewport', function() {
 		if($(this).hasClass('not-seen')) {
 			var value = Math.round( parseInt( $(this).attr('total') * 100) ) / parseInt( $(this).attr('goal') );
 			if(value > 100) { value = 100 }

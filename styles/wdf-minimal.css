@@ -84,6 +84,7 @@
 }
 .wdf-minimal .wdf_reward_item_disabled {
 	cursor: default !important;
+	opacity: 0.7;
 }
 .wdf_fundraiser_panel.wdf-minimal .wdf_reward_item {
 	padding: 5px;
