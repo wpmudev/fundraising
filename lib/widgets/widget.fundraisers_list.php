@@ -50,7 +50,7 @@ class WDF_Fundraisers_List extends WP_Widget {
 		<p><label><?php echo __('Title','wdf') ?><br /><input type="text" name="<?php echo $this->get_field_name('title'); ?>" class="widefat" value="<?php echo (isset($instance['title']) ? $instance['title'] : __('Featured Fundraisers','wdf')); ?>" /></label></p>
 		<p><label><?php echo __('Description','wdf') ?></label><br />
 		<textarea class="widefat" name="<?php echo $this->get_field_name('description'); ?>"><?php echo (isset($instance['description']) ? esc_textarea($instance['description']) : ''); ?></textarea></p>
-		<p><label><?php echo __('Maximum number of fundraisers to display','wdf') ?><br /><input type="text" name="<?php echo $this->get_field_name('limit'); ?>" class="widefat" value="<?php echo (isset($instance['limit']) ? $instance['limit'] : ''; ?>" /></label></p>
+		<p><label><?php echo __('Maximum number of fundraisers to display','wdf') ?><br /><input type="text" name="<?php echo $this->get_field_name('limit'); ?>" class="widefat" value="<?php echo (isset($instance['limit']) ? $instance['limit'] : ''); ?>" /></label></p>
 		<?php
 		$query = array( 'numberposts' => -1, 'post_type' => 'funder', 'post_status' => 'publish');
 		$query = get_posts($query);

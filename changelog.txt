@@ -3,6 +3,9 @@ Author: Cole Stevenson (Incsub), Maniu (Incsub)
 
 == Changelog ==
 
+= 2.6.0.3 =
+Fixed missing ")" causing php error
+
 = 2.6.0.2 =
 Fixed rounding of raised amount
 Fixed problems with older Internet explorers
