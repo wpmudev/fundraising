@@ -6,10 +6,10 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 		var $plugin_name = 'paypal';
 
 		// Name of your gateway, for the admin side.
-		var $admin_name = 'PayPal';
+		var $admin_name = '';
 
 		// Public name of your gateway, for lists and such.
-		var $public_name = 'PayPal';
+		var $public_name = '';
 
 		// Whether or not ssl is needed for checkout page
 		var $force_ssl = false;
@@ -34,6 +34,8 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 		}
 
 		function on_creation() {
+			$this->public_name = $this->admin_name = __('PayPal','wdf');
+
 			if(isset($_SESSION['funder_id'])) {
 				$collect_address = get_post_meta($_SESSION['funder_id'],'wdf_collect_address', true);
 				if($collect_address)
@@ -363,7 +365,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 
 				} else {
 					header("HTTP/1.1 503 Service Unavailable");
-					_e( 'There was a problem verifying the IPN string with PayPal. Please try again.', 'mp' );
+					_e( 'There was a problem verifying the IPN string with PayPal. Please try again.','wdf' );
 					exit;
 				}
 			} elseif ( isset( $_POST['txn_type'] ) ) {
@@ -612,7 +614,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['email']) ? $settings['paypal']['advanced']['email'] : '') ); ?>" size="40" name="wdf_settings[paypal][advanced][email]" type="text" /></td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"><?php _e('Paypal Currency', 'mp') ?></th>
+					<th scope="row"><?php _e('Paypal Currency','wdf') ?></th>
 					<td>
 						<select name="wdf_settings[paypal][advanced][currency]">
 						<?php
@@ -680,7 +682,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 						<span class="description">
 						<?php _e('You must register this application with PayPal using your business account login to get an Application ID that will work with your API credentials. A bit of a hassle, but worth it!  <a target="_blank" href="https://www.x.com/developers/paypal">Register then submit your application</a> while logged in to the developer portal.</a> Note that you do not need an Application ID for testing in sandbox mode. <a target="_blank" href="https://www.x.com/developers/paypal/documentation-tools/going-live-with-your-application">More Information &raquo;</a>', 'wdf') ?>
 						<br />
-						<?php _e('View an example form &raquo;', 'wdf'); ?>
+						<?php //_e('View an example form &raquo;', 'wdf'); ?>
 						</a> </span>
 						<p>
 							<label>
@@ -723,6 +725,6 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 		}
 
 	}
-wdf_register_gateway_plugin('WDF_Gateway_PayPal', 'paypal', 'PayPal', array('simple','standard','advanced'));
+wdf_register_gateway_plugin('WDF_Gateway_PayPal', 'paypal', __('PayPal','wdf'), array('simple','standard','advanced'));
 }
 ?>

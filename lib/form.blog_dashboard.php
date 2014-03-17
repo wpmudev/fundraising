@@ -1,9 +1,9 @@
 <div id="wdf_dashboard" class="wrap">
 	<div id="icon-wdf-admin" class="icon32"><br></div>
 	<h2><?php _e('Getting Started Guide','wdf'); ?></h2>
-	<p><?php _e('The Fundraising plugin can help you fund your important projects.','wdf') ?></p> 
+	<p><?php _e('The Fundraising plugin can help you fund your important projects.','wdf') ?></p>
 	<div class="metabox-holder">
-		
+
 		<?php if(current_user_can('wdf_edit_settings')) { ?>
 		<div class="postbox">
 			<h3 class="hndle"><span><?php _e('First Time Setup Guide','wdf'); ?></span></h3>
@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		<?php } ?>
-		
+
 		<div class="postbox">
 			<h3 class="hndle"><span><?php _e('Available Shortcodes','wdf'); ?></span></h3>
 			<div class="inside">
@@ -59,18 +59,18 @@
 				</ul>
 			</div>
 		</div>
-		
+
 		<?php if(current_user_can('wdf_edit_settings')) { ?>
 		<div class="postbox">
 			<h3 class="hndle"><span><?php _e('Need Help?','wdf'); ?></span></h3>
 			<div class="inside">
 				<form action="<?php echo admin_url('edit.php?post_type=funder&page=wdf'); ?>" method="post">
 					<label><?php _e('Restart the getting started walkthrough?','wdf'); ?></label>
-					<input type="submit" name="wdf_restart_tutorial" class="button" value="Restart the Tutorial" />
+					<input type="submit" name="wdf_restart_tutorial" class="button" value="<?php esc_attr(_e('Restart the Tutorial','wdf')); ?>" />
 				</form>
 			</div>
 		</div>
 		<?php } ?>
-		
+
 	</div>
 </div><!-- #wdf_dashboard -->

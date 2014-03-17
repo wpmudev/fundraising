@@ -268,7 +268,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<label><?php _e('Checkout Page','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_checkout_slug" type="text" name="wdf_settings[checkout_slug]" value="<?php echo esc_attr($settings['checkout_slug']); ?>" />
+											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{'.__('The Fundraiser\'s Name','wdf').'}/'; ?></span><input id="wdf_checkout_slug" type="text" name="wdf_settings[checkout_slug]" value="<?php echo esc_attr($settings['checkout_slug']); ?>" />
 										</td>
 									</tr>
 
@@ -277,7 +277,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<label><?php _e('Thank You Page','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{The Fundraiser\'s Name}/'; ?></span><input id="wdf_confirm_slug" type="text" name="wdf_settings[confirm_slug]" value="<?php echo esc_attr($settings['confirm_slug']); ?>" />
+											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{'.__('The Fundraiser\'s Name','wdf').'}/'; ?></span><input id="wdf_confirm_slug" type="text" name="wdf_settings[confirm_slug]" value="<?php echo esc_attr($settings['confirm_slug']); ?>" />
 										</td>
 									</tr>
 									<?php endif; ?>
@@ -410,7 +410,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 							<?php if(isset($settings['payment_types']) && !empty($settings['payment_types']) ) : ?>
 								<?php global $wdf_gateway_plugins, $wdf_gateway_active_plugins; ?>
 								<?php if( is_array($wdf_gateway_plugins) ): ?>
-									<h3><?php _e('Available Payment Gateways'); ?></h3>
+									<h3><?php _e('Available Payment Gateways','wdf'); ?></h3>
 									<table class="form-table">
 										<tbody>
 											<?php $getaways_select = array(); ?>
@@ -443,7 +443,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<?php if(count($getaways_select) > 1) {?>
 												<tr valign="top">
 													<th scope="row">
-														<label for="wdf_settings[default_gateway]"><span class="title" style="font-weight:bold;"><?php _e('Default Getaway'); ?></span></label>
+														<label for="wdf_settings[default_gateway]"><span class="title" style="font-weight:bold;"><?php _e('Default Getaway','wdf'); ?></span></label>
 													</th>
 													<td>
 														<select name="wdf_settings[default_gateway]">

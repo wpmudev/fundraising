@@ -6,10 +6,10 @@ if(!class_exists('WDF_Gateway_Manual')) {
 		var $plugin_name = 'manual';
 
 		// Name of your gateway, for the admin side.
-		var $admin_name = 'Manual';
+		var $admin_name = '';
 
 		// Public name of your gateway, for lists and such.
-		var $public_name = 'Manual';
+		var $public_name = '';
 
 		// Whether or not ssl is needed for checkout page
 		var $force_ssl = false;
@@ -24,6 +24,7 @@ if(!class_exists('WDF_Gateway_Manual')) {
 		var $allow_reccuring = false;
 
 		function on_creation() {
+			$this->public_name = $this->admin_name = __('Manual','wdf');
 		}
 
 		function payment_form() {
@@ -194,6 +195,6 @@ if(!class_exists('WDF_Gateway_Manual')) {
 		}
 
 	}
-wdf_register_gateway_plugin('WDF_Gateway_Manual', 'manual', 'Manual', array('simple','standard','advanced'));
+wdf_register_gateway_plugin('WDF_Gateway_Manual', 'manual', __('Manual','wdf'), array('simple','standard','advanced'));
 }
 ?>

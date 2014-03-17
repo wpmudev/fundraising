@@ -502,7 +502,7 @@ if(!function_exists('wdf_gateway_choices')) {
 				$default = 'paypal';
 
 			$content .= '<input type="hidden" name="wdf_step" value="gateway" />';
-			$content .= '<div class="wdf_payment_options_title">Payment Options</div>';
+			$content .= '<div class="wdf_payment_options_title">'.__('Payment Options','wdf').'</div>';
 			$content .= '<div class="wdf_payment_options">';
 			foreach($wdf_gateway_active_plugins as $gateway => $data) {
 				$content .= '<label> <input type="radio" name="wdf_gateway" value="'.$gateway.'" '.checked( $gateway, $default, false ).'/> '.$data->public_name.'</label> ';

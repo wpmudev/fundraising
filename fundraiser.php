@@ -3,9 +3,9 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.6.0.3
+Version: 2.6.0.4
 Text Domain: wdf
-Author: Cole (Incsub), Maniu (Incsub)
+Author: WPMUDEV
 Author URI: http://premium.wpmudev.org/
 WDP ID: 259
 
@@ -91,7 +91,7 @@ class WDF {
 			'curr_symbol_position' => 1,
 			'single_checkout_type' => 0,
 			'curr_decimal' => 1,
-			'default_email' => 'Thank you for your pledge. Your donation of %DONATIONTOTAL% has been received and is greatly appreciated. Thanks for your support.',
+			'default_email' => __('Thank you for your pledge. Your donation of %DONATIONTOTAL% has been received and is greatly appreciated. Thanks for your support.','wdf'),
 			'current_version' => $this->version,
 			'checkout_type' => '1',
 			'funder_labels' => array(
@@ -232,15 +232,15 @@ class WDF {
 		$funder_labels = array(
 			'name' => $plural,
 			'singular_name' => $single,
-			'add_new' => __('New '.$single,'wdf'),
-			'add_new_item' => __('Add New '.$single,'wdf'),
-			'edit_item' => __('Edit '.$single,'wdf'),
-			'new_item' => __('New '.$single,'wdf'),
-			'all_items' => __('All '.$plural,'wdf'),
-			'view_item' => __('View '.$single,'wdf'),
-			'search_items' => __('Search '.$plural,'wdf'),
-			'not_found' =>  __('No '.$plural.' found','wdf'),
-			'not_found_in_trash' => __('No '.$plural.' found in Trash','wdf'),
+			'add_new' => sprintf(__('New %s','wdf'), $single),
+			'add_new_item' => sprintf(__('Add New %s','wdf'), $single),
+			'edit_item' => sprintf(__('Edit %s','wdf'), $single),
+			'new_item' => sprintf(__('New %s','wdf'), $single),
+			'all_items' => sprintf(__('All %s','wdf'), $plural),
+			'view_item' => sprintf(__('View %s','wdf'), $single),
+			'search_items' => sprintf(__('Search %s','wdf'), $plural),
+			'not_found' =>  sprintf(__('No %s found','wdf'), $plural),
+			'not_found_in_trash' => sprintf(__('No %s found in Trash','wdf'), $plural),
 			'parent_item_colon' => '',
 			'menu_name' => $menu
 		);
@@ -257,15 +257,15 @@ class WDF {
 		$donation_labels = array(
 			'name' => $plural,
 			'singular_name' => $single,
-			'add_new' => __('New '.$single,'wdf'),
-			'add_new_item' => __('Add New '.$single,'wdf'),
-			'edit_item' => __('Edit '.$single,'wdf'),
-			'new_item' => __('New '.$single,'wdf'),
-			'all_items' => __('All '.$plural,'wdf'),
-			'view_item' => __('View '.$single,'wdf'),
-			'search_items' => __('Search '.$plural,'wdf'),
-			'not_found' =>  __('No '.$plural.' found','wdf'),
-			'not_found_in_trash' => __('No '.$plural.' found in Trash','wdf'),
+			'add_new' => sprintf(__('New %s','wdf'), $single),
+			'add_new_item' => sprintf(__('Add New %s','wdf'), $single),
+			'edit_item' => sprintf(__('Edit %s','wdf'), $single),
+			'new_item' => sprintf(__('New %s','wdf'), $single),
+			'all_items' => sprintf(__('All %s','wdf'), $plural),
+			'view_item' => sprintf(__('View %s','wdf'), $single),
+			'search_items' => sprintf(__('Search %s','wdf'), $plural),
+			'not_found' =>  sprintf(__('No %s found','wdf'), $plural),
+			'not_found_in_trash' => sprintf(__('No %s found in Trash','wdf'), $plural),
 			'parent_item_colon' => '',
 			'menu_name' => $menu
 		);
@@ -1141,7 +1141,7 @@ class WDF {
 
 			$settings = wp_parse_args($new,$settings);
 			update_option('wdf_settings',$settings);
-			$this->create_msg('Settings Saved', 'general');
+			$this->create_msg(__('Settings Saved','wdf'), 'general');
 		}
 	}
 
@@ -1445,7 +1445,7 @@ class WDF {
 		$funders = get_posts($args);
 		media_upload_header(); ?>
 		<form class="wdf_media_cont media-item" id="media_progress_bar">
-			<h3 class="media-title"><?php _e('Add a progress bar'); ?></h3>
+			<h3 class="media-title"><?php _e('Add a progress bar','wdf'); ?></h3>
 			<span class="description"><?php _e('Only fundraisers that have a goal can display a progress bar','wdf'); ?></span>
 			<div id="media-items">
 				<div class="media-item media-blank">
@@ -1511,7 +1511,7 @@ class WDF {
 			table.describe th.label { width:150px; }
 		</style>
 		<form class="wdf_media_cont" id="media_donate_button">
-			<h3 class="media-title"><?php _e('Add a donation button'); ?></h3>
+			<h3 class="media-title"><?php _e('Add a donation button','wdf'); ?></h3>
 			<div id="media-items">
 				<div class="media-item media-blank">
 					<p class="media-types">

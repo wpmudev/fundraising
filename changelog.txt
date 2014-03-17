@@ -1,7 +1,12 @@
 Plugin Name: Fundraising
-Author: Cole Stevenson (Incsub), Maniu (Incsub)
+Author: WPMUDEV
+Lead developer: Maniu
+Contributors: Cole Stevenson
 
 == Changelog ==
+
+= 2.6.0.4 =
+Fixed missing translation strings
 
 = 2.6.0.3 =
 Fixed missing ")" causing php error

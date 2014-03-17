@@ -405,7 +405,7 @@ if($pagenow == 'nav-menus.php') { ?>
 						<option <?php (isset($meta['wdf_has_reward'][0]) ? selected($meta['wdf_has_reward'][0],'0') : ''); ?> value="0"><?php _e('No','wdf'); ?></option>
 						<option <?php (isset($meta['wdf_has_reward'][0]) ? selected($meta['wdf_has_reward'][0],'1') : ''); ?> value="1"><?php _e('Yes','wdf'); ?></option>
 					</select>
-					<?php echo $tips->add_tip(sprintf(__('This will enable %s. You can choose minimal amount of money required, limit amount available and add description for each %s.'), esc_attr($settings['funder_labels']['plural_level']), esc_attr($settings['funder_labels']['singular_level']))); ?>
+					<?php echo $tips->add_tip(sprintf(__('This will enable %s. You can choose minimal amount of money required, limit amount available and add description for each %s.','wdf'), esc_attr($settings['funder_labels']['plural_level']), esc_attr($settings['funder_labels']['singular_level']))); ?>
 				</h4>
 					<div id="wdf_has_reward" rel="wdf_has_reward" <?php echo (isset($meta['wdf_has_reward'][0]) && $meta['wdf_has_reward'][0] == '1' ? '' : 'style="display:none"') ?>>
 						<table id="wdf_levels_table" class="widefat">
@@ -500,12 +500,12 @@ if($pagenow == 'nav-menus.php') { ?>
 						<option <?php (isset($meta['wdf_collect_address'][0]) ? selected($meta['wdf_collect_address'][0],'0') : ''); ?> value="0"><?php _e('No','wdf'); ?></option>
 						<option <?php (isset($meta['wdf_collect_address'][0]) ? selected($meta['wdf_collect_address'][0],'1') : ''); ?> value="1"><?php _e('Yes','wdf'); ?></option>
 					</select>
-					<?php echo $tips->add_tip('This will allow you to collect additional informations like: street address, city, state and posta/zip code. This will force elaborated checkout page.'); ?>
+					<?php echo $tips->add_tip(__('This will allow you to collect additional informations like: street address, city, state and posta/zip code. This will force elaborated checkout page.','wdf')); ?>
 				</h4>
 					<div id="wdf_collect_address_message_holder" rel="wdf_collect_address" <?php echo (isset($meta['wdf_collect_address'][0]) && $meta['wdf_collect_address'][0] == '1' ? '' : 'style="display:none"') ?>>
 						<label><?php echo __('Add message visible while donating that will describe the purpuse of collecting address. Leave blank to disable.','wdf'); ?></label><br />
 						<textarea id="wdf_collect_address_message" name="wdf[collect_address_message]"><?php echo (isset($meta['wdf_collect_address_message'][0]) ? urldecode(wp_kses_post($meta['wdf_collect_address_message'][0])) : ''); ?></textarea>
-						<label for=""><?php _e('Allow "Country" field while collecting address'); ?>?
+						<label for=""><?php _e('Allow "Country" field while collecting address','wdf'); ?>?
 							<select <?php echo $disabled; ?> class="wdf_toggle" rel="wdf_collect_address_country" name="wdf[collect_address_country]">
 								<option <?php (isset($meta['wdf_collect_address_country'][0]) ? selected($meta['wdf_collect_address_country'][0],'0') : ''); ?> value="0"><?php _e('No','wdf'); ?></option>
 								<option <?php (isset($meta['wdf_collect_address_country'][0]) ? selected($meta['wdf_collect_address_country'][0],'1') : ''); ?> value="1"><?php _e('Yes','wdf'); ?></option>
