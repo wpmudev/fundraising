@@ -392,7 +392,7 @@ $this->eu_countries = array(
   'SE'
 ); 
  
-//Currencies
+//Currencies - Add filter
 $this->currencies = array(
   "ALL"=> array("Albania, Leke", "4c, 65, 6b"),
   "AFN"=> array("Afghanistan, Afghanis", "60b"),

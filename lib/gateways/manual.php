@@ -141,7 +141,7 @@ if(!class_exists('WDF_Gateway_Manual')) {
 			$settings = get_option('wdf_settings');
 
 			$content = '<div class="manual_transaction_info">';
-			$content .= html_entity_decode($settings['manual']['after_info']);
+			$content .= html_entity_decode(stripslashes($settings['manual']['after_info']));
 			$content .= '</div>';
 			return $content;
 		}
