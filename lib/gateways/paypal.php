@@ -136,7 +136,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 						$nvp .= '&a3='.$_SESSION['wdf_pledge'];
 						$nvp .= '&p3=1';
 						$nvp .= '&t3='.$_SESSION['wdf_recurring'];
-						$nvp .= '&bn=WPMUDonations_Subscribe_WPS_'.$settings['currency'];
+						$nvp .= '&bn=incsub_SP';
 						$nvp .= '&src=1';
 						$nvp .= '&sra=1';
 						$nvp .= '&modify=1';
@@ -144,7 +144,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 						$nvp = 'cmd=_donations';
 						$nvp .= '&amount='.urlencode($_SESSION['wdf_pledge']);
 						$nvp .= '&cbt='.urlencode( isset($settings['paypal_return_text']) ? $settings['paypal_return_text'] : __('Click Here To Complete Your Donation', 'wdf') );
-						$nvp .= '&bn=WPMUDonations_Donate_WPS_'.$settings['currency'];
+						$nvp .= '&bn=incsub_SP';
 					}
 					$nvp .= '&no_shipping=1';
 					$nvp .= '&business='.urlencode($settings['paypal_email']);
