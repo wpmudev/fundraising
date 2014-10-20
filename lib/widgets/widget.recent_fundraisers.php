@@ -8,8 +8,9 @@ class WDF_Recent_Fundraisers extends WP_Widget {
 	
 	function WDF_Recent_Fundraisers() {
 		// Instantiate the parent object
-		parent::__construct( false, __('Recent Fundraisers','wdf'), array(
-			'description' =>  __('The most recent fundraisers on your site','wdf')
+		$settings = get_option('wdf_settings');
+		parent::__construct( false, sprintf(__('Recent %s','wdf'),esc_attr($settings['funder_labels']['plural_name'])), array(
+			'description' =>  sprintf(__('The most recent %s on your site','wdf'),esc_attr($settings['funder_labels']['plural_name']))
 		) );
 	}
 

@@ -4,8 +4,9 @@ class WDF_Fundraisers_List extends WP_Widget {
 
 	function WDF_Fundraisers_List() {
 		// Instantiate the parent object
-		parent::__construct( false, __('Fundraisers List','wdf'), array(
-			'description' =>  __('Choose a list of simple fundraiser links you wish to display.','wdf')
+		$settings = get_option('wdf_settings');
+		parent::__construct( false, sprintf(__('%s List','wdf'),esc_attr($settings['funder_labels']['plural_name'])), array(
+			'description' =>  sprintf(__('Choose a list of simple %s links you wish to display.','wdf'),esc_attr($settings['funder_labels']['plural_name']))
 		) );
 	}
 
@@ -46,6 +47,7 @@ class WDF_Fundraisers_List extends WP_Widget {
 	}
 
 	function form( $instance ) {
+		$settings = get_option('wdf_settings');
 		?>
 		<p><label><?php echo __('Title','wdf') ?><br /><input type="text" name="<?php echo $this->get_field_name('title'); ?>" class="widefat" value="<?php echo (isset($instance['title']) ? $instance['title'] : __('Featured Fundraisers','wdf')); ?>" /></label></p>
 		<p><label><?php echo __('Description','wdf') ?></label><br />
@@ -55,7 +57,7 @@ class WDF_Fundraisers_List extends WP_Widget {
 		$query = array( 'numberposts' => -1, 'post_type' => 'funder', 'post_status' => 'publish');
 		$query = get_posts($query);
 		if(count($query) > 0) {
-			echo '<p><label>'.__('Optional: select fundraisers to display','wdf').'</label><br/>';
+			echo '<p><label>'.sprintf(__('Optional: select %s to display','wdf'), esc_attr($settings['funder_labels']['plural_name'])).'</label><br/>';
 			foreach($query as $funder) : ?>
 				<input <?php echo checked(isset($instance['funders'][$funder->ID]),true); ?> type="checkbox" id="<?php echo $this->get_field_id('funders_'.$funder->ID); ?>" name="<?php echo $this->get_field_name('funders'); ?>[<?php echo $funder->ID; ?>]" value="<?php echo $funder->ID; ?>" />
 				<label for="<?php echo $this->get_field_id('funders_'.$funder->ID); ?>">

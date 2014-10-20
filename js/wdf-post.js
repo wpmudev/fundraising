@@ -1,5 +1,21 @@
 jQuery(document).ready( function($) {
 
+	$('form#post').submit(function(e){
+		if($('#titlediv input').val() == '') {
+			e.preventDefault();
+			alert(wdf.title_remind);
+			return false;
+		}
+	});
+
+	$('#wdf_type input').change(function(e){
+		if($(this).val() == 'simple') {
+			$('#wdf_recurring').show();
+		}
+		else
+			$('#wdf_recurring').hide();
+	});
+
 	var dates = $( "#wdf_goal_start_date, #wdf_goal_end_date" ).datepicker({
 			dateFormat: 'yy-mm-dd',
 			changeMonth: true,

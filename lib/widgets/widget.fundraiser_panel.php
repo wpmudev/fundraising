@@ -11,7 +11,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 		$settings = get_option('wdf_settings');
 		$title = sprintf(__('%s Panel','wdf'),esc_attr($settings['funder_labels']['singular_name']));
 		parent::__construct( 'wdf_fundraiser_panel', $title, array(
-			'description' =>  __('If the current page is a single Fundraiser page then this panel will display information and call to actions for the fundraiser.  You can also use it to display information for a specific fundraiser.','wdf')
+			'description' =>  sprintf(__('If the current page is a single %1$s page then this panel will display information and call to actions for the %1$s.  You can also use it to display information for a specific %1$s','wdf'),esc_attr($settings['funder_labels']['singular_name']))
 		) );
 
 	}
@@ -115,6 +115,8 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 
 	function form( $instance ) {
 		global $wdf;
+		$settings = get_option('wdf_settings');
+		
 		$instance_defaults = array( 'description', 'show_thumb', 'thumb_width', 'thumb_height', 'style', 'single_fundraiser', 'funder' );
 		foreach($instance_defaults as $instance_default)
 			if(!isset($instance[$instance_default]))
@@ -130,8 +132,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 		<p><label><?php _e('Max Image Height','wdf'); ?> : <input type="text" class="small-text" value="<?php echo $instance['thumb_height']; ?>" name="<?php echo $this->get_field_name('thumb_height'); ?>"/></label></p>
 
 		<p>
-			<label><?php _e('Choose a display style','wdf'); ?>
-			<select name="<?php echo $this->get_field_name('style'); ?>">
+			<label><?php _e('Choose a display style','wdf'); ?><select name="<?php echo $this->get_field_name('style'); ?>">
 				<?php if(is_array($wdf->styles) && !empty($wdf->styles)) : ?>
 					<option <?php selected($instance['style'],''); ?> value=""><?php _e('Default','wdf'); ?></option>
 					<?php foreach($wdf->styles as $key => $label) : ?>
@@ -141,7 +142,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 			</select></label>
 		</p>
 
-		<p><label><?php _e('Display a specific fundraiser','wdf'); ?></label>
+		<p><label><?php printf(__('Display a specific %s','wdf'),esc_attr($settings['funder_labels']['singular_name'])); ?></label>
 			<select class="wdf_toggle" rel="wdf_panel_single" name="<?php echo $this->get_field_name('single_fundraiser'); ?>">
 				<option value="0" <?php echo selected($instance['single_fundraiser'],'0'); ?>><?php _e('No','wdf'); ?></option>
 				<option value="1" <?php echo selected($instance['single_fundraiser'],'1'); ?>><?php _e('Yes','wdf'); ?></option>
@@ -152,12 +153,14 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 			<?php
 				$query = array( 'numberposts' => -1, 'post_type' => 'funder', 'post_status' => 'publish');
 				if($query = get_posts($query) ) : ?>
+					<p>
 					<?php foreach($query as $funder) : ?>
 						<label>
 							<input <?php echo checked($instance['funder'],$funder->ID); ?> type="radio" name="<?php echo $this->get_field_name('funder'); ?>" value="<?php echo $funder->ID; ?>" />
 							<?php echo $funder->post_title; ?>
 						</label><br />
 					<?php endforeach; ?>
+					</p>
 				<?php else : ?>
 					<div class="error below-h2"><p><?php _e('You have not created any fundraisers yet','wdf'); ?></p></div>
 				<?php endif; ?>

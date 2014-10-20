@@ -233,6 +233,20 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 
 								</tbody>
 							</table>
+							<h3><?php _e('Other','wdf'); ?></h3>
+							<table class="form-table">
+								<tbody>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Message displayed to users when pledge was not found','wdf'); ?></label>
+										</th>
+										<td>
+											<textarea name="wdf_settings[message_pledge_not_found]" class="widefat" rows="2"><?php echo esc_attr($settings['message_pledge_not_found']); ?></textarea>
+											<span class="description"><?php _e('Sometimes it takes bit longer time for payment gateway to notify your site about payment status. You can set your own message here.','wdf'); ?></span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 
 						<?php break;
 						case 'other' : ?>
@@ -254,12 +268,30 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 
 									<?php else : ?>
 
+									<?php
+									$front_permlink = $this->get_mu_front_permlink('/', '');
+									if(is_main_site() && is_multisite()) {
+									?>
+									<tr valign="top">
+										<th scope="row">
+											<label><?php _e('Enable "front" in permlinks','wdf'); echo ' ("'.$this->get_mu_front_permlink('/', '/', 1).'")'; ?></label>
+										</th>
+										<td>
+											<label><input class="wdf_auto_submit" value="1" name="wdf_settings[permlinks_front]" type="radio" <?php checked( $settings['permlinks_front'], 1 ); ?>> <?php _e('Yes','wdf'); ?></label>
+											<label><input class="wdf_auto_submit" value="0" name="wdf_settings[permlinks_front]" type="radio" <?php checked( $settings['permlinks_front'], 0 ); ?>> <?php _e('No','wdf'); ?></label>
+												
+										</td>
+									</tr>
+									<?php
+									}
+									?>
+
 									<tr valign="top">
 										<th scope="row">
 											<label><?php _e('Fundraising Directory Location','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url(); ?>/</span><input id="wdf_dir_slug" type="text" name="wdf_settings[dir_slug]" value="<?php echo esc_attr($settings['dir_slug']); ?>" />
+											<span class="code"><?php echo home_url().$front_permlink; ?>/</span><input id="wdf_dir_slug" type="text" name="wdf_settings[dir_slug]" value="<?php echo esc_attr($settings['dir_slug']); ?>" />
 										</td>
 									</tr>
 
@@ -268,7 +300,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<label><?php _e('Checkout Page','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{'.__('The Fundraiser\'s Name','wdf').'}/'; ?></span><input id="wdf_checkout_slug" type="text" name="wdf_settings[checkout_slug]" value="<?php echo esc_attr($settings['checkout_slug']); ?>" />
+											<span class="code"><?php echo home_url().$front_permlink.'/'.$settings['dir_slug'].'/{'.__('The Fundraiser\'s Name','wdf').'}/'; ?></span><input id="wdf_checkout_slug" type="text" name="wdf_settings[checkout_slug]" value="<?php echo esc_attr($settings['checkout_slug']); ?>" />
 										</td>
 									</tr>
 
@@ -277,7 +309,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<label><?php _e('Thank You Page','wdf'); ?></label>
 										</th>
 										<td>
-											<span class="code"><?php echo home_url().'/'.$settings['dir_slug'].'/{'.__('The Fundraiser\'s Name','wdf').'}/'; ?></span><input id="wdf_confirm_slug" type="text" name="wdf_settings[confirm_slug]" value="<?php echo esc_attr($settings['confirm_slug']); ?>" />
+											<span class="code"><?php echo home_url().$front_permlink.'/'.$settings['dir_slug'].'/{'.__('The Fundraiser\'s Name','wdf').'}/'; ?></span><input id="wdf_confirm_slug" type="text" name="wdf_settings[confirm_slug]" value="<?php echo esc_attr($settings['confirm_slug']); ?>" />
 										</td>
 									</tr>
 									<?php endif; ?>
@@ -393,6 +425,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</th>
 										<td>
 											<input class="wdf_auto_submit" type="checkbox" name="wdf_settings[payment_types][]" value="simple" <?php checked( in_array( 'simple', $settings['payment_types'] ), true ); ?> />
+											<?php echo $tips->add_tip(__('Allows for a simple continuous donations','wdf')); ?>
 										</td>
 									</tr>
 									<tr valign="top">
@@ -401,7 +434,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 										</th>
 										<td>
 											<input class="wdf_auto_submit" type="checkbox" name="wdf_settings[payment_types][]" value="advanced" <?php checked( in_array( 'advanced', $settings['payment_types'] ), true); ?> id="wdf_allowed_fundraier_types" />
-											<?php echo $tips->add_tip(__('Crowdfunding allows you to create fundraisers with Goals & Rewards.  Payments for advanced crowdfunding are not processed until the goal has been reached.','wdf')); ?>
+											<?php echo $tips->add_tip(__('Pledges are only authorized and payments are not processed until your goal is reached.','wdf').' '.__('This requires advanced PayPal configuration.','wdf')); ?>
 										</td>
 									</tr>
 								</tbody>

@@ -11,7 +11,7 @@ class WDF_Simple_Donation extends WP_Widget {
 		$title = sprintf(__('%s Button','wdf'),esc_attr($settings['donation_labels']['singular_name']));
 		// Instantiate the parent object
 		parent::__construct( false, $title, array(
-			'description' =>  __('Create a simple button for taking donations.','wdf')
+			'description' =>  sprintf(__('Create a simple button for taking %s','wdf'),esc_attr($settings['donation_labels']['singular_name']))
 		) );
 	}
 

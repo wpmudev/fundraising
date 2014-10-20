@@ -24,6 +24,25 @@ function wdf_inject_shortcode () {
 				window.parent.tb_remove();
 			}
 		break;
+
+		case 'media_pledges' :
+			var funder_select = iFrame.find('#wdf_funder_select');
+			
+			var shortcode = '[pledges_panel';
+		
+			jQuery.each(form, function(i,e) { 
+				shortcode = shortcode + ' '+e.name+'="'+e.value+'"';
+			});
+			
+			shortcode = shortcode + ']';
+			if(jQuery('#wp-content-wrap').hasClass('tmce-active')) {
+				window.parent.tinyMCE.execCommand("mceInsertContent", true, shortcode);
+				window.parent.tb_remove();
+			} else {
+				window.parent.edInsertContent('',shortcode);
+				window.parent.tb_remove();
+			}
+		break;
 		
 		case 'media_donate_button' :
 			var shortcode = '[donate_button';

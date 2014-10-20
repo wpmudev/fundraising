@@ -136,7 +136,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 						$nvp .= '&a3='.$_SESSION['wdf_pledge'];
 						$nvp .= '&p3=1';
 						$nvp .= '&t3='.$_SESSION['wdf_recurring'];
-						$nvp .= '&bn=incsub_SP';
+						$nvp .= '&bn=WPMUDonations_Subscribe_WPS_'.$settings['currency'];
 						$nvp .= '&src=1';
 						$nvp .= '&sra=1';
 						$nvp .= '&modify=1';
@@ -144,7 +144,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 						$nvp = 'cmd=_donations';
 						$nvp .= '&amount='.urlencode($_SESSION['wdf_pledge']);
 						$nvp .= '&cbt='.urlencode( isset($settings['paypal_return_text']) ? $settings['paypal_return_text'] : __('Click Here To Complete Your Donation', 'wdf') );
-						$nvp .= '&bn=incsub_SP';
+						$nvp .= '&bn=WPMUDonations_Donate_WPS_'.$settings['currency'];
 					}
 					$nvp .= '&no_shipping=1';
 					$nvp .= '&business='.urlencode($settings['paypal_email']);
@@ -575,7 +575,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			<?php if(in_array('simple', $settings['payment_types'])) : ?>
 				<tr>
 					<td colspan="2">
-						<h4><?php _e('Simple Payment Options','wdf'); ?></h4>
+						<h4><?php _e('Simple Payment Options (Simple Donations)','wdf'); ?></h4>
 						<div class="message updated below-h2" style="width: auto;"><p><?php _e('In order for PayPal simple payments to log properly you must turn on PayPal Instant Payment Notifications and point it to','wdf'); ?> <br /><span class="description"><?php echo $this->ipn_url; ?></span></p></div>
 					</td>
 				</tr>
@@ -595,7 +595,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			<?php if(in_array('advanced', $settings['payment_types'])) : ?>
 				<tr>
 					<td colspan="2">
-					<h4><?php _e('Advanced Payment Options','wdf'); ?></h4>
+					<h4><?php _e('Advanced Payment Options (Advanced Crowdfunding)','wdf'); ?></h4>
 					</td>
 				</tr>
 				<?php /*?><tr>
@@ -656,7 +656,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				<tr>
 					<th scope="row"><?php _e('PayPal API Credentials', 'wdf') ?></th>
 					<td><span class="description">
-						<?php _e('You must login to PayPal and create an API signature to get your credentials. <a target="_blank" href="https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_NVPAPIBasics#id084DN0AK0HS">Instructions &raquo;</a>', 'wdf') ?>
+						<?php _e('You must login to PayPal and create an app to get your credentials.', 'wdf') ?>
 						</span>
 						<p>
 							<label>
@@ -679,18 +679,17 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 								<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['api_sig']) ? $settings['paypal']['advanced']['api_sig'] : '') ); ?>" size="70" name="wdf_settings[paypal][advanced][api_sig]" type="text" />
 							</label>
 						</p>
-						<span class="description">
-						<?php _e('You must register this application with PayPal using your business account login to get an Application ID that will work with your API credentials. A bit of a hassle, but worth it!  <a target="_blank" href="https://www.x.com/developers/paypal">Register then submit your application</a> while logged in to the developer portal.</a> Note that you do not need an Application ID for testing in sandbox mode. <a target="_blank" href="https://www.x.com/developers/paypal/documentation-tools/going-live-with-your-application">More Information &raquo;</a>', 'wdf') ?>
-						<br />
-						<?php //_e('View an example form &raquo;', 'wdf'); ?>
-						</a> </span>
 						<p>
 							<label>
 								<?php _e('Application ID', 'wdf') ?>
 								<br />
 								<input value="<?php echo esc_attr( (isset($settings['paypal']['advanced']['app_id']) ? $settings['paypal']['advanced']['app_id'] : '') ); ?>" size="50" name="wdf_settings[paypal][advanced][app_id]" type="text" />
 							</label><?php echo $tips->add_tip(__('No application ID is required when using PayPal in sandbox mode.','wdf')); ?>
-						</p></td>
+						</p>
+						<span class="description">
+						<?php _e('You must register this application with PayPal using your business account login to get an Application ID that will work with your API credentials. App will be using "Adaptive Payments -> Preapprovals" for charging user after the goal is completed. <a target="_blank" href="https://www.paypal-apps.com/user/my-account/applications">Register then submit your application</a> while logged in to the developer portal.</a> Note that you do not need an Application ID for testing in sandbox mode. <a target="_blank" href="https://developer.paypal.com/docs/classic/lifecycle/goingLive/">More Information &raquo;</a>', 'wdf') ?>
+						</span>
+					</td>
 				</tr>
 				<?php /*?><tr>
 					<th scope="row"><?php _e('Gateway Settings Page Message', 'mp'); ?></th>

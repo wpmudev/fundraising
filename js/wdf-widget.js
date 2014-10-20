@@ -14,7 +14,7 @@ jQuery(document).ready( function($) {
 	$(document).on('change', 'select.wdf_toggle', function(e) {
 		var rel = $(this).attr('rel');
 		var val = $(this).val();
-			if(rel == 'wdf_panel_single' && val == '1') {
+			if((rel == 'wdf_panel_single' || rel == 'wdf_panel_single_pledges') && val == '1') {
 				var elm = $('*[rel="'+rel+'"]').not(this);
 				elm.show();
 			} else {

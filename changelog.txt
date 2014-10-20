@@ -5,6 +5,20 @@ Contributors: Cole Stevenson
 
 == Changelog ==
 
+= 2.6.1 =
+Added pledges panel widget and shortcode to list recent or top pledges
+Added ability to set custom message for situation when pledge was not found
+Improved UX for creating new Fundraisers
+Improved respect for label settings inside admin panel
+Fixed PHP warnings
+Fixed time left counting for Fundraisers
+Fixed session cleaning
+
+= 2.6.0.5 =
+Added back front permalink option on main site in multisite
+Fixed buddypress activity item being added for unlogged users
+Other small improvements
+
 = 2.6.0.4 =
 Fixed missing translation strings
 

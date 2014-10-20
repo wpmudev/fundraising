@@ -18,6 +18,9 @@ if($pagenow == 'nav-menus.php') { ?>
 	// Setup $meta for all metaboxes
 	$meta = get_post_custom($post->ID);
 	$settings = get_option('wdf_settings');
+
+	$current_type = (isset($meta['wdf_type'][0]) && $meta['wdf_type'][0]) ? $meta['wdf_type'][0] : 'simple';
+
 	//pull out the meta_box id and pass it through a switch instead of using individual functions
 	switch($data['id']) {
 
@@ -27,7 +30,7 @@ if($pagenow == 'nav-menus.php') { ?>
 		case 'wdf_pledge_status' : ?>
 
 			<?php $trans = $this->get_transaction($post->ID); ?>
-			<label><?php _e('Gateway Status','wdf'); ?>: <?php echo $trans['status']; ?></label>
+			<label><?php _e('Gateway Status','wdf'); ?>: <?php echo isset($trans['status']) ? $trans['status'] : ''; ?></label>
 			<p>
 				<label><?php _e('Pledge Status','wdf'); ?></label><br />
 				<select class="widefat" name="post_status">
@@ -47,7 +50,7 @@ if($pagenow == 'nav-menus.php') { ?>
 			$trans = $this->get_transaction($post->ID);
 
 
-			if($meta['wdf_native'][0] !== '1') : ?>
+			if(!isset($meta['wdf_native'][0]) || $meta['wdf_native'][0] !== '1') : ?>
 				<?php $funders = get_posts(array('post_type' => 'funder', 'numberposts' => -1, 'post_status' => 'publish')); ?>
 				<?php if(!$funders) : ?>
 					<div class="error below-h2"><p style="width: 100%;"><?php echo __('You have not made any fundraisers yet.  You must create a fundraiser to make a pledge to.','wdf') ?></p></div>
@@ -75,7 +78,7 @@ if($pagenow == 'nav-menus.php') { ?>
 									<label><?php _e('First & Last Name','wdf'); ?></label>
 								</th>
 								<td>
-									<p><input type="text" name="wdf[transaction][name]" value="<?php echo $trans['first_name'] . ' ' . $trans['last_name']; ?>" /></p>
+									<p><input type="text" name="wdf[transaction][name]" value="<?php echo isset($trans['first_name']) ? $trans['first_name'] : ''; ?><?php echo isset($trans['last_name']) ? ' ' . $trans['last_name'] : ''; ?>" /></p>
 								</td>
 							</tr>
 							<tr valign="top">
@@ -83,7 +86,7 @@ if($pagenow == 'nav-menus.php') { ?>
 									<label><?php _e('Email Address','wdf'); ?></label>
 								</th>
 								<td>
-									<p><input type="text" name="wdf[transaction][payer_email]" value="<?php echo $trans['payer_email']; ?>" /></p>
+									<p><input type="text" name="wdf[transaction][payer_email]" value="<?php echo isset($trans['payer_email']) ? $trans['payer_email'] : ''; ?>" /></p>
 								</td>
 							</tr>
 							<tr valign="top">
@@ -91,7 +94,7 @@ if($pagenow == 'nav-menus.php') { ?>
 									<label><?php _e('Donation Amount','wdf'); ?></label>
 								</th>
 								<td>
-									<p><input type="text" name="wdf[transaction][gross]" value="<?php echo $trans['gross']; ?>" /></p>
+									<p><input type="text" name="wdf[transaction][gross]" value="<?php echo isset($trans['gross']) ? $trans['gross'] : ''; ?>" /></p>
 								</td>
 							</tr>
 							<tr valign="top">
@@ -198,17 +201,20 @@ if($pagenow == 'nav-menus.php') { ?>
 		/////////////////////////
 		case 'wdf_type' :
 			$settings = get_option('wdf_settings');	?>
-
 			<div id="wdf_type">
+				<p style="display:none"><?php _e('Please enter title and choose fundraising type that you want to use (this option cant be changed after someone pledges).','wdf'); ?></p>
 				<?php if( isset($settings['payment_types']) && is_array($settings['payment_types']) && count($settings['payment_types']) >= 1 ) : ?>
+					<?php  ?>
 					<?php foreach($settings['payment_types'] as $name) : ?>
 						<?php
 							if($name == 'simple') {
-								$label = __('Simple Donations: ','wdf');
+								$label = __('Simple Donations','wdf');
 								$description = __('Allows for a simple continuous donations with no Goals or Rewards','wdf');
+								$description = __('Allows for a simple continuous donations','wdf');
 							} elseif($name == 'advanced') {
-								$label = __('Advanced Crowdfunding: ','wdf');
+								$label = __('Advanced Crowdfunding','wdf');
 								$description = __('Set fundraising goals and rewards.  Pledges are only authorized and payments are not processed until your goal is reached.','wdf');
+								$description = __('Pledges are only authorized and payments are not processed until your goal is reached.','wdf');
 							} else {
 								$label = '';
 								$description = '';
@@ -223,7 +229,7 @@ if($pagenow == 'nav-menus.php') { ?>
 								<?php //if(count($settings['payment_types']) > 1) : ?>
 									<p>
 										<label>
-											<input name="wdf[type]" type="radio" value="<?php echo $name; ?>" <?php (isset($meta['wdf_type'][0]) ? checked($meta['wdf_type'][0],$name) : ''); ?>/>
+											<input name="wdf[type]" type="radio" value="<?php echo $name; ?>" <?php checked($current_type,$name); ?>/>
 											<?php echo $label; ?>
 
 										</label>
@@ -247,7 +253,27 @@ if($pagenow == 'nav-menus.php') { ?>
 
 						<?php //endif; ?>
 					<?php endforeach; ?>
-					<p><input type="submit" name="save" id="save-post" value="<?php _e('Save Fundraising Type','wdf'); ?>" class="button button-primary" /><br /></p>
+					<?php if(count($settings['payment_types']) > 1) { ?>
+					<small><?php _e('This option cant be changed after someone pledges.','wdf'); ?></small>
+					<?php } else { ?>
+					<small><?php printf(__('You can activate "Advanced Crowdfunding" <a href="%s">here</a>.','wdf'), admin_url('edit.php?post_type=funder&page=wdf_settings')); ?></small>
+					<?php } ?>
+					<?php 
+					/*
+					<div id="submitdiv">
+						<div class="submitbox" id="submitpost">
+							<div id="minor-publishing">
+								<div id="minor-publishing-actions" style="padding:0px;">
+									<div id="save-action">
+										<input type="submit" name="save" style="float:left;" id="save-post" value="<?php _e('Continue','wdf'); ?>" class="button button-primary fundraising-continue-edit" />
+										<span class="spinner"></span>
+									</div>
+									<div class="clear"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					*/ ?>
 
 				<?php else : // No Valid Payment Types Available?>
 					<div class="message updated below-h2"><p><?php _e('No payment types have been enabled yet.','wdf'); ?></p></div>
@@ -261,7 +287,9 @@ if($pagenow == 'nav-menus.php') { ?>
 		case 'wdf_options' :
 			global $pagenow;
 			$settings = get_option('wdf_settings'); ?>
-			<h4><?php _e('Type : ','wdf'); ?><?php echo (isset($meta['wdf_type'][0]) && $meta['wdf_type'][0] == 'advanced' ? __('Advanced Crowdfunding','wdf') : __('Simple Donations','wdf') ); ?></h4>
+			<?php if($this->get_pledge_list($post->ID)) : ?>
+			<h4><?php _e('Type : ','wdf'); ?><?php echo ($current_type == 'advanced' ? __('Advanced Crowdfunding','wdf') : __('Simple Donations','wdf') ); ?></h4>
+			<?php endif; ?>
 			<?php if($settings['single_styles'] == 'yes') : ?>
 				<div id="wdf_style">
 					<p>
@@ -276,8 +304,8 @@ if($pagenow == 'nav-menus.php') { ?>
 					</p>
 				</div>
 			<?php endif; ?>
-			<?php if($meta['wdf_type'][0] == 'simple') : ?>
-				<p><label><?php _e('Allow Recurring Donations?','wdf') ?>
+			<?php if($current_type == 'simple' && $settings['active_gateways']['paypal']) : ?>
+				<p id="wdf_recurring"><label><?php _e('Allow Recurring Donations?','wdf') ?>
 						<select name="wdf[recurring]" rel="wdf_recurring" class="wdf_toggle">
 							<option value="yes" <?php (isset($meta['wdf_recurring'][0]) ? selected($meta['wdf_recurring'][0],'yes') : ''); ?>><?php _e('Yes','wdf'); ?></option>
 							<option value="no" <?php (isset($meta['wdf_recurring'][0]) ? selected($meta['wdf_recurring'][0],'no') : ''); ?>><?php _e('No','wdf'); ?></option>
@@ -304,7 +332,7 @@ if($pagenow == 'nav-menus.php') { ?>
 					</p>
 				<?php endif; ?>
 
-			<?php if(isset($meta['wdf_type'][0]) && $meta['wdf_type'][0] == 'advanced') : ?>
+			<?php if($current_type == 'advanced') : ?>
 				<script type="text/javascript">
 					jQuery(document).ready( function($) {
 
@@ -352,7 +380,7 @@ if($pagenow == 'nav-menus.php') { ?>
 		//////////////////////////
 		case 'wdf_goals' :
 
-			if($meta['wdf_type'][0] == 'advanced' && $post->post_status == 'publish' && $this->get_pledge_list($post->ID) != false)
+			if($current_type == 'advanced' && $post->post_status == 'publish' && $this->get_pledge_list($post->ID) != false)
 				$disabled = 'disabled="disabled"';
 			else
 				$disabled = '';
