@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.6.1
+Version: 2.6.1.1
 Text Domain: wdf
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
@@ -959,7 +959,7 @@ class WDF {
 
 		if(isset($transaction['reward'])) {
 			$rewards = get_post_meta($funder_id,'wdf_levels', true);
-			if(isset($rewards[$transaction['reward']]['used']) && is_numeric($rewards[$transaction['reward']]['used']))
+			if(isset($rewards[$transaction['reward']-1]['used']) && is_numeric($rewards[$transaction['reward']-1]['used']))
 				$rewards[$transaction['reward']-1]['used'] ++;
 			else
 				$rewards[$transaction['reward']-1]['used'] = 1;

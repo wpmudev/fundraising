@@ -26,6 +26,20 @@ if(!function_exists('fundraiser_panel_shortcode')) {
 	}
 }
 
+if(!function_exists('fundraiser_pledges_shortcode')) {
+	function fundraiser_pledges_shortcode($atts) {
+		$content = '';
+		if(isset($atts['id']) && is_numeric($atts['id']) ) {
+			$atts['shortcode'] = true;
+			$content .= wdf_pledges_panel(false, $atts['id'], 'shortcode', $atts);
+
+		} else {
+			$content .= __('No ID Given','wdf');
+		}
+		return $content;
+	}
+}
+
 if(!function_exists('wdf_fundraiser_page')) {
 	function wdf_fundraiser_page($echo = true, $post_id = false, $atts = array()) {
 		global $post; $content = '';
@@ -99,6 +113,59 @@ if(!function_exists('wdf_fundraiser_panel')) {
 			$content .= '<div>'.wdf_rewards(false, $post_id).'</div>';
 		}
 		$content .= '</div>';
+
+		if($echo) {echo $content;} else {return $content;}
+
+	}
+}
+
+if(!function_exists('wdf_pledges_panel')) {
+	function wdf_pledges_panel($echo = true, $post_id = '', $context = '', $args = array() ) {
+		global $post, $wdf;
+
+		$content = '';
+
+		$post_id = (empty($post_id) && $post_id != '0') ? $post->ID : $post_id;
+
+		$donations = $wdf->get_pledge_list($post_id);
+		if($donations) {
+			$settings = get_option('wdf_settings');
+			
+			$funder = get_post($post_id);
+			if(!$funder)
+				return false;
+
+			$content .= '<div class="wdf_pledges_panel">';
+			
+			$content .= '<ul>';
+			$count = 0;
+			$donations_ready = array();
+			foreach($donations as $key => $donation) {
+				$trans = $wdf->get_transaction($donation->ID);
+
+				$donations_ready[$trans['gross'].'-'.$key] = $donation;
+				$donations_ready[$trans['gross'].'-'.$key]->trans = $trans;
+			}
+
+			if($args['sort_type'] == 'top') {
+				ksort($donations_ready);
+				$donations_ready = array_reverse($donations_ready);
+			}
+
+			foreach($donations_ready as $donation) {
+				if($count == $args['number_pledges'])
+					break;
+
+				if($donation->post_status != 'wdf_complete')
+					continue;
+
+				$count ++;
+				$content .= '<li>'.$donation->trans['first_name'].' '.substr($donation->trans['last_name'], 0, 1).' - '.$wdf->format_currency('',$donation->trans['gross']).'</li>';
+			}
+			$content .= '</ul>';
+
+			$content .= '</div>';
+		}
 
 		if($echo) {echo $content;} else {return $content;}
 
@@ -232,9 +299,7 @@ if(!function_exists('wdf_time_left')) {
 				$future_start = false;
 				$end_date = strtotime(get_post_meta($post_id, 'wdf_goal_end',true));
 				$start_date = strtotime(get_post_meta($post_id, 'wdf_goal_start', true));
-				$now = date('Y-m-d');
-				$now = strtotime($now);
-
+				$now = current_time('timestamp');
 
 				if($now > $end_date) {
 					$end_date = false;
@@ -373,7 +438,7 @@ if(!function_exists('wdf_confirmation_page')) {
 
 			if(isset($_SESSION['wdf_bp_activity']) && $_SESSION['wdf_bp_activity'] == true) {
 				global $bp;
-				if( isset($bp->loggedin_user->id) ) {
+				if( isset($bp->loggedin_user->id) && $bp->loggedin_user->id ) {
 					$activity_args = array(
 						'action' => sprintf( __('%s made a %s %s towards %s','wdf'), '<a href="'.$bp->loggedin_user->domain.'">'.$bp->loggedin_user->fullname.'</a>', $wdf->format_currency('',$transaction['gross']), esc_attr($settings['donation_labels']['singular_name']), '<a href="'.wdf_get_funder_page('',$post_id).'">'.get_the_title($post_id).'</a>' ),
 						'primary_link' => wdf_get_funder_page('',$post_id),
@@ -381,6 +446,8 @@ if(!function_exists('wdf_confirmation_page')) {
 					);
 					$activity_args = apply_filters('wdf_bp_activity_args',$activity_args);
 					bp_wdf_record_activity($activity_args);
+
+					unset($_SESSION['wdf_bp_activity']);
 				}
 			}
 
@@ -390,12 +457,14 @@ if(!function_exists('wdf_confirmation_page')) {
 				// The gateway can use this filter to provide any transactional details that you need to display
 				$content .= '<div class="wdf_gateway_payment_info">'.apply_filters('wdf_gateway_payment_info_'.$_SESSION['wdf_gateway'], '', $transaction).'</div>';
 			}
-			//Unset all the session information
-			$wdf->clear_session();
 		} else {
-			$content .= '<p class="error">'.sprintf( __('Oh No, we can\'t find your %s.  Sometimes it take a few moments for your %s to be logged.  You can try refreshing this page ','wdf'), esc_attr($settings['donation_labels']['singular_name']), esc_attr($settings['donation_labels']['singular_name']) ).'</p>';
+			$message = (isset($settings['message_pledge_not_found']) && $settings['message_pledge_not_found']) ? $settings['message_pledge_not_found'] : sprintf( __('Oh No, we can\'t find your %s.  Sometimes it take a few moments for your %s to be logged.  You can try refreshing this page ','wdf'), esc_attr($settings['donation_labels']['singular_name']), esc_attr($settings['donation_labels']['singular_name']) );
+			$content .= '<p class="error">'.$message.'</p>';
 		}
 		$content .= '</div>';
+
+		//Unset all the session information
+		$wdf->clear_session();
 
 		if($echo) {echo $content;} else {return $content;}
 	}
@@ -716,7 +785,7 @@ if(!function_exists('wdf_pledge_button')) {
 			$content .= '<input type="text" name="wdf_pledge" class="wdf_pledge_amount" value="" /> ';
 			$content .= ($settings['curr_symbol_position'] == 3 || $settings['curr_symbol_position'] == 4 ? '<span class="currency">'.$wdf->format_currency().' </span>' : '');
 
-			if(isset($meta['wdf_recurring'][0]) && $meta['wdf_recurring'][0] == 'yes' && isset($meta['wdf_type'][0]) && $meta['wdf_type'][0] == 'simple') {
+			if(isset($meta['wdf_recurring'][0]) && $meta['wdf_recurring'][0] == 'yes' && isset($meta['wdf_type'][0]) && $meta['wdf_type'][0] == 'simple' && $settings['active_gateways']['paypal']) {
 				$content .= '
 				<label class="wdf_recurring_label">'.__('Make this donation','wdf').' </label>
 				<select class="wdf_recurring_select" name="wdf_recurring">
@@ -732,7 +801,7 @@ if(!function_exists('wdf_pledge_button')) {
 			$content .= '<input type="hidden" name="funder_id" value="'.$post_id.'" />';
 			$content .= '<input id="wdf_step" type="hidden" name="wdf_step" value="" />';
 			$pledge_label = apply_filters( 'wdf_donate_button_text', esc_attr($settings['donation_labels']['action_name']) );
-			if(defined('WDF_BP_INSTALLED') && WDF_BP_INSTALLED == true)
+			if(defined('WDF_BP_INSTALLED') && WDF_BP_INSTALLED == true && is_user_logged_in())
 					$content .= '<label class="wdf_bp_show_on_activity">'.__('Post this to your profile','wdf').'<input type="checkbox" name="wdf_bp_activity" value="1" checked="checked" /></label>';
 			$content .= '<input class="wdf_send_donation" type="submit" name="wdf_send_donation" value="'.$pledge_label.'" />';
 		}
@@ -744,6 +813,7 @@ if(!function_exists('wdf_pledge_button')) {
 }
 // Add our shortcodes
 add_shortcode('fundraiser_panel', 'fundraiser_panel_shortcode');
+add_shortcode('pledges_panel', 'fundraiser_pledges_shortcode');
 add_shortcode('donate_button', 'donate_button_shortcode');
 add_shortcode('progress_bar', 'wdf_progress_bar_shortcode');
 ?>

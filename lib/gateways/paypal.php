@@ -687,7 +687,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 							</label><?php echo $tips->add_tip(__('No application ID is required when using PayPal in sandbox mode.','wdf')); ?>
 						</p>
 						<span class="description">
-						<?php _e('You must register this application with PayPal using your business account login to get an Application ID that will work with your API credentials. App will be using "Adaptive Payments -> Preapprovals" for charging user after the goal is completed. <a target="_blank" href="https://www.paypal-apps.com/user/my-account/applications">Register then submit your application</a> while logged in to the developer portal.</a> Note that you do not need an Application ID for testing in sandbox mode. <a target="_blank" href="https://developer.paypal.com/docs/classic/lifecycle/goingLive/">More Information &raquo;</a>', 'wdf') ?>
+						<?php _e('You must register this application with PayPal using your business account login to get an Application ID that will work with your API credentials. App will be using "Adaptive Payments -> Preapprovals" for charging user after the goal is completed. <a target="_blank" href="https://www.paypal-apps.com/user/my-account/applications">Register then submit your application</a> while logged in to the developer portal.</a> Note that you do not need an Application ID for testing in sandbox mode. Please remember not to use same sandbox account for funding and reciving founds. <a target="_blank" href="https://developer.paypal.com/docs/classic/lifecycle/goingLive/">More Information &raquo;</a>', 'wdf') ?>
 						</span>
 					</td>
 				</tr>

@@ -5,6 +5,9 @@ Contributors: Cole Stevenson
 
 == Changelog ==
 
+= 2.6.1.1 =
+Fixed counting of rewards left
+
 = 2.6.1 =
 Added pledges panel widget and shortcode to list recent or top pledges
 Added ability to set custom message for situation when pledge was not found
