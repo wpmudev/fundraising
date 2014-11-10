@@ -5,6 +5,9 @@ Contributors: Cole Stevenson
 
 == Changelog ==
 
+= 2.6.1.2 =
+Fixed top pledges sorting
+
 = 2.6.1.1 =
 Fixed counting of rewards left
 

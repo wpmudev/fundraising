@@ -143,14 +143,12 @@ if(!function_exists('wdf_pledges_panel')) {
 			foreach($donations as $key => $donation) {
 				$trans = $wdf->get_transaction($donation->ID);
 
-				$donations_ready[$trans['gross'].'-'.$key] = $donation;
-				$donations_ready[$trans['gross'].'-'.$key]->trans = $trans;
+				$donations_ready[$key] = $donation;
+				$donations_ready[$key]->trans = $trans;
 			}
 
-			if($args['sort_type'] == 'top') {
-				ksort($donations_ready);
-				$donations_ready = array_reverse($donations_ready);
-			}
+			if($args['sort_type'] == 'top')
+				usort($donations_ready, "wdf_pladges_compare");
 
 			foreach($donations_ready as $donation) {
 				if($count == $args['number_pledges'])
@@ -171,6 +169,12 @@ if(!function_exists('wdf_pledges_panel')) {
 
 	}
 }
+if(!function_exists('wdf_pladges_compare')) {
+	function wdf_pladges_compare($a, $b) {
+	    return $b->trans['gross'] - $a->trans['gross'];
+	}
+}
+
 
 if(!function_exists('wdf_rewards')) {
 	function wdf_rewards($echo = false, $post_id = '') {
