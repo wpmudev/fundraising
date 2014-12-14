@@ -1930,7 +1930,7 @@ class WDF {
             $detail_text = $this->format_currency( $currency, $recurring_amount ) . ' ' . $period;
 
             if( isset( $transaction['recurring_transactions'] ) ){
-                $recurring_transactions = $transaction['recurring_transactions'] . ' ' . _n( 'payment completed.', 'payments completed.', $transaction['recurring_transactions'], 'wdf' );
+                $recurring_transactions = $transaction['recurring_transactions'] . ' ' . _n( 'payment completed', 'payments completed', $transaction['recurring_transactions'], 'wdf' );
                 $detail_text .= '<br />' . $recurring_transactions;
             }
             return $detail_text;
