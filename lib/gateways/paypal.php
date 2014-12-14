@@ -483,13 +483,13 @@ if(!class_exists('WDF_Gateway_PayPal')) {
         /**
          * Parses subscription request parameters into a transaction object.
          *
-         * @since 2.6.1.2
+         * @since 2.6.1.3
          * @access public
          *
          * @param  string $post_title Post/Pledge title used as identifier.
          * @param  array $transaction Transaction object.
          * @param  array $request Subscription request parameters.
-         * @return boolean
+         * @return array
          */
         function process_subscription_payment( $post_title, $transaction, $request ){
             global $wpdb;
