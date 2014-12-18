@@ -450,7 +450,11 @@ if(!class_exists('WDF_Gateway_PayPal')) {
                                 break;
                             case 'Completed' :
                                 $status = 'wdf_complete';
-                                $transaction['status'] = __('Payment Completed','wdf');
+                                if( 'subscr_payment' == $_POST['txn_type'] ){
+                                    $transaction['status'] = __('Ongoing Subscription','wdf');
+                                } else {
+                                    $transaction['status'] = __('Payment Completed','wdf');
+                                }
                                 break;
                             case 'Ended' :
                                 $status = 'wdf_complete';
@@ -509,6 +513,9 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 
                         //Merge with the subscr_payment transaction data. Previous transaction data will take precedence.
                         $transaction = array_merge( $transaction, $previous_transaction);
+
+                        //A payment was already processed, so we need to override the status.
+                        $_POST['payment_status'] = 'Completed';
                     }
 
                     break;
