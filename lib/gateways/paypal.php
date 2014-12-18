@@ -673,7 +673,13 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				<tr>
 					<td colspan="2">
 						<h4><?php _e('Simple Payment Options (Simple Donations)','wdf'); ?></h4>
-						<div class="message updated below-h2" style="width: auto;"><p><?php _e('In order for PayPal simple payments to log properly you must turn on PayPal Instant Payment Notifications and point it to','wdf'); ?> <br /><span class="description"><?php echo $this->ipn_url; ?></span></p></div>
+						<div class="message updated below-h2" style="width: auto;">
+                            <p><?php _e('In order for Fundraising to function correctly you must setup an IPN listening URL with PayPal. Failure to do so will prevent your site from being notified when a recurring payment is cancelled.','wdf'); ?>
+                                <br /><?php echo __( 'Your IPN listening URL is:', 'wdf' ); ?>
+                                <span class="description"><?php echo $this->ipn_url; ?></span> <br />
+                                <a href="<?php echo __( 'https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNSetup/', 'wdf' ); ?>"><?php echo __( 'Instructions &raquo;', 'wdf' ); ?></a>
+                            </p>
+                        </div>
 					</td>
 				</tr>
 				<tr valign="top">
