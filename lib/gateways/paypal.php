@@ -626,12 +626,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$domain = 'https://www.paypal.com/cgi-bin/webscr';
 			}
 
-			$req = 'cmd=_notify-validate';
-			if (!isset($_POST)) $_POST = $HTTP_POST_VARS;
-			foreach ($_POST as $k => $v) {
-				if (get_magic_quotes_gpc()) $v = stripslashes($v);
-				$req .= '&' . $k . '=' . urlencode($v);
-			}
+            $req = 'cmd=_notify-validate&' . file_get_contents("php://input");
 
 			$args = array();
 			$args['user-agent'] = "Fundraising/{$wdf->version}: http://premium.wpmudev.org/project/fundraising/";
