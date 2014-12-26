@@ -756,6 +756,7 @@ class WDF {
 		wp_enqueue_style('jquery-ui-base');
 
 		add_action('wp_head', array(&$this,'inject_custom_css'));
+        add_action('wp_footer', array(&$this,'inject_javascript'));
 		// $add_style will always be used before a saved style.
 		if($add_style != false) {
 			wp_enqueue_style('wdf-style-'.$add_style);
@@ -786,6 +787,43 @@ class WDF {
 			return;
 		}
 	}
+
+    function inject_javascript() {
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+                //Disable hover state for touch screen devices.
+                var idx, idxs, ignore, rule, stylesheet, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
+
+                if ('createTouch' in document) {
+                    ignore = /:hover\b/;
+                    try {
+                        _ref = document.styleSheets;
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            stylesheet = _ref[_i];
+                            idxs = [];
+                            _ref1 = stylesheet.cssRules;
+                            if( !_ref1 || _ref1.length < 1 ){
+                                continue;
+                            }
+                            for (idx = _j = 0, _len1 = _ref1.length; _j < _len1; idx = ++_j) {
+                                rule = _ref1[idx];
+                                if (rule.type === CSSRule.STYLE_RULE && ignore.test(rule.selectorText)) {
+                                    idxs.unshift(idx);
+                                }
+                            }
+                            for (_k = 0, _len2 = idxs.length; _k < _len2; _k++) {
+                                idx = idxs[_k];
+                                stylesheet.deleteRule(idx);
+                            }
+                        }
+                    } catch (_error) {}
+                }
+            });
+        </script>
+    <?php
+    }
+
 	function start_session() {
 	//start the session for pledges
 	if (session_id() == "")
