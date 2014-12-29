@@ -308,152 +308,249 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				return $nvpResArray;
 			}
 		}
-		function handle_ipn() {
-			if( isset($_POST['transaction_type']) && $_POST['transaction_type'] == 'Adaptive Payment PREAPPROVAL' && isset($_REQUEST['pledge_id']) ) {
-				//Handle IPN for advanced payments
-				if($this->verify_paypal()) {
-					$nvp = 'preapprovalKey='.$_POST['preapproval_key'];
-					$nvp .= '&getBillingAddress=1';
-					$details = $this->adaptive_api_call( 'PreapprovalDetails', $nvp );
 
-					global $wdf;
-					$transaction = array();
+        function handle_ipn() {
+            if( isset($_POST['transaction_type']) && $_POST['transaction_type'] == 'Adaptive Payment PREAPPROVAL' && isset($_REQUEST['pledge_id']) ) {
+                //Handle IPN for advanced payments
+                if($this->verify_paypal()) {
+                    $nvp = 'preapprovalKey='.$_POST['preapproval_key'];
+                    $nvp .= '&getBillingAddress=1';
+                    $details = $this->adaptive_api_call( 'PreapprovalDetails', $nvp );
 
-					$custom = explode('||',$_REQUEST['custom']);
+                    global $wdf;
+                    $transaction = array();
 
-					//proccess additional custom fields
-					$possible_custom_fields = array('reward', 'country', 'address1', 'address2', 'city', 'state', 'zip');
-					foreach ($possible_custom_fields as $key => $possible_custom_field)
-						if(isset($custom[$key]) && $custom[$key])
-							$transaction[$possible_custom_field] = $custom[$key];
+                    $custom = explode('||',$_REQUEST['custom']);
 
-					$post_title = $_REQUEST['pledge_id'];
-					$funder_id = $_REQUEST['fundraiser'];
-					$transaction['currency_code'] = ( isset($_POST['currency_code']) ? $_POST['currency_code'] : $settings['currency']);
-					$transaction['payer_email'] = $_POST['sender_email'];
-					$transaction['gateway_public'] = $this->public_name;
-					$transaction['gateway'] = $this->plugin_name;
-					$transaction['gross'] = ( isset($_POST['max_total_amount_of_all_payments']) ? $_POST['max_total_amount_of_all_payments'] : '' );
-					$transaction['ipn_id'] = ( isset($_POST['preapproval_key']) ? $_POST['preapproval_key'] : '' );
-					//Make sure you pass the correct type back into the transaction
-					$transaction['type'] = 'advanced';
+                    //proccess additional custom fields
+                    $possible_custom_fields = array('reward', 'country', 'address1', 'address2', 'city', 'state', 'zip');
+                    foreach ($possible_custom_fields as $key => $possible_custom_field)
+                        if(isset($custom[$key]) && $custom[$key])
+                            $transaction[$possible_custom_field] = $custom[$key];
 
-					$full_name = (isset($details['addressList_address(0)_addresseeName']) ? explode(' ',$details['addressList_address(0)_addresseeName'],2) : false);
-					if($full_name != false) {
-						$transaction['first_name'] = $full_name[0];
-						$transaction['last_name'] = $full_name[1];
-					}
-					switch($_POST['status']) {
-						case 'ACTIVE' :
-							$status = 'wdf_approved';
-							$transaction['status'] = __('Pre-Approved','wdf');
-							$transaction['gateway_msg'] = __('Transaction Pre-Approved','wdf');
-							break;
-						case 'CANCELED' :
-							$status = 'wdf_canceled';
-							$transaction['status'] = __('Canceled','wdf');
-							$transaction['gateway_msg'] = __('Transaction Pre-Approved','wdf');
-							break;
-						default :
-							$status = 'wdf_canceled';
-							$transaction['status'] = __('Unknown','wdf');
-							$transaction['gateway_msg'] = __('Unknown PayPal status.','wdf');
-							break;
-					}
+                    $post_title = $_REQUEST['pledge_id'];
+                    $funder_id = $_REQUEST['fundraiser'];
+                    $transaction['currency_code'] = ( isset($_POST['currency_code']) ? $_POST['currency_code'] : $settings['currency']);
+                    $transaction['payer_email'] = $_POST['sender_email'];
+                    $transaction['gateway_public'] = $this->public_name;
+                    $transaction['gateway'] = $this->plugin_name;
+                    $transaction['gross'] = ( isset($_POST['max_total_amount_of_all_payments']) ? $_POST['max_total_amount_of_all_payments'] : '' );
+                    $transaction['ipn_id'] = ( isset($_POST['preapproval_key']) ? $_POST['preapproval_key'] : '' );
+                    //Make sure you pass the correct type back into the transaction
+                    $transaction['type'] = 'advanced';
 
-					$wdf->update_pledge( $post_title, $funder_id, $status, $transaction);
+                    $full_name = (isset($details['addressList_address(0)_addresseeName']) ? explode(' ',$details['addressList_address(0)_addresseeName'],2) : false);
+                    if($full_name != false) {
+                        $transaction['first_name'] = $full_name[0];
+                        $transaction['last_name'] = $full_name[1];
+                    }
+                    switch($_POST['status']) {
+                        case 'ACTIVE' :
+                            $status = 'wdf_approved';
+                            $transaction['status'] = __('Pre-Approved','wdf');
+                            $transaction['gateway_msg'] = __('Transaction Pre-Approved','wdf');
+                            break;
+                        case 'CANCELED' :
+                            $status = 'wdf_canceled';
+                            $transaction['status'] = __('Canceled','wdf');
+                            $transaction['gateway_msg'] = __('Transaction Pre-Approved','wdf');
+                            break;
+                        default :
+                            $status = 'wdf_canceled';
+                            $transaction['status'] = __('Unknown','wdf');
+                            $transaction['gateway_msg'] = __('Unknown PayPal status.','wdf');
+                            break;
+                    }
 
-				} else {
-					header("HTTP/1.1 503 Service Unavailable");
-					_e( 'There was a problem verifying the IPN string with PayPal. Please try again.','wdf' );
-					exit;
-				}
-			} elseif ( isset( $_POST['txn_type'] ) ) {
+                    $wdf->update_pledge( $post_title, $funder_id, $status, $transaction);
 
-				$settings = get_option('wdf_settings');
-				//Handle IPN for simple payments
-				if($this->verify_paypal()) {
-					$transaction = array();
+                } else {
+                    header("HTTP/1.1 503 Service Unavailable");
+                    _e( 'There was a problem verifying the IPN string with PayPal. Please try again.','wdf' );
+                    exit;
+                }
+            } elseif ( isset( $_POST['txn_type'] ) ) {
 
-					$custom = explode('||',$_POST['custom']);
-					$funder_id = $custom[0];
-					$post_title = $custom[1];
+                $settings = get_option('wdf_settings');
+                //Handle IPN for simple payments
+                if($this->verify_paypal()) {
+                    $transaction = array();
 
-					//proccess additional custom fields
-					$possible_custom_fields = array('reward', 'country', 'address1', 'address2', 'city', 'state', 'zip');
-					foreach ($possible_custom_fields as $key => $possible_custom_field)
-						if(isset($custom[$key+2]) && $custom[$key+2])
-							$transaction[$possible_custom_field] = $custom[$key+2];
+                    $custom = explode('||',$_POST['custom']);
+                    $funder_id = $custom[0];
+                    $post_title = $custom[1];
+                    $is_recurring_payment = false;
 
-					if($_POST['txn_type'] == 'subscr_signup') {
-						$transaction['gross'] = $_POST['mc_amount3'];
-						$cycle = explode(' ',$_POST['period3']);
-						$transaction['cycle'] = $cycle[1];
-						$transaction['recurring'] = $_POST['recurring'];
-					} else if($_POST['txn_type'] == 'web_accept') {
-						$transaction['gross'] = (!empty($_POST['payment_gross']) ? $_POST['payment_gross'] : $_POST['mc_gross']);
-					} else {
-						//Not an accepted transaction type
-						die();
-					}
-					$transaction['type'] = 'simple';
-					$transaction['currency_code'] = ( isset($_POST['mc_currency']) ? $_POST['mc_currency'] : $settings['currency']);
-					$transaction['ipn_id'] = $_POST['txn_id'];
-					$transaction['first_name'] = $_POST['first_name'];
-					$transaction['last_name'] = $_POST['last_name'];
-					$transaction['payment_fee'] = $_POST['payment_fee'];
-					$transaction['payer_email'] = (isset($_POST['payer_email']) ? $_POST['payer_email'] : 'johndoe@' . home_url() );
-					$transaction['gateway_public'] = $this->public_name;
-					$transaction['gateway'] = $this->plugin_name;
+                    //proccess additional custom fields
+                    $possible_custom_fields = array('reward', 'country', 'address1', 'address2', 'city', 'state', 'zip');
+                    foreach ($possible_custom_fields as $key => $possible_custom_field)
+                        if(isset($custom[$key+2]) && $custom[$key+2])
+                            $transaction[$possible_custom_field] = $custom[$key+2];
 
-					if( isset($_POST['payment_status']) ) {
-						switch($_POST['payment_status']) {
-							case 'Pending' :
-								$status = 'wdf_approved';
-								$transaction['status'] = __('Pending/Approved','wdf');
-								$transaction['gateway_msg'] = (isset($_POST['pending_reason']) ? $_POST['pending_reason'] : __('Missing Pending Status.','wdf') );
-								break;
-							case 'Refunded' :
-								$status = 'wdf_refunded';
-								$transaction['status'] = __('Refunded','wdf');
-								$transaction['gateway_msg'] = __('Payment Refunded','wdf');
-								break;
-							case 'Reversed' :
-								$status = 'wdf_canceled';
-								$transaction['status'] = __('Reversed','wdf');
-								$transaction['gateway_msg'] = __('Payment Reversed','wdf');
-								break;
-							case 'Expired' :
-								$status = 'wdf_canceled';
-								$transaction['status'] = __('Expired','wdf');
-								$transaction['gateway_msg'] = __('Payment Expired','wdf');
-								break;
-							case 'Processed' :
-								$status = 'wdf_complete';
-								$transaction['status'] = __('Processed','wdf');
-								$transaction['gateway_msg'] = __('Payment Processed','wdf');
-								break;
-							case 'Completed' :
-								$status = 'wdf_complete';
-								$transaction['status'] = __('Payment Completed','wdf');
-								break;
-							default:
-								$status = 'wdf_canceled';
-								$transaction['status'] = __('Unknown Payment Status','wdf');
-								break;
-						}
-					} else {
-						$status = 'wdf_canceled';
-								$transaction['status'] = __('Payment Status Not Given','wdf');
-					}
+                    switch($_POST['txn_type']){
+                        case 'subscr_signup':
+                        case 'subscr_payment':
+                        case 'subscr_eot':
+                        case 'subscr_cancel':
+                            $transaction = $this->process_subscription_payment( $post_title, $transaction, $_POST );
+                            break;
+                        case 'web_accept':
+                            $transaction['gross'] = (!empty($_POST['payment_gross']) ? $_POST['payment_gross'] : $_POST['mc_gross']);
+                            break;
+                        default:
+                            //Not an accepted transaction type
+                            die();
+                    }
 
-					global $wdf;
-					$wdf->update_pledge($post_title,$funder_id,$status,$transaction);
-				}
-			}
+                    $transaction['txn_type'] = $_POST['txn_type'];
+                    $transaction['type'] = 'simple';
+                    $transaction['currency_code'] = ( isset($_POST['mc_currency']) ? $_POST['mc_currency'] : $settings['currency']);
+                    if( isset( $_POST['txn_id'] ) ){
+                        $transaction['ipn_id'] =  $_POST['txn_id'];
+                    }
+                    if( isset( $_POST['first_name'] ) ){
+                        $transaction['first_name'] =  $_POST['first_name'];
+                    }
+                    if( isset( $_POST['last_name'] ) ){
+                        $transaction['last_name'] =  $_POST['last_name'];
+                    }
+                    if( isset( $_POST['payment_fee'] ) ){
+                        $transaction['payment_fee'] =  $_POST['payment_fee'];
+                    }
+                    $transaction['payer_email'] = (isset($_POST['payer_email']) ? $_POST['payer_email'] : 'johndoe@' . home_url() );
+                    $transaction['gateway_public'] = $this->public_name;
+                    $transaction['gateway'] = $this->plugin_name;
 
-			die();
-		}
+                    if( isset($_POST['payment_status']) ) {
+                        switch($_POST['payment_status']) {
+                            case 'Pending' :
+                                $status = 'wdf_approved';
+                                $transaction['status'] = __('Pending/Approved','wdf');
+                                $transaction['gateway_msg'] = (isset($_POST['pending_reason']) ? $_POST['pending_reason'] : __('Missing Pending Status.','wdf') );
+                                break;
+                            case 'Refunded' :
+                                $status = 'wdf_refunded';
+                                $transaction['status'] = __('Refunded','wdf');
+                                $transaction['gateway_msg'] = __('Payment Refunded','wdf');
+                                break;
+                            case 'Reversed' :
+                                $status = 'wdf_canceled';
+                                $transaction['status'] = __('Reversed','wdf');
+                                $transaction['gateway_msg'] = __('Payment Reversed','wdf');
+                                break;
+                            case 'Expired' :
+                                $status = 'wdf_canceled';
+                                $transaction['status'] = __('Expired','wdf');
+                                $transaction['gateway_msg'] = __('Payment Expired','wdf');
+                                break;
+                            case 'Processed' :
+                                $status = 'wdf_complete';
+                                $transaction['status'] = __('Processed','wdf');
+                                $transaction['gateway_msg'] = __('Payment Processed','wdf');
+                                break;
+                            case 'Completed' :
+                                $status = 'wdf_complete';
+                                if( 'subscr_payment' == $_POST['txn_type'] ){
+                                    $transaction['status'] = __('Ongoing Subscription','wdf');
+                                } else {
+                                    $transaction['status'] = __('Payment Completed','wdf');
+                                }
+                                break;
+                            case 'Ended' :
+                                $status = 'wdf_complete';
+                                $transaction['status'] = __('Subscription Expired/Canceled.','wdf');
+                                break;
+                            default:
+                                $status = 'wdf_canceled';
+                                $transaction['status'] = __('Unknown Payment Status','wdf');
+                                break;
+                        }
+                    } else {
+                        if( 'subscr_signup' == $_POST['txn_type'] ){
+                            $status = 'wdf_approved';
+                            $transaction['status'] = __('Subscription confirmed. Awaiting payment...','wdf');
+                        } else {
+                            $status = 'wdf_canceled';
+                            $transaction['status'] = __('Payment Status Not Given','wdf');
+                        }
+
+                    }
+
+                    global $wdf;
+                    $wdf->update_pledge($post_title,$funder_id,$status,$transaction);
+                }
+            }
+
+            die();
+        }
+
+        /**
+         * Parses subscription request parameters into a transaction object.
+         *
+         * @since 2.6.1.3
+         * @access public
+         *
+         * @param  string $post_title Post/Pledge title used as identifier.
+         * @param  array $transaction Transaction object.
+         * @param  array $request Subscription request parameters.
+         * @return array
+         */
+        function process_subscription_payment( $post_title, $transaction, $request ){
+            global $wpdb;
+
+            $pledge_exists = $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_title = %s", $post_title) );
+
+            switch($request['txn_type']){
+                case 'subscr_signup':
+                    $transaction['gross'] = 0;//We should wait for the first payment to increase the value.
+                    $transaction['cycle'] = $request['period3'];
+                    $transaction['recurring'] = $request['recurring'];
+                    $transaction['recurring_amount'] = $request['mc_amount3'];
+
+                    //Sometimes subscr_payment arrives before subscr_signup, so we need to check if the pledge already exists.
+                    if(!empty($pledge_exists) &&  $pledge_exists != false) {
+                        $previous_transaction = get_post_meta($pledge_exists, 'wdf_transaction', true);
+
+                        //Merge with the subscr_payment transaction data. Previous transaction data will take precedence.
+                        $transaction = array_merge( $transaction, $previous_transaction);
+
+                        //A payment was already processed, so we need to override the status.
+                        $_POST['payment_status'] = 'Completed';
+                    }
+
+                    break;
+                case 'subscr_payment':
+                    $transaction['gross'] = $request['payment_gross'];
+
+                    //Sometimes subscr_payment arrives before subscr_signup, so we need to check if the pledge already exists.
+                    if(!empty($pledge_exists) &&  $pledge_exists != false) {
+                        $previous_transaction = get_post_meta($pledge_exists, 'wdf_transaction', true);
+                        //Increase the amount paid on each recurring transaction.
+                        $transaction['gross'] += $previous_transaction['gross'];
+                        //Merge with the subscr_signup transaction data. New transaction data will take precedence.
+                        $transaction = array_merge($previous_transaction, $transaction);
+                    }
+                    //Keep track of how many payments were processed.
+                    $transaction['recurring_transactions'] = isset($previous_transaction['recurring_transactions']) ? $previous_transaction['recurring_transactions'] + 1 : 1;
+
+                    break;
+                case 'subscr_eot':
+                case 'subscr_cancel':
+                    $_POST['payment_status'] = 'Ended';
+                    if(!empty($pledge_exists) &&  $pledge_exists != false) {
+                        $previous_transaction = get_post_meta($pledge_exists, 'wdf_transaction', true);
+                        //Merge with the subscr_signup transaction data. New transaction data will take precedence.
+                        $transaction = array_merge($previous_transaction, $transaction);
+                    }
+                    break;
+                default:
+                    //Not an accepted transaction type
+                    die();
+            }
+
+            return $transaction;
+        }
+
 		function execute_payment($type, $pledge, $transaction) {
 
 			if($type == 'advanced') {
@@ -529,12 +626,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$domain = 'https://www.paypal.com/cgi-bin/webscr';
 			}
 
-			$req = 'cmd=_notify-validate';
-			if (!isset($_POST)) $_POST = $HTTP_POST_VARS;
-			foreach ($_POST as $k => $v) {
-				if (get_magic_quotes_gpc()) $v = stripslashes($v);
-				$req .= '&' . $k . '=' . urlencode($v);
-			}
+            $req = 'cmd=_notify-validate&' . file_get_contents("php://input");
 
 			$args = array();
 			$args['user-agent'] = "Fundraising/{$wdf->version}: http://premium.wpmudev.org/project/fundraising/";
@@ -576,7 +668,13 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				<tr>
 					<td colspan="2">
 						<h4><?php _e('Simple Payment Options (Simple Donations)','wdf'); ?></h4>
-						<div class="message updated below-h2" style="width: auto;"><p><?php _e('In order for PayPal simple payments to log properly you must turn on PayPal Instant Payment Notifications and point it to','wdf'); ?> <br /><span class="description"><?php echo $this->ipn_url; ?></span></p></div>
+						<div class="message updated below-h2" style="width: auto;">
+                            <p><?php _e('In order for Fundraising to function correctly you must setup an IPN listening URL with PayPal. Failure to do so will prevent your site from being notified when a recurring payment is cancelled.','wdf'); ?>
+                                <br /><?php echo __( 'Your IPN listening URL is:', 'wdf' ); ?>
+                                <span class="description"><?php echo $this->ipn_url; ?></span> <br />
+                                <a href="<?php echo __( 'https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNSetup/', 'wdf' ); ?>"><?php echo __( 'Instructions &raquo;', 'wdf' ); ?></a>
+                            </p>
+                        </div>
 					</td>
 				</tr>
 				<tr valign="top">

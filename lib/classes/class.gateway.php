@@ -107,17 +107,51 @@ if(!class_exists('WDF_Gateway')) {
 			add_action('wdf_gateway_confirm_'.$this->plugin_name, array(&$this, 'confirm'), 10);
 			add_action('wdf_execute_payment_'.$this->plugin_name, array(&$this, 'execute_payment'), 10, 3);
 
-			//Handle all our Instant Notifcations
-			$this->ipn_url = admin_url('admin-ajax.php?action=wdf-ipn-return-'.$this->plugin_name);
-			add_action( 'wp_ajax_nopriv_wdf-ipn-return-'.$this->plugin_name, array(&$this,'handle_ipn') );
+            //Handle all our Instant Notifications
+            add_action( 'init', array( &$this, 'add_rewrite_rules' ), 1 );
+            add_action( 'init', array( &$this, 'add_rewrite_tags' ), 1 );
+            add_action( 'pre_get_posts', array( &$this, 'handle_payment_return'), 1 );
+            $this->ipn_url = apply_filters('wdf_payment_return_url_' . $this->plugin_name, trailingslashit( home_url('wdf-payment-return/' . esc_attr($this->plugin_name))));
+            add_action( 'wp_ajax_nopriv_wdf-ipn-return-'.$this->plugin_name, array(&$this,'handle_ipn') );
+            add_action( 'wdf_gateway_handle_payment_return_'.$this->plugin_name, array(&$this,'handle_ipn') );
 
-			// This is the gateway form
-			add_filter('wdf_checkout_payment_form_'.$this->plugin_name, array(&$this,'payment_form'), 10);
-			// This is the gateway form wrapper.  Notice the priorities
-			add_filter('wdf_checkout_payment_form_'.$this->plugin_name, array(&$this,'_payment_form_wrapper'), 20);
-			add_filter('wdf_gateway_payment_info_' . $this->plugin_name, array(&$this,'payment_info'), 10, 2 );
-			$this->on_creation();
-		}
+            // This is the gateway form
+            add_filter('wdf_checkout_payment_form_'.$this->plugin_name, array(&$this,'payment_form'), 10);
+            // This is the gateway form wrapper.  Notice the priorities
+            add_filter('wdf_checkout_payment_form_'.$this->plugin_name, array(&$this,'_payment_form_wrapper'), 20);
+            add_filter('wdf_gateway_payment_info_' . $this->plugin_name, array(&$this,'payment_info'), 10, 2 );
+            $this->on_creation();
+        }
+
+        public function handle_payment_return( $wp_query ) {
+            if( ! empty( $wp_query->query_vars['paymentgateway'] ) ) {
+                do_action( 'wdf_gateway_handle_payment_return_' . $wp_query->query_vars['paymentgateway'] );
+            }
+        }
+
+        /**
+         * Add rewrite rules.
+         *
+         * @since 2.6.1.3
+         * @return void
+         */
+        public function add_rewrite_rules() {
+            add_rewrite_rule(
+                '^wdf-payment-return/(.+)/?$',
+                'index.php?paymentgateway=$matches[1]',
+                'top'
+            );
+        }
+
+        /**
+         * Add rewrite tags.
+         *
+         * @since 2.6.1.3
+         * @return void
+         */
+        public function add_rewrite_tags() {
+            add_rewrite_tag( '%paymentgateway%', '(.+)' );
+        }
 	}
 }
 /**

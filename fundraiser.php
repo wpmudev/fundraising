@@ -925,57 +925,60 @@ class WDF {
 			}
 		}
 	}
-	function update_pledge( $post_title = false, $funder_id = false, $status = false, $transaction = false ) {
-		if( !$post_title || !$funder_id || !$status || !$transaction ) {
-			return false;
-		}
+    function update_pledge( $post_title = false, $funder_id = false, $status = false, $transaction = false ) {
+        if( !$post_title || !$funder_id || !$status || !$transaction ) {
+            return false;
+        }
 
-		global $wpdb;
-		//Check to see if we have created this donation yet
-		$search = false;
-		$search = $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_title = %s", $post_title) );
-		$donation = array();
-		if(!empty($search) &&  $search != false) {
-			$donation['ID'] = $search;
-		} else {
-			//First time to see this pledge lets do some thank you operations
-			$this->create_thank_you($funder_id,$transaction);
-		}
-		$donation['post_title'] = $post_title;
-		$donation['post_name'] = $post_title;
-		$donation['post_status'] = $status;
-		$donation['post_parent'] = $funder_id;
-		$donation['post_type'] = 'donation';
-		$id = wp_insert_post($donation);
-		foreach($transaction as $k => $v) {
-			if(!is_array($v))
-				$transaction[$k] = esc_attr($v);
-			else
-				$transaction[$k] = array_map('esc_attr', $v);
+        global $wpdb;
+        //Check to see if we have created this donation yet
+        $pledge_exists = $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_title = %s", $post_title) );
 
-		}
-		update_post_meta($id, 'wdf_transaction', $transaction);
-		update_post_meta($id,'wdf_native', '1');
+        $donation = array();
+        $donation['post_title'] = $post_title;
+        $donation['post_name'] = $post_title;
+        $donation['post_status'] = $status;
+        $donation['post_parent'] = $funder_id;
+        $donation['post_type'] = 'donation';
 
-		if(isset($transaction['reward'])) {
-			$rewards = get_post_meta($funder_id,'wdf_levels', true);
-			if(isset($rewards[$transaction['reward']-1]['used']) && is_numeric($rewards[$transaction['reward']-1]['used']))
-				$rewards[$transaction['reward']-1]['used'] ++;
-			else
-				$rewards[$transaction['reward']-1]['used'] = 1;
+        if(!empty($pledge_exists) &&  $pledge_exists != false) {
+            $donation['ID'] = $pledge_exists;
+            $id = wp_update_post($donation);
+        } else {
+            //First time to see this pledge lets do some thank you operations
+            $this->create_thank_you($funder_id,$transaction);
+            $id = wp_insert_post($donation);
+        }
 
-			update_post_meta($funder_id,'wdf_levels', $rewards);
-		}
+        foreach($transaction as $k => $v) {
+            if(!is_array($v))
+                $transaction[$k] = esc_attr($v);
+            else
+                $transaction[$k] = array_map('esc_attr', $v);
 
-		// Check and see if we have now hit our goal.
-		if( $this->has_goal($funder_id) ){
-			if( (int)$this->get_amount_raised($funder_id) >= (int)$this->get_goal_amount($funder_id) ) {
-				$this->process_complete_funder( $funder_id );
-			}
-		}
+        }
+        update_post_meta($id, 'wdf_transaction', $transaction);
+        update_post_meta($id,'wdf_native', '1');
 
-		return $id;
-	}
+        if(isset($transaction['reward'])) {
+            $rewards = get_post_meta($funder_id,'wdf_levels', true);
+            if(isset($rewards[$transaction['reward']-1]['used']) && is_numeric($rewards[$transaction['reward']-1]['used']))
+                $rewards[$transaction['reward']-1]['used'] ++;
+            else
+                $rewards[$transaction['reward']-1]['used'] = 1;
+
+            update_post_meta($funder_id,'wdf_levels', $rewards);
+        }
+
+        // Check and see if we have now hit our goal.
+        if( $this->has_goal($funder_id) ){
+            if( (int)$this->get_amount_raised($funder_id) >= (int)$this->get_goal_amount($funder_id) ) {
+                $this->process_complete_funder( $funder_id );
+            }
+        }
+
+        return $id;
+    }
 	function add_menu_meta_boxes() {
 		$settings = get_option('wdf_settings');
 		add_meta_box( 'add-funder', __('Fundraisers','wdf'), array(&$this,'meta_box_display'), 'nav-menus', 'side', 'default');
@@ -1391,11 +1394,10 @@ class WDF {
 				$reward = (isset($trans['reward'])) ? ' ('.__('Reward: ','wdf').$trans['reward'].')' : '';
 				echo '<a href="'.get_edit_post_link($post->ID).'">'.$this->format_currency( $currency, $trans['gross'] ).$reward.'</a>';
 				break;
-			case 'pledge_recurring' :
-				$trans = $this->get_transaction();
-				if(isset($trans['cycle']))
-					echo $trans['cycle'];
-				break;
+            case 'pledge_recurring' :
+                $trans = $this->get_transaction();
+                echo $this->get_recurring_column_detail( $trans );
+                break;
 			case 'pledge_funder' :
 				$parent = get_post($post->post_parent);
 				echo $parent->post_title;
@@ -1871,6 +1873,71 @@ class WDF {
 
 		return $wdf_pledge_id;
 	}
+
+    /**
+     * Format PayPal's period format to readable text.
+     *
+     * For instance, '1 D' (or 'D' for backward compatibility) will be converted to 'Daily'.
+     *
+     * @since 2.6.1.3
+     * @access public
+     *
+     * @param  string $cycle Cycle code. Expected values are 1 D, 1 W, 1 M, 1 Y.
+     * @return string
+     */
+    function format_cycle( $cycle ){
+        if( !$cycle || empty($cycle)) return '';
+
+        $period = '';
+        switch($cycle){
+            case 'D':
+            case '1 D':
+                $period = __( 'Daily', 'wdf' );
+                break;
+            case 'W':
+            case '1 W':
+                $period = __( 'Weekly', 'wdf' );
+                break;
+            case 'M':
+            case '1 M':
+                $period = __( 'Monthly', 'wdf' );
+                break;
+            case 'Y':
+            case '1 Y':
+                $period = __( 'Yearly', 'wdf' );
+                break;
+        }
+
+        return apply_filters( 'wdf_format_period', $period, $cycle );
+    }
+
+    /**
+     * Parses transaction object and returns the recurring column detail text.
+     *
+     * @since 2.6.1.3
+     * @access public
+     *
+     * @param  array $transaction Transaction object.
+     * @return string
+     */
+    function get_recurring_column_detail( $transaction ){
+        if(!isset($transaction['cycle'])){
+            return 'Not Recurring';
+        } else {
+            $period = $this->format_cycle($transaction['cycle']);
+            $currency = isset( $transaction['currency_code'] ) ? $transaction['currency_code'] : '';
+            $recurring_amount = isset( $transaction['recurring_amount'] ) ? $transaction['recurring_amount'] : '';
+            $detail_text = $this->format_currency( $currency, $recurring_amount ) . ' ' . $period;
+
+            if( isset( $transaction['recurring_transactions'] ) ){
+                $recurring_transactions = $transaction['recurring_transactions'] . ' ' . _n( 'payment completed', 'payments completed', $transaction['recurring_transactions'], 'wdf' );
+                $detail_text .= '<br />' . $recurring_transactions;
+            }
+            return $detail_text;
+        }
+
+    }
+
 	function get_transaction($post_id = false) {
 		global $post;
 		if(!$post_id)
