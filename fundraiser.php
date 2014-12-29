@@ -872,9 +872,7 @@ class WDF {
 			$_SESSION['wdf_step'] = $_POST['wdf_step'];
 
 
-		if( !isset($_POST['wdf_recurring']) || empty($_POST['wdf_recurring']) || $_POST['wdf_recurring'] == '0') {
-			$_SESSION['wdf_recurring'] = false;
-		} else if( isset($_POST['wdf_recurring']) && !empty($_POST['wdf_recurring']) ) {
+		if( isset($_POST['wdf_recurring']) && !empty($_POST['wdf_recurring']) ) {
 			$_SESSION['wdf_recurring'] = $_POST['wdf_recurring'];
 		}
 
