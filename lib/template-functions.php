@@ -480,8 +480,9 @@ if(!function_exists('wdf_thanks_panel')) {
 		$settings = get_option('wdf_settings');
 		$meta = get_post_custom($post_id);
 		if($funder = get_post($post_id) && !empty($trans)) {
-			$content .= '<div class="wdf_thanks_panel">';
-			$content .= '<h3 class="wdf_confirm_pledge_amount">' . sprintf(__('Your %s of %s was successful','wdf'), esc_attr($settings['donation_labels']['singular_name']), $wdf->format_currency($trans['currency_code'],$trans['gross']) ) . '</h3>';
+            $amount = $trans['recurring'] ? $trans['recurring_amount'] : $trans['gross'];
+            $content .= '<div class="wdf_thanks_panel">';
+            $content .= '<h3 class="wdf_confirm_pledge_amount">' . sprintf(__('Your %s of %s was successful','wdf'), esc_attr($settings['donation_labels']['singular_name']), $wdf->format_currency($trans['currency_code'],$amount) ) . '</h3>';
 			$content .= '<h3 class="wdf_left_to_go">';
 			if(!wdf_has_goal($post_id))
 				$content .= sprintf(__('%s Raised so far','wdf'), wdf_amount_raised(false, $post_id));

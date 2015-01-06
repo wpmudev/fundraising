@@ -928,15 +928,19 @@ class WDF {
 		}
 		do_action('wdf_after_goal_complete', $pledges);
 	}
-	function filter_thank_you( $msg = '', $trans = false) {
-		if($trans !== false && !empty($msg)) {
-			$search = array('%DONATIONTOTAL%','%FIRSTNAME%','%LASTNAME%');
-			$replace = array($this->format_currency('',$trans['gross']),$trans['first_name'],$trans['last_name']);
-			$msg = str_replace($search, $replace, $msg);
-		}
+    function filter_thank_you( $raw_msg = '', $trans = false, $is_for_mail = 0, $type = 'body') {
+        if($trans !== false && !empty($raw_msg)) {
+            $amount = $trans['recurring'] ? $trans['recurring_amount'] : $trans['gross'];
+            $search = array( '%DONATIONTOTAL%', '%FIRSTNAME%', '%LASTNAME%' );
+            $replace = array($this->format_currency('', $amount, $is_for_mail), $trans['first_name'], $trans['last_name']);
 
-		return $msg;
-	}
+            $msg = str_replace($search, $replace, $raw_msg);
+        }
+
+        $msg = apply_filters( 'wdf_thank_you_message_' . $type, $msg, $trans, $is_for_mail, $raw_msg);
+
+        return $msg;
+    }
 	function create_thank_you($funder_id = false, $trans = false) {
 
 		if($send_email = get_post_meta($funder_id,'wdf_send_email',true) && $trans != false) {
@@ -948,17 +952,17 @@ class WDF {
 			//add our own filters
 			//add_filter( 'wp_mail_from_name', create_function('', 'return get_bloginfo("name");') );
 			//add_filter( 'wp_mail_from', create_function('', 'return get_option("admin_email")') );
-			$msg = get_post_meta($funder_id,'wdf_email_msg', true);
-			$search = array('%DONATIONTOTAL%','%FIRSTNAME%','%LASTNAME%');
-			$replace = array($this->format_currency('',$trans['gross'], 1),$trans['first_name'],$trans['last_name']);
+            $msg = get_post_meta($funder_id,'wdf_email_msg', true);
+            $msg = $this->filter_thank_you($msg, $trans, 1, 'body');
+            $msg = html_entity_decode($msg);
 
-			$subject = get_post_meta($funder_id,'wdf_email_subject',true);
-			$msg = html_entity_decode(str_replace($search, $replace, $msg));
-			$subject = html_entity_decode(str_replace($search, $replace, $subject));
+            $subject = get_post_meta($funder_id,'wdf_email_subject',true);
+            $subject = $this->filter_thank_you($subject, $trans, 1, 'subject');
+            $subject = html_entity_decode($subject);
 
-			if($subject && $msg && $trans['payer_email']) {
-				wp_mail($trans['payer_email'],$subject,$msg);
-			}
+            if($subject && $msg && $trans['payer_email']) {
+                wp_mail($trans['payer_email'],$subject,$msg);
+            }
 		}
 	}
     function update_pledge( $post_title = false, $funder_id = false, $status = false, $transaction = false ) {
