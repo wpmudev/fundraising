@@ -796,7 +796,7 @@ class WDF {
                 var idx, idxs, ignore, rule, stylesheet, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
 
                 if ('createTouch' in document) {
-                    ignore = /:hover\b/;
+                    var ignore = /(.wdf_send_donation|input\[type="submit"\]):hover\b/;
                     try {
                         _ref = document.styleSheets;
                         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
