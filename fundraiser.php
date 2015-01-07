@@ -756,6 +756,7 @@ class WDF {
 		wp_enqueue_style('jquery-ui-base');
 
 		add_action('wp_head', array(&$this,'inject_custom_css'));
+        add_action('wp_footer', array(&$this,'inject_javascript'));
 		// $add_style will always be used before a saved style.
 		if($add_style != false) {
 			wp_enqueue_style('wdf-style-'.$add_style);
@@ -786,6 +787,43 @@ class WDF {
 			return;
 		}
 	}
+
+    function inject_javascript() {
+        ?>
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+                //Disable hover state for touch screen devices.
+                var idx, idxs, ignore, rule, stylesheet, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
+
+                if ('createTouch' in document) {
+                    var ignore = /(.wdf_send_donation|input\[type="submit"\]):hover\b/;
+                    try {
+                        _ref = document.styleSheets;
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            stylesheet = _ref[_i];
+                            idxs = [];
+                            _ref1 = stylesheet.cssRules;
+                            if( !_ref1 || _ref1.length < 1 ){
+                                continue;
+                            }
+                            for (idx = _j = 0, _len1 = _ref1.length; _j < _len1; idx = ++_j) {
+                                rule = _ref1[idx];
+                                if (rule.type === CSSRule.STYLE_RULE && ignore.test(rule.selectorText)) {
+                                    idxs.unshift(idx);
+                                }
+                            }
+                            for (_k = 0, _len2 = idxs.length; _k < _len2; _k++) {
+                                idx = idxs[_k];
+                                stylesheet.deleteRule(idx);
+                            }
+                        }
+                    } catch (_error) {}
+                }
+            });
+        </script>
+    <?php
+    }
+
 	function start_session() {
 	//start the session for pledges
 	if (session_id() == "")
@@ -834,9 +872,7 @@ class WDF {
 			$_SESSION['wdf_step'] = $_POST['wdf_step'];
 
 
-		if( !isset($_POST['wdf_recurring']) || empty($_POST['wdf_recurring']) || $_POST['wdf_recurring'] == '0') {
-			$_SESSION['wdf_recurring'] = false;
-		} else if( isset($_POST['wdf_recurring']) && !empty($_POST['wdf_recurring']) ) {
+		if( isset($_POST['wdf_recurring']) && !empty($_POST['wdf_recurring']) ) {
 			$_SESSION['wdf_recurring'] = $_POST['wdf_recurring'];
 		}
 
@@ -892,15 +928,19 @@ class WDF {
 		}
 		do_action('wdf_after_goal_complete', $pledges);
 	}
-	function filter_thank_you( $msg = '', $trans = false) {
-		if($trans !== false && !empty($msg)) {
-			$search = array('%DONATIONTOTAL%','%FIRSTNAME%','%LASTNAME%');
-			$replace = array($this->format_currency('',$trans['gross']),$trans['first_name'],$trans['last_name']);
-			$msg = str_replace($search, $replace, $msg);
-		}
+    function filter_thank_you( $raw_msg = '', $trans = false, $is_for_mail = 0, $type = 'body') {
+        if($trans !== false && !empty($raw_msg)) {
+            $amount = $trans['recurring'] ? $trans['recurring_amount'] : $trans['gross'];
+            $search = array( '%DONATIONTOTAL%', '%FIRSTNAME%', '%LASTNAME%' );
+            $replace = array($this->format_currency('', $amount, $is_for_mail), $trans['first_name'], $trans['last_name']);
 
-		return $msg;
-	}
+            $msg = str_replace($search, $replace, $raw_msg);
+        }
+
+        $msg = apply_filters( 'wdf_thank_you_message_' . $type, $msg, $trans, $is_for_mail, $raw_msg);
+
+        return $msg;
+    }
 	function create_thank_you($funder_id = false, $trans = false) {
 
 		if($send_email = get_post_meta($funder_id,'wdf_send_email',true) && $trans != false) {
@@ -912,17 +952,17 @@ class WDF {
 			//add our own filters
 			//add_filter( 'wp_mail_from_name', create_function('', 'return get_bloginfo("name");') );
 			//add_filter( 'wp_mail_from', create_function('', 'return get_option("admin_email")') );
-			$msg = get_post_meta($funder_id,'wdf_email_msg', true);
-			$search = array('%DONATIONTOTAL%','%FIRSTNAME%','%LASTNAME%');
-			$replace = array($this->format_currency('',$trans['gross'], 1),$trans['first_name'],$trans['last_name']);
+            $msg = get_post_meta($funder_id,'wdf_email_msg', true);
+            $msg = $this->filter_thank_you($msg, $trans, 1, 'body');
+            $msg = html_entity_decode($msg);
 
-			$subject = get_post_meta($funder_id,'wdf_email_subject',true);
-			$msg = html_entity_decode(str_replace($search, $replace, $msg));
-			$subject = html_entity_decode(str_replace($search, $replace, $subject));
+            $subject = get_post_meta($funder_id,'wdf_email_subject',true);
+            $subject = $this->filter_thank_you($subject, $trans, 1, 'subject');
+            $subject = html_entity_decode($subject);
 
-			if($subject && $msg && $trans['payer_email']) {
-				wp_mail($trans['payer_email'],$subject,$msg);
-			}
+            if($subject && $msg && $trans['payer_email']) {
+                wp_mail($trans['payer_email'],$subject,$msg);
+            }
 		}
 	}
     function update_pledge( $post_title = false, $funder_id = false, $status = false, $transaction = false ) {

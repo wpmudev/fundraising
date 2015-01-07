@@ -140,6 +140,9 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 						$nvp .= '&src=1';
 						$nvp .= '&sra=1';
 						$nvp .= '&modify=1';
+
+                        //Make sure that future single payments are not taken as recurring.
+                        $_SESSION['wdf_recurring'] = false;
 					} else {
 						$nvp = 'cmd=_donations';
 						$nvp .= '&amount='.urlencode($_SESSION['wdf_pledge']);
