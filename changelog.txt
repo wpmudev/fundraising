@@ -1,9 +1,15 @@
 Plugin Name: Fundraising
 Author: WPMUDEV
 Lead developer: Maniu
-Contributors: Cole Stevenson
+Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
+
+= 2.6.1.3 =
+Changed IPN url for better server compatibility
+Fixed pledge button for touch devices
+Fixed recurring payments
+Fixed rewards counting after donation removal
 
 = 2.6.1.2 =
 Fixed top pledges sorting

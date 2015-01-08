@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.6.1.2
+Version: 2.6.1.3
 Text Domain: wdf
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
@@ -72,7 +72,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.6.0.3';
+		$this->version = '2.6.1.3';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -136,10 +136,10 @@ class WDF {
 		$version_compare = version_compare($this->version, $settings['current_version']);
 		if($version_compare == 1) {
 			// Upgrade
-			$this->upgrade_settings();
+			add_action('init', array(&$this,'upgrade_settings'));
 		} else if($version_compare == -1) {
 			// Downgrade
-			$this->upgrade_settings();
+			add_action('init', array(&$this,'upgrade_settings'));
 		}
 
 		//load APIs and plugins
@@ -182,6 +182,7 @@ class WDF {
 			add_action( 'media_upload_donate_button', array(&$this,'media_donate_button'));
 			add_action( 'media_upload_progress_bar', array(&$this,'media_progress_bar'));
 			add_action( 'wp_insert_post', array(&$this,'wp_insert_post') );
+			add_action( 'before_delete_post', array(&$this,'before_delete_post') );
 
 			// Add Admin Only Filters
 			add_filter( 'manage_edit-funder_columns', array(&$this,'edit_columns') );
@@ -472,11 +473,16 @@ class WDF {
 		$settings = get_option('wdf_settings');
 
 		// Update the current_version
+		$old_version = $settings['current_version'];
 		$settings['current_version'] = $this->version;
 
 		// Merge and save
 		$settings = array_merge($this->defaults, $settings);
 		update_option('wdf_settings', $settings);
+
+		//lets flash rules if needed
+		if($this->version == '2.6.1.3' && version_compare($this->version, $old_version) == 1)
+			flush_rewrite_rules();
 	}
 	function flush_rewrite($force = 0) {
 		global $wp_rewrite;
@@ -930,7 +936,7 @@ class WDF {
 	}
     function filter_thank_you( $raw_msg = '', $trans = false, $is_for_mail = 0, $type = 'body') {
         if($trans !== false && !empty($raw_msg)) {
-            $amount = $trans['recurring'] ? $trans['recurring_amount'] : $trans['gross'];
+            $amount = isset($trans['recurring']) ? $trans['recurring_amount'] : $trans['gross'];
             $search = array( '%DONATIONTOTAL%', '%FIRSTNAME%', '%LASTNAME%' );
             $replace = array($this->format_currency('', $amount, $is_for_mail), $trans['first_name'], $trans['last_name']);
 
@@ -1266,6 +1272,17 @@ class WDF {
 				if(isset($_POST['wdf']['transaction']['gross']))
 					$_POST['wdf']['transaction']['gross'] = $this->filter_price($_POST['wdf']['transaction']['gross']);
 				update_post_meta($post->ID,'wdf_transaction',$_POST['wdf']['transaction']);
+			}
+		}
+	}
+	function before_delete_post($post_id) {
+		if(get_post_type($post_id) == 'donation') {
+			$trans = $this->get_transaction($post_id);
+			if(isset($trans['reward'])) {
+				$parent = wp_get_post_parent_id($post_id);
+				$rewards = get_post_meta($parent,'wdf_levels', true);
+				$rewards[$trans['reward']-1]['used'] --;
+				update_post_meta($parent,'wdf_levels', $rewards);
 			}
 		}
 	}
