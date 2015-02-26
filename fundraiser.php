@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.6.1.3
+Version: 2.6.1.4
 Text Domain: wdf
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
@@ -32,17 +32,17 @@ define ('WDF_PLUGIN_SELF_DIRNAME', basename(dirname(__FILE__)), true);
 if (is_multisite() && defined('WPMU_PLUGIN_URL') && defined('WPMU_PLUGIN_DIR') && file_exists(WPMU_PLUGIN_DIR . '/' . basename(__FILE__))) {
 	define ('WDF_PLUGIN_LOCATION', 'mu-plugins', true);
 	define ('WDF_PLUGIN_BASE_DIR', WPMU_PLUGIN_DIR, true);
-	define ('WDF_PLUGIN_URL', WPMU_PLUGIN_URL, true);
+	//define ('WDF_PLUGIN_URL', WPMU_PLUGIN_URL, true);
 	$textdomain_handler = 'load_muplugin_textdomain';
 } else if (defined('WP_PLUGIN_URL') && defined('WP_PLUGIN_DIR') && file_exists(WP_PLUGIN_DIR . '/' . WDF_PLUGIN_SELF_DIRNAME . '/' . basename(__FILE__))) {
 	define ('WDF_PLUGIN_LOCATION', 'subfolder-plugins', true);
 	define ('WDF_PLUGIN_BASE_DIR', WP_PLUGIN_DIR . '/' . WDF_PLUGIN_SELF_DIRNAME, true);
-	define ('WDF_PLUGIN_URL', WP_PLUGIN_URL . '/' . WDF_PLUGIN_SELF_DIRNAME, true);
+	//define ('WDF_PLUGIN_URL', WP_PLUGIN_URL . '/' . WDF_PLUGIN_SELF_DIRNAME, true);
 	$textdomain_handler = 'load_plugin_textdomain';
 } else if (defined('WP_PLUGIN_URL') && defined('WP_PLUGIN_DIR') && file_exists(WP_PLUGIN_DIR . '/' . basename(__FILE__))) {
 	define ('WDF_PLUGIN_LOCATION', 'plugins', true);
 	define ('WDF_PLUGIN_BASE_DIR', WP_PLUGIN_DIR, true);
-	define ('WDF_PLUGIN_URL', WP_PLUGIN_URL, true);
+	//define ('WDF_PLUGIN_URL', WP_PLUGIN_URL, true);
 	$textdomain_handler = 'load_plugin_textdomain';
 } else {
 	// No textdomain is loaded because we can't determine the plugin location.
@@ -50,6 +50,8 @@ if (is_multisite() && defined('WPMU_PLUGIN_URL') && defined('WPMU_PLUGIN_DIR') &
 	wp_die(__('There was an issue determining where the Fundraising plugin is installed. Please reinstall.'));
 }
 $textdomain_handler('wdf', false, WDF_PLUGIN_SELF_DIRNAME . '/languages/');
+
+define ('WDF_PLUGIN_URL', plugins_url('', __FILE__ ), true);
 
 
 // Gotta do this here so it doesnt save over what we just deleted.
@@ -1288,7 +1290,7 @@ class WDF {
 	}
 	function enqueue_scripts() {
 		wp_register_script( 'wdf-base', WDF_PLUGIN_URL . '/js/wdf-base.js', array('jquery'), $this->version, false );
-		wp_register_style( 'jquery-ui-base', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css', null, null, 'screen' );
+		wp_register_style( 'jquery-ui-base', WDF_PLUGIN_URL . '/css/jquery-ui.css', null, null, 'screen' );
 		if(is_array($this->styles) && !empty($this->styles)) {
 			foreach($this->styles as $key => $label) {
 				wp_register_style( 'wdf-style-'.$key, WDF_PLUGIN_URL . '/styles/'.$key.'.css', null, $this->version );
@@ -1304,7 +1306,7 @@ class WDF {
 		global $typenow, $pagenow, $wp_version;
 
 		// Google external jQuery UI
-		wp_register_style( 'jquery-ui-base', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css', null, null, 'screen' );
+		wp_register_style( 'jquery-ui-base', WDF_PLUGIN_URL . '/css/jquery-ui.css', null, null, 'screen' );
 		wp_register_style( 'wdf-admin', WDF_PLUGIN_URL . '/css/wdf-admin.css', null, $this->version, 'all' );
 
 		if ( $wp_version >= 3.8 ) {
