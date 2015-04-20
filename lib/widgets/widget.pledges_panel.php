@@ -25,7 +25,7 @@ class WDF_Pledges_Panel extends WP_Widget {
 				$content = $args['before_widget'];
 
 				if(isset($instance['title']) && !empty($instance['title']))
-					$content .= $args['before_title'] . esc_attr($instance['title']) . $args['after_title'];
+					$content .= $args['before_title'] . esc_attr(apply_filters('widget_title', $instance['title'])) . $args['after_title'];
 
 				$content .= wdf_pledges_panel( false, $instance['funder'], 'widget', $instance );
 				$content .= $args['after_widget'];
@@ -39,7 +39,7 @@ class WDF_Pledges_Panel extends WP_Widget {
 					$content = $args['before_widget'];
 
 					if(isset($instance['title']) && !empty($instance['title']))
-						$content .= $args['before_title'] . esc_attr($instance['title']) . $args['after_title'];
+						$content .= $args['before_title'] . esc_attr(apply_filters('widget_title', $instance['title'])) . $args['after_title'];
 
 					$content .= wdf_pledges_panel( false, $wp_query->posts[0]->ID, 'widget', $instance );
 					$content .= $args['after_widget'];

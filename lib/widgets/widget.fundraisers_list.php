@@ -14,7 +14,7 @@ class WDF_Fundraisers_List extends WP_Widget {
 		$limit = (isset($instance['limit']) && $instance['limit'] && is_numeric($instance['limit'])) ? $instance['limit'] : -1;
 		// Widget output
 		$content = $args['before_widget'];
-		$content .= $args['before_title'] . esc_attr($instance['title']) . $args['after_title'];
+		$content .= $args['before_title'] . esc_attr(apply_filters('widget_title', $instance['title'])) . $args['after_title'];
 		$query = array(
 			'post_type' => 'funder',
 			'post_status' => 'publish',

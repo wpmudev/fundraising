@@ -18,7 +18,7 @@ class WDF_Recent_Fundraisers extends WP_Widget {
 		// Widget output
 		
 		$content = $args['before_widget'];
-		$content .= $args['before_title'] . esc_attr($instance['title']) . $args['after_title'];
+		$content .= $args['before_title'] . esc_attr(apply_filters('widget_title', $instance['title'])) . $args['after_title'];
 		$query = array(
 			'numberposts' => $instance['numberposts'],
 			'post_type' => 'funder',

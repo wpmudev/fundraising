@@ -19,7 +19,8 @@ class WDF_Simple_Donation extends WP_Widget {
 		// Widget output
 		
 		$content = $args['before_widget'];
-		$content .= $args['before_title'] . esc_attr($instance['title']) . $args['after_title'];
+		if(isset($instance['title']) && !empty($instance['title']))
+			$content .= $args['before_title'] . esc_attr(apply_filters('widget_title', $instance['title'])) . $args['after_title'];
 		$content .= '<p class="wdf_widget_description">' . esc_attr($instance['description']) . '</p>';
 		$content .= wdf_pledge_button(false,'widget_simple_donate',null,array('widget_args' => $instance));
 		$content .= $args['after_widget'];

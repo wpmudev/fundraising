@@ -4,7 +4,7 @@
 if ( !class_exists('WPMUDEV_Dashboard_Notice3') ) {
 	class WPMUDEV_Dashboard_Notice3 {
 		
-		var $version = '3.0';
+		var $version = '3.1';
 		var $screen_id = false;
 		var $product_name = false;
 		var $product_update = false;
@@ -22,11 +22,14 @@ if ( !class_exists('WPMUDEV_Dashboard_Notice3') ) {
 			if ( class_exists( 'WPMUDEV_Dashboard' ) || ( isset($wpmudev_un->version) && version_compare($wpmudev_un->version, '3.4', '<') ) )
 				return;
 			
-			// Schedule update jobs
-			if ( !wp_next_scheduled('wpmudev_scheduled_jobs') ) {
-				wp_schedule_event(time(), 'twicedaily', 'wpmudev_scheduled_jobs');
+			// Schedule update cron on main site only
+			if ( is_main_site() ) {
+				if ( ! wp_next_scheduled( 'wpmudev_scheduled_jobs' ) ) {
+					wp_schedule_event( time(), 'twicedaily', 'wpmudev_scheduled_jobs' );
+				}
+
+				add_action( 'wpmudev_scheduled_jobs', array( $this, 'updates_check') );
 			}
-			add_action( 'wpmudev_scheduled_jobs', array( $this, 'updates_check') );
 			add_action( 'delete_site_transient_update_plugins', array( &$this, 'updates_check' ) ); //refresh after upgrade/install
 			add_action( 'delete_site_transient_update_themes', array( &$this, 'updates_check' ) ); //refresh after upgrade/install
 			
@@ -34,8 +37,8 @@ if ( !class_exists('WPMUDEV_Dashboard_Notice3') ) {
 				
 				add_action( 'site_transient_update_plugins', array( &$this, 'filter_plugin_count' ) );
 				add_action( 'site_transient_update_themes', array( &$this, 'filter_theme_count' ) );
-				add_filter( 'plugins_api', array( &$this, 'filter_plugin_info' ), 20, 3 ); //run later to work with bad autoupdate plugins
-				add_filter( 'themes_api', array( &$this, 'filter_plugin_info' ), 20, 3 ); //run later to work with bad autoupdate plugins
+				add_filter( 'plugins_api', array( &$this, 'filter_plugin_info' ), 101, 3 ); //run later to work with bad autoupdate plugins
+				add_filter( 'themes_api', array( &$this, 'filter_plugin_info' ), 101, 3 ); //run later to work with bad autoupdate plugins
 				add_action( 'admin_init', array( &$this, 'filter_plugin_rows' ), 15 ); //make sure it runs after WP's
 				add_action( 'core_upgrade_preamble', array( &$this, 'disable_checkboxes' ) );
 				add_action( 'activated_plugin', array( &$this, 'set_activate_flag' ) );
@@ -148,21 +151,18 @@ if ( !class_exists('WPMUDEV_Dashboard_Notice3') ) {
 		function activate_notice() {
 			if ( !$this->is_allowed_screen() ) return;
 			
+			echo '<div class="updated" id="wpmu-install-dashboard"><div class="wpmu-install-wrap"><p class="wpmu-message">';
 			if ($this->product_name) {
-				$msg = $this->product_update
-					? 'Important updates are available for <strong>' . esc_html($this->product_name) . '</strong>. Activate the WPMU DEV Dashboard to update now!'
-					: 'Just one more step to enable updates and support for <strong>' . esc_html($this->product_name) . '</strong>!'
-				;
+				if ($this->product_update)
+					echo 'Important updates are available for <strong>' . esc_html($this->product_name) . '</strong>. Activate the WPMU DEV Dashboard to update now!';
+				else
+					echo "Just one more step to enable updates and support for <strong>" . esc_html($this->product_name) . '</strong>!';
 			} else if ($this->update_count) {
-				$msg = 'Important updates are available for your WPMU DEV plugins/themes. Activate the WPMU DEV Dashboard to update now!';
+				echo "Important updates are available for your WPMU DEV plugins/themes. Activate the WPMU DEV Dashboard to update now!";
 			} else {
-				$msg = 'Just one more step - activate the WPMU DEV Dashboard plugin and you\'re all done!';
+				echo "Just one more step - activate the WPMU DEV Dashboard plugin and you're all done!";
 			}
-			echo '<div class="wrap"><div class="wdnag"><p class="wd_message">' .
-				$msg .
-				'</p>' . 
-				'<div class="wd_cta"><a class="wd_btn">Activate <strong>WPMU DEV Dashboard</strong></a></div>' .
-			'</div></div>';
+			echo '</p><a class="wpmu-button" href="' . $this->activate_url() . '">Activate WPMU DEV Dashboard</a></div></div>';
 		}
 		
 		function notice_styles() {
@@ -170,8 +170,18 @@ if ( !class_exists('WPMUDEV_Dashboard_Notice3') ) {
 			?>
 <!-- WPMU DEV Dashboard notice -->
 <style type="text/css" media="all">
-/* New Style */
-.wdnag{background-color:#fff;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:15px;width:100%;display:table;border-left:5px solid #3EBAE8;-webkit-box-shadow:1px 1px 5px #dfdfdf;box-shadow:1px 1px 5px #dfdfdf}.wdnag:after{content:"";clear:both}.wdnag .wd_message{width:65%;vertical-align:middle;float:left}.wdnag .wd_btn,.wdnag .wd_message{margin:0;padding:0;font:400 14px / 22px "Open Sans",Helvetica Neueu,Arial,sans-serif;display:inline-block}.wdnag .wd_btn{width:30%;padding:5px;height:100%;background:0 0;border:3px solid rgba(24,85,132,.3);-webkit-transition:border .25s ease-in-out;-o-transition:border .25s ease-in-out;transition:border .25s ease-in-out;float:right;text-align:center}.wdnag .wd_btn:hover{border-color:rgba(62,186,232,1);cursor:pointer}@media only screen and (max-width :800px){.wdnag .wd_btn{display:block;margin:0 auto;float:left;width:90%;margin-right:15px}.wdnag .wd_message{width:100%;margin-bottom:20px;display:block}}
+#wpmu-install-dashboard{background-color:#031f34;font-family:sans-serif;display:block;border-radius:5px;position:relative;border:none;padding:14px 0.6em;font-size:1.3em;line-height:1.4em}
+#wpmu-install-dashboard .wpmu-button{width:auto;position:absolute;top:0;bottom:0;right:0;padding:10px;margin:auto 14px auto 10px;line-height:1em;max-height:1em;background-color:#06385e;color:#3bb2df;text-decoration:none;border:5px solid rgba(53,131,191,0.4);vertical-align:middle;text-shadow:0 1px 0 rgba(0,0,0,0.6)}
+#wpmu-install-dashboard .wpmu-button:hover{color:#e8da42;border-color:rgba(53,131,191,0.9);-webkit-transition:0.2s}
+#wpmu-install-dashboard .wpmu-message{color:#c0d7eb;margin:0 280px 0 15px;padding:12px 0;text-shadow:0 1px 0 rgba(0,0,0,1);font-size:1em}
+#wpmu-install-dashboard .wpmu-button,#wpmu-install-dashboard .wpmu-button:hover{-webkit-transition:0.2s}
+#wpmu-install-dashboard .wpmu-btn-wrap{min-width:10%;background-color:#fff}
+#wpmu-install-dashboard .wpmu-install-wrap{max-width:1050px;margin:0 auto;position:relative}#wpmu-install-dashboard .wpmu-more-wrap{max-width:1050px;margin:0 auto -9px;padding:5px 0 0;text-align:right}
+#wpmu-install-dashboard .wpmu-more-info{color:#e8da42;font-size:0.9em;margin:0 14px}
+#wpmu-install-dashboard, .wpmu-update-row{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQCAYAAACAvzbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCMDBDRENDMjJEOUUxMUUzQjQ0MThGOUZCNkQzMTIwNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCMDBDRENDMzJEOUUxMUUzQjQ0MThGOUZCNkQzMTIwNCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkIwMENEQ0MwMkQ5RTExRTNCNDQxOEY5RkI2RDMxMjA0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkIwMENEQ0MxMkQ5RTExRTNCNDQxOEY5RkI2RDMxMjA0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+4bBa5AAAFnZJREFUeNrs3el2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);background-repeat:no-repeat;background-position:95% 64%}
+#the-list .wpmu-update-row{background-color:#031f34;border:none;color:#c0d7eb;background-size:100px}
+#the-list .wpmu-update-row a{color:#3bb2df}
+#the-list .wpmu-update-row a:hover{color:#e8da42;-webkit-transition:0.2s}
 </style>
 			<?php
 		}

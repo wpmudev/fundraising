@@ -5,6 +5,12 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.1.6 =
+Added default WP filter for titles in widgets
+
+= 2.6.1.5 =
+Added missing jquery ui images
+
 = 2.6.1.4 =
 Fixed SSL loading issues
 

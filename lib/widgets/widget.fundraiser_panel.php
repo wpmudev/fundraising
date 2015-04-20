@@ -29,7 +29,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 			$content = $args['before_widget'];
 
 			if(isset($instance['title']) && !empty($instance['title']))
-				$content .= $args['before_title'] . get_the_title($instance['funder']) . $args['after_title'];
+				$content .= $args['before_title'] . apply_filters('fundraiser_panel_funder_widget_title', get_the_title($instance['funder']), $instance['funder']) . $args['after_title'];
 
 			$content .= $this->show_thumb($instance);
 			$content .= '<p class="wdf_widget_description">' . $instance['description'] . '</p>';
@@ -47,7 +47,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 				$content = $args['before_widget'];
 
 				if(isset($instance['title']) && !empty($instance['title']))
-					$content .= $args['before_title'] . esc_attr($instance['title']) . $args['after_title'];
+					$content .= $args['before_title'] . esc_attr(apply_filters('widget_title', $instance['title'])) . $args['after_title'];
 
 				$content .= $this->show_thumb($instance);
 
