@@ -5,6 +5,9 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.1.8 =
+Fixed is_subdomain_install error
+
 = 2.6.1.7 =
 Added possibility to collect address even when rewards are disabled
 Fixed some permalink issues
