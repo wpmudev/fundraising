@@ -191,7 +191,7 @@ class BP_WDF_Donation {
 
 			// Let's also set up some pagination
 			$this->pag_links = paginate_links( array(
-				'base' => add_query_arg( 'items_page', '%#%' ),
+				'base' => esc_url(add_query_arg( 'items_page', '%#%' )),
 				'format' => '',
 				'total' => ceil( (int) $this->query->found_posts / (int) $this->query->query_vars['posts_per_page'] ),
 				'current' => (int) $paged,

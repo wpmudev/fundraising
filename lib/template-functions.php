@@ -15,7 +15,7 @@ if(!function_exists('fundraiser_panel_shortcode')) {
 		$content = '';
 		if(isset($atts['id']) && !empty($atts['id']) ) {
 			global $wdf;
-			$wdf->front_scripts($atts['id'],$atts['style']);
+			$wdf->front_scripts($atts['id'],(isset($atts['style']) ? $atts['style'] : false));
 			$atts['shortcode'] = true;
 			$content .= wdf_fundraiser_panel(false, $atts['id'], 'shortcode', $atts);
 

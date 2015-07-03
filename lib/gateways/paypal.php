@@ -24,7 +24,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 		var $allow_reccuring = true;
 
 		function skip_form() {
-			if(isset($_SESSION['funder_id']) && isset($_SESSION['wdf_reward'])) {
+			if(isset($_SESSION['funder_id'])) {
 				$collect_address = get_post_meta($_SESSION['funder_id'],'wdf_collect_address', true);
 				if($collect_address)
 					return false;
@@ -115,13 +115,13 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					$custom['pledge_id'] = $pledge_id;
 
 					//handle custom
-					$custom['reward'] = (isset($_SESSION['wdf_reward'])) ? $_SESSION['wdf_reward'] : 0;
-					$custom['country'] = (isset($_POST['country']) ? $_POST['country'] : 0 );
-					$custom['address1'] = (isset($_POST['address1']) ? $_POST['address1'] : 0 );
-					$custom['address2'] = (isset($_POST['address2']) ? $_POST['address2'] : 0 );
-					$custom['city'] = (isset($_POST['city']) ? $_POST['city'] : 0 );
-					$custom['state'] = (isset($_POST['state']) ? $_POST['state'] : 0 );
-					$custom['zip'] = (isset($_POST['zip']) ? $_POST['zip'] : 0 );
+					$custom['reward'] = (isset($_SESSION['wdf_reward'])) ? $_SESSION['wdf_reward'] : '0';
+					$custom['country'] = (isset($_POST['country']) ? $_POST['country'] : '0' );
+					$custom['address1'] = (isset($_POST['address1']) ? $_POST['address1'] : '0' );
+					$custom['address2'] = (isset($_POST['address2']) ? $_POST['address2'] : '0' );
+					$custom['city'] = (isset($_POST['city']) ? $_POST['city'] : '0' );
+					$custom['state'] = (isset($_POST['state']) ? $_POST['state'] : '0' );
+					$custom['zip'] = (isset($_POST['zip']) ? $_POST['zip'] : '0' );
 
 					$custom_ready = array();
 					foreach ($custom as $key => $value)
@@ -189,13 +189,13 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$this->return_url =  add_query_arg('pledge_id', $pledge_id, wdf_get_funder_page('confirmation',$funder_id));
 
 				$custom = array();
-				$custom['reward'] = (isset($_SESSION['wdf_reward'])) ? $_SESSION['wdf_reward'] : 0;
-				$custom['country'] = (isset($_POST['country']) ? $_POST['country'] : 0 );
-				$custom['address1'] = (isset($_POST['address1']) ? $_POST['address1'] : 0 );
-				$custom['address2'] = (isset($_POST['address2']) ? $_POST['address2'] : 0 );
-				$custom['city'] = (isset($_POST['city']) ? $_POST['city'] : 0 );
-				$custom['state'] = (isset($_POST['state']) ? $_POST['state'] : 0 );
-				$custom['zip'] = (isset($_POST['zip']) ? $_POST['zip'] : 0 );
+				$custom['reward'] = (isset($_SESSION['wdf_reward'])) ? $_SESSION['wdf_reward'] : '0';
+				$custom['country'] = (isset($_POST['country']) ? $_POST['country'] : '0' );
+				$custom['address1'] = (isset($_POST['address1']) ? $_POST['address1'] : '0' );
+				$custom['address2'] = (isset($_POST['address2']) ? $_POST['address2'] : '0' );
+				$custom['city'] = (isset($_POST['city']) ? $_POST['city'] : '0' );
+				$custom['state'] = (isset($_POST['state']) ? $_POST['state'] : '0' );
+				$custom['zip'] = (isset($_POST['zip']) ? $_POST['zip'] : '0' );
 
 				$custom_ready = array();
 				foreach ($custom as $key => $value)

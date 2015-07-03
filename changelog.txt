@@ -5,6 +5,11 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.1.7 =
+Added possibility to collect address even when rewards are disabled
+Fixed some permalink issues
+Fixed storing of custom data for PayPal 
+
 = 2.6.1.6 =
 Added default WP filter for titles in widgets
 

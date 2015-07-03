@@ -111,7 +111,7 @@ if(!class_exists('WDF_Gateway')) {
             add_action( 'init', array( &$this, 'add_rewrite_rules' ), 1 );
             add_action( 'init', array( &$this, 'add_rewrite_tags' ), 1 );
             add_action( 'pre_get_posts', array( &$this, 'handle_payment_return'), 1 );
-            $this->ipn_url = apply_filters('wdf_payment_return_url_' . $this->plugin_name, trailingslashit( home_url('wdf-payment-return/' . esc_attr($this->plugin_name))));
+            $this->ipn_url = apply_filters('wdf_payment_return_url_' . $this->plugin_name, (get_option('permalink_structure') ? trailingslashit(home_url('wdf-payment-return/' . esc_attr($this->plugin_name))) : home_url('index.php?paymentgateway=' . esc_attr($this->plugin_name))) );
             add_action( 'wp_ajax_nopriv_wdf-ipn-return-'.$this->plugin_name, array(&$this,'handle_ipn') );
             add_action( 'wdf_gateway_handle_payment_return_'.$this->plugin_name, array(&$this,'handle_ipn') );
 

@@ -270,7 +270,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 
 									<?php
 									$front_permlink = $this->get_mu_front_permlink('/', '');
-									if(is_main_site() && is_multisite()) {
+									if(is_main_site() && is_multisite() && !is_subdomain_install()) {
 									?>
 									<tr valign="top">
 										<th scope="row">
