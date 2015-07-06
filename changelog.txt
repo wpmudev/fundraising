@@ -5,6 +5,10 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.1.9 =
+Improved UX when swiching to advanced payments
+Fixed problems with address storing when using advanced payments
+
 = 2.6.1.8 =
 Fixed is_subdomain_install error
 

@@ -12,8 +12,10 @@ jQuery(document).ready( function($) {
 		if($(this).val() == 'simple') {
 			$('#wdf_recurring').show();
 		}
-		else
+		else {
+			$('#wdf_has_goal').val('1').trigger("change");
 			$('#wdf_recurring').hide();
+		}
 	});
 
 	var dates = $( "#wdf_goal_start_date, #wdf_goal_end_date" ).datepicker({

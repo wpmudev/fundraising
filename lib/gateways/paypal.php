@@ -202,7 +202,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					$custom_ready[$key] = str_replace('||', '', $value);
 				$custom = implode('||', $custom_ready);
 
-				$this->ipn_url = add_query_arg(array('fundraiser' => $funder_id, 'pledge_id' => $pledge_id, 'custom' => $custom), $this->ipn_url);
+				$this->ipn_url = add_query_arg(array('fundraiser' => $funder_id, 'pledge_id' => $pledge_id, 'custom' => urlencode($custom)), $this->ipn_url);
 
 				$nvpstr = "actionType=Preapproval";
 				$nvpstr .= "&returnUrl=" . urlencode($this->return_url);
@@ -323,7 +323,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
                     global $wdf;
                     $transaction = array();
 
-                    $custom = explode('||',$_REQUEST['custom']);
+                    $custom = explode('||',urldecode($_REQUEST['custom']));
 
                     //proccess additional custom fields
                     $possible_custom_fields = array('reward', 'country', 'address1', 'address2', 'city', 'state', 'zip');
