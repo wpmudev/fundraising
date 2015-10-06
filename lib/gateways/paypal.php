@@ -372,7 +372,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
                     _e( 'There was a problem verifying the IPN string with PayPal. Please try again.','wdf' );
                     exit;
                 }
-            } elseif ( isset( $_POST['txn_type'] ) ) {
+            } elseif ( isset( $_POST['txn_type'] ) || $_POST['reason_code'] == 'refund' ) {
 
                 $settings = get_option('wdf_settings');
                 //Handle IPN for simple payments
@@ -390,11 +390,14 @@ if(!class_exists('WDF_Gateway_PayPal')) {
                         if(isset($custom[$key+2]) && $custom[$key+2])
                             $transaction[$possible_custom_field] = $custom[$key+2];
 
-                    switch($_POST['txn_type']){
+                	$type = $_POST['reason_code'] == 'refund' ? $_POST['reason_code'] : $_POST['txn_type'];
+
+                    switch($type){
                         case 'subscr_signup':
                         case 'subscr_payment':
                         case 'subscr_eot':
                         case 'subscr_cancel':
+                        case 'refund':
                             $transaction = $this->process_subscription_payment( $post_title, $transaction, $_POST );
                             break;
                         case 'web_accept':
@@ -503,7 +506,9 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 
             $pledge_exists = $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_title = %s", $post_title) );
 
-            switch($request['txn_type']){
+            $type = $request['reason_code'] == 'refund' ? $request['reason_code'] : $request['txn_type'];
+            
+            switch($type){
                 case 'subscr_signup':
                     $transaction['gross'] = 0;//We should wait for the first payment to increase the value.
                     $transaction['cycle'] = $request['period3'];
@@ -523,7 +528,8 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 
                     break;
                 case 'subscr_payment':
-                    $transaction['gross'] = $request['payment_gross'];
+                case 'refund':
+                    $transaction['gross'] = (!empty($request['payment_gross']) ? $request['payment_gross'] : $request['mc_gross']);
 
                     //Sometimes subscr_payment arrives before subscr_signup, so we need to check if the pledge already exists.
                     if(!empty($pledge_exists) &&  $pledge_exists != false) {

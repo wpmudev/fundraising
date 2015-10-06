@@ -5,8 +5,12 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.2 =
+Added support for refunds in recurring payments
+Fixed recurring payments amount problem for currencies different than US Dollars
+
 = 2.6.1.9 =
-Improved UX when swiching to advanced payments
+Improved UX when switching to advanced payments
 Fixed problems with address storing when using advanced payments
 
 = 2.6.1.8 =
