@@ -12,7 +12,7 @@ $tutorial->add_style('');
 
 $tutorial->set_capability = 'wdf_edit_settings';
 
-$tutorial->add_step(admin_url('admin.php?page=wdf'), 'funder_page_wdf', '#icon-wdf-admin', __('Getting Started Is Easy', 'wdf'), array(
+$tutorial->add_step(admin_url('admin.php?page=wdf'), 'funder_page_wdf', '#wdf-getting-started', __('Getting Started Is Easy', 'wdf'), array(
 		'content'  => '<p>' . esc_js( __('Follow these tutorial steps to get your Fundraising project up and running quickly.', 'wdf') ) . '</p>',
 		'position' => array( 'edge' => 'top', 'align' => 'left' ),
 	));
@@ -30,10 +30,6 @@ if(!get_option('permalink_structure')) {
 		'position' => array( 'edge' => 'top', 'align' => 'left' ),
 	));
 }
-$tutorial->add_step(admin_url('edit.php?post_type=funder&page=wdf_settings&tab=presentation'), 'funder_page_wdf_settings', '#wdf_permalink_settings', __('Choose your page locations', 'wdf'), array(
-	'content'  => '<p>' . esc_js( __('You can customize the url structure of all your fundraisers projects here.  The directory is an archive of all the fundraisers.  The checkout page is used when a user starts the pledge process.  The thank you page is used after a successful donation or pledge.', 'wdf') ) . '</p>',
-	'position' => array( 'edge' => 'top', 'align' => 'left' ),
-));
 $tutorial->add_step(admin_url('post-new.php?post_type=funder'), 'post-new.php', '#titlediv', __('Create your First Fundraiser', 'wdf'), array(
 	'content'  => '<p>' . esc_js( __('Now that you have setup your presentation and payment settings you can create your first fundraiser. Start by adding a title.', 'wdf') ) . '</p>',
 	'position' => array( 'edge' => 'top', 'align' => 'left' ), 'post_type' => 'funder',

@@ -1,6 +1,6 @@
 <div id="wdf_dashboard" class="wrap">
 	<div id="icon-wdf-admin" class="icon32"><br></div>
-	<h2><?php _e('Getting Started Guide','wdf'); ?></h2>
+	<h2 id="wdf-getting-started"><?php _e('Getting Started Guide','wdf'); ?></h2>
 	<p><?php _e('The Fundraising plugin can help you fund your important projects.','wdf') ?></p>
 	<div class="metabox-holder">
 

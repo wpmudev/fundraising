@@ -216,7 +216,6 @@ if ( !class_exists( 'Pointer_Tutorial' ) ) {
 		 *	Call after setting up the tutorial to initialize it and make it active
 		 */
 		public function initialize() {
-
 			if ( !current_user_can($this->capability) )
 				return false;
 
@@ -398,7 +397,7 @@ if ( !class_exists( 'Pointer_Tutorial' ) ) {
 			$current_step = (int) get_user_meta( get_current_user_id(), "current-{$this->tutorial_key}-step", true );
 			?>
 			<script type="text/javascript">
-			//<![CDATA[
+			/*<![CDATA[*/
 			jQuery(document).ready( function($) {
 			<?php
 			$count = 0;
@@ -458,7 +457,6 @@ if ( !class_exists( 'Pointer_Tutorial' ) ) {
 				$close_name = __('Dismiss', $this->textdomain);
 				$close_title = sprintf(__('Dismiss %s', $this->textdomain), $this->tutorial_name);
 				?>
-				//step <?php echo $pointer_id; ?> pointer<?php if ($pointer_id == $current_step) { ?> (Current)<?php } ?>
 				var options<?php echo $pointer_id; ?> = <?php echo json_encode( $args ); ?>;
 
 				options<?php echo $pointer_id; ?> = $.extend( options<?php echo $pointer_id; ?>, {
@@ -530,7 +528,7 @@ if ( !class_exists( 'Pointer_Tutorial' ) ) {
 
 			?>
 			});
-			//]]>
+			/*]]>*/
 			</script>
 			<?php
 		}
