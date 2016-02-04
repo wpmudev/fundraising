@@ -220,6 +220,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 
 				// Make the API Call to receive a token
 				$response = $this->adaptive_api_call('Preapproval',$nvpstr);
+
 				if(isset($response['responseEnvelope_ack'])) {
 					switch($response['responseEnvelope_ack']) {
 						case 'Success' ;
@@ -298,6 +299,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 			$args['body'] = $nvpStr . '&requestEnvelope.errorLanguage=en_US';
 			$args['sslverify'] = false;
 			$args['timeout'] = 60;
+			$args['httpversion'] = '1.1';
 
 			//use built in WP http class to work with most server setups
 			$response = wp_remote_post($this->Adaptive_Endpoint . $methodName, $args);

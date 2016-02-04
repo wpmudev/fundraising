@@ -70,18 +70,25 @@ class WDF_Pledges_Panel extends WP_Widget {
 			if(!isset($instance[$instance_default]))
 				$instance[$instance_default] = '';
 		?>
-		<p><label><?php _e('Title','wdf'); ?><br /><input type="text" name="<?php echo $this->get_field_name('title'); ?>" class="widefat" value="<?php echo (isset($instance['title']) ? $instance['title'] : __('Recent Fundraisers','wdf')); ?>" /></label></p>
-		<p><label><?php printf(__('Number of %s to show','wdf'),esc_attr($settings['donation_labels']['singular_name']) ); ?><input type="number" min="1" name="<?php echo $this->get_field_name('number_pledges'); ?>" value="<?php echo (isset($instance['number_pledges']) ? $instance['number_pledges'] : ''); ?>" /></label></p>
 		<p>
-			<label><?php _e('Sort type','wdf'); ?></label>
-			<select name="<?php echo $this->get_field_name('sort_type'); ?>">
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title','wdf'); ?></label><br />
+			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" name="<?php echo $this->get_field_name('title'); ?>" class="widefat" value="<?php echo (isset($instance['title']) ? $instance['title'] : __('Recent Fundraisers','wdf')); ?>" />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'number_pledges' ); ?>"><?php printf(__('Number of %s to show','wdf'),esc_attr($settings['donation_labels']['singular_name']) ); ?></label>
+			<input id="<?php echo $this->get_field_id( 'number_pledges' ); ?>" type="number" min="1" name="<?php echo $this->get_field_name('number_pledges'); ?>" value="<?php echo (isset($instance['number_pledges']) ? $instance['number_pledges'] : ''); ?>" />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'sort_type' ); ?>"><?php _e('Sort type','wdf'); ?></label>
+			<select id="<?php echo $this->get_field_id( 'sort_type' ); ?>" name="<?php echo $this->get_field_name('sort_type'); ?>">
 				<option value="last" <?php echo selected($instance['sort_type'],'last'); ?>><?php _e('Latest first','wdf'); ?></option>
 				<option value="top" <?php echo selected($instance['sort_type'],'top'); ?>><?php _e('Biggest first','wdf'); ?></option>
 			</select>
 		</p>
 
-		<p><label><?php printf(__('Display for a specific %s or all','wdf'),esc_attr($settings['funder_labels']['singular_name'])); ?></label>
-			<select class="wdf_toggle" rel="wdf_panel_single_pledges" name="<?php echo $this->get_field_name('single_fundraiser'); ?>">
+		<p>
+			<label for="<?php echo $this->get_field_id( 'single_fundraiser' ); ?>"><?php printf(__('Display for a specific %s or all','wdf'),esc_attr($settings['funder_labels']['singular_name'])); ?></label>
+			<select id="<?php echo $this->get_field_id( 'single_fundraiser' ); ?>" class="wdf_toggle" rel="wdf_panel_single_pledges" name="<?php echo $this->get_field_name('single_fundraiser'); ?>">
 				<option value="0" <?php echo selected($instance['single_fundraiser'],'0'); ?>><?php _e('No','wdf'); ?></option>
 				<option value="1" <?php echo selected($instance['single_fundraiser'],'1'); ?>><?php _e('Yes','wdf'); ?></option>
 			</select>
@@ -93,13 +100,13 @@ class WDF_Pledges_Panel extends WP_Widget {
 
 				<?php if($query = get_posts($query) ) : ?>
 				<p>
-					<label>
-						<input <?php echo checked($instance['funder'],'0'); ?> type="radio" name="<?php echo $this->get_field_name('funder'); ?>" value="0" />
+					<label for="<?php echo $this->get_field_id( 'funder_a' ); ?>">
+						<input id="<?php echo $this->get_field_id( 'funder_a' ); ?>" <?php echo checked($instance['funder'],'0'); ?> type="radio" name="<?php echo $this->get_field_name('funder'); ?>" value="0" />
 						<?php printf(__('All %s','wdf'), $settings['funder_labels']['plural_name']); ?>
 					</label><br />
 					<?php foreach($query as $funder) : ?>
-						<label>
-							<input <?php echo checked($instance['funder'],$funder->ID); ?> type="radio" name="<?php echo $this->get_field_name('funder'); ?>" value="<?php echo $funder->ID; ?>" />
+						<label for="<?php echo $this->get_field_id( 'funder_b' ); ?>">
+							<input id="<?php echo $this->get_field_id( 'funder_b' ); ?>" <?php echo checked($instance['funder'],$funder->ID); ?> type="radio" name="<?php echo $this->get_field_name('funder'); ?>" value="<?php echo $funder->ID; ?>" />
 							<?php echo $funder->post_title; ?>
 						</label><br />
 					<?php endforeach; ?>

@@ -123,27 +123,49 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 				$instance[$instance_default] = '';
 		?>
 
-		<p><label><?php _e('Title','wdf') ?><br /><input type="text" name="<?php echo $this->get_field_name('title'); ?>" class="widefat" value="<?php echo (isset($instance['title']) ? $instance['title'] : __('Featured Fundraisers','wdf')); ?>" /></label></p>
-		<p><label><?php _e('Extra Description','wdf') ?></label><br />
-		<textarea class="widefat" name="<?php echo $this->get_field_name('description'); ?>"><?php echo esc_textarea($instance['description']) ?></textarea></p>
-
-		<p><label><input type="checkbox" value="1" name="<?php echo $this->get_field_name('show_thumb'); ?>" <?php checked((int)$instance['show_thumb'],1); ?> /><?php _e('Include Featured Image'); ?></label></p>
-		<p><label><?php _e('Max Image Width','wdf'); ?> : <input type="text" class="small-text" value="<?php echo $instance['thumb_width']; ?>" name="<?php echo $this->get_field_name('thumb_width'); ?>"/></label></p>
-		<p><label><?php _e('Max Image Height','wdf'); ?> : <input type="text" class="small-text" value="<?php echo $instance['thumb_height']; ?>" name="<?php echo $this->get_field_name('thumb_height'); ?>"/></label></p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title','wdf') ?></label><br />
+			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" name="<?php echo $this->get_field_name('title'); ?>" class="widefat" value="<?php echo (isset($instance['title']) ? $instance['title'] : __('Featured Fundraisers','wdf')); ?>" />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'description' ); ?>"><?php _e('Extra Description','wdf') ?></label><br />
+			<textarea id="<?php echo $this->get_field_id( 'description' ); ?>" class="widefat" name="<?php echo $this->get_field_name('description'); ?>"><?php echo esc_textarea($instance['description']) ?></textarea>
+		</p>
 
 		<p>
-			<label><?php _e('Choose a display style','wdf'); ?><select name="<?php echo $this->get_field_name('style'); ?>">
+			<label for="<?php echo $this->get_field_id( 'show_thumb' ); ?>">
+				<input id="<?php echo $this->get_field_id( 'show_thumb' ); ?>" type="checkbox" value="1" name="<?php echo $this->get_field_name('show_thumb'); ?>" <?php checked((int)$instance['show_thumb'],1); ?> />
+				<?php _e('Include Featured Image'); ?>
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'thumb_width' ); ?>">
+				<?php _e('Max Image Width','wdf'); ?> : 
+				<input id="<?php echo $this->get_field_id( 'thumb_width' ); ?>" type="text" class="small-text" value="<?php echo $instance['thumb_width']; ?>" name="<?php echo $this->get_field_name('thumb_width'); ?>"/>
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'thumb_height' ); ?>">
+				<?php _e('Max Image Height','wdf'); ?> : 
+				<input id="<?php echo $this->get_field_id( 'thumb_height' ); ?>" type="text" class="small-text" value="<?php echo $instance['thumb_height']; ?>" name="<?php echo $this->get_field_name('thumb_height'); ?>"/>
+			</label>
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'style' ); ?>"><?php _e('Choose a display style','wdf'); ?></label>
+			<select id="<?php echo $this->get_field_id( 'style' ); ?>" name="<?php echo $this->get_field_name('style'); ?>">
 				<?php if(is_array($wdf->styles) && !empty($wdf->styles)) : ?>
 					<option <?php selected($instance['style'],''); ?> value=""><?php _e('Default','wdf'); ?></option>
 					<?php foreach($wdf->styles as $key => $label) : ?>
 						<option <?php selected($instance['style'],$key); ?> value="<?php echo $key ?>"><?php echo $label; ?></option>
 					<?php endforeach; ?>
 				<?php endif; ?>
-			</select></label>
+			</select>
 		</p>
 
-		<p><label><?php printf(__('Display a specific %s','wdf'),esc_attr($settings['funder_labels']['singular_name'])); ?></label>
-			<select class="wdf_toggle" rel="wdf_panel_single" name="<?php echo $this->get_field_name('single_fundraiser'); ?>">
+		<p>
+			<label for="<?php echo $this->get_field_id( 'single_fundraiser' ); ?>"><?php printf(__('Display a specific %s','wdf'),esc_attr($settings['funder_labels']['singular_name'])); ?></label>
+			<select id="<?php echo $this->get_field_id( 'single_fundraiser' ); ?>" class="wdf_toggle" rel="wdf_panel_single" name="<?php echo $this->get_field_name('single_fundraiser'); ?>">
 				<option value="0" <?php echo selected($instance['single_fundraiser'],'0'); ?>><?php _e('No','wdf'); ?></option>
 				<option value="1" <?php echo selected($instance['single_fundraiser'],'1'); ?>><?php _e('Yes','wdf'); ?></option>
 			</select>
@@ -154,9 +176,9 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 				$query = array( 'numberposts' => -1, 'post_type' => 'funder', 'post_status' => 'publish');
 				if($query = get_posts($query) ) : ?>
 					<p>
-					<?php foreach($query as $funder) : ?>
-						<label>
-							<input <?php echo checked($instance['funder'],$funder->ID); ?> type="radio" name="<?php echo $this->get_field_name('funder'); ?>" value="<?php echo $funder->ID; ?>" />
+					<?php foreach($query as $funder_key => $funder) : ?>
+						<label for="<?php echo $this->get_field_id( 'funder_'.$funder_key ); ?>">
+							<input id="<?php echo $this->get_field_id( 'funder_'.$funder_key ); ?>" <?php echo checked($instance['funder'],$funder->ID); ?> type="radio" name="<?php echo $this->get_field_name('funder'); ?>" value="<?php echo $funder->ID; ?>" />
 							<?php echo $funder->post_title; ?>
 						</label><br />
 					<?php endforeach; ?>

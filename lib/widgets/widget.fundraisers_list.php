@@ -49,18 +49,26 @@ class WDF_Fundraisers_List extends WP_Widget {
 	function form( $instance ) {
 		$settings = get_option('wdf_settings');
 		?>
-		<p><label><?php echo __('Title','wdf') ?><br /><input type="text" name="<?php echo $this->get_field_name('title'); ?>" class="widefat" value="<?php echo (isset($instance['title']) ? $instance['title'] : __('Featured Fundraisers','wdf')); ?>" /></label></p>
-		<p><label><?php echo __('Description','wdf') ?></label><br />
-		<textarea class="widefat" name="<?php echo $this->get_field_name('description'); ?>"><?php echo (isset($instance['description']) ? esc_textarea($instance['description']) : ''); ?></textarea></p>
-		<p><label><?php echo __('Maximum number of fundraisers to display','wdf') ?><br /><input type="text" name="<?php echo $this->get_field_name('limit'); ?>" class="widefat" value="<?php echo (isset($instance['limit']) ? $instance['limit'] : ''); ?>" /></label></p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php echo __('Title','wdf') ?></label><br />
+			<input id="<?php echo $this->get_field_id( 'title' ); ?>" type="text" name="<?php echo $this->get_field_name('title'); ?>" class="widefat" value="<?php echo (isset($instance['title']) ? $instance['title'] : __('Featured Fundraisers','wdf')); ?>" />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'description' ); ?>"><?php echo __('Description','wdf') ?></label><br />
+			<textarea id="<?php echo $this->get_field_id( 'description' ); ?>" class="widefat" name="<?php echo $this->get_field_name('description'); ?>"><?php echo (isset($instance['description']) ? esc_textarea($instance['description']) : ''); ?></textarea>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php echo __('Maximum number of fundraisers to display','wdf') ?></label><br />
+			<input id="<?php echo $this->get_field_id( 'limit' ); ?>" type="text" name="<?php echo $this->get_field_name('limit'); ?>" class="widefat" value="<?php echo (isset($instance['limit']) ? $instance['limit'] : ''); ?>" />
+		</p>
 		<?php
 		$query = array( 'numberposts' => -1, 'post_type' => 'funder', 'post_status' => 'publish');
 		$query = get_posts($query);
 		if(count($query) > 0) {
-			echo '<p><label>'.sprintf(__('Optional: select %s to display','wdf'), esc_attr($settings['funder_labels']['plural_name'])).'</label><br/>';
+			echo '<p><span>'.sprintf(__('Optional: select %s to display','wdf'), esc_attr($settings['funder_labels']['plural_name'])).'</span><br/>';
 			foreach($query as $funder) : ?>
-				<input <?php echo checked(isset($instance['funders'][$funder->ID]),true); ?> type="checkbox" id="<?php echo $this->get_field_id('funders_'.$funder->ID); ?>" name="<?php echo $this->get_field_name('funders'); ?>[<?php echo $funder->ID; ?>]" value="<?php echo $funder->ID; ?>" />
 				<label for="<?php echo $this->get_field_id('funders_'.$funder->ID); ?>">
+					<input <?php echo checked(isset($instance['funders'][$funder->ID]),true); ?> type="checkbox" id="<?php echo $this->get_field_id('funders_'.$funder->ID); ?>" name="<?php echo $this->get_field_name('funders'); ?>[<?php echo $funder->ID; ?>]" value="<?php echo $funder->ID; ?>" />
 					<?php echo $funder->post_title; ?>
 				</label><br />
 			<?php

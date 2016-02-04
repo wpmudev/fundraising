@@ -5,6 +5,10 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.4 =
+Fixed compatibility with PayPal changes
+Fixed widget's edit screen markup
+
 = 2.6.3 =
 Fixed issues with tutorial
 
