@@ -6,7 +6,7 @@ class WDF_Recent_Fundraisers extends WP_Widget {
      * @var		string	$translation_domain	Translation domain
      */
 	
-	function WDF_Recent_Fundraisers() {
+	function __construct() {
 		// Instantiate the parent object
 		$settings = get_option('wdf_settings');
 		parent::__construct( false, sprintf(__('Recent %s','wdf'),esc_attr($settings['funder_labels']['plural_name'])), array(

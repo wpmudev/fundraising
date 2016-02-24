@@ -6,7 +6,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
      * @var		string	$translation_domain	Translation domain
      */
 
-	function WDF_Fundraiser_Panel() {
+	function __construct() {
 		// Instantiate the parent object
 		$settings = get_option('wdf_settings');
 		$title = sprintf(__('%s Panel','wdf'),esc_attr($settings['funder_labels']['singular_name']));
@@ -38,9 +38,13 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 			$content .= $args['after_widget'];
 			echo $content;
 		} else {
+			if(!isset($wp_query) || !isset($wp_query->query)) {
+				echo 'This widget can only work when actual page is being viewed';
+				return;
+			}
 			if($wp_query->query_vars['post_type'] == 'funder' && $wp_query->is_single && (!isset($wp_query->query_vars['funder_checkout']) || $wp_query->query_vars['funder_checkout'] != '1') && (!isset($wp_query->query_vars['funder_confirm']) || $wp_query->query_vars['funder_confirm'] != '1') ) {
 				// Single Fundraiser Page
-				$wdf->front_scripts($wp_query->posts[0]->ID);
+				$wdf->front_scripts(get_the_ID());
 				if(isset($instance['style']) && !empty($instance['style']))
 					$wdf->load_style($instance['style']);
 
@@ -54,7 +58,7 @@ class WDF_Fundraiser_Panel extends WP_Widget {
 				if(isset($instance['description']) && !empty($instance['description']))
 					$content .= '<p class="wdf_widget_description">' . $instance['description'] . '</p>';
 
-				$content .= wdf_fundraiser_panel( false, $wp_query->posts[0]->ID, 'widget', $instance );
+				$content .= wdf_fundraiser_panel( false, get_the_ID(), 'widget', $instance );
 				$content .= $args['after_widget'];
 				echo $content;
 			} /*else if($wp_query->query_vars['post_type'] == 'funder' && $wp_query->query_vars['funder_checkout'] == '1'){

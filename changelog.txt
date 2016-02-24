@@ -5,6 +5,12 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.4.1 =
+Improved Upfront compatibility
+Added  ability to hide standard Fundraising Panel (may be useful in some scenarios)
+Fixed widgets related PHP notices
+Fixed BP related PHP strick notices
+
 = 2.6.4 =
 Fixed compatibility with PayPal changes
 Fixed widget's edit screen markup

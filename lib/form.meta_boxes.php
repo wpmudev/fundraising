@@ -336,6 +336,7 @@ if($pagenow == 'nav-menus.php') { ?>
                     <select name="wdf[panel_pos]">
                         <option value="top" <?php (isset($meta['wdf_panel_pos'][0]) ? selected($meta['wdf_panel_pos'][0],'top') : ''); ?>><?php _e('Above Content','wdf'); ?></option>
                         <option value="bottom" <?php (isset($meta['wdf_panel_pos'][0]) ? selected($meta['wdf_panel_pos'][0],'bottom') : ''); ?>><?php _e('Below Content','wdf'); ?></option>
+                        <option value="hide" <?php (isset($meta['wdf_panel_pos'][0]) ? selected($meta['wdf_panel_pos'][0],'hide') : ''); ?>><?php _e('Hide','wdf'); ?></option>
                     </select>
                 </label><?php echo $tips->add_tip(__('If you are not using the Fundraiser sidebar widget, choose the position of your info panel.','wdf')); ?>
             </p>

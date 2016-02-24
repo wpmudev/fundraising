@@ -2,7 +2,11 @@
 
 class WDF_Fundraisers_List extends WP_Widget {
 
-	function WDF_Fundraisers_List() {
+	/**
+     * @var		string	$translation_domain	Translation domain
+     */
+
+	function __construct() {
 		// Instantiate the parent object
 		$settings = get_option('wdf_settings');
 		parent::__construct( false, sprintf(__('%s List','wdf'),esc_attr($settings['funder_labels']['plural_name'])), array(

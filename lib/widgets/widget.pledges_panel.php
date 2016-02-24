@@ -6,7 +6,7 @@ class WDF_Pledges_Panel extends WP_Widget {
      * @var		string	$translation_domain	Translation domain
      */
 	
-	function WDF_Pledges_Panel() {
+	function __construct() {
 		// Instantiate the parent object
 		$settings = get_option('wdf_settings');
 		parent::__construct( 'wdf_pledges_panel', sprintf(__('%s Panel','wdf'),esc_attr($settings['donation_labels']['plural_name'])), array(

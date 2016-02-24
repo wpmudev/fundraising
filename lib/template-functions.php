@@ -733,9 +733,15 @@ if(!function_exists('wdf_pledge_button')) {
 				$paypal_email = '';
 			}
 
+			if ($settings['paypal_sb'] == 'yes') {
+				$pp_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+			} else {
+				$pp_url = 'https://www.paypal.com/cgi-bin/webscr';
+			}
+
 			$style = (isset($args['widget_args']['style']) ? $args['widget_args']['style'] : $meta['wdf_style'][0] );
 			$content .= '
-				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="'.$style.'">
+				<form action="'.$pp_url.'" method="post" target="_blank" class="'.$style.'">
 				<input type="hidden" name="cmd" value="_donations" />
 				<input type="hidden" name="business" value="'.is_email($paypal_email).'" />
 				<input type="hidden" name="lc" value="'.esc_attr($settings['currency']).'" />

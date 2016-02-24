@@ -6,7 +6,7 @@ class WDF_Simple_Donation extends WP_Widget {
      * @var		string	$translation_domain	Translation domain
      */
 	
-	function WDF_Simple_Donation() {
+	function __construct() {
 		$settings = get_option('wdf_settings');
 		$title = sprintf(__('%s Button','wdf'),esc_attr($settings['donation_labels']['singular_name']));
 		// Instantiate the parent object
