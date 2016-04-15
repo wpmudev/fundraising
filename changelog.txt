@@ -5,6 +5,13 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.4.2 =
+Improved FE styling (please check compatibility with active theme)
+Improved UX for jumping between Simple and Advanced fundraising type
+Improved fundraising start/end date handling
+Added ajax check for delayed pledges
+Enabled address collecting without rewards
+
 = 2.6.4.1 =
 Improved Upfront compatibility
 Added  ability to hide standard Fundraising Panel (may be useful in some scenarios)

@@ -74,7 +74,7 @@ class WDF {
 		$this->_construct();
 	}
 	function _vars() {
-		$this->version = '2.6.1.3';
+		$this->version = '2.6.4.2';
 		$this->defaults = array(
 			'currency' => 'USD',
 			'dir_slug' => __('fundraisers','wdf'),
@@ -203,6 +203,10 @@ class WDF {
 			add_action( 'wp', array(&$this, 'handle_payment'), 1 );
 			add_action( 'template_redirect', array(&$this, 'template_redirect'), 20 );
 		}
+
+		//this will let us look for delayed pledges
+		add_action( "wp_ajax_wdf_look_for_pledge", array( &$this, 'look_for_pledge' ) );
+		add_action( "wp_ajax_nopriv_wdf_look_for_pledge", array( &$this, 'look_for_pledge' ) );
 	}
 	function register_widgets() {
 		if(!class_exists('WDF_Simple_Donation')) {
@@ -773,6 +777,7 @@ class WDF {
 		} else if(!empty($id) && $style = $this->get_style($id))
 			wp_enqueue_style('wdf-style-'.$style);
 
+		wp_localize_script( 'wdf-base', 'wdf', array('ajaxurl' => admin_url('admin-ajax.php')) );
 	}
 	function get_style( $post_id = '' ) {
 		global $post;
@@ -923,6 +928,19 @@ class WDF {
 			if(!$this->wdf_error)
 				do_action('wdf_gateway_confirm_'.$_SESSION['wdf_gateway']);
 		}
+	}
+	function look_for_pledge() {
+		if(!isset($_REQUEST['pledge_id']) || !$_REQUEST['pledge_id']) {
+			echo 'not-found';
+			exit();
+		}
+
+		$pledge = get_page_by_title( $_REQUEST['pledge_id'], null, 'donation' );
+		if($pledge)
+			echo $pledge->ID;
+		else
+			echo 'not-found';
+		exit();
 	}
 	function process_complete_funder( $funder_id = false ) {
 		if($funder_id == false || $funder_id == '')
@@ -1188,7 +1206,11 @@ class WDF {
 			} elseif ( $k == 'payment_types' || $k == 'active_gateways' || $k == 'funder_labels' || $k == 'donation_labels' ) {
 				$new[$k] = array_map('esc_attr',$v);
 			} else {
-				$new[$k] = esc_attr($v);
+				
+				if(is_array($v))
+					$new[$k] = $v;
+				else
+					$new[$k] = esc_attr($v);
 			}
 		}
 
@@ -1231,7 +1253,14 @@ class WDF {
 		if(isset($_POST['wdf']['levels']) && count($_POST['wdf']['levels']) < 2 && isset($_POST['wdf']['levels'][0]['amount']) && $_POST['wdf']['levels'][0]['amount'] == '')
 			$_POST['wdf']['levels'] = '';
 
+
+
 		if ( 'funder' == $_POST['post_type'] && is_array($_POST['wdf'])) {
+			//lets unset start/end date and goal when its not enabled
+			if(isset($_POST['wdf']['has_goal']) && $_POST['wdf']['has_goal'] == '0'){
+				$_POST['wdf']['goal_start'] = $_POST['wdf']['goal_end'] = $_POST['wdf']['goal_amount'] = '';
+			}
+
 			foreach($_POST['wdf'] as $key => $value) {
 				if($value != '') {
 					if($key == 'goal') {
@@ -1333,7 +1362,9 @@ class WDF {
 				wp_enqueue_script('jquery-ui-datepicker');
 				wp_enqueue_script('wdf-post');
 
-				$translation_array = array('title_remind' => __( 'Please enter title first.','wdf'));
+				$translation_array = array(
+					'title_remind' => __( 'Please enter title first.','wdf')
+				);
 				wp_localize_script( 'wdf-post', 'wdf', $translation_array );				
 			} elseif( $hook == 'edit.php') {
 				wp_enqueue_style('jquery-ui-base');

@@ -1,3 +1,7 @@
+.wdf-note input.wdf_pledge_amount {
+	width: auto;
+	margin: 0 0 3px 0;
+}
 .wdf-note .wdf_rewards {
 	clear: both;
 	list-style: none;
@@ -14,6 +18,10 @@
 	cursor: pointer;
 	padding: 10px;
 	border-bottom: 1px dashed #efef1a;
+}
+.wdf-note .wdf_rewards .wdf_reward_item_none {
+	margin-bottom: 0px;
+	border-bottom: none;
 }
 .wdf-note .wdf_rewards .wdf_reward_item:hover {
 	background: #fff;
@@ -41,7 +49,6 @@
 	border-radius: 5px;
 }
 .wdf-note .wdf_level_amount {
-	font-size: 2em;
 }
 .wdf-note .wdf_reward_description {
 	font-size: 1em;
@@ -85,7 +92,7 @@
 .wdf-note.wdf_fundraiser_panel > div {
 	margin: 10px 0px;
 }
-.wdf-note .wdf_big_num, .wdf-note .wdf_time_left {
+.wdf-note .wdf_big_num {
 	font-size: 2em;
 }
 .wdf-note .ui-progressbar{
@@ -99,8 +106,6 @@
 	margin: 10px 0px 10px 0px;
 }
 .wdf_fundraiser_panel.wdf-note .wdf_level_amount {
-	font-size: 2em;
-	padding-right: 8px;
 }
 .wdf-note .wdf_bp_show_on_activity {
 

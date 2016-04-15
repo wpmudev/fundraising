@@ -42,7 +42,7 @@ if(!class_exists('WDF_Gateway_Manual')) {
 			$content .= '</p>';
 
 			$funder_id = get_the_ID();
-			if(isset($_SESSION['wdf_reward']) && get_post_meta($funder_id,'wdf_collect_address', true)) {
+			if(get_post_meta($funder_id,'wdf_collect_address', true)) {
 				$collect_address_message = get_post_meta($funder_id,'wdf_collect_address_message', true);
 				if($collect_address_message)
 					$content .= '<p class="wdf_manual_payment_form_address_message wdf_payment_form_address_message">'.$collect_address_message.'</p>';

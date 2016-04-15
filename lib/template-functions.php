@@ -54,7 +54,7 @@ if(!function_exists('wdf_fundraiser_page')) {
 
 if(!function_exists('wdf_fundraiser_panel')) {
 	function wdf_fundraiser_panel($echo = true, $post_id = '', $context = '', $args = array() ) {
-		global $post;
+		global $post, $wdf_checkout_from_panel;
 		if(isset($args['shortcode']) && $args['shortcode'] == true && isset($args['id']) && $args['id'] == $post->ID)
 			return false;
 
@@ -88,30 +88,25 @@ if(!function_exists('wdf_fundraiser_panel')) {
 			$content .= '<div class="wdf_amount_raised"><div class="wdf_big_num">'.wdf_amount_raised(false, $post_id).'</div><p>'.__('raised','wdf').'</p></div>';
 		}
 
-		// Checking to see if this fundraiser can accept pledges yet.
-		if( wdf_time_left(false, $post_id, true) === false ) {
-			if(wdf_panel_checkout($post_id)) {
-				global $wdf_checkout_from_panel;
-				$wdf_checkout_from_panel = true;
+		// Checking to see if this fundraiser can accept pledges.
+		$fundraising_active = wdf_time_left(false, $post_id, true);
 
-				// Show the time left or time till start if a date range is available
-				if(wdf_has_date_range($post_id))
-					$content .= '<div class="wdf_time_left">'.wdf_time_left(false, $post_id).'</div>';
+		if(wdf_panel_checkout($post_id)) {
+			$wdf_checkout_from_panel = true;
 
+			if( $fundraising_active !== false ) {
 				$content .= wdf_checkout_page(false, $post_id);
-			} else {
+			}
+		} else {
+			if( $fundraising_active !== false ) {
 				$content .= '<div class="wdf_backer_button">'.wdf_backer_button(false, $post_id).'</div>';
 			}
 		}
 
 		// Show the time left or time till start if a date range is available
-		if(wdf_has_date_range($post_id) && isset($wdf_checkout_from_panel) && $wdf_checkout_from_panel !== true)
+		if(wdf_has_date_range($post_id))
 			$content .= '<div class="wdf_time_left">'.wdf_time_left(false, $post_id).'</div>';
 
-
-		if(wdf_has_rewards($post_id) && isset($wdf_checkout_from_panel) && $wdf_checkout_from_panel !== true) {
-			$content .= '<div>'.wdf_rewards(false, $post_id).'</div>';
-		}
 		$content .= '</div>';
 
 		if($echo) {echo $content;} else {return $content;}
@@ -294,57 +289,64 @@ if(!function_exists('wdf_amount_raised')) {
 }
 
 if(!function_exists('wdf_time_left')) {
-	function wdf_time_left($echo = true, $post_id = '', $future_bool = false ) {
+	function wdf_time_left($echo = true, $post_id = '', $active_bool = false ) {
 		global $post, $wdf;
 		$post_id = (empty($post_id) ? $post->ID : $post_id );
-		if(!get_post($post_id) || !wdf_has_date_range($post_id) )
+
+		if(!get_post($post_id) || (wdf_has_goal($post_id) && !wdf_has_date_range($post_id)) )
 			return false;
 
-				$future_start = false;
-				$end_date = strtotime(get_post_meta($post_id, 'wdf_goal_end',true));
-				$start_date = strtotime(get_post_meta($post_id, 'wdf_goal_start', true));
-				$now = current_time('timestamp');
+		$active_status = true;
+		$future_start = false;
+		$end_date = strtotime(get_post_meta($post_id, 'wdf_goal_end',true));
+		$start_date = strtotime(get_post_meta($post_id, 'wdf_goal_start', true));
+		$now = current_time('timestamp');
 
-				if($now > $end_date) {
-					$end_date = false;
-					$content = 'Time Up';
-					if($echo) {echo $content;} else {return $content;}
-				}
+		if($now > $end_date) {
+			if($active_bool === true)
+				return false;
 
-				if($start_date < $now) {
-					$start_date = $now;
-				} else if($start_date > $now) {
-					$future_start = true;
-					$end_date = $start_date;
-					$start_date = $now;
-				}
+			$end_date = false;
+			$content = __("Time's Up",'wdf');
+			if($echo) {echo $content;} else {return $content;}
+		}
 
-				if( $start_date === false || $end_date === false )
-					return false;
+		if($start_date < $now) {
+			$start_date = $now;
+		} else if($start_date > $now) {
+			if($active_bool === true)
+				return false;
 
-				$days = $wdf->datediff('d', $start_date, $end_date, true);
-				$hours = $wdf->datediff('h', $start_date, $end_date, true);
-				$min = $wdf->datediff('n', $start_date, $end_date, true);
-				$weeks = $wdf->datediff('ww', $start_date, $end_date, true);
-				$months = $wdf->datediff('m', $start_date, $end_date, true);
+			$future_start = true;
+			$end_date = $start_date;
+			$start_date = $now;
+		}
 
-				if((int)$days >= 2) {
-					$time = $days . ' ' . ((int)$days == 1 ? __('Day Left','wdf') : __('Days Left','wdf'));
-				} elseif((int)$hours < 1) {
-					$time = $min . ' ' . ((int)$min == 1 ? __('Minute Left','wdf') : __('Minutes Left','wdf'));
-				} else {
-					$time = $hours . ' ' . ((int)$hours == 1 ? __('Hour Left','wdf') : __('Hours Left','wdf'));
-				}
-				if($future_start === true) {
-					$time = sprintf(__('Starts In %s','wdf'), ( (int)$days >= 2 ? (int)$days == 1 ? $days . ' ' . __('Day','wdf') : $days . ' ' . __('Days','wdf') : ((int)$hours == 1 ? $hours . ' ' . __('Hour','wdf') : $hours . ' ' . __('Hours','wdf')) ));
-				}
+		if($active_bool === true)
+			return true;
 
-				$content = apply_filters('wdf_time_left', $time, $hours, $days, $weeks, $months, $start_date, $end_date );
+		//something is not right with start or end date
+		if( $start_date === false || $end_date === false )
+			return false;
 
-				// If $future_bool is true then only return if the fundraising has started or not
-				if($future_bool === true)
-					return $future_start;
+		$days = $wdf->datediff('d', $start_date, $end_date, true);
+		$hours = $wdf->datediff('h', $start_date, $end_date, true);
+		$min = $wdf->datediff('n', $start_date, $end_date, true);
+		$weeks = $wdf->datediff('ww', $start_date, $end_date, true);
+		$months = $wdf->datediff('m', $start_date, $end_date, true);
 
+		if((int)$days >= 2) {
+			$time = $days . ' ' . ((int)$days == 1 ? __('Day Left','wdf') : __('Days Left','wdf'));
+		} elseif((int)$hours < 1) {
+			$time = $min . ' ' . ((int)$min == 1 ? __('Minute Left','wdf') : __('Minutes Left','wdf'));
+		} else {
+			$time = $hours . ' ' . ((int)$hours == 1 ? __('Hour Left','wdf') : __('Hours Left','wdf'));
+		}
+		if($future_start === true) {
+			$time = sprintf(__('Starts In %s','wdf'), ( (int)$days >= 2 ? (int)$days == 1 ? $days . ' ' . __('Day','wdf') : $days . ' ' . __('Days','wdf') : ((int)$hours == 1 ? $hours . ' ' . __('Hour','wdf') : $hours . ' ' . __('Hours','wdf')) ));
+		}
+
+		$content = apply_filters('wdf_time_left', $time, $hours, $days, $weeks, $months, $start_date, $end_date );
 
 		if($echo) {echo $time;} else {return $time;}
 	}
@@ -462,8 +464,14 @@ if(!function_exists('wdf_confirmation_page')) {
 				$content .= '<div class="wdf_gateway_payment_info">'.apply_filters('wdf_gateway_payment_info_'.$_SESSION['wdf_gateway'], '', $transaction).'</div>';
 			}
 		} else {
-			$message = (isset($settings['message_pledge_not_found']) && $settings['message_pledge_not_found']) ? $settings['message_pledge_not_found'] : sprintf( __('Oh No, we can\'t find your %s.  Sometimes it take a few moments for your %s to be logged.  You can try refreshing this page ','wdf'), esc_attr($settings['donation_labels']['singular_name']), esc_attr($settings['donation_labels']['singular_name']) );
-			$content .= '<p class="error">'.$message.'</p>';
+			$message_waiting = sprintf( __('We are waiting for your payment','wdf'), esc_attr($settings['donation_labels']['singular_name']), esc_attr($settings['donation_labels']['singular_name']) );
+			
+			$message = (isset($settings['message_pledge_not_found']) && $settings['message_pledge_not_found']) ? $settings['message_pledge_not_found'] : sprintf( __('Oh No, we can\'t find your %s.  Sometimes it take little bit longer for your %s to be logged.','wdf'), esc_attr($settings['donation_labels']['singular_name']), esc_attr($settings['donation_labels']['singular_name']) );
+			if((!isset($settings['message_pledge_not_found']) || !$settings['message_pledge_not_found']) && get_post_meta($post_id,'wdf_send_email',true)) {
+				$message .= ' '.__('We will send you an email when that happens').'.';
+			}
+			$content .= '<p class="wdf-pledge-waiting" data-wdf-pledge-id="'.$pledge_id.'">'.$message_waiting.'<span class="wdf-loading-dots"></span></p>';
+			$content .= '<p class="error wdf-pledge-error" style="display: none;">'.$message.'</p>';
 		}
 		$content .= '</div>';
 
@@ -592,73 +600,72 @@ if(!function_exists('wdf_gateway_choices')) {
 
 if(!function_exists('wdf_checkout_page')) {
 	function wdf_checkout_page( $echo = true, $post_id = '' ) {
-		global $wdf, $post; $content = '';
+		global $wdf_checkout_from_panel, $wdf, $post; $content = '';
 		$post_id = (empty($post_id) ? $post->ID : $post_id );
 		if(!get_post($post_id))
 			return false;
-
-		if( wdf_time_left(false, $post_id, true) === true ) {
-			$content = '<div class="wdf_no_pledge_start"><h3>'.sprintf(__('This %s is not accepting %s yet.','wdf'), esc_attr($settings['funder_labels']['singular_name']), esc_attr($settings['donation_labels']['plural_name'])).'  '. wdf_time_left(false, $post_id).'</h3></div>';
-			if($echo) {echo $content;} else {return $content;}
-		}
 
 		$meta = get_post_custom($post_id);
 		$settings = get_option('wdf_settings');
 
 		$wdf->front_scripts($post_id);
-		$content = '';
-		global $wdf_checkout_from_panel;
-		$style = ($wdf_checkout_from_panel == true ? '' : wdf_get_style($post_id) );
 
+		$style = ($wdf_checkout_from_panel == true ? '' : wdf_get_style($post_id) );
+		$style = wdf_get_style($post_id);
 
 		$content .= '<form class="wdf_checkout_form '.$style.'" action="'.wdf_get_funder_page('checkout',$post_id).'" method="post">';
-				global $wp_filter;
-				$raised = $wdf->get_amount_raised($post_id);
-				//$goal = $meta['wdf_goal_amount'][0];
+			global $wp_filter;
+			$raised = $wdf->get_amount_raised($post_id);
+			//$goal = $meta['wdf_goal_amount'][0];
 
-				$content .= '<div class="wdf_rewards">';
-				$content .= apply_filters('wdf_error_payment_submit','');
+			$content .= '<div class="wdf_rewards">';
+			$content .= apply_filters('wdf_error_payment_submit','');
 
-				$content .= '
-				<div class="wdf_payment_options">
-					<div class="wdf_donate_button">'.wdf_pledge_button(false, 'single', $post_id).'</div>
-					<div class="wdf_gateway_choices">'.wdf_gateway_choices(false, (isset($settings['default_gateway']) ? $settings['default_gateway'] : '')).'</div>
-				</div>';
+			$content .= '
+			<div class="wdf_payment_options">
+				<div class="wdf_donate_button">'.wdf_pledge_button(false, 'single', $post_id).'</div>
+				<div class="wdf_gateway_choices">'.wdf_gateway_choices(false, (isset($settings['default_gateway']) ? $settings['default_gateway'] : '')).'</div>
+			</div>';
 
-				if(wdf_has_rewards($post_id) && isset($meta['wdf_levels'][0])) {
-					$content .= apply_filters('wdf_before_rewards_title','');
-						$level = maybe_unserialize($meta['wdf_levels'][0]);
-						foreach($level as $index => $data) {
-							$disabled_class = $disabled_input = '';
-							if(isset($data['limit']) && is_numeric($data['limit'])) {
-								$reward_left = $data['limit'] - (isset($data['used']) ? $data['used'] : 0);
-								if($reward_left)
-									$limit_text = ' <span class="wdf_reward_limit">'.__('Limited','wdf').' ('.$reward_left.__(' left of ','wdf').$data['limit'].')'.'</span>';
+			if(wdf_has_rewards($post_id) && isset($meta['wdf_levels'][0])) {
+				$content .= apply_filters('wdf_before_rewards_title','');
+					$level = maybe_unserialize($meta['wdf_levels'][0]);
+					foreach($level as $index => $data) {
+						$disabled_class = $disabled_input = '';
+						if(isset($data['limit']) && is_numeric($data['limit'])) {
+							$reward_left = $data['limit'] - (isset($data['used']) ? $data['used'] : 0);
+							if($reward_left)
+								$limit_text = ' <span class="wdf_reward_limit">'.__('Limited','wdf').' ('.$reward_left.__(' left of ','wdf').$data['limit'].')'.'</span>';
 
-								else {
-									$limit_text = ' <span class="wdf_reward_limit wdf_reward_limit_gone">'.__('All gone.','wdf').'</span>';
-									$disabled_class = ' wdf_reward_item_disabled';
-									$disabled_input = ' disabled';
-								}
+							else {
+								$limit_text = ' <span class="wdf_reward_limit wdf_reward_limit_gone">'.__('All gone.','wdf').'</span>';
+								$disabled_class = ' wdf_reward_item_disabled';
+								$disabled_input = ' disabled';
 							}
-							else
-								$limit_text = '';
-
-							$content .= '
-							<div class="wdf_reward_item'.$disabled_class.'">
-								<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="'.$index.'" '.$disabled_input.'/><span class="wdf_level_amount" rel="'.$data['amount'].'"> '.$wdf->format_currency('',$data['amount']).$limit_text.'</span></div>
-								<div class="wdf_reward_description">'.html_entity_decode($data['description']).'</div>
-							</div>';
 						}
-						$content .= '
-						<div class="wdf_reward_item wdf_reward_item_none">
-							<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="none" /><span class="wdf_level_amount"> '.apply_filters('wdf_no_reward_description',__('None','wdf')).'</span></div>
-						</div>';
-				}
-				$content .= '</div>';
-			$content .= '</form>';
+						else
+							$limit_text = '';
 
-		if($echo) {echo $content;} else {return $content;}
+						$content .= '
+						<div class="wdf_reward_item'.$disabled_class.'">
+							<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="'.$index.'" '.$disabled_input.'/><span class="wdf_level_amount" rel="'.$data['amount'].'"> '.$wdf->format_currency('',$data['amount']).$limit_text.'</span></div>
+							<div class="wdf_reward_description">'.html_entity_decode($data['description']).'</div>
+						</div>';
+					}
+					$content .= '
+					<div class="wdf_reward_item wdf_reward_item_none">
+						<div class="wdf_reward_choice"><input type="radio" name="wdf_reward" value="none" /><span class="wdf_level_amount"> '.apply_filters('wdf_no_reward_description',__('None','wdf')).'</span></div>
+					</div>';
+			}
+			$content .= '</div>';
+		$content .= '</form>';
+
+		if($echo) {
+			echo $content;
+			return false;
+		} else {
+			return $content;
+		}
 	}
 }
 
@@ -798,6 +805,7 @@ if(!function_exists('wdf_pledge_button')) {
 
 			if(isset($meta['wdf_recurring'][0]) && $meta['wdf_recurring'][0] == 'yes' && isset($meta['wdf_type'][0]) && $meta['wdf_type'][0] == 'simple' && $settings['active_gateways']['paypal']) {
 				$content .= '
+				<span class="wdf_recurring_holder">
 				<label class="wdf_recurring_label">'.__('Make this donation','wdf').' </label>
 				<select class="wdf_recurring_select" name="wdf_recurring">
 					<option value="0">'.__('Once','wdf').'</option>
@@ -806,6 +814,7 @@ if(!function_exists('wdf_pledge_button')) {
 					<option value="M">'.__('Monthly','wdf').'</option>
 					<option value="Y">'.__('Yearly','wdf').'</option>
 				</select>
+				</span>
 				';
 			}
 

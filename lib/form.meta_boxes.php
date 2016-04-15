@@ -307,7 +307,7 @@ if($pagenow == 'nav-menus.php') { ?>
             $settings = get_option('wdf_settings'); ?>
             <?php if($this->get_pledge_list($post->ID)) : ?>
             <h4><?php _e('Type : ','wdf'); ?><?php echo ($current_type == 'advanced' ? __('Advanced Crowdfunding','wdf') : __('Simple Donations','wdf') ); ?></h4>
-        <?php endif; ?>
+            <?php endif; ?>
             <?php if($settings['single_styles'] == 'yes') : ?>
             <div id="wdf_style">
                 <p>
@@ -321,8 +321,8 @@ if($pagenow == 'nav-menus.php') { ?>
                         </select></label>
                 </p>
             </div>
-        <?php endif; ?>
-            <?php if($current_type == 'simple' && $settings['active_gateways']['paypal']) : ?>
+            <?php endif; ?>
+            <?php if($settings['active_gateways']['paypal']) : ?>
             <p id="wdf_recurring"><label><?php _e('Allow Recurring Donations?','wdf') ?>
                     <select name="wdf[recurring]" rel="wdf_recurring" class="wdf_toggle">
                         <option value="yes" <?php (isset($meta['wdf_recurring'][0]) ? selected($meta['wdf_recurring'][0],'yes') : ''); ?>><?php _e('Yes','wdf'); ?></option>
@@ -330,7 +330,7 @@ if($pagenow == 'nav-menus.php') { ?>
                     </select>
                 </label>
             </p>
-        <?php endif; ?>
+            <?php endif; ?>
             <p>
                 <label><?php _e('Panel Position','wdf') ?>
                     <select name="wdf[panel_pos]">
@@ -349,71 +349,64 @@ if($pagenow == 'nav-menus.php') { ?>
                     </select>
                 </label>
             </p>
-        <?php endif; ?>
+            <?php endif; ?>
 
-            <?php if($current_type == 'advanced') : ?>
-            <script type="text/javascript">
-                jQuery(document).ready( function($) {
-
-                    $('input#publish').on( 'click', null, 'some data', function(e) {
-                        var has_goal = $('select#wdf_has_goal option:selected').val();
-                        var start_date = $('input#wdf_goal_start_date').val();
-                        var end_date = $('input#wdf_goal_end_date').val();
-                        var goal_amount = $('input#wdf_goal_amount').val();
-
-                        if(has_goal == '1') {
-                            if(start_date == '' || typeof start_date == 'undefined') {
-                                alert("<?php _e('You must set a starting date','wdf'); ?>");
-                                e.preventDefault();
-                                e.stopImmediatePropagation();
-                                return false;
-                            } else if(end_date == '' || typeof start_date == 'undefined') {
-                                alert("<?php _e('You must set a ending date that is after the current date','wdf'); ?>");
-                                e.preventDefault();
-                                e.stopImmediatePropagation()
-                                return false;
-                            }  else if( goal_amount == '' || typeof goal_amount == 'undefined' || parseInt(goal_amount) < 1  ) {
-                                alert("<?php _e('You must set a goal amount greater than at least 1','wdf'); ?>");
-                                e.preventDefault();
-                                e.stopImmediatePropagation()
-                                return false;
-                            }
-                        }
-
-                        //var check = confirm("<?php _e('Are you sure you are ready to publish?  You will be unable to change your fundraising type, goals and rewards after publishing.','wdf'); ?>");
-                        //if (check == true)  {
-                        //return true;
-                        //} else {
-                        //e.preventDefault();
-                        //e.stopImmediatePropagation();
-                        //return false;
-                        //}
-                    });
-                });
-            </script>
-        <?php endif; ?>
-            <?php break;
+        <?php break;
 
         //////////////////////////
         // FUNDER GOALS METABOX //
         //////////////////////////
         case 'wdf_goals' :
+            $settings = get_option('wdf_settings');
 
             if($current_type == 'advanced' && $post->post_status == 'publish' && $this->get_pledge_list($post->ID) != false)
                 $disabled = 'disabled="disabled"';
             else
                 $disabled = '';
-            $settings = get_option('wdf_settings'); ?>
-            <?php if($disabled != '') : ?>
+        ?>
+
+        <script type="text/javascript">
+            jQuery(document).ready( function($) {
+                $('input#publish').on( 'click', function(e) {
+                    var has_goal = $('select#wdf_has_goal option:selected').val();
+                    var start_date = $('input#wdf_goal_start_date').val();
+                    var end_date = $('input#wdf_goal_end_date').val();
+                    var goal_amount = $('input#wdf_goal_amount').val();
+                    var type = $('input[name="wdf[type]"]:checked', '#wdf_type').val();
+
+                    if(has_goal == '1' && type == 'advanced') {
+                        if(start_date == '' || typeof start_date == 'undefined') {
+                            alert("<?php _e('You must set a starting date','wdf'); ?>");
+                            e.preventDefault();
+                            e.stopImmediatePropagation();
+                            return false;
+                        } else if(end_date == '' || typeof start_date == 'undefined') {
+                            alert("<?php _e('You must set a ending date that is after the current date','wdf'); ?>");
+                            e.preventDefault();
+                            e.stopImmediatePropagation()
+                            return false;
+                        }  else if( goal_amount == '' || typeof goal_amount == 'undefined' || parseInt(goal_amount) < 1  ) {
+                            alert("<?php _e('You must set a goal amount greater than at least 1','wdf'); ?>");
+                            e.preventDefault();
+                            e.stopImmediatePropagation()
+                            return false;
+                        }
+                    }
+                });
+            });
+        </script>
+        
+        <?php if($disabled != '') : ?>
             <div class="below-h2 updated"><p><?php _e('Your fundraising dates, goals and rewards are locked in.','wdf'); ?></p></div>
         <?php endif; ?>
             <div id="wdf_funder_goals">
                 <?php //if( in_array('advanced', $settings['payment_types']) || in_array('standard', $settings['payment_types']) ) : ?>
                 <h4><?php echo __('Create a crowdfunding goal?','wdf'); ?>
-                    <select class="wdf_toggle" id="wdf_has_goal" rel="wdf_has_goal" name="wdf[has_goal]" <?php echo $disabled; ?>>
+                    <select class="wdf_toggle" id="wdf_has_goal" rel="wdf_has_goal" name="wdf[has_goal]" <?php echo $current_type == 'advanced' ? ' disabled' : ''; ?>>
                         <option <?php (isset($meta['wdf_has_goal'][0]) ? selected($meta['wdf_has_goal'][0],'0') : ''); ?> value="0"><?php _e('No','wdf'); ?></option>
                         <option <?php (isset($meta['wdf_has_goal'][0]) ? selected($meta['wdf_has_goal'][0],'1') : '');  ?> value="1"><?php _e('Yes','wdf'); ?></option>
                     </select>
+                    <?php echo $tips->add_tip(__('Goal is optional for "Simple Donations" and required for "Advanced Crowdfunding".','wdf')); ?>
                 </h4>
             </div>
             <div rel="wdf_has_goal" <?php echo (isset($meta['wdf_has_goal'][0]) && $meta['wdf_has_goal'][0] == '1' ? '' : 'style="display:none"') ?>>
@@ -542,7 +535,7 @@ if($pagenow == 'nav-menus.php') { ?>
                     </tbody>
                 </table>
             </div><!-- #wdf_has_reward -->
-            <h4><?php echo sprintf(__('Collect address if reward has been choosen','wdf'), esc_attr($settings['funder_labels']['plural_level'])); ?>?
+            <h4><?php echo sprintf(__('Collect address','wdf'), esc_attr($settings['funder_labels']['plural_level'])); ?>?
                 <select <?php echo $disabled; ?> class="wdf_toggle" rel="wdf_collect_address" name="wdf[collect_address]">
                     <option <?php (isset($meta['wdf_collect_address'][0]) ? selected($meta['wdf_collect_address'][0],'0') : ''); ?> value="0"><?php _e('No','wdf'); ?></option>
                     <option <?php (isset($meta['wdf_collect_address'][0]) ? selected($meta['wdf_collect_address'][0],'1') : ''); ?> value="1"><?php _e('Yes','wdf'); ?></option>

@@ -1,3 +1,8 @@
+.wdf-basic input.wdf_pledge_amount {
+	width: auto;
+	margin: 0 0 3px 0;
+}
+
 .wdf-basic .wdf_levels {
 	clear: both;
 	list-style: none;
@@ -90,7 +95,7 @@
 .wdf-basic.wdf_fundraiser_panel > div {
 	margin: 10px 0px;
 }
-.wdf-basic .wdf_big_num, .wdf-basic .wdf_time_left {
+.wdf-basic .wdf_big_num {
 	font-size: 2em;
 }
 .wdf-basic .ui-progressbar{
@@ -104,8 +109,6 @@
 	margin: 10px 0px 10px 0px;
 }
 .widget_wdf_fundraiser_panel .wdf-basic .wdf_level_amount {
-	float: left;
-	font-size: 2em;
 	padding-right: 8px;
 }
 .wdf-basic .wdf_bp_show_on_activity {

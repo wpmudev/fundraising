@@ -1,3 +1,8 @@
+.wdf-fresh input.wdf_pledge_amount {
+	width: auto;
+	margin: 0 0 3px 0;
+}
+
 .wdf-fresh .wdf_levels {
 	clear: both;
 	list-style: none;
@@ -49,7 +54,6 @@
 	border-radius: 5px;
 }
 .wdf-fresh .wdf_level_amount {
-	float: right;
 }
 .wdf-fresh .wdf_button,
 .wdf-fresh .wdf_send_donation {
@@ -98,7 +102,7 @@
 .wdf-fresh.wdf_fundraiser_panel > div {
 	margin: 10px 0px;
 }
-.wdf-fresh .wdf_big_num, .wdf-fresh .wdf_time_left {
+.wdf-fresh .wdf_big_num {
 	font-size: 2em;
 }
 .wdf-fresh .ui-progressbar{
@@ -112,9 +116,6 @@
 	margin: 10px 0px 10px 0px;
 }
 .wdf_fundraiser_panel.wdf-fresh .wdf_level_amount {
-	float: left;
-	font-size: 2em;
-	padding-right: 8px;
 }
 .wdf-fresh .wdf_bp_show_on_activity {
 

@@ -61,4 +61,44 @@ jQuery(document).ready( function($) {
 		$(this).parents('form').trigger('submit');
 		return false;
 	});
+
+	//loading dots
+	if($(".wdf-loading-dots").length) {
+		var dots = "";
+		loading_dots = setInterval(function() {
+			if(!$(".wdf-loading-dots").length)
+				clearInterval(loading_dots);
+			if(dots.length == 6) {
+				dots = "";
+			}
+			else {
+				dots += " .";
+			}
+			$(".wdf-loading-dots").text(dots);
+		} , 400);
+	}
+
+	//lets look for delayed pledges
+	if($('.wdf-pledge-waiting').length && $('.wdf-pledge-waiting').attr('data-wdf-pledge-id')) {
+		var pledge_check_count = 0
+
+		var pledge_check = setInterval(function() {
+			pledge_check_count ++;
+
+			args = {
+				action: 'wdf_look_for_pledge',
+				pledge_id: $('.wdf-pledge-waiting').attr('data-wdf-pledge-id')
+			};
+			$.post(wdf.ajaxurl, args, function(response) {
+				if(response == 'not-found' && pledge_check_count > 3) {
+					clearInterval(pledge_check);
+					$('.wdf-pledge-waiting').remove();
+					$('.wdf-pledge-error').show();
+				}
+				else if(response != 'not-found') {
+					location.reload();
+				}
+			});
+		} , 5000);		
+	}
 });
