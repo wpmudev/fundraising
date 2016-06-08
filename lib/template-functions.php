@@ -125,13 +125,13 @@ if(!function_exists('wdf_pledges_panel')) {
 		$donations = $wdf->get_pledge_list($post_id);
 		if($donations) {
 			$settings = get_option('wdf_settings');
-			
+
 			$funder = get_post($post_id);
 			if(!$funder)
 				return false;
 
 			$content .= '<div class="wdf_pledges_panel">';
-			
+
 			$content .= '<ul>';
 			$count = 0;
 			$donations_ready = array();
@@ -302,7 +302,9 @@ if(!function_exists('wdf_time_left')) {
 		$start_date = strtotime(get_post_meta($post_id, 'wdf_goal_start', true));
 		$now = current_time('timestamp');
 
-		if($now > $end_date) {
+		$meta = get_post_custom($post->ID);
+
+		if($now > $end_date && $meta['wdf_has_goal'][0] == 1 ) {
 			if($active_bool === true)
 				return false;
 
@@ -465,7 +467,7 @@ if(!function_exists('wdf_confirmation_page')) {
 			}
 		} else {
 			$message_waiting = sprintf( __('We are waiting for your payment','wdf'), esc_attr($settings['donation_labels']['singular_name']), esc_attr($settings['donation_labels']['singular_name']) );
-			
+
 			$message = (isset($settings['message_pledge_not_found']) && $settings['message_pledge_not_found']) ? $settings['message_pledge_not_found'] : sprintf( __('Oh No, we can\'t find your %s.  Sometimes it take little bit longer for your %s to be logged.','wdf'), esc_attr($settings['donation_labels']['singular_name']), esc_attr($settings['donation_labels']['singular_name']) );
 			if((!isset($settings['message_pledge_not_found']) || !$settings['message_pledge_not_found']) && get_post_meta($post_id,'wdf_send_email',true)) {
 				$message .= ' '.__('We will send you an email when that happens').'.';
