@@ -83,7 +83,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				}
 				$content .= '<label for="address1" class="wdf_address1">'.__('Address','wdf').' <small>'.__('(Street address, P.O. box, company name, c/o)','wdf').'</small>:</label><br />';
 				$content .= '<input type="text" class="wdf_address1" name="address1" value="'.( isset($_POST['address1']) ? esc_attr($_POST['address1']) : '') .'" /><br />';
-				$content .= '<label for="address2" class="wdf_address2">'.__('Addres 2','wdf').' <small>'.__('(Apartment, suite, unit, building, floor, etc.)','wdf').'</small>:</label><br />';
+				$content .= '<label for="address2" class="wdf_address2">'.__('Address 2','wdf').' <small>'.__('(Apartment, suite, unit, building, floor, etc.)','wdf').'</small>:</label><br />';
 				$content .= '<input type="text" class="wdf_address2" name="address2" value="'.( isset($_POST['address2']) ? esc_attr($_POST['address2']) : '') .'" /><br />';
 				$content .= '<label for="city" class="wdf_city">'.__('City','wdf').':</label><br />';
 				$content .= '<input type="text" class="wdf_city" name="city" value="'.( isset($_POST['city']) ? esc_attr($_POST['city']) : '') .'" /><br />';
@@ -221,7 +221,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				// Make the API Call to receive a token
 				$response = $this->adaptive_api_call('Preapproval',$nvpstr);
 
-				if(isset($response['responseEnvelope_ack'])) {
+				if(is_array($response) && isset($response['responseEnvelope_ack'])) {
 					switch($response['responseEnvelope_ack']) {
 						case 'Success' ;
 							$proceed = true;
@@ -251,7 +251,9 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 					// We most likely return an WP_Error object instead of a valid paypal response.
 					$proceed = false;
 					$status_code = '';
-					$error_msg = __('There was an error contacting PayPal\'s servers.','wdf');
+					$error_msg = __('There was an error contacting PayPal\'s servers.' ,'wdf');
+					if(is_wp_error($response))
+						$error_msg .= ' '.$response->get_error_message();
 				}
 
 				if( $proceed === true && isset($response['preapprovalKey']) ) {

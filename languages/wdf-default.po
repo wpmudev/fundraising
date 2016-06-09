@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPMU Fundraising\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-21 13:08+0100\n"
-"PO-Revision-Date: 2015-07-21 13:08+0100\n"
+"POT-Creation-Date: 2016-05-05 09:32+0100\n"
+"PO-Revision-Date: 2016-05-05 09:32+0100\n"
 "Last-Translator: Cole <cole@imakethe.com>\n"
 "Language-Team: Incsub <cole@incsub.com>\n"
 "Language: en_US\n"
@@ -66,7 +66,7 @@ msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:103
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1032
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1052
 msgid "Fundraisers"
 msgstr ""
 
@@ -126,535 +126,535 @@ msgid "Edit settings"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:242
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:245
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:267
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:270
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:246
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:249
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:271
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:274
 #, php-format
 msgid "New %s"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:243
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:268
-#, php-format
-msgid "Add New %s"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:244
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:269
-#, php-format
-msgid "Edit %s"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:246
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:271
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1758
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:98
-#, php-format
-msgid "All %s"
 msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:247
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:272
 #, php-format
-msgid "View %s"
+msgid "Add New %s"
 msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:248
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:273
 #, php-format
-msgid "Search %s"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:249
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:274
-#, php-format
-msgid "No %s found"
+msgid "Edit %s"
 msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:250
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:275
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1791
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:105
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:251
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:276
+#, php-format
+msgid "View %s"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:252
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:277
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:253
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:278
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:254
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:279
 #, php-format
 msgid "No %s found in Trash"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:356
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:360
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:38
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:164
 msgid "Approved"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:366
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:370
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:37
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:163
 msgid "Complete"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:376
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:380
 msgid "Cancled"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:386
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:390
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:39
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:436
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:443
 msgid "Refunded"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:728
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:86
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:734
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:89
 msgid "Basic"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:731
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:87
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:737
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:90
 msgid "Dark"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:734
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:88
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:740
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:91
 msgid "Fresh"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:737
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:743
 msgid "Minimal"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:740
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:89
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:746
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:92
 msgid "Note"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:752
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:90
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:758
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:93
 msgid "None (Custom CSS)"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:902
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:909
 msgid "Could not determine pledge type."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:905
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:912
 msgid "Please choose a payment method."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:908
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:915
 msgid "Fundraiser could not be determined."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:919
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:926
 msgid "You have not made a pledge yet."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1071
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1091
 #, php-format
 msgid "%s Type"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1074
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1094
 #, php-format
 msgid "%s Progress"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1076
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1110
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1096
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1130
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:28
 #, php-format
 msgid "%s Settings"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1077
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1097
 #, php-format
 msgid "Set Your %s Goals"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1079
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1099
 msgid "Thank You Message Settings"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1082
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1102
 #, php-format
 msgid "%s Activity"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1087
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1107
 #, php-format
 msgid "%s Information"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1088
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1108
 #, php-format
 msgid "%s Status"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1110
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1130
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:498
 msgid "Settings"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1111
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1131
 msgid "Getting Started"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1127
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1134
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1147
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1154
 msgid "You are not allowed to view this page."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1148
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1168
 msgid "Security Check Failed.  Whatchu doing??"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1183
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1203
 msgid "donations"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1199
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1223
 msgid "Settings Saved"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1334
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1366
 msgid "Please enter title first."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1382
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1415
 msgid "Raised"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1384
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1417
 msgid "Type"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1385
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1418
 msgid "Time Left"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1390
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:580
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1423
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:574
 msgid "Amount"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1391
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:581
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1424
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:575
 msgid "Status"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1392
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1425
 msgid "Recurring"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1395
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:583
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1428
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:577
 msgid "Method"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1396
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1429
 #, php-format
 msgid "%s ID"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1413
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1446
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-notifications.php:50
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/bp/bp-wdf-screens.php:213
 msgid "Donations"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1415
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1448
 msgid "Crowdfunding"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1453
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1486
 msgid "Reward: "
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1483
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1516
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:11
 #, php-format
 msgid "%s Button"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1484
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1517
 #, php-format
 msgid "%s Form"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1485
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:8
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1518
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:12
 #, php-format
 msgid "%s List"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1486
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1519
 msgid "Progress Bar"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1507
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1540
 msgid "Insert Fundraising Shortcodes"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1520
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1553
 msgid "Add a progress bar"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1521
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1554
 msgid "Only fundraisers that have a goal can display a progress bar"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1528
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1685
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1751
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1561
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1718
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1784
 #, php-format
 msgid "Choose a %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1532
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1565
 #, php-format
 msgid "You have not created any %s yet."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1546
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1714
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1579
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1747
 msgid "Show Title"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1550
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1583
 msgid "Show Totals"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1554
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1701
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1587
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1734
 msgid "Choose a style"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1558
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1705
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:137
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1591
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1738
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:162
 msgid "Default"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1568
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1655
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1723
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1781
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1601
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1688
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1756
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1814
 msgid "Insert Shortcode"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1586
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1619
 msgid "Add a donation button"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1591
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:66
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1624
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:67
 msgid "Default PayPal Button"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1592
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:67
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1625
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:69
 msgid "Custom Button"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1598
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:126
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:52
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:73
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:70
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1631
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:131
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:57
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:74
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:72
 msgid "Title"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1605
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:53
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:74
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1638
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:61
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:76
 msgid "Description"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1611
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1644
 #, php-format
 msgid "%s Amount"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1611
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1644
 msgid "(blank = choice)"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1617
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1650
 msgid "Choose a Style"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1631
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1664
 msgid "Button Text"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1637
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1670
 msgid "Paypal Options"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1640
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:101
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1673
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:103
 msgid "Show Accepted Credit Cards"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1641
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1674
 msgid "Allow special instruction field"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1642
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:103
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1675
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:107
 msgid "Use Small Button"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1647
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1680
 msgid "PayPal Email"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1647
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1680
 msgid "defaults to settings"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1677
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1710
 #, php-format
 msgid "Add A %s Form"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1689
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1755
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1722
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1788
 #, php-format
 msgid "You have not created any %s yet"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1718
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1751
 msgid "Show Content"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1743
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1776
 #, php-format
 msgid "Add List of %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1767
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:76
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1800
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:82
 msgid "Sort type"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1770
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:78
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1803
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:84
 msgid "Latest first"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1771
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:79
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1804
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:85
 msgid "Biggest first"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1776
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:74
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1809
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:78
 #, php-format
 msgid "Number of %s to show"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1954
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:798
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1987
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:812
 msgid "Daily"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1958
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:799
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1991
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:813
 msgid "Weekly"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1962
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:800
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1995
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:814
 msgid "Monthly"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1966
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:801
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/fundraiser.php:1999
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:815
 msgid "Yearly"
 msgstr ""
 
@@ -777,13 +777,13 @@ msgstr ""
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:280
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:410
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:328
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:414
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:452
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:547
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:557
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:632
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:148
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:86
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:407
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:446
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:541
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:551
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:626
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:174
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:93
 msgid "Yes"
 msgstr ""
 
@@ -794,13 +794,13 @@ msgstr ""
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:281
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:412
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:329
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:413
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:451
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:546
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:556
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:631
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:147
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:85
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:406
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:445
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:540
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:550
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:625
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:173
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:92
 msgid "No"
 msgstr ""
 
@@ -1097,30 +1097,30 @@ msgid "Tutorial"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:421
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:420
 msgid "Next &raquo;"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:435
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:457
+msgid "Dismiss"
 msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:436
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:458
-msgid "Dismiss"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:437
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:459
 #, php-format
 msgid "Dismiss %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:443
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:442
 msgid "&laquo; Previous"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:498
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/external/class.pointers_tutorial.php:496
 #, php-format
 msgid "%s: Step %d of %d"
 msgstr ""
@@ -1414,13 +1414,13 @@ msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:174
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:346
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:347
 msgid "Checkout directly from panel"
 msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.blog_settings.php:175
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:347
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:348
 msgid "Use elaborated checkout page"
 msgstr ""
 
@@ -1626,7 +1626,7 @@ msgstr ""
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:40
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:165
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:358
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:362
 msgid "Canceled"
 msgstr ""
 
@@ -1702,6 +1702,8 @@ msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:145
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:57
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:86
 msgid "Address 2"
 msgstr ""
 
@@ -1738,7 +1740,7 @@ msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:190
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:488
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:482
 msgid "left"
 msgstr ""
 
@@ -1805,8 +1807,8 @@ msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:314
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:135
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:84
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:159
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:87
 msgid "Choose a display style"
 msgstr ""
 
@@ -1831,72 +1833,77 @@ msgid "Below Content"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:340
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:339
+msgid "Hide"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:341
 msgid ""
 "If you are not using the Fundraiser sidebar widget, choose the position of "
 "your info panel."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:344
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:345
 msgid "Checkout Type"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:365
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:379
 msgid "You must set a starting date"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:370
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:384
 msgid "You must set a ending date that is after the current date"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:375
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:389
 msgid "You must set a goal amount greater than at least 1"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:382
-msgid ""
-"Are you sure you are ready to publish?  You will be unable to change your "
-"fundraising type, goals and rewards after publishing."
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:407
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:400
 msgid "Your fundraising dates, goals and rewards are locked in."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:411
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:404
 msgid "Create a crowdfunding goal?"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:425
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:409
+msgid ""
+"Goal is optional for \"Simple Donations\" and required for \"Advanced "
+"Crowdfunding\"."
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:419
 msgid "Start Date"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:426
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:420
 msgid "End Date"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:427
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:421
 msgid "Goal Amount"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:449
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:443
 #, php-format
 msgid "Create %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:454
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:448
 #, php-format
 msgid ""
 "This will enable %s. You can choose minimal amount of money required, limit "
@@ -1904,70 +1911,70 @@ msgid ""
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:460
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:454
 msgid "Choose Amount"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:461
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:455
 msgid "Choose Limit"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:462
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:456
 #, php-format
 msgid "%s Description"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:494
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:517
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:536
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:488
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:511
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:530
 msgid "Delete"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:539
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:533
 #, php-format
 msgid "Add A %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:544
-msgid "Collect address if reward has been choosen"
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:538
+msgid "Collect address"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:549
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:543
 msgid ""
 "This will allow you to collect additional informations like: street address, "
 "city, state and posta/zip code. This will force elaborated checkout page."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:552
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:546
 msgid ""
 "Add message visible while donating that will describe the purpuse of "
 "collecting address. Leave blank to disable."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:554
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:548
 msgid "Allow \"Country\" field while collecting address"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:584
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:578
 msgid "Date"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:617
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:611
 msgid "Text or HTML Allowed"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:617
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:611
 msgid ""
 "Provide a custom thank you message for users.  You can use the following "
 "codes to display specific information from the payment: %DONATIONTOTAL% "
@@ -1975,27 +1982,27 @@ msgid ""
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:629
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:623
 msgid "Send a confirmation email after a payment?"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:637
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:631
 msgid "Create a custom email message or use the default one."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:637
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:631
 msgid "The email will come from your Administrator email"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:638
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:632
 msgid "Email Subject"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:639
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/form.meta_boxes.php:633
 msgid "Thank you for your Donation"
 msgstr ""
 
@@ -2035,18 +2042,12 @@ msgstr ""
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:57
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:86
-msgid "Addres 2"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:57
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:86
 msgid "(Apartment, suite, unit, building, floor, etc.)"
 msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:101
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:431
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:438
 msgid "Pending/Approved"
 msgstr ""
 
@@ -2064,7 +2065,7 @@ msgstr ""
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/manual.php:132
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:175
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:272
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:275
 msgid "Make sure all details are filled out correctly."
 msgstr ""
 
@@ -2080,7 +2081,7 @@ msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:37
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:828
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:838
 msgid "PayPal"
 msgstr ""
 
@@ -2095,210 +2096,210 @@ msgid "If the goal is reached your account will be charged immediately"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:246
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:247
 msgid "No status code given"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:253
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:254
 msgid "There was an error contacting PayPal's servers."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:268
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:271
 msgid "There was a problem connecting with the paypal gateway.  (CODE)"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:306
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:310
 msgid "There was a problem connecting to PayPal. Please try again."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:353
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:357
 msgid "Pre-Approved"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:354
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:359
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:358
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:363
 msgid "Transaction Pre-Approved"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:363
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:610
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:367
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:620
 msgid "Unknown"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:364
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:368
 msgid "Unknown PayPal status."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:372
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:376
 msgid ""
 "There was a problem verifying the IPN string with PayPal. Please try again."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:432
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:439
 msgid "Missing Pending Status."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:437
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:444
 msgid "Payment Refunded"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:441
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:448
 msgid "Reversed"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:442
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:449
 msgid "Payment Reversed"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:446
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:453
 msgid "Expired"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:447
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:454
 msgid "Payment Expired"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:451
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:458
 msgid "Processed"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:452
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:459
 msgid "Payment Processed"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:457
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:464
 msgid "Ongoing Subscription"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:459
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:466
 msgid "Payment Completed"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:464
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:471
 msgid "Subscription Expired/Canceled."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:468
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:475
 msgid "Unknown Payment Status"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:474
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:481
 msgid "Subscription confirmed. Awaiting payment..."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:477
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:484
 msgid "Payment Status Not Given"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:579
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:589
 msgid "Completed"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:580
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:590
 msgid "Payment Complete."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:585
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:595
 msgid "Incomplete"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:586
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:596
 msgid "Pre-Approval Incomplete."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:590
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:600
 msgid "Error"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:591
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:601
 msgid "Error Capturing Payment"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:595
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:605
 msgid "Reversal Error"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:596
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:606
 msgid "Error Reversing Payment."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:600
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:610
 msgid "Processing"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:601
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:611
 msgid "Processing Payment."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:605
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:615
 msgid "Pending"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:606
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:616
 msgid "Error Reserving Payment."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:611
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:621
 msgid "Unknown Payment Response Status after attempting to execute."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:663
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:673
 msgid "PayPal Mode"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:666
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:676
 msgid "Live"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:667
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:677
 msgid "Sandbox"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:673
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:683
 msgid "Simple Payment Options (Simple Donations)"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:675
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:685
 msgid ""
 "In order for Fundraising to function correctly you must setup an IPN "
 "listening URL with PayPal. Failure to do so will prevent your site from "
@@ -2306,90 +2307,90 @@ msgid ""
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:676
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:686
 msgid "Your IPN listening URL is:"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:678
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:688
 msgid ""
 "https://developer.paypal.com/docs/classic/ipn/integration-guide/IPNSetup/"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:678
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:688
 msgid "Instructions &raquo;"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:684
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:694
 msgid "PayPal Email Address:"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:689
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:699
 msgid "PayPal Checkout Header Image "
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:699
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:709
 msgid "Advanced Payment Options (Advanced Crowdfunding)"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:711
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:721
 msgid "PayPal Email Address"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:713
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:723
 msgid ""
 "Please enter your PayPal email address or business id you want to recieve "
 "fees at."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:718
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:728
 msgid "Paypal Currency"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:758
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:768
 msgid "PayPal API Credentials"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:760
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:770
 msgid "You must login to PayPal and create an app to get your credentials."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:764
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:774
 msgid "API Username"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:771
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:781
 msgid "API Password"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:778
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:788
 msgid "Signature"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:785
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:795
 msgid "Application ID"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:788
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:798
 msgid "No application ID is required when using PayPal in sandbox mode."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:791
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/gateways/paypal.php:801
 msgid ""
 "You must register this application with PayPal using your business account "
 "login to get an Application ID that will work with your API credentials. App "
@@ -2411,7 +2412,7 @@ msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:85
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:492
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:500
 #, php-format
 msgid "raised of a %s goal"
 msgstr ""
@@ -2422,151 +2423,160 @@ msgid "raised"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:332
-msgid "Day Left"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:332
-msgid "Days Left"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:334
-msgid "Minute Left"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:334
-msgid "Minutes Left"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:336
-msgid "Hour Left"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:336
-msgid "Hours Left"
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:310
+msgid "Time's Up"
 msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:339
+msgid "Day Left"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:339
+msgid "Days Left"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:341
+msgid "Minute Left"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:341
+msgid "Minutes Left"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:343
+msgid "Hour Left"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:343
+msgid "Hours Left"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:346
 #, php-format
 msgid "Starts In %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:339
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:346
 msgid "Day"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:339
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:346
 msgid "Days"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:339
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:346
 msgid "Hour"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:339
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:346
 msgid "Hours"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:447
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:449
 #, php-format
 msgid "%s made a %s %s towards %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:465
-#, php-format
-msgid ""
-"Oh No, we can't find your %s.  Sometimes it take a few moments for your %s "
-"to be logged.  You can try refreshing this page "
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:467
+msgid "We are waiting for your payment"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:485
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:469
+#, php-format
+msgid ""
+"Oh No, we can't find your %s.  Sometimes it take little bit longer for your "
+"%s to be logged."
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:471
+msgid "We will send you an email when that happens"
+msgstr ""
+
+#: C:\Programs
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:493
 #, php-format
 msgid "Your %s of %s was successful"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:488
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:496
 #, php-format
 msgid "%s Raised so far"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:579
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:587
 msgid "Payment Options"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:586
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:594
 msgid "No Payment Gateways Have Been Enabled"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:601
-#, php-format
-msgid "This %s is not accepting %s yet."
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:636
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:638
 msgid "Limited"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:636
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:638
 msgid " left of "
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:639
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:641
 msgid "All gone."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:655
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:657
 msgid "None"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:670
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:677
 #, php-format
 msgid "You must pledge at least %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:778
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:791
 msgid "Donate Now"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:788
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:801
 msgid "Choose An Amount"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:795
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:809
 msgid "Make this donation"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:797
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:811
 msgid "Once"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:810
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/template-functions.php:825
 msgid "Post this to your profile"
 msgstr ""
 
@@ -2620,37 +2630,23 @@ msgstr ""
 
 #: C:\Programs
 #: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:33
-msgid "Choose your page locations"
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:34
-msgid ""
-"You can customize the url structure of all your fundraisers projects here.  "
-"The directory is an archive of all the fundraisers.  The checkout page is "
-"used when a user starts the pledge process.  The thank you page is used "
-"after a successful donation or pledge."
-msgstr ""
-
-#: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:37
 msgid "Create your First Fundraiser"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:38
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:34
 msgid ""
 "Now that you have setup your presentation and payment settings you can "
 "create your first fundraiser. Start by adding a title."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:41
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:37
 msgid "Choose a fundraising type"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:42
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/wdf_tutorials.php:38
 msgid ""
 "This step is crucial to how your fundraiser will operate.  Remember: Simple "
 "Donations process automatically but can not set goals or rewards.  Advanced "
@@ -2676,56 +2672,56 @@ msgid ""
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:126
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:52
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:132
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:58
 msgid "Featured Fundraisers"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:127
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:135
 msgid "Extra Description"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:130
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:142
 msgid "Include Featured Image"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:131
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:147
 msgid "Max Image Width"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:132
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:153
 msgid "Max Image Height"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:145
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:171
 #, php-format
 msgid "Display a specific %s"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:165
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:108
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraiser_panel.php:191
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:115
 msgid "You have not created any fundraisers yet"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:9
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:13
 #, php-format
 msgid "Choose a list of simple %s links you wish to display."
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:55
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:65
 msgid "Maximum number of fundraisers to display"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:60
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.fundraisers_list.php:72
 #, php-format
 msgid "Optional: select %s to display"
 msgstr ""
@@ -2740,13 +2736,13 @@ msgid ""
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:73
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.recent_fundraisers.php:48
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:75
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.recent_fundraisers.php:50
 msgid "Recent Fundraisers"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:83
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.pledges_panel.php:90
 #, php-format
 msgid "Display for a specific %s or all"
 msgstr ""
@@ -2775,26 +2771,26 @@ msgid "Button Type"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:79
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:81
 msgid "Donation Amount (blank = choice)"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:94
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:97
 msgid "Donate Button Text"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:102
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:105
 msgid "Allow extra note field"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:108
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:113
 msgid "Reference Label (optional description)"
 msgstr ""
 
 #: C:\Programs
-#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:114
+#: Portable\EasyPHP\data\localweb\wordpress-incsub\wp-content\plugins\fundraising/lib/widgets/widget.simple_donation.php:118
 msgid "Override PayPal Email Address"
 msgstr ""

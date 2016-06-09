@@ -5,12 +5,17 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.4.3 =
+Fixed "Times Up!" issues with simple donation fundraising
+
 = 2.6.4.2 =
 Improved FE styling (please check compatibility with active theme)
 Improved UX for jumping between Simple and Advanced fundraising type
 Improved fundraising start/end date handling
+Improved PP error handling
 Added ajax check for delayed pledges
 Enabled address collecting without rewards
+Fixed typo
 
 = 2.6.4.1 =
 Improved Upfront compatibility
