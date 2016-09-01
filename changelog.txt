@@ -5,6 +5,10 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.4.4 =
+Fixed issues with address colection for manual gateway
+WPMUDEV dashboard notice update
+
 = 2.6.4.3 =
 Fixed "Times Up!" issues with simple donation fundraising
 

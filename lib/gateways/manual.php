@@ -104,8 +104,8 @@ if(!class_exists('WDF_Gateway_Manual')) {
 					if(isset($_SESSION['wdf_reward']))
 						$transaction['reward'] = $_SESSION['wdf_reward'];
 
-					$collect_address_message = get_post_meta($funder_id,'wdf_collect_address_message', true);
-					if($collect_address_message) {
+					$collect_address = get_post_meta($funder_id,'wdf_collect_address', true);
+					if($collect_address) {
 						$transaction['country'] = (isset($_POST['country']) ? $_POST['country'] : '' );
 						$transaction['address1'] = (isset($_POST['address1']) ? $_POST['address1'] : '' );
 						$transaction['address2'] = (isset($_POST['address2']) ? $_POST['address2'] : '' );
