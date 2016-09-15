@@ -5,6 +5,9 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.4.5 =
+Fixed issues with counting reward limits
+
 = 2.6.4.4 =
 Fixed issues with address colection for manual gateway
 WPMUDEV dashboard notice update
