@@ -5,6 +5,9 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.4.6 =
+Removed PHP 4 constructor
+
 = 2.6.4.5 =
 Fixed issues with counting reward limits
 
