@@ -3,7 +3,7 @@
 Plugin Name: Fundraising
 Plugin URI: http://premium.wpmudev.org/project/fundraising/
 Description: Create a fundraising page for any purpose or project.
-Version: 2.6.4.5
+Version: 2.6.4.6
 Text Domain: wdf
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
@@ -69,10 +69,6 @@ if(isset($_POST['wdf_reset']) && current_user_can('wdf_edit_settings')) {
 }
 
 class WDF {
-	function WDF() {
-		$this->_vars();
-		$this->_construct();
-	}
 	function _vars() {
 		$this->version = '2.6.4.2';
 		$this->defaults = array(
@@ -122,10 +118,12 @@ class WDF {
 		// Setup Additional Data Structure
 		require_once(WDF_PLUGIN_BASE_DIR . '/lib/wdf_data.php');
 	}
-	function _construct() {
+	function __construct() {
 		global $wpmudev_notices;
 		$wpmudev_notices[] = array( 'id'=> 259,'name'=> 'Fundraising', 'screens' => array( 'edit-funder', 'funder', 'edit-donation', 'donation', 'funder_page_wdf_settings', 'funder_page_wdf' ) );
 		include_once(WDF_PLUGIN_BASE_DIR . '/lib/external/dash-notice/wpmudev-dash-notification.php');
+
+		$this->_vars();
 
 		$settings = get_option('wdf_settings');
 		if(!is_array($settings) || !$settings || empty($settings) ) {
