@@ -88,7 +88,7 @@ function bp_wdf_remove_screen_notifications() {
 	 * When clicking on a screen notification, we need to remove it from the menu.
 	 * The following command will do so.
  	 */
-	bp_core_delete_notifications_for_user_by_type( $bp->loggedin_user->id, $bp->wdf->slug, 'new_donation' );
+	bp_notifications_delete_notifications_by_type( $bp->loggedin_user->id, $bp->wdf->slug, 'new_donation' );
 }
 add_action( 'bp_wdf_screen_one', 'bp_wdf_remove_screen_notifications' );
 add_action( 'xprofile_screen_display_profile', 'bp_wdf_remove_screen_notifications' );
