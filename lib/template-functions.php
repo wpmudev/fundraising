@@ -283,6 +283,8 @@ if(!function_exists('wdf_amount_raised')) {
 			return false;
 		$raised = $wdf->format_currency('',$wdf->get_amount_raised($post_id));
 
+		$raised = apply_filters( 'wdf_amount_raised', $raised, $wdf, $post_id );
+
 		if($echo) {echo $raised;} else {return $raised;}
 
 	}
@@ -420,11 +422,18 @@ if(!function_exists('wdf_total_backers')) {
 		$post_id = (empty($post_id) ? $post->ID : $post_id );
 		if(!get_post($post_id))
 			return false;
-		$backers = $wdf->get_pledge_list($post_id);
-		if($backers)
-			return count($backers);
-		else
-			return 0;
+		$backers = $wdf->get_pledge_list( $post_id );
+
+		if( $backers ){
+			$backers = count( $backers );
+		}
+		else{
+			$backers = 0;
+		}
+
+		$backers = apply_filters( 'wdf_total_backers', $backers, $post_id );
+
+		return $backers;
 	}
 }
 
