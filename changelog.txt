@@ -5,6 +5,10 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 == Changelog ==
 
+= 2.6.4.7 =
+Fixed BuddyPress compatibility issues
+Fixed manual payment country field issues
+
 = 2.6.4.6 =
 Removed PHP 4 constructor
 

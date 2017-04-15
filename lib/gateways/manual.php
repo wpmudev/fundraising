@@ -49,9 +49,10 @@ if(!class_exists('WDF_Gateway_Manual')) {
 
 				$content .= '<p class="wdf_manual_payment_form_address_info wdf_payment_form_address_info">';
 					$collect_address_country = get_post_meta($funder_id,'wdf_collect_address_country', true);
-					if($collect_address_country)
+					if($collect_address_country){
 						$content .= '<label for="country" class="wdf_country">'.__('Country','wdf').':</label><br />';
-					$content .= '<input type="text" class="wdf_country" name="country" value="'.( isset($_POST['country']) ? esc_attr($_POST['country']) : '') .'" /><br />';
+						$content .= '<input type="text" class="wdf_country" name="country" value="'.( isset($_POST['country']) ? esc_attr($_POST['country']) : '') .'" /><br />';
+					}
 					$content .= '<label for="address1" class="wdf_address1">'.__('Address','wdf').' <small>'.__('(Street address, P.O. box, company name, c/o)','wdf').'</small>:</label><br />';
 					$content .= '<input type="text" class="wdf_address1" name="address1" value="'.( isset($_POST['address1']) ? esc_attr($_POST['address1']) : '') .'" /><br />';
 					$content .= '<label for="address2" class="wdf_address2">'.__('Address 2','wdf').' <small>'.__('(Apartment, suite, unit, building, floor, etc.)','wdf').'</small>:</label><br />';
