@@ -1225,7 +1225,7 @@ class WDF {
 
 	function create_error($msg, $context) {
 		$classes = 'error';
-		$content = 'return $content."<div class=\"'.$classes.'\"><p>' . $msg . '</p></div>";';
+		$content = 'return $content."<div class=\"'.$classes.'\"><p>' . esc_html( $msg ) . '</p></div>";';
 		add_filter('wdf_error_' . $context, create_function('$content', $content));
 		$this->wdf_error = true;
 	}

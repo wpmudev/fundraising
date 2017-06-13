@@ -212,7 +212,7 @@ if(!class_exists('WDF_Gateway_PayPal')) {
 				$nvpstr .= "&feesPayer=SENDER";
 				$nvpstr .= "&maxAmountPerPayment=" . $wdf->filter_price($_SESSION['wdf_pledge']);
 				$nvpstr .= "&maxTotalAmountOfAllPayments=" . $wdf->filter_price($_SESSION['wdf_pledge']);
-				$nvpstr .= "&displayMaxTotalAmount=TRUE";
+				$nvpstr .= "&displayMaxTotalAmount=true";
 				$nvpstr .= "&memo=" . urlencode(__('If the goal is reached your account will be charged immediately', 'wdf'));
 				$nvpstr .= "&startingDate=".gmdate('Y-m-d\Z',$start_stamp);
 				$nvpstr .= "&endingDate=".gmdate('Y-m-d\Z',$end_stamp);
