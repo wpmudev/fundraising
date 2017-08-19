@@ -402,6 +402,7 @@ if($pagenow == 'nav-menus.php') { ?>
             <div id="wdf_funder_goals">
                 <?php //if( in_array('advanced', $settings['payment_types']) || in_array('standard', $settings['payment_types']) ) : ?>
                 <h4><?php echo __('Create a crowdfunding goal?','wdf'); ?>
+                    <input type="hidden" name="wdf[has_goal]" value="1" />
                     <select class="wdf_toggle" id="wdf_has_goal" rel="wdf_has_goal" name="wdf[has_goal]" <?php echo $current_type == 'advanced' ? ' disabled' : ''; ?>>
                         <option <?php (isset($meta['wdf_has_goal'][0]) ? selected($meta['wdf_has_goal'][0],'0') : ''); ?> value="0"><?php _e('No','wdf'); ?></option>
                         <option <?php (isset($meta['wdf_has_goal'][0]) ? selected($meta['wdf_has_goal'][0],'1') : '');  ?> value="1"><?php _e('Yes','wdf'); ?></option>
