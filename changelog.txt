@@ -8,6 +8,7 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 = 2.6.4.8 =
 Fixed issue causing redirects to a blank page when pledge is submitted
 Fixed issue forcing no funding goal for advanced crowd funding
+Fixed deprecated constructor for one of the classes
 
 = 2.6.4.7 =
 Fixed BuddyPress compatibility issues

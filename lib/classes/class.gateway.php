@@ -89,10 +89,7 @@ if(!class_exists('WDF_Gateway')) {
 			global $wdf;
 			$wdf->create_error($msg, 'gateway');
 		}
-		function WDF_Gateway() {
-			$this->_construct();
-  		}
-		function _construct() {
+		function __construct() {
 
 
 			$settings = get_option('wdf_settings');
