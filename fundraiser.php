@@ -1203,7 +1203,10 @@ class WDF {
 			} else if ( $k == 'paypal_email' ) {
 				$new[$k] = is_email($v);
 			} elseif ( $k == 'payment_types' || $k == 'active_gateways' || $k == 'funder_labels' || $k == 'donation_labels' ) {
-				$new[$k] = array_map('esc_attr',$v);
+				$new[$k] = array_map(
+					'esc_attr',
+					empty($v) ? array() : $v
+				);
 			} else {
 				
 				if(is_array($v))

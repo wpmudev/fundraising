@@ -424,7 +424,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<input type="hidden" name="wdf_settings[payment_types]" value="" />
 										</th>
 										<td>
-											<input class="wdf_auto_submit" type="checkbox" name="wdf_settings[payment_types][]" value="simple" <?php checked( in_array( 'simple', $settings['payment_types'] ), true ); ?> />
+											<input class="wdf_auto_submit" type="checkbox" name="wdf_settings[payment_types][]" value="simple" <?php checked( !empty($settings['payment_types']) && in_array( 'simple', $settings['payment_types'] ), true ); ?> />
 											<?php echo $tips->add_tip(__('Allows for a simple continuous donations','wdf')); ?>
 										</td>
 									</tr>
@@ -433,7 +433,7 @@ if (!class_exists('WpmuDev_HelpTooltips')) require_once WDF_PLUGIN_BASE_DIR . '/
 											<label><?php _e('Advanced Crowdfunding','wdf'); ?></label>
 										</th>
 										<td>
-											<input class="wdf_auto_submit" type="checkbox" name="wdf_settings[payment_types][]" value="advanced" <?php checked( in_array( 'advanced', $settings['payment_types'] ), true); ?> id="wdf_allowed_fundraier_types" />
+											<input class="wdf_auto_submit" type="checkbox" name="wdf_settings[payment_types][]" value="advanced" <?php checked( !empty($settings['payment_types']) && in_array( 'advanced', $settings['payment_types'] ), true); ?> id="wdf_allowed_fundraier_types" />
 											<?php echo $tips->add_tip(__('Pledges are only authorized and payments are not processed until your goal is reached.','wdf').' '.__('This requires advanced PayPal configuration.','wdf')); ?>
 										</td>
 									</tr>
