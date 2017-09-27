@@ -19,8 +19,8 @@ add_action( 'plugins_loaded', 'bp_wdf_register_widgets' );
 
 class BP_WDF_Widget extends WP_Widget {
 
-	function bp_wdf_widget() {
-		parent::WP_Widget( false, $name = __( 'Fundraising Widget', 'wdf' ) );
+	function __construct() {
+		parent::__construct( false, $name = __( 'Fundraising Widget', 'wdf' ) );
 	}
 
 	function widget( $args, $instance ) {

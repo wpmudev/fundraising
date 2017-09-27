@@ -374,7 +374,7 @@ if($pagenow == 'nav-menus.php') { ?>
                     var goal_amount = $('input#wdf_goal_amount').val();
                     var type = $('input[name="wdf[type]"]:checked', '#wdf_type').val();
 
-                    if(has_goal == '1' && type == 'advanced') {
+                    if(has_goal == '1') {
                         if(start_date == '' || typeof start_date == 'undefined') {
                             alert("<?php _e('You must set a starting date','wdf'); ?>");
                             e.preventDefault();
