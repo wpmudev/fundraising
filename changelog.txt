@@ -7,6 +7,7 @@ Contributors: Cole Stevenson, Jose Jaureguiberry
 
 = 2.6.4.9 =
 Fixed remaining deprecated constructors
+Fixed rewards count on pledge status change
 Improved UX for configuring simple donations with goals
 
 = 2.6.4.8 =

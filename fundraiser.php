@@ -190,6 +190,8 @@ class WDF {
 			add_filter( 'manage_edit-donation_columns', array(&$this,'edit_columns') );
 			add_filter( 'media_upload_tabs', array(&$this,'media_upload_tabs') );
 
+			add_action( 'transition_post_status', array(&$this,'rewards_update'), 10, 3 );
+
 		} else {
 
 			//Not the admin area so lets load up our front-end actions, scripts and filters
@@ -1027,7 +1029,7 @@ class WDF {
         update_post_meta($id, 'wdf_transaction', $transaction);
         update_post_meta($id,'wdf_native', '1');
 
-        if(isset($transaction['reward'])) {
+        if(isset($transaction['reward']) && ($status == 'wdf_complete' && $status == 'wdf_approved')) {
             $rewards = get_post_meta($funder_id,'wdf_levels', true);
             if(isset($rewards[$transaction['reward']-1]['used']) && is_numeric($rewards[$transaction['reward']-1]['used']))
                 $rewards[$transaction['reward']-1]['used'] ++;
@@ -1308,6 +1310,36 @@ class WDF {
 					$_POST['wdf']['transaction']['gross'] = $this->filter_price($_POST['wdf']['transaction']['gross']);
 				update_post_meta($post->ID,'wdf_transaction',$_POST['wdf']['transaction']);
 			}
+		}
+	}
+	function rewards_update($new_status, $old_status, $post) {
+		if(($old_status == 'wdf_complete' || $old_status == 'wdf_approved') && ($new_status == 'wdf_refunded' || $new_status == 'wdf_canceled')) {
+			$action = 'decrease';
+		}
+		elseif(($old_status == 'wdf_refunded' || $old_status == 'wdf_canceled') && ($new_status == 'wdf_complete' || $new_status == 'wdf_approved')) {
+			$action = 'increase';
+		}
+
+		if(isset($action)) {
+			$rewards = get_post_meta($post->post_parent,'wdf_levels', true);
+			$trans = $this->get_transaction($post->ID);
+			
+			if($action == 'increase') { 
+				if(isset($rewards[$trans['reward']-1]['used'])) {
+					$rewards[$trans['reward']-1]['used'] ++;
+				}
+				else {
+					$rewards[$trans['reward']-1]['used'] = 1;
+				}
+			}
+			elseif($action == 'decrease') { 
+				if(isset($rewards[$trans['reward']-1]['used'])) {
+					$rewards[$trans['reward']-1]['used'] --;
+				}
+			}
+
+			update_post_meta($post->post_parent,'wdf_levels', $rewards);
+			
 		}
 	}
 	function before_delete_post($post_id) {
