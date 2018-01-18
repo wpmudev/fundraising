@@ -119,10 +119,6 @@ class WDF {
 		require_once(WDF_PLUGIN_BASE_DIR . '/lib/wdf_data.php');
 	}
 	function __construct() {
-		global $wpmudev_notices;
-		$wpmudev_notices[] = array( 'id'=> 259,'name'=> 'Fundraising', 'screens' => array( 'edit-funder', 'funder', 'edit-donation', 'donation', 'funder_page_wdf_settings', 'funder_page_wdf' ) );
-		include_once(WDF_PLUGIN_BASE_DIR . '/lib/external/dash-notice/wpmudev-dash-notification.php');
-
 		$this->_vars();
 
 		$settings = get_option('wdf_settings');
