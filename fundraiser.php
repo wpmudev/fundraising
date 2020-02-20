@@ -26,23 +26,23 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
 
-define ('WDF_PLUGIN_SELF_DIRNAME', basename(dirname(__FILE__)), true);
+define ('WDF_PLUGIN_SELF_DIRNAME', basename(dirname(__FILE__)));
 
 //Setup proper paths/URLs and load text domains
 if (is_multisite() && defined('WPMU_PLUGIN_URL') && defined('WPMU_PLUGIN_DIR') && file_exists(WPMU_PLUGIN_DIR . '/' . basename(__FILE__))) {
-	define ('WDF_PLUGIN_LOCATION', 'mu-plugins', true);
-	define ('WDF_PLUGIN_BASE_DIR', WPMU_PLUGIN_DIR, true);
-	//define ('WDF_PLUGIN_URL', WPMU_PLUGIN_URL, true);
+	define ('WDF_PLUGIN_LOCATION', 'mu-plugins');
+	define ('WDF_PLUGIN_BASE_DIR', WPMU_PLUGIN_DIR);
+	//define ('WDF_PLUGIN_URL', WPMU_PLUGIN_URL);
 	$textdomain_handler = 'load_muplugin_textdomain';
 } else if (defined('WP_PLUGIN_URL') && defined('WP_PLUGIN_DIR') && file_exists(WP_PLUGIN_DIR . '/' . WDF_PLUGIN_SELF_DIRNAME . '/' . basename(__FILE__))) {
-	define ('WDF_PLUGIN_LOCATION', 'subfolder-plugins', true);
-	define ('WDF_PLUGIN_BASE_DIR', WP_PLUGIN_DIR . '/' . WDF_PLUGIN_SELF_DIRNAME, true);
-	//define ('WDF_PLUGIN_URL', WP_PLUGIN_URL . '/' . WDF_PLUGIN_SELF_DIRNAME, true);
+	define ('WDF_PLUGIN_LOCATION', 'subfolder-plugins');
+	define ('WDF_PLUGIN_BASE_DIR', WP_PLUGIN_DIR . '/' . WDF_PLUGIN_SELF_DIRNAME);
+	//define ('WDF_PLUGIN_URL', WP_PLUGIN_URL . '/' . WDF_PLUGIN_SELF_DIRNAME);
 	$textdomain_handler = 'load_plugin_textdomain';
 } else if (defined('WP_PLUGIN_URL') && defined('WP_PLUGIN_DIR') && file_exists(WP_PLUGIN_DIR . '/' . basename(__FILE__))) {
-	define ('WDF_PLUGIN_LOCATION', 'plugins', true);
-	define ('WDF_PLUGIN_BASE_DIR', WP_PLUGIN_DIR, true);
-	//define ('WDF_PLUGIN_URL', WP_PLUGIN_URL, true);
+	define ('WDF_PLUGIN_LOCATION', 'plugins');
+	define ('WDF_PLUGIN_BASE_DIR', WP_PLUGIN_DIR);
+	//define ('WDF_PLUGIN_URL', WP_PLUGIN_URL);
 	$textdomain_handler = 'load_plugin_textdomain';
 } else {
 	// No textdomain is loaded because we can't determine the plugin location.
@@ -51,7 +51,7 @@ if (is_multisite() && defined('WPMU_PLUGIN_URL') && defined('WPMU_PLUGIN_DIR') &
 }
 $textdomain_handler('wdf', false, WDF_PLUGIN_SELF_DIRNAME . '/languages/');
 
-define ('WDF_PLUGIN_URL', plugins_url('', __FILE__ ), true);
+define ('WDF_PLUGIN_URL', plugins_url('', __FILE__ ));
 
 
 // Gotta do this here so it doesnt save over what we just deleted.
